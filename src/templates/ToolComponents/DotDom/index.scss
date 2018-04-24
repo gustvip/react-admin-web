@@ -1,0 +1,22 @@
+.dotDom {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	border-radius: 50%;
+	background-color: #84f507;
+	margin-right: 5px;
+	//vertical-align: middle;
+	font-size: 0;
+	position: relative;
+	&:before {
+		content: '';
+		display: inline-block;
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background-color: #272e47;
+		position: absolute;
+		left: 3px;
+		top: 3px;
+	}
+}

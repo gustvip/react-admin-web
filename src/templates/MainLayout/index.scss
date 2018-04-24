@@ -1,0 +1,129 @@
+$active-sider-background-color: #00d9ca;
+$base-sider-background-color: #242e33;
+$base-right-sider-background-color: #fff;
+$base-right-content-background-color: #f0f3f5;
+$main-sider-width: 200px;
+$right-main-header-height: 60px;
+$right-main-content-header-height: 40px;
+$right-main-content-basis-padding: 20px;
+#main-container {
+	padding-left: $main-sider-width;
+	min-height: 100%;
+	height: 100%;
+	display: flex;
+	/*sider*/
+	.sider-container {
+		width: $main-sider-width;
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		background-color: $base-sider-background-color;
+		.sider-logo-container {
+			cursor: pointer;
+			line-height: 46px;
+			width: 80px;
+			height: 46px;
+			background-color: #576166;
+			margin: 20px auto;
+			border-radius: 50%;
+			font-size: 22px;
+			text-align: center;
+			color: #e6eef2;
+		}
+		.sider-menu {
+			font-size: 14px;
+			:global {
+				.ant-menu {
+					background-color: $base-sider-background-color;
+				}
+				background-color: $base-sider-background-color;
+				.ant-menu-submenu-title {
+					background-color: $base-sider-background-color;
+				}
+				.iconfont, .anticon {
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+	/*右侧*/
+	.content-container {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		/*右侧头部---登陆*/
+		.main-header-container {
+			height: $right-main-header-height;
+			line-height: $right-main-header-height;
+			padding: 0 $right-main-content-basis-padding;
+			font-size: 16px;
+			//background-color: $base-right-sider-background-color;
+			box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
+			color: #36454d;
+			.left-container {
+				float: left;
+			}
+			.right-container {
+				float: right;
+				.line {
+					margin: 20px;
+					border-left: 1px solid #36454d;
+				}
+				:global {
+					.iconfont {
+						margin-right: 8px;
+					}
+				}
+				.loginOut {
+					padding: 8px;
+					cursor: pointer;
+				}
+			}
+		}
+		/*主内容*/
+		.main-content-container {
+			background-color: $base-right-content-background-color;
+			padding: $right-main-content-basis-padding;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			> :first-child {
+				flex-direction: column;
+				display: flex;
+				flex-grow: 1;
+				/*主内容---header*/
+				.content-header-container {
+					display: flex;
+					height: $right-main-content-header-height;
+					line-height: 20px;
+					font-size: 20px;
+					text-align: left;
+					color: #36454d;
+					.left-container {
+						flex: 1 1 auto;
+						.title-container {
+							font-size: 20px;
+							color: #36454d;
+							:global {
+								.iconfont {
+									font-size: 80%;
+									color: #36454d;
+									margin: 15px;
+								}
+							}
+						}
+					}
+					.right-container {
+						flex: 1 1 auto;
+					}
+				}
+				/*主内容---content*/
+				.content-body-container {
+					flex-grow: 1;
+					border-radius: 4px;
+				}
+			}
+		}
+	}
+}

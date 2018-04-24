@@ -1,0 +1,54 @@
+// 字体主题色
+$mainFontColor: #acc2d8;
+.tj_selectBox {
+
+	&:global(.ant-select) {
+		color: $mainFontColor;
+	}
+
+	&:global(.ant-select-focused .ant-select-selection) {
+		box-shadow: none;
+		border: 1px solid #07a8fb;
+	}
+	&:global(.ant-select-open .ant-select-selection) {
+		box-shadow: none;
+		border: 1px solid #07a8fb;
+	}
+
+	:global {
+		.ant-select-selection {
+			background-color: rgba(63, 77, 115, 0.2);
+			border: 1px solid #394973;
+			.ant-select-arrow {
+				color: $mainFontColor;
+			}
+		}
+
+	}
+}
+
+.tj_selectDropBox {
+	:global {
+		.ant-select-dropdown-menu {
+			background-color: #2c334f;
+			border: 1px solid #394973;
+			border-radius: 4px;
+			box-shadow: 0 0 4px 0 rgba(6, 8, 13, 0.5);
+
+			.ant-select-dropdown-menu-item {
+				color: $mainFontColor;
+			}
+			.ant-select-dropdown-menu-item-active {
+				background-color: #3d4866;
+			}
+
+			.ant-select-dropdown-menu-item-selected, .ant-select-dropdown-menu-item-selected:hover {
+				background-color: #3d4866;
+				font-weight: 600;
+				color: $mainFontColor;
+			}
+		}
+
+	}
+
+}

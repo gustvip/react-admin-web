@@ -1,0 +1,11 @@
+.idea
+.DS_Store
+node_modules
+/test/*
+/public/*
+!/public/favicon.ico
+!/public/screen
+!/public/index.html
+!/public/config
+!/public/asserts
+*.log

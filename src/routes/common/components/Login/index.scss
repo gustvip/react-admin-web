@@ -1,0 +1,133 @@
+.login {
+	position: absolute;
+	background-color: #f8f8f8;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	.img-top {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		padding: 0;
+		margin: 0;
+	}
+	.login_box {
+		z-index: 100;
+		width: 405px;
+		height: 422px;
+		overflow: hidden;
+		position: fixed;
+		left: 50%;
+		top: 50%;
+
+		margin-top: -211px;
+		margin-left: -202px;
+		border-radius: 8px;
+		.login_box_left {
+			width: 405px;
+			height: 422px;
+			position: relative;
+			.loginBoxImg {
+				z-index: 120;
+				width: 405px;
+				height: 422px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.userImg {
+				z-index: 320;
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				top: 160px;
+				left: 52px;
+			}
+			.passImg {
+				z-index: 320;
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				top: 220px;
+				left: 52px;
+			}
+			.login_email {
+				border-radius: 20px;
+				background: rgba(15, 26, 70, 0.2);
+				color: white;
+				position: absolute;
+				top: 150px;
+				left: 40px;
+				z-index: 300;
+				width: 320px;
+				height: 40px;
+				border: solid 1px #424b75;
+				outline: none;
+				font-size: 14px;
+				padding-left: 40px;
+
+			}
+			.login_password {
+				border-radius: 20px;
+				background: rgba(15, 26, 70, 0.2);
+				z-index: 300;
+				color: white;
+				width: 320px;
+				height: 40px;
+				position: absolute;
+				top: 210px;
+				left: 40px;
+				border: solid 1px #424b75;
+				outline: none;
+				font-size: 14px;
+				padding-left: 40px;
+
+			}
+			.btn_login {
+				z-index: 200;
+				border: none;
+				color: white;
+				font-size: 16px;
+				outline: none;
+				width: 150px;
+				height: 40px;
+				position: absolute;
+				top: 270px;
+				left: 127px;
+				border-radius: 4px;
+				background-color: #3fa7ff;
+			}
+		}
+	}
+	.footer_nav {
+		position: absolute;
+		bottom: 61px;
+		left: 50%;
+		margin-left: -150px;
+		width: 300px;
+		height: 20px;
+		display: flex;
+		justify-content: space-around;
+		li {
+			float: left;
+			width: 20%;
+			font-size: 12px;
+			color: #666;
+			text-align: center;
+			display: flex;
+			a {
+				display: inline-block;
+				color: #969696;
+				width: 100%;
+				overflow: hidden;
+				float: left;
+			}
+			span {
+
+			}
+		}
+	}
+}

@@ -1,0 +1,183 @@
+/**
+ * Created by joey on 18-2-7
+ */
+
+import T from 'utils/T'
+import EnumDefaultMenus from 'constants/EnumDefaultMenus'
+
+/**
+ * location.pathname和分类值的对应关系
+ * @type {{[location.pathname]:{category:String}}}
+ */
+let mapUrlToCategory = {}
+
+/**
+ * 配置菜单文件
+ * @return {Array}
+ */
+const EnumMenus = (() => {
+  /**
+   * 格式化数据
+   * @param {Array} children
+   * @return {{resultChildren: Array, resultUrl: Array}}
+   */
+  const formatData = children => {
+    /**
+     * 定义返回parent的url和children
+     * 注意children的url和遍历的url不能混为一谈
+     *        parent的url包含children的url
+     *        children的url在遍历中定义----最后再和parent连接
+     */
+    let resultUrl = []
+    let resultChildren = []
+    
+    if (T.helper.checkArray(children)) {
+      resultChildren = children.map(item => {
+        let itemUrl = []
+        
+        /**
+         * url的处理---长度大于0的数组 || 长度大于0的字符串
+         * 长度大于0的数组---将其值和children和parent连接
+         */
+        if (Array.isArray(item.url)) {
+          resultUrl = resultUrl.concat(item.url)
+          itemUrl = itemUrl.concat(item.url)
+        } else if (T.helper.checkString(itemUrl)) {
+          resultUrl = resultUrl.concat([item.url])
+          itemUrl = itemUrl.concat([item.url])
+        }
+        
+        /**
+         * children为长度大于0的数组
+         */
+        if (T.helper.checkArray(item.children)) {
+          /**
+           * 递归获取children的数据
+           */
+          const result = formatData(item.children)
+          
+          /**
+           * 注意返回的url和当前的url连接---去重
+           */
+          itemUrl = T.lodash.uniq(result.resultUrl.concat(itemUrl))
+          
+          /**
+           * 在children下的所有和parent的url连接---去重
+           */
+          resultUrl = T.lodash.uniq(resultUrl.concat(itemUrl))
+          
+          return Object.assign(
+            {},
+            item,
+            {
+              children: result.resultChildren,
+              url: Array.isArray(item.url)
+                ? T.lodash.uniq(item.url.concat(itemUrl))
+                : T.helper.checkString(item.url)
+                  ? T.lodash.uniq([item.url].concat(itemUrl))
+                  : [],
+            },
+          )
+        } else {
+          /**
+           * children不是大于0的数组
+           * children返回[]
+           * 其他原样返回
+           */
+          return Object.assign(
+            {},
+            item,
+            {
+              children: [],
+              url: Array.isArray(item.url)
+                ? T.lodash.uniq(item.url)
+                : T.helper.checkString(item.url)
+                  ? [item.url]
+                  : [],
+            },
+          )
+        }
+      })
+    }
+    
+    return {resultChildren, resultUrl}
+  }
+  
+  const menuData = EnumDefaultMenus.map(item => {
+    const result = formatData(item.children)
+    /**
+     * url和category的映射
+     */
+    result.resultUrl.forEach(locationPathname => {
+      mapUrlToCategory[locationPathname] = {category: item.value}
+    })
+    
+    return Object.assign(
+      {},
+      item,
+      {children: result.resultChildren, url: T.lodash.uniq(item.url.concat(result.resultUrl))},
+    )
+  })
+  
+  mapUrlToCategory = T.helper.immutable(mapUrlToCategory, null)
+  return T.helper.immutable(menuData, null)
+})()
+
+/**
+ * 获取location.pathname和对应的分类数据
+ * @param {String} locationPathname location.pathname
+ * @return {String || null}
+ */
+export const getCategoryData = locationPathname => {
+  locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  const result = mapUrlToCategory[locationPathname]
+  return T.helper.isObject(result) ? result.category : null
+}
+
+/**
+ * 获取location.pathname对应的分类的children数据
+ * @param {String} category
+ * @return {Array}
+ */
+export const getCategoryChildrenData = category => {
+  const result = EnumMenus.find(item => item.value === category)
+  return T.helper.isObject(result) ? result.children : []
+}
+
+/**
+ * 获取location.pathname对应的菜单数据
+ * @param {String} locationPathname location.pathname
+ * @return {Array}
+ */
+export const getMenuData = locationPathname => {
+  locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  const result = T.lodash.flowRight(getCategoryChildrenData, getCategoryData)(locationPathname).
+    find(item => item.url.indexOf(locationPathname) !== -1)
+  return T.helper.isObject(result) ? result.children : []
+}
+
+/**
+ * 获取菜单打开的数组
+ * @param {String} locationPathname location.pathname
+ * @return {Array}
+ */
+export const getOpenKeys = locationPathname => {
+  locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  const dataSource = getMenuData(locationPathname)
+  const data = [];
+  
+  (function fn (_dataSource) {
+    /**
+     * 从顶层开始判断当前的location.pathname是否在其中
+     * 如果在将对应的url[0]添加到返回的data中
+     * 如果该行的children为长度大于0的数组则继续递归
+     */
+    const result = _dataSource.find(item => item.url.indexOf(locationPathname) !== -1)
+    if (result) {
+      data.push(result.url[0])
+      T.helper.checkArray(result.children) && fn(result.children)
+    }
+  })(dataSource)
+  
+  return data
+}

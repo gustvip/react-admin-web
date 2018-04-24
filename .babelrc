@@ -1,0 +1,38 @@
+{
+	"env": {
+		"development": {
+			"presets": [
+				[
+					"env",
+					{
+						"targets": {
+							"browsers": [
+								"last 5 Chrome versions"
+							],
+							"node": "8.10"
+						},
+						"modules": false,
+						"useBuiltIns": true,
+						"debug": true
+					}
+				],
+				"react",
+				"stage-0"
+			],
+			"plugins": [
+				[
+					"import",
+					{
+						"libraryName": "antd",
+						"libraryDirectory": "es",
+						"style": true
+					}
+				],
+				[
+					"transform-decorators-legacy",
+					"transform-decorators"
+				]
+			]
+		}
+	}
+}

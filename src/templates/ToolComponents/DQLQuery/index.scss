@@ -1,0 +1,64 @@
+.model-create-container {
+	background-color: #1a2440 !important;
+	:global {
+		.sense-input-container {
+
+			.sense-input {
+				border: #394764 1px solid;
+				.ace_gutter {
+					.ace_layer {
+						background-color: #2d3c5b;
+						.ace_line_group {
+							.ace_line {
+								color: #acc2d8 !important;
+							}
+						}
+						.ace_gutter-cell {
+							color: #acc2d8;
+						}
+					}
+				}
+				.ace_content {
+					background-color: #26304d;
+					.ace_layer {
+						.ace_line_group {
+							.ace_line {
+								color: #acc2d8 !important;
+							}
+						}
+						.ace_gutter-cell {
+							color: #acc2d8;
+						}
+					}
+				}
+			}
+		}
+		.sense-output-container {
+
+			.sense-output {
+				border: #394764 1px solid;
+				.ace_gutter {
+					.ace_layer {
+						background-color: #2d3c5b;
+						.ace_gutter-cell {
+							color: #acc2d8;
+						}
+					}
+				}
+				.ace_content {
+					background-color: #26304d;
+					.ace_layer {
+						.ace_line_group {
+							.ace_line {
+								color: #acc2d8 !important;
+							}
+						}
+						.ace_gutter-cell {
+							color: #acc2d8;
+						}
+					}
+				}
+			}
+		}
+	}
+}

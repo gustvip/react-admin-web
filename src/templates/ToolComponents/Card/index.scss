@@ -1,0 +1,42 @@
+// 字体主题色
+$mainFontColor: #acc2d8;
+.cardBox {
+
+	margin-bottom: 15px;
+	&:global(.ant-card) {
+		border-radius: 4px;
+		background: #272e47;
+	}
+
+	&:global(.ant-card-bordered) {
+		border: 1px solid #272e47;
+	}
+
+	:global {
+		.ant-card-head {
+			padding: 0 20px;
+			background: #272e47;
+			border-radius: 4px 4px 0 0;
+			border-bottom: none;
+			height: 45px;
+			line-height: 45px;
+		}
+		.ant-card-head-title {
+			padding: 0;
+			color: $mainFontColor;
+			font-size: 18px;
+			font-weight: 600;
+			line-height: 45px;
+		}
+		.ant-card-extra {
+			line-height: 45px;
+			height: 45px;
+			padding: 0;
+		}
+		.ant-card-body {
+			padding: 0 20px 20px;
+			color: $mainFontColor;
+		}
+
+	}
+}

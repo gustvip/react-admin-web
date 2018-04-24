@@ -1,0 +1,24 @@
+#main-container {
+	.main-content-container {
+		.table-header-container {
+			background-color: #fff;
+			padding: 8px;
+			margin-bottom: 16px;
+			border-radius: 4px;
+			overflow: hidden;
+			.right-container {
+				float: right;
+			}
+			.left-container {
+				float: left;
+			}
+		}
+		:global {
+			.ant-table {
+				.ant-btn {
+					margin: 0 8px;
+				}
+			}
+		}
+	}
+}
