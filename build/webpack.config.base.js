@@ -179,8 +179,6 @@ module.exports = {
     app: ['./src/index'],
     commons: [
       'utils/T',
-      'react',
-      'react-dom',
       'es6-promise',
       'url-search-params-polyfill',
     ],

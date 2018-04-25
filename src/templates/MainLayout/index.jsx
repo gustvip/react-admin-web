@@ -48,12 +48,12 @@ const getIcon = icon => {
  * @param {Function} leftRender
  * @param {Function} rightRender
  */
-export const MainHeader = ({className = '', title = '', style = {}, leftRender = null, rightRender = null}) => {
+export const MainHeader = ({className = '', title = '', styles = {}, leftRender = null, rightRender = null}) => {
   const defaultClassName = style['content-header-container']
   const defaultStyle = {}
   
   return (
-    <header className={T.helper.classNames(defaultClassName)(className)} style={T.lodash.assign(defaultStyle, style)}>
+    <header className={T.helper.classNames(defaultClassName)(className)} style={T.lodash.assign(defaultStyle, styles)}>
       <section className={style['left-container']}>
         <section className={style['title-container']}>{title}</section>
         {leftRender}
@@ -78,13 +78,13 @@ MainHeader.propTypes = {
  * @param {Object} style
  * @param {Array} children
  */
-export const MainContent = ({className = '', style = {}, children = null}) => {
+export const MainContent = ({className = '', styles = {}, children = null}) => {
   const defaultClassName = style['content-body-container']
   const defaultStyle = {}
   
   return (
     <section
-      style={T.lodash.assign(defaultStyle, style)}
+      style={T.lodash.assign(defaultStyle, styles)}
       className={T.helper.classNames(defaultClassName)(className)}
     >
       {children}
@@ -100,6 +100,10 @@ MainContent.propTypes = {
 /**
  * 菜单组件
  */
+@T.decorator.propTypes({
+  handleCollapsed: PropTypes.func.isRequired,
+  isCollapsed: PropTypes.bool.isRequired,
+})
 class LeftMenu extends React.PureComponent {
   constructor (props) {
     super(props)
@@ -117,7 +121,7 @@ class LeftMenu extends React.PureComponent {
    * @param {String} locationPathname
    * @param {Array} openKeys ---一般不填，递归时需要
    */
-  getMenu = (data, locationPathname, openKeys) => data.map(item => {
+  getMenu = (data, locationPathname, openKeys = []) => data.map(item => {
     const _this = this
     openKeys = Array.isArray(openKeys) ? openKeys : []
     const defaultOpenKeys = [].concat(openKeys)
@@ -160,8 +164,7 @@ class LeftMenu extends React.PureComponent {
         key={item.url[0]}
         title={
           <span>
-					{getIcon(item.icon)}
-            {item.label}
+					{getIcon(item.icon)}<span>{item.label}</span>
 				</span>
         }
         onTitleClick={() => _this.handleDefaultOpenKeys(defaultOpenKeys.slice())}
@@ -207,6 +210,23 @@ class LeftMenu extends React.PureComponent {
     })
   }
   
+  /**
+   * 菜单收缩
+   * @param collapsed
+   */
+  handleCollapsed = collapsed => {
+    const _this = this
+    
+    /**
+     * 将打开的菜单关闭---菜单宽度减少到80px，但是submenu离左侧还是200px
+     */
+    if (collapsed) {
+      _this.setState({defaultOpenKeys: []})
+    }
+    
+    _this.props.handleCollapsed()
+  }
+  
   render () {
     const _this = this
     const locationPathname = _this.locationPathname
@@ -214,8 +234,12 @@ class LeftMenu extends React.PureComponent {
     const defaultOpenKeys = _this.state.defaultOpenKeys
     
     return (
-      <aside className={style['sider-container']}>
-        <header className={style['sider-logo-container']}>logo</header>
+      <Layout.Sider
+        collapsible
+        collapsed={_this.props.isCollapsed}
+        onCollapse={_this.handleCollapsed}
+        className={style['sider-container']}
+      >
         <Menu
           className={style['sider-menu']}
           mode="inline"
@@ -225,7 +249,7 @@ class LeftMenu extends React.PureComponent {
         >
           {_this.getMenu(menuData, locationPathname, [])}
         </Menu>
-      </aside>
+      </Layout.Sider>
     )
   }
 }
@@ -234,7 +258,7 @@ class LeftMenu extends React.PureComponent {
  * 右侧头部组件
  */
 @T.decorator.contextTypes('router')
-class RightHeader extends React.PureComponent {
+class Header extends React.PureComponent {
   /**
    * 退出登录
    */
@@ -266,7 +290,7 @@ class RightHeader extends React.PureComponent {
     const _this = this
     
     return (
-      <header className={style['main-header-container']}>
+      <Layout.Header className={style['main-header-container']}>
         <section className={style['left-container']}>
         
         </section>
@@ -278,7 +302,7 @@ class RightHeader extends React.PureComponent {
 						退出
 					</span>
         </section>
-      </header>
+      </Layout.Header>
     )
   }
 }
@@ -286,16 +310,39 @@ class RightHeader extends React.PureComponent {
 /**
  * 入口组件
  */
-const MainLayout = props => {
-  return <section id={style['main-container']}>
-    <LeftMenu/>
-    <section className={style['content-container']}>
-      <RightHeader/>
-      <section className={style['main-content-container']}>
-        {props.children}
-      </section>
-    </section>
-  </section>
+export default class MainLayout extends React.PureComponent {
+  state = {
+    isCollapsed: false,
+  }
+  
+  /**
+   * 更改侧边栏的收缩
+   */
+  handleCollapsed = () => {
+    this.setState(previousState => ({
+        isCollapsed: !previousState.isCollapsed,
+      }),
+    )
+  }
+  
+  render () {
+    const _this = this
+    
+    return <Layout id={style['main-container']}>
+      <Header/>
+      <Layout
+        className={style['content-container']}
+        style={{marginLeft: _this.state.isCollapsed ? 80 : 200}}
+      >
+        <LeftMenu
+          isCollapsed={_this.state.isCollapsed}
+          handleCollapsed={_this.handleCollapsed.bind(_this)}
+        />
+        <Layout className={style['main-content-container']}>
+          {_this.props.children}
+        </Layout>
+      </Layout>
+    </Layout>
+  }
 }
 
-export default MainLayout

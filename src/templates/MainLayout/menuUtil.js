@@ -129,7 +129,7 @@ const EnumMenus = (() => {
 export const getCategoryData = locationPathname => {
   locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
   const result = mapUrlToCategory[locationPathname]
- 
+  
   return T.helper.isObject(result) ? result.category : null
 }
 
