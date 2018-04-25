@@ -3,7 +3,7 @@
  */
 
 import helper from 'utils/core/helper'
-import lodash from 'utils/core/lodash'
+import lodash from 'lodash'
 import ENV from 'ENV'
 
 /**

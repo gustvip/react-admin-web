@@ -1,5 +1,5 @@
 /**
- * Created by chencheng on 16-7-12.
+ * Created by joey on 2018/02/19
  */
 import T from './utils/T'
 import { addLocaleData } from 'react-intl'
@@ -12,39 +12,39 @@ import zhCN from 'antd/lib/locale-provider/zh_CN'
  * @returns {{locale: string, messages: {}}}
  */
 export function getLocale () {
-	let messages = {}
-	let antIntlMsg = {}
-	let locale = 'zh'
-	let langType = 'zh-CN'
-	
-	let lang = T.cookies.get('tj_langKey')
-	if (lang) {
-		langType = lang === 'zh' ? 'zh-CN' : 'en'
-	}
-	
-	switch (langType) {
-		case 'zh-CN':
-			messages = require('./lang/zh')
-			locale = 'zh'
-			// 中文化
-			antIntlMsg = zhCN
-			addLocaleData(require('react-intl/locale-data/zh'))
-			break
-		
-		case 'en':
-			messages = require('./lang/en')
-			locale = 'en'
-			antIntlMsg = enUS
-			addLocaleData(require('react-intl/locale-data/en'))
-			break
-		
-		default:
-			messages = require('./lang/en')
-			locale = 'en'
-			antIntlMsg = enUS
-			addLocaleData(require('react-intl/locale-data/en'))
-	}
-	
-	return {locale, messages, antIntlMsg}
+  let messages = {}
+  let antIntlMsg = {}
+  let locale = 'zh'
+  let langType = 'zh-CN'
+  
+  let lang = T.cookies.get('tj_langKey')
+  if (lang) {
+    langType = lang === 'zh' ? 'zh-CN' : 'en'
+  }
+  
+  switch (langType) {
+    case 'zh-CN':
+      messages = require('./lang/zh')
+      locale = 'zh'
+      // 中文化
+      antIntlMsg = zhCN
+      addLocaleData(require('react-intl/locale-data/zh'))
+      break
+    
+    case 'en':
+      messages = require('./lang/en')
+      locale = 'en'
+      antIntlMsg = enUS
+      addLocaleData(require('react-intl/locale-data/en'))
+      break
+    
+    default:
+      messages = require('./lang/en')
+      locale = 'en'
+      antIntlMsg = enUS
+      addLocaleData(require('react-intl/locale-data/en'))
+  }
+  
+  return {locale, messages, antIntlMsg}
 }
 

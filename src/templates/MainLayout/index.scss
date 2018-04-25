@@ -1,19 +1,18 @@
-$active-sider-background-color: #00d9ca;
+@import "baseStyleVarity.scss";
+
 $base-sider-background-color: #242e33;
 $base-right-sider-background-color: #fff;
 $base-right-content-background-color: #f0f3f5;
-$main-sider-width: 200px;
-$right-main-header-height: 60px;
 $right-main-content-header-height: 40px;
 $right-main-content-basis-padding: 20px;
 #main-container {
-	padding-left: $main-sider-width;
+	padding-left: $aside-width;
 	min-height: 100%;
 	height: 100%;
 	display: flex;
 	/*sider*/
 	.sider-container {
-		width: $main-sider-width;
+		width: $aside-width;
 		position: fixed;
 		left: 0;
 		top: 0;
@@ -52,13 +51,12 @@ $right-main-content-basis-padding: 20px;
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
-		/*右侧头部---登陆*/
+		/*右侧头部*/
 		.main-header-container {
-			height: $right-main-header-height;
-			line-height: $right-main-header-height;
+			height: $main-header-height;
+			line-height: $main-header-height;
 			padding: 0 $right-main-content-basis-padding;
 			font-size: 16px;
-			//background-color: $base-right-sider-background-color;
 			box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
 			color: #36454d;
 			.left-container {

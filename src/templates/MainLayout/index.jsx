@@ -15,13 +15,8 @@ import ENV from 'ENV'
 /**
  * 组件
  */
-import { Menu, Icon } from 'antd'
+import { Menu, Icon, Layout } from 'antd'
 import { Link } from 'react-router-dom'
-
-/**
- * antd-design子组件
- */
-const SubMenu = Menu.SubMenu
 
 /**
  * 获取图标字体
@@ -57,19 +52,15 @@ export const MainHeader = ({className = '', title = '', style = {}, leftRender =
   const defaultClassName = style['content-header-container']
   const defaultStyle = {}
   
-  const headerContent = [
-    <section key='1' className={style['left-container']}>
-      <section className={style['title-container']}>{title}</section>
-      {leftRender}
-    </section>,
-    <section key='2' className={style['right-container']}>
-      {rightRender}
-    </section>,
-  ]
-  
   return (
-    <header className={T.helper.classNames(defaultClassName)(className)} style={Object.assign(defaultStyle, style)}>
-      {headerContent}
+    <header className={T.helper.classNames(defaultClassName)(className)} style={T.lodash.assign(defaultStyle, style)}>
+      <section className={style['left-container']}>
+        <section className={style['title-container']}>{title}</section>
+        {leftRender}
+      </section>
+      <section className={style['right-container']}>
+        {rightRender}
+      </section>
     </header>
   )
 }
@@ -93,7 +84,7 @@ export const MainContent = ({className = '', style = {}, children = null}) => {
   
   return (
     <section
-      style={Object.assign(defaultStyle, style)}
+      style={T.lodash.assign(defaultStyle, style)}
       className={T.helper.classNames(defaultClassName)(className)}
     >
       {children}
@@ -165,7 +156,7 @@ class LeftMenu extends React.PureComponent {
        */
       defaultOpenKeys.push(item.url[0])
       
-      return <SubMenu
+      return <Menu.SubMenu
         key={item.url[0]}
         title={
           <span>
@@ -176,7 +167,7 @@ class LeftMenu extends React.PureComponent {
         onTitleClick={() => _this.handleDefaultOpenKeys(defaultOpenKeys.slice())}
       >
         {_this.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
-      </SubMenu>
+      </Menu.SubMenu>
     }
   })
   
@@ -202,13 +193,14 @@ class LeftMenu extends React.PureComponent {
      * 否则就将defaultOpenKeys设置为新的openKeys
      * 获取原来的openkeys
      */
-    const oldOpenKeys = this.state.defaultOpenKeys
+    const _this = this
+    const oldOpenKeys = _this.state.defaultOpenKeys
     
     /**
      * 是否每一项都相等
      */
     const isEqual = defaultOpenKeys.every((item, index) => item === oldOpenKeys[index])
-    this.setState({
+    _this.setState({
       defaultOpenKeys: isEqual
         ? defaultOpenKeys.slice(0, defaultOpenKeys.length - 1)
         : defaultOpenKeys,

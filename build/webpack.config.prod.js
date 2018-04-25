@@ -14,7 +14,7 @@ const cleanWebpackPlugin = require('clean-webpack-plugin')
  * 压缩css
  * @type {OptimizeCssAssetsWebpackPlugin}
  */
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 /**
  * 压缩js
@@ -30,7 +30,7 @@ module.exports = merge(baseConfig, {
         parallel: true,
         sourceMap: true // set to true if you want JS source maps
       }),
-      new OptimizeCSSAssetsPlugin({}),
+      new OptimizeCssAssetsPlugin({}),
     ],
   },
   

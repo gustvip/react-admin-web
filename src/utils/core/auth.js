@@ -6,7 +6,7 @@ import helper from './helper'
 import queryString from 'query-string'
 import localStorage from './localStorage'
 import ENV from 'ENV'
-import _ from 'utils/core/lodash'
+import _ from 'lodash'
 import * as request from './request'
 
 class Auth {
@@ -48,6 +48,10 @@ class Auth {
   
   /**
    * 登录
+   * @param {String} user_name
+   * @param {String} user_password
+   * @param {Function} successCallback
+   * @param {Function} failCallback
    */
   loginIn ({user_name, user_password, successCallback = _.noop, failCallback = _.noop} = {}) {
     request.post(EnumAPI.user_loginIn, {user_name, user_password}).then(info => successCallback(info)).catch(info => failCallback(info))
@@ -55,6 +59,8 @@ class Auth {
   
   /**
    * 退出登录
+   * @param {Function} successCallback
+   * @param {Function} failCallback
    */
   loginOut ({successCallback = _.noop, failCallback = _.noop} = {}) {
     request.post(EnumAPI.user_loginOut).then(info => successCallback(info)).catch(info => failCallback(info))
@@ -62,10 +68,13 @@ class Auth {
   
   /**
    * 登录成功重定向
+   * @param {Object} history react-router的history
+   * @param  {Object} state react-router的location.state
    */
   loginSuccessRedirect (history, state) {
     const urlParams = queryString.parse(location.search)
     let redirectUrl = ENV.login.defaultRedirectUrl
+    
     if (helper.isObject(urlParams) && ENV.defaultQuery in urlParams) {
       redirectUrl = decodeURIComponent(urlParams[ENV.defaultQuery])
     }

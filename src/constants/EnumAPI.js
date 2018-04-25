@@ -3,7 +3,7 @@
  */
 import ENV from 'ENV'
 import helper from 'utils/core/helper'
-import lodash from 'utils/core/lodash'
+import lodash from 'lodash'
 
 const _userAPI = api => {
 	if (ENV.mock.isStart) {

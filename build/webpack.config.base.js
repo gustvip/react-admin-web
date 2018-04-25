@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
  * 页面入口文件,使用异步加载方式
  * @type {RegExp}
  */
-const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?|index.tsx?)$/g
+const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?|index.tsx?)$/ig
 
 /**
  * 编译排除的文件
@@ -136,6 +136,9 @@ module.exports = {
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
       cacheGroups: {
+        /**
+         * 提取样式
+         */
         styles: {
           name: 'vendor',
           test: /\.scss|css|less$/,
@@ -144,6 +147,10 @@ module.exports = {
           reuseExistingChunk: true,
           enforce: true,
         },
+        
+        /**
+         * 提取公共内容
+         */
         commons: { // key 为entry中定义的 入口名称
           chunks: 'all', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
           name: 'commons', // 要缓存的 分隔出来的 chunk 名称
@@ -156,6 +163,10 @@ module.exports = {
         },
       },
     },
+    
+    /**
+     * webpack运行所需
+     */
     runtimeChunk: {
       name: 'runtime',
     },
@@ -183,6 +194,21 @@ module.exports = {
     modules: ['node_modules', 'web_modules', './src'],
   },
   
+  /**
+   * 排除打包的内容---走cdn
+   */
+  externals: {
+    jquery: '$',
+    lodash: '_',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    leaflet: 'L',
+    echarts: 'echarts',
+  },
+  
+  /**
+   * loader
+   */
   module: {
     rules: [
       ...staticResource,
@@ -265,6 +291,7 @@ module.exports = {
      */
     new webpack.ProvidePlugin({
       React: 'react',
+      _: 'lodash',
     }),
   ],
 }

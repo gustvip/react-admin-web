@@ -3,6 +3,8 @@
  */
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import _ from 'lodash'
+
 /**
  * 加载鼠标工具
  */
@@ -86,7 +88,7 @@ class mapBasisHelper {
     this.setMap(
       new this.LInstance.map(
         container,
-        Object.assign(
+        _.assign(
           {},
           mapBasisHelper.setOptions(),
           options,
@@ -484,7 +486,10 @@ class mapBasisHelper {
    * @return {Object}
    */
   createPolyline (latLngs, options) {
-    return this.LInstance.polyline(latLngs, Object.assign({}, EnumMap.COVER_POLYLINE_STYLE, options))
+    return this.LInstance.polyline(
+      latLngs,
+      _.assign({}, EnumMap.COVER_POLYLINE_STYLE, options)
+    )
   }
   
   /**
@@ -494,7 +499,10 @@ class mapBasisHelper {
    * @return {Object}
    */
   createPolygon (latLngs, options) {
-    return this.LInstance.polygon(latLngs, Object.assign({}, EnumMap.COVER_POLYGON_STYLE, options))
+    return this.LInstance.polygon(
+      latLngs,
+      _.assign({}, EnumMap.COVER_POLYGON_STYLE, options)
+    )
   }
   
   /**
@@ -504,7 +512,10 @@ class mapBasisHelper {
    * @return {Object}
    */
   createRectangle (latLngs, options) {
-    return this.LInstance.rectangle(latLngs, Object.assign({}, EnumMap.COVER_RECTANGLE_STYLE, options))
+    return this.LInstance.rectangle(
+      latLngs,
+      _.assign({}, EnumMap.COVER_RECTANGLE_STYLE, options),
+    )
   }
   
   /**
@@ -514,7 +525,10 @@ class mapBasisHelper {
    * @return {Object}
    */
   createCircle (latLngs, options) {
-    return this.LInstance.circle(latLngs, Object.assign({}, EnumMap.COVER_CIRCLE_STYLE, options))
+    return this.LInstance.circle(
+      latLngs,
+      _.assign({}, EnumMap.COVER_CIRCLE_STYLE, options),
+    )
   }
   
   /**
@@ -526,7 +540,7 @@ class mapBasisHelper {
   createCircleMarker (latLngs, options) {
     return this.LInstance.circleMarker(
       latLngs,
-      Object.assign({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options))
+      _.assign({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options))
   }
   
   /**

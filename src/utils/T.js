@@ -7,7 +7,7 @@ import onfire from 'onfire.js'
 import queryString from 'query-string'
 import moment from 'moment'
 
-import lodash from './core/lodash'
+import lodash from 'lodash'
 import helper from './core/helper'
 import prompt from './core/prompt'
 import socket from './core/socket'
@@ -22,44 +22,44 @@ import * as request from './core/request'
  * @type {{prompt: Prompt, regExp: *, helper: Helper, socket: Socket, auth: Auth, decorator, request, localStorage, lodash: {compact, difference, differenceBy, differenceWith, drop, dropWhile, dropRight, dropRightWhile, first, header, flatten, flattenDeep, flattenDepth, initial, intersection, intersectionBy, intersectionWith, tail, take, takeWhile, takeRight, takeRightWhile, union, unionBy, unionWith, uniq, uniqBy, uniqWith, xor, xorBy, xorWith, each, forEach, eachRight, forEachRight, groupBy, keyBy, orderBy, partition, size, sortBy, curry, curryRight, delay, wrap, flow, flowRight, clone, cloneWith, cloneDeep, cloneDeepWith, eq, isArguments, isArray, isArrayLike, isArrayLikeObject, isBoolean, isDate, isElement, isEmpty, isEqual, isEqualWith, isError, isFunction, isInteger, isLength, isNil, isNull, isNumber, isObject, isObjectLike, isPlainObject, isRegExp, isSafeInteger, isString, isUndefined, toInteger, toSafeInteger, ceil, floor, max, maxBy, mean, meanBy, min, minBy, round, sum, sumBy, clamp, inRange, random, at, findKey, findLastKey, get, has, keys, merge, mergeWith, pick, pickWith, set, unset, update, escape, capitalize, lowerCase, upperCase, toLower, toUpper, range, rangeRight, times, uniqueId}, cookies: *, queryString, onfire: *, moment: (moment | ((inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, language?: string, strict?: boolean) => moment.Moment) | ((inp?: moment.MomentInput, format?: moment.MomentFormatSpecification, strict?: boolean) => moment.Moment))}}
  */
 const T = {
-	// 确认弹窗
-	prompt,
-	
-	// 常用正则
-	regExp,
-	
-	// 常用自己封装的方法
-	helper,
-	
-	// websocket类
-	socket,
-	
-	// 权限
-	auth,
-	
-	// 装饰器
-	decorator,
-	
-	// axios
-	request,
-	
-	// localStorage
-	localStorage,
-	
-	// 说明文档: https://lodash.com/docs/4.17.5
-	lodash,
-	
-	// 说明文档: https://github.com/js-cookie/js-cookie
-	cookies,
-	
-	// 说明文档: https://github.com/sindresorhus/query-string
-	queryString,
-	
-	// 说明文档: https://github.com/hustcc/onfire.js
-	onfire,
-	
-	// 说明文档: http://momentjs.cn/docs/
-	moment,
+  // 确认弹窗
+  prompt,
+  
+  // 常用正则
+  regExp,
+  
+  // 常用自己封装的方法
+  helper,
+  
+  // websocket类
+  socket,
+  
+  // 权限
+  auth,
+  
+  // 装饰器
+  decorator,
+  
+  // axios
+  request,
+  
+  // localStorage
+  localStorage,
+  
+  // 说明文档: https://lodash.com/docs/4.17.5
+  lodash,
+  
+  // 说明文档: https://github.com/js-cookie/js-cookie
+  cookies,
+  
+  // 说明文档: https://github.com/sindresorhus/query-string
+  queryString,
+  
+  // 说明文档: https://github.com/hustcc/onfire.js
+  onfire,
+  
+  // 说明文档: http://momentjs.cn/docs/
+  moment,
 }
 export default T
 

@@ -50,7 +50,7 @@ export default class LazyLoadTpl extends React.PureComponent {
 		/**
 		 * 验证是否登录
 		 * 没登陆---重定向到login
-		 * 带上location到state
+		 * 带上location的state
 		 */
 		if (!T.auth.isLogin) {
 			_this.context.router.history.push(

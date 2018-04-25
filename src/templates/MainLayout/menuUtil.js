@@ -47,9 +47,6 @@ const EnumMenus = (() => {
           itemUrl = itemUrl.concat([item.url])
         }
         
-        /**
-         * children为长度大于0的数组
-         */
         if (T.helper.checkArray(item.children)) {
           /**
            * 递归获取children的数据
@@ -66,7 +63,7 @@ const EnumMenus = (() => {
            */
           resultUrl = T.lodash.uniq(resultUrl.concat(itemUrl))
           
-          return Object.assign(
+          return T.lodash.assign(
             {},
             item,
             {
@@ -84,7 +81,7 @@ const EnumMenus = (() => {
            * children返回[]
            * 其他原样返回
            */
-          return Object.assign(
+          return T.lodash.assign(
             {},
             item,
             {
@@ -112,7 +109,7 @@ const EnumMenus = (() => {
       mapUrlToCategory[locationPathname] = {category: item.value}
     })
     
-    return Object.assign(
+    return T.lodash.assign(
       {},
       item,
       {children: result.resultChildren, url: T.lodash.uniq(item.url.concat(result.resultUrl))},
@@ -120,6 +117,7 @@ const EnumMenus = (() => {
   })
   
   mapUrlToCategory = T.helper.immutable(mapUrlToCategory, null)
+  
   return T.helper.immutable(menuData, null)
 })()
 
@@ -131,6 +129,7 @@ const EnumMenus = (() => {
 export const getCategoryData = locationPathname => {
   locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
   const result = mapUrlToCategory[locationPathname]
+ 
   return T.helper.isObject(result) ? result.category : null
 }
 
@@ -140,7 +139,8 @@ export const getCategoryData = locationPathname => {
  * @return {Array}
  */
 export const getCategoryChildrenData = category => {
-  const result = EnumMenus.find(item => item.value === category)
+  const result = T.lodash.find(EnumMenus, item => item.value === category)
+  
   return T.helper.isObject(result) ? result.children : []
 }
 
@@ -150,9 +150,9 @@ export const getCategoryChildrenData = category => {
  * @return {Array}
  */
 export const getMenuData = locationPathname => {
-  locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
-  const result = T.lodash.flowRight(getCategoryChildrenData, getCategoryData)(locationPathname).
-    find(item => item.url.indexOf(locationPathname) !== -1)
+  const data = T.lodash.flowRight(getCategoryChildrenData, getCategoryData, T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  const result = T.lodash.find(data, item => item.url.indexOf(locationPathname) !== -1)
+  
   return T.helper.isObject(result) ? result.children : []
 }
 
@@ -172,7 +172,7 @@ export const getOpenKeys = locationPathname => {
      * 如果在将对应的url[0]添加到返回的data中
      * 如果该行的children为长度大于0的数组则继续递归
      */
-    const result = _dataSource.find(item => item.url.indexOf(locationPathname) !== -1)
+    const result = T.lodash.find(_dataSource, item => item.url.indexOf(locationPathname) !== -1)
     if (result) {
       data.push(result.url[0])
       T.helper.checkArray(result.children) && fn(result.children)

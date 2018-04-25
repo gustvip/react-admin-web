@@ -39,7 +39,6 @@ var localStorageInstance = (function () {
    * @param {Number} expTime
    * @returns {Boolean}
    */
-  
   function isFresh (expTime) {
     return expTime === NO_EXPIRE || (isNumber(expTime) && isFinite(expTime) && expTime - Date.now() > 0)
   }
@@ -53,6 +52,10 @@ var localStorageInstance = (function () {
     window.localStorage.setItem(key, JSON.stringify(value))
   }
   
+  /**
+   * 无限期
+   * @type {number}
+   */
   var NO_EXPIRE = 0
   
   return function _constructor (STORAGE_KEY) {
@@ -150,7 +153,7 @@ var localStorageInstance = (function () {
           this.clearExpired()
           
           var storage = storageValue[key]
-          if (isObject(storage)) {
+          if (storage) {
             return storage.value
           }
         },
@@ -169,7 +172,7 @@ var localStorageInstance = (function () {
           var storage = storageValue[key]
           expTime = parseInt(expTime)
           
-          if (storage && (expTime === NO_EXPIRE || expTime)) {
+          if (storage && (expTime || expTime === NO_EXPIRE)) {
             storage.expire = storage.expire + expTime
             update(STORAGE_KEY, storageValue)
             

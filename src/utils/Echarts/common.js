@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 import ReactEcharts from 'echarts-for-react'
-import _ from 'utils/core/lodash'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { BASIS_OPTION } from './constants/index'
 import { contextTypes } from 'utils/core/decorator'
@@ -31,7 +31,7 @@ export default class BasisChart extends React.PureComponent {
 		const props = _this.props
 		
 		return <ReactEcharts
-			option={Object.assign({}, BASIS_OPTION, props.option)}
+			option={_.assign({}, BASIS_OPTION, props.option)}
 			notMerge={_.isBoolean(props.notMerge) ? props.notMerge : false}
 			lazyUpdate={_.isBoolean(props.lazyUpdate) ? props.lazyUpdate : false}
 			theme={props.theme}

@@ -6,7 +6,7 @@ import T from 'utils/T'
 import thunk from 'redux-thunk'
 import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux'
 
-export const STORE_INJECT = Symbol('@@STORE_INJECT')
+export const STORE_INJECT = '@@STORE_INJECT'
 
 /**
  * 注册
