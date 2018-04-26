@@ -15,7 +15,7 @@ let mapUrlToCategory = {}
  * 配置菜单文件
  * @return {Array}
  */
-const EnumMenus = (() => {
+export const EnumMenus = (() => {
   /**
    * 格式化数据
    * @param {Array} children
@@ -122,8 +122,8 @@ const EnumMenus = (() => {
 })()
 
 /**
- * 获取location.pathname和对应的分类数据
- * @param {String} locationPathname location.pathname
+ * 获取window.location.pathname对应的分类数据
+ * @param {String} locationPathname window.location.pathname
  * @return {String || null}
  */
 export const getCategoryData = locationPathname => {
@@ -134,31 +134,50 @@ export const getCategoryData = locationPathname => {
 }
 
 /**
- * 获取location.pathname对应的分类的children数据
+ * 获取window.location.pathname对应的分类的children数据
  * @param {String} category
  * @return {Array}
  */
 export const getCategoryChildrenData = category => {
   const result = T.lodash.find(EnumMenus, item => item.value === category)
   
-  return T.helper.isObject(result) ? result.children : []
+  return T.helper.isObject(result)
+    ? Array.isArray(result.children)
+      ? result.children
+      : []
+    : []
 }
 
 /**
- * 获取location.pathname对应的菜单数据
- * @param {String} locationPathname location.pathname
+ * 获取分类路由
+ * @param {String} locationPathname window.location.pathname
+ * @return {Array}
+ */
+export const getCategoryRoute = locationPathname => {
+  const result = T.lodash.flowRight(getCategoryChildrenData, getCategoryData, T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  
+  return Array.isArray(result) ? result : []
+}
+
+/**
+ * 获取window.location.pathname对应的菜单数据
+ * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
 export const getMenuData = locationPathname => {
-  const data = T.lodash.flowRight(getCategoryChildrenData, getCategoryData, T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  const data = getCategoryRoute(locationPathname)
   const result = T.lodash.find(data, item => item.url.indexOf(locationPathname) !== -1)
   
-  return T.helper.isObject(result) ? result.children : []
+  return T.helper.isObject(result)
+    ? Array.isArray(result.children)
+      ? result.children
+      : []
+    : []
 }
 
 /**
  * 获取菜单打开的数组
- * @param {String} locationPathname location.pathname
+ * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
 export const getOpenKeys = locationPathname => {

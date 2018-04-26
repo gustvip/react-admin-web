@@ -40,5 +40,3 @@ const renderApp = () => render(<Provider store={store()}>
   document.querySelector('#wrapper'),
 )
 renderApp()
-import './demo'
-

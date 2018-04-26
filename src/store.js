@@ -22,7 +22,7 @@ class Registry {
   
   injectReducers (reducers) {
     const _this = this
-    _this.finallyReducer = Object.assign(
+    _this.finallyReducer = T.lodash.assign(
       reducers.reduce((acc, reducer) => {
         acc[reducer.name] = reducer.reducer
         return acc

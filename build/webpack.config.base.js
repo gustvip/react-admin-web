@@ -192,9 +192,9 @@ module.exports = {
     modules: ['node_modules', 'web_modules', './src'],
   },
   
-  /**
+  /*/!**
    * 排除打包的内容---走cdn
-   */
+   *!/
   externals: {
     jquery: '$',
     lodash: '_',
@@ -202,7 +202,7 @@ module.exports = {
     'react-dom': 'ReactDOM',
     leaflet: 'L',
     echarts: 'echarts',
-  },
+  },*/
   
   /**
    * loader
@@ -258,21 +258,23 @@ module.exports = {
         ],
       },
       
-      {
-        test: /\.tsx?$/,
-        use: [
-          {
-            loader: 'ts-loader',
-          },
-          {
-            loader: 'babel-loader',
-          },
-        ],
-        exclude: [
-          excludeRegex,
-          routesComponentsRegex,
-        ],
-      },
+      /*
+            {
+              test: /\.tsx?$/,
+              use: [
+                {
+                  loader: 'ts-loader',
+                },
+                {
+                  loader: 'babel-loader',
+                },
+              ],
+              exclude: [
+                excludeRegex,
+                routesComponentsRegex,
+              ],
+            },
+      */
     ],
   },
   
