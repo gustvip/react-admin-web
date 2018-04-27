@@ -4,6 +4,7 @@
 
 import T from 'utils/T'
 import EnumDefaultMenus from 'constants/EnumDefaultMenus'
+import helper from '../../utils/core/helper'
 
 /**
  * location.pathname和分类值的对应关系
@@ -36,8 +37,7 @@ export const EnumMenus = (() => {
         let itemUrl = []
         
         /**
-         * url的处理---长度大于0的数组 || 长度大于0的字符串
-         * 长度大于0的数组---将其值和children和parent连接
+         * url的处理
          */
         if (Array.isArray(item.url)) {
           resultUrl = resultUrl.concat(item.url)
@@ -48,11 +48,7 @@ export const EnumMenus = (() => {
         }
         
         if (T.helper.checkArray(item.children)) {
-          /**
-           * 递归获取children的数据
-           */
           const result = formatData(item.children)
-          
           /**
            * 注意返回的url和当前的url连接---去重
            */
@@ -76,11 +72,11 @@ export const EnumMenus = (() => {
             },
           )
         } else {
-          /**
-           * children不是大于0的数组
-           * children返回[]
-           * 其他原样返回
-           */
+          
+          if (helper.checkString(item.url)) {
+            resultUrl = T.lodash.uniq(resultUrl.concat(item.url))
+          }
+          
           return T.lodash.assign(
             {},
             item,
@@ -96,7 +92,6 @@ export const EnumMenus = (() => {
         }
       })
     }
-    
     return {resultChildren, resultUrl}
   }
   
@@ -117,7 +112,6 @@ export const EnumMenus = (() => {
   })
   
   mapUrlToCategory = T.helper.immutable(mapUrlToCategory, null)
-  
   return T.helper.immutable(menuData, null)
 })()
 

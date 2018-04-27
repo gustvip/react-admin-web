@@ -15,12 +15,12 @@ import ENV from 'ENV'
 /**
  * 组件
  */
-import { Select, Menu, Icon, Layout } from 'antd'
+import { Select, Menu, Icon, Layout, Dropdown } from 'antd'
 import { Link } from 'react-router-dom'
 
 /**
  * 获取图标字体
- * @param icon
+ * @param {Object} icon {{type: String, value: String}}
  */
 const getIcon = icon => {
   if (icon) {
@@ -97,9 +97,6 @@ MainContent.propTypes = {
   children: PropTypes.node,
 }
 
-/**
- * 菜单组件
- */
 @T.decorator.propTypes({
   clickLink: PropTypes.func.isRequired,
   locationPathname: PropTypes.string.isRequired,
@@ -125,9 +122,6 @@ class LeftMenu extends React.PureComponent {
     openKeys = Array.isArray(openKeys) ? openKeys : []
     const defaultOpenKeys = [].concat(openKeys)
     
-    /**
-     * 数据不合格
-     */
     if (!T.helper.checkArray(data)) {
       return null
     } else if (!T.helper.checkArray(item.children)) {
@@ -137,6 +131,7 @@ class LeftMenu extends React.PureComponent {
        * 不是返回menu.Item
        * 绑定Submenu的click事件---menu.Item不需要(已经跳转到对应的url---组件卸载---组件渲染)
        * 是否需要添加图标字体
+       * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
        */
       return <Menu.Item
         key={item.url[0]}
@@ -147,8 +142,12 @@ class LeftMenu extends React.PureComponent {
           }}
           onClick={e => _this.props.clickLink(e, locationPathname, item.url[0])}
         >
-          {getIcon(item.icon)}
-          {item.label}
+          <span>
+            {getIcon(item.icon)}
+            <span>
+            {item.label}
+            </span>
+          </span>
         </Link>
       </Menu.Item>
     } else {
@@ -156,6 +155,7 @@ class LeftMenu extends React.PureComponent {
        * 设置可能的defaulOpenKeys
        * 绑定Submenu的onClick事件
        * 将子defaultOpenKeys传下去
+       * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
        */
       defaultOpenKeys.push(item.url[0])
       
@@ -201,7 +201,7 @@ class LeftMenu extends React.PureComponent {
   
   /**
    * 菜单收缩
-   * @param collapsed
+   * @param {Boolean} collapsed
    */
   handleCollapsed = collapsed => {
     const _this = this
@@ -211,6 +211,8 @@ class LeftMenu extends React.PureComponent {
      */
     if (collapsed) {
       _this.setState({defaultOpenKeys: []})
+    } else {
+      _this.setState({defaultOpenKeys: getOpenKeys(_this.props.locationPathname)})
     }
     
     _this.props.handleCollapsed()
@@ -243,19 +245,19 @@ class LeftMenu extends React.PureComponent {
   }
 }
 
-/**
- * 右侧头部组件
- */
 @T.decorator.propTypes({
   clickLink: PropTypes.func.isRequired,
   locationPathname: PropTypes.string.isRequired,
 })
 @T.decorator.contextTypes('router')
 class Header extends React.PureComponent {
+  handleRedirect = value => {
+    const _this = this
+    if (value !== _this.props.locationPathname) {
+      _this.context.router.history.push(value)
+    }
+  }
   
-  /**
-   * 退出登录
-   */
   loginOut = () => {
     const _this = this
     
@@ -280,16 +282,13 @@ class Header extends React.PureComponent {
     })
   }
   
-  /**
-   * 获取一级路由
-   */
   getTopRoute () {
     const _this = this
     
     return <div className={style['drop-down-menu-container']}>
       <Select
-        onChange={value => _this.context.router.history.push(value)}
-        defaultValue={T.lodash.find(EnumMenus, value => value.url.indexOf(_this.props.locationPathname) !== -1).url[0]}
+        onSelect={value => _this.handleRedirect(value)}
+        value={T.lodash.find(EnumMenus, value => value.url.indexOf(_this.props.locationPathname) !== -1).url[0]}
       >
         {
           EnumMenus.map((item, index) => {
@@ -300,9 +299,6 @@ class Header extends React.PureComponent {
     </div>
   }
   
-  /**
-   * 获取分类路由
-   */
   getCategoryRoute () {
     const _this = this
     
@@ -312,9 +308,10 @@ class Header extends React.PureComponent {
           return <Link
             className={T.helper.classNames('')({[style['active']]: item.url.indexOf(_this.props.locationPathname) !== -1})}
             key={index}
-            onClick={e => _this.props.clickLink(e, _this.locationPathname, item.url[0])}
+            onClick={e => _this.props.clickLink(e, _this.props.locationPathname, item.url[0])}
             to={{pathname: item.url[0]}}
           >
+            {getIcon(item.icon)}
             {item.label}
           </Link>
         })
@@ -330,8 +327,7 @@ class Header extends React.PureComponent {
         <section className={style['left-container']}>
           
           <div className={style['logo-container']}>
-            <Icon type="bars"/>
-            <span>开发服务平台</span>
+            logo容器
           </div>
           
           {/*一级路由*/}
@@ -342,20 +338,25 @@ class Header extends React.PureComponent {
         
         </section>
         <section className={style['right-container']}>
-          <Icon
-            type="bars"
-            className={style['loginOut']}
-            onClick={() => _this.loginOut()}
-          />
+          <Dropdown
+            trigger={['click']}
+            placement="bottomCenter"
+            overlay={
+              <Menu>
+                <Menu.Item onClick={() => _this.loginOut()}>
+                  退出登录
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            <Icon type='user' style={{fontSize: '18px'}}/>
+          </Dropdown>
         </section>
       </Layout.Header>
     )
   }
 }
 
-/**
- * 入口组件
- */
 export default class MainLayout extends React.PureComponent {
   constructor (props) {
     super(props)
@@ -365,32 +366,19 @@ export default class MainLayout extends React.PureComponent {
     }
   }
   
-  /**
-   * 超链接点击事件---判断是否需要阻止默认事件---（跳转本页面）
-   * @param {Object} e
-   * @param {String} locationPathname
-   * @param {String} url
-   */
   clickLink = (e, locationPathname, url) => {
     if (locationPathname === url) e.preventDefault()
   }
   
-  /**
-   * 更改侧边栏的收缩
-   */
   handleCollapsed = () => {
-    this.setState(previousState => ({
-        isCollapsed: !previousState.isCollapsed,
-      }),
-    )
+    this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}))
   }
   
   render () {
     const _this = this
-    
     return <Layout id={style['main-container']}>
       <Header
-        clickLink={_this.handleCollapsed.bind(_this)}
+        clickLink={_this.clickLink.bind(_this)}
         locationPathname={_this.locationPathname}
       />
       <Layout
