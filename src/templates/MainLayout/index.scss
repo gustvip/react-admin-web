@@ -1,48 +1,46 @@
 @import "resource/scss/baseStyleVarity.scss";
 
 $base-sider-background-color: #333;
-$base-right-sider-background-color: #fff;
-$base-right-content-background-color: #f0f3f5;
+$base-right-content-background-color: #eee;
 $right-main-content-header-height: 40px;
 $right-main-content-basis-padding: 20px;
 #main-container {
 	padding-top: $header-height;
-	min-height: 100%;
-	height: 100%;
+	flex-grow: 1;
+	flex-direction: column;
 	display: flex;
 	/*header*/
 	.main-header-container {
 		position: fixed;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
 		left: 0;
 		right: 0;
 		top: 0;
+		z-index: 1;
+		box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
 		background-color: #fff;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		height: $header-height;
 		padding: 0 $right-main-content-basis-padding;
 		font-size: 16px;
-		color: #36454d;
 		.left-container {
 			display: flex;
 
 			/*logo*/
 			.logo-container {
-				i {
+				width: 118px;
+				height: 18px;
+				img {
 					vertical-align: middle;
-					margin-right: 8px;
-					color: $base-color;
-				}
-				span {
-					color: $base-color;
-					font-size: 12px;
+					display: inline-block;
+					width: 100%;
 				}
 			}
 
 			/*一级路由*/
 			.drop-down-menu-container {
-				margin-left: 8px;
+				margin-left: 24px;
 			}
 
 			/*分类路由*/
@@ -50,23 +48,26 @@ $right-main-content-basis-padding: 20px;
 				margin-left: 24px;
 				font-size: 12px;
 				a {
+					i {
+						margin-right: 8px;
+						vertical-align: middle;
+					}
 					text-decoration: none;
 					display: inline-block;
 					vertical-align: middle;
 					height: $header-height;
 					position: relative;
 					padding: 0 24px;
-					color: #333;
 					&.active {
-						color: $base-color;
 						&::after {
 							content: '';
 							position: absolute;
 							left: 12px;
 							right: 12px;
-							bottom: -1px;
+							bottom: 0;
 							height: 2px;
 							background-color: $base-color;
+							z-index: 1;
 						}
 					}
 					&::before {
@@ -74,8 +75,8 @@ $right-main-content-basis-padding: 20px;
 						position: absolute;
 						left: 0;
 						margin: auto;
-						top: 20px;
-						bottom: 20px;
+						top: 16px;
+						bottom: 16px;
 						width: 1px;
 						background-color: #ddd;
 					}
@@ -83,10 +84,6 @@ $right-main-content-basis-padding: 20px;
 			}
 		}
 		.right-container {
-			.line {
-				margin: 20px;
-				border-left: 1px solid #36454d;
-			}
 			:global {
 				.iconfont {
 					margin-right: 8px;
@@ -112,13 +109,29 @@ $right-main-content-basis-padding: 20px;
 			bottom: 0;
 			background-color: $base-sider-background-color;
 			.sider-menu {
+				height: 100%;
 				font-size: 14px;
 				background-color: $base-sider-background-color;
+				overflow-y: auto;
 				:global {
 					.ant-menu {
+						height: 100%;
 						background-color: $base-sider-background-color;
 					}
+					.ant-menu-item {
+						margin-bottom: 0;
+						height: 32px;
+						line-height: 32px;
+						&.ant-menu-item-selected {
+							a {
+								color: #fafcff;
+							}
+						}
+					}
 					.ant-menu-submenu-title {
+						height: 32px;
+						line-height: 32px;
+
 						background-color: $base-sider-background-color;
 					}
 					.iconfont, .anticon {
@@ -151,19 +164,10 @@ $right-main-content-basis-padding: 20px;
 					line-height: 20px;
 					font-size: 20px;
 					text-align: left;
-					color: #36454d;
 					.left-container {
 						flex: 1 1 auto;
 						.title-container {
 							font-size: 20px;
-							color: #36454d;
-							:global {
-								.iconfont {
-									font-size: 80%;
-									color: #36454d;
-									margin: 15px;
-								}
-							}
 						}
 					}
 					.right-container {

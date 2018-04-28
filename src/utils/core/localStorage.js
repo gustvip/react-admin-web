@@ -172,7 +172,7 @@ var localStorageInstance = (function () {
           var storage = storageValue[key]
           expTime = parseInt(expTime)
           
-          if (storage && (expTime || expTime === NO_EXPIRE)) {
+          if (storage && isFinite(expTime)) {
             storage.expire = storage.expire + expTime
             update(STORAGE_KEY, storageValue)
             

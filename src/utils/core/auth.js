@@ -72,7 +72,7 @@ class Auth {
    * @param  {Object} state react-router的location.state
    */
   loginSuccessRedirect (history, state) {
-    const urlParams = queryString.parse(location.search)
+    const urlParams = queryString.parse(window.location.search)
     let redirectUrl = ENV.login.defaultRedirectUrl
     
     if (helper.isObject(urlParams) && ENV.defaultQuery in urlParams) {

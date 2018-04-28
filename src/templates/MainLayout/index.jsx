@@ -18,6 +18,7 @@ import ENV from 'ENV'
 import { Select, Menu, Icon, Layout, Dropdown } from 'antd'
 import { Link } from 'react-router-dom'
 
+const logoPic = require('./img/logo.png')
 /**
  * 获取图标字体
  * @param {Object} icon {{type: String, value: String}}
@@ -327,7 +328,7 @@ class Header extends React.PureComponent {
         <section className={style['left-container']}>
           
           <div className={style['logo-container']}>
-            logo容器
+            <img src={logoPic} alt="logo"/>
           </div>
           
           {/*一级路由*/}

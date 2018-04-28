@@ -21,6 +21,7 @@ const excludeRegex = /(node_modules|bower_modules)/
  * @type {{@text-color: string, @border-color-base: string, @primary-color: string, @font-size-base: string, @body-background: string}}
  */
 const customAntdStyle = {
+  '@layout-body-background': '#fff',              // 修改layout布局的body背景颜色
   '@text-color': '#333',
   '@border-color-base': '#a3babf',				// 更改border颜色
   '@primary-color': '#00d9ca',		            // 更改antd的主题颜色;
