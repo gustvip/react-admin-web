@@ -21,14 +21,8 @@ import { Spin } from 'antd'
  */
 const injectReducers = reducers => ({[STORE_INJECT]: reducers})
 
-/**
- * 入口组件
- */
 @T.decorator.contextTypes('store', 'router')
 @T.decorator.propTypes({
-	/**
-	 * 延迟加载函数
-	 */
 	lazyLoader: PropTypes.func.isRequired,
 	reducers: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -58,9 +52,6 @@ export default class LazyLoadTpl extends React.PureComponent {
 				_this.context.router.route.location.state,
 			)
 		} else if (!_this.state.Component) {
-			/**
-			 * 挂载完成后,开始加载远程组件
-			 */
 			_this.props.lazyLoader(Component => {
 				_this.setState({
 					Component: Component.default,
@@ -73,10 +64,6 @@ export default class LazyLoadTpl extends React.PureComponent {
 		const _this = this
 		const Component = _this.state.Component
 		
-		/**
-		 * componet加载完成---返回component
-		 * 否则---显示加载动画
-		 */
 		if (Component) {
 			if (T.helper.checkArray(_this.props.reducers)) {
 				_this.context.store.dispatch(injectReducers(_this.props.reducers))

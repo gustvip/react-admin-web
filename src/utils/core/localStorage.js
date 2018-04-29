@@ -72,9 +72,6 @@ var localStorageInstance = (function () {
       return isObject(result) ? result : {}
     })()
     
-    /**
-     * 定义localStorage原型方法
-     */
     Object.defineProperties(_constructor.prototype, {
       /**
        * 定义length
@@ -114,24 +111,15 @@ var localStorageInstance = (function () {
           this.clearExpired()
           expTime = parseInt(expTime, 10)
           
-          /**
-           * value不可序列化直接返回
-           */
           if (!canJSON(value)) {
             console.warn('设置的值不可序列化，请重新设置')
             return this
           }
           
-          /**
-           * expTime的判断---不是有限Number或者小于0--将其设置为无限期
-           */
           if (!isFinite(expTime) || expTime < 0) {
             expTime = NO_EXPIRE
           }
           
-          /**
-           * 设置并更新localStorage的值
-           */
           storageValue[key] = {
             value,
             expire: expTime === NO_EXPIRE ? NO_EXPIRE : expTime + Date.now(),
@@ -195,9 +183,7 @@ var localStorageInstance = (function () {
           this.clearExpired()
           var storage = storageValue[key]
           expTime = parseInt(expTime)
-          /**
-           * expTime的判断---不是有限Number或者小于0--将其设置为无限期
-           */
+
           if (!isFinite(expTime) || expTime < 0) {
             expTime = NO_EXPIRE
           }

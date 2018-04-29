@@ -11,10 +11,6 @@ import _ from 'lodash'
  */
 Promise._unhandledRejectionFn = _.noop
 
-/**
- * axios单体
- * @type {{getInstance: Function}}
- */
 const Singleton = (function () {
   let instantiated
   const baseURL = ENV.mock.isStart ? ENV.mock.apiDomain : ENV.apiDomain
@@ -22,14 +18,8 @@ const Singleton = (function () {
   function init () {
     
     return create({
-      /**
-       * uri基准值
-       */
       baseURL,
       
-      /**
-       * 指示是否跨站点访问控制请求
-       */
       withCredentials: true,
       
       /**
@@ -38,9 +28,6 @@ const Singleton = (function () {
        */
       responseType: 'json',
       
-      /**
-       *  是要发送的自定义 headers
-       */
       headers: {
         //'X-Requested-With': 'XMLHttpRequest'
       },
@@ -63,28 +50,14 @@ const Singleton = (function () {
 const _request = (options = {}) => {
   
   return new Promise((resolve, reject) => {
-    /**
-     * 请求
-     */
     Singleton.getInstance().request(options).then(info => {
-      /**
-       * 获取请求后的数据
-       * code，msg，data格式是预先规定好的
-       */
       const {data, code, msg} = info.data
       
-      /**
-       * code和枚举的apiSuccessCode一致---resolve
-       */
       if (ENV.apiSuccessCode === code) {
         resolve({code, data, msg})
       } else {
         reject({code, data, msg})
       }
-      
-      /**
-       * 错误的处理
-       */
     }).catch(info => {
       reject({
         code: info.code,
@@ -173,9 +146,6 @@ export function upload (url, data = {}, options = {}, onUploadProgress = _.noop)
         
         return formData
       })(),
-    /**
-     * 允许处理上传的进度事件
-     */
     onUploadProgress,
     
     headers: {

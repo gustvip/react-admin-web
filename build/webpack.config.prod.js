@@ -3,26 +3,25 @@
  */
 const baseConfig = require('./webpack.config.base')
 const merge = require('webpack-merge')
-
-/**
- * 清除文件
- * @type {CleanWebpackPlugin}
- */
 const cleanWebpackPlugin = require('clean-webpack-plugin')
-
-/**
- * 压缩css
- * @type {OptimizeCssAssetsWebpackPlugin}
- */
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-
-/**
- * 压缩js
- */
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
+  
+  /**
+   * 排除打包的内容---走cdn
+   */
+  externals: {
+    jquery: '$',
+    lodash: '_',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    leaflet: 'L',
+    echarts: 'echarts',
+  },
+  
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
@@ -35,14 +34,7 @@ module.exports = merge(baseConfig, {
   },
   
   output: {
-    /**
-     * 公网发布的目录
-     */
     publicPath: '/public/',
-    
-    /**
-     * 编译的目录
-     */
     path: `${__dirname}/../public/`,
     filename: '[name].js',
   },

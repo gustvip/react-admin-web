@@ -24,7 +24,7 @@ class Auth {
   }
   
   /**
-   * 获取localStorage的login值
+   * 获取localStorage(自定义)的login值
    * @return {*|{value, configurable}}
    */
   getLoginStorageValue () {
@@ -32,7 +32,7 @@ class Auth {
   }
   
   /**
-   * 设置登录的localStorage值
+   * 设置登录的localStorage(自定义)值
    */
   setLoginStorageValue () {
     const login = ENV.localStorage.login
@@ -40,7 +40,7 @@ class Auth {
   }
   
   /**
-   * 移除登录的localStorage值
+   * 移除登录的localStorage(自定义)值
    */
   removeLoginStorageValue () {
     localStorage.removeItem(ENV.localStorage.login.key)
@@ -50,8 +50,8 @@ class Auth {
    * 登录
    * @param {String} user_name
    * @param {String} user_password
-   * @param {Function} successCallback
-   * @param {Function} failCallback
+   * @param {[Function]} successCallback
+   * @param {[Function]} failCallback
    */
   loginIn ({user_name, user_password, successCallback = _.noop, failCallback = _.noop} = {}) {
     request.post(EnumAPI.user_loginIn, {user_name, user_password}).then(info => successCallback(info)).catch(info => failCallback(info))
@@ -59,8 +59,8 @@ class Auth {
   
   /**
    * 退出登录
-   * @param {Function} successCallback
-   * @param {Function} failCallback
+   * @param {[Function]} successCallback
+   * @param {[Function]} failCallback
    */
   loginOut ({successCallback = _.noop, failCallback = _.noop} = {}) {
     request.post(EnumAPI.user_loginOut).then(info => successCallback(info)).catch(info => failCallback(info))
@@ -69,7 +69,7 @@ class Auth {
   /**
    * 登录成功重定向
    * @param {Object} history react-router的history
-   * @param  {Object} state react-router的location.state
+   * @param  {[Object]} state react-router的location.state
    */
   loginSuccessRedirect (history, state) {
     const urlParams = queryString.parse(window.location.search)

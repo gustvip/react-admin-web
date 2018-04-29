@@ -7,8 +7,8 @@ import EnumDefaultMenus from 'constants/EnumDefaultMenus'
 import helper from '../../utils/core/helper'
 
 /**
- * location.pathname和分类值的对应关系
- * @type {{[location.pathname]:{category:String}}}
+ * window.location.pathname和分类值的对应关系
+ * @type {{[window.location.pathname]:{category:String}}}
  */
 let mapUrlToCategory = {}
 
@@ -143,7 +143,7 @@ export const getCategoryChildrenData = category => {
 }
 
 /**
- * 获取分类路由
+ * 获取window.location.pathname的分类路由
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
@@ -170,7 +170,7 @@ export const getMenuData = locationPathname => {
 }
 
 /**
- * 获取菜单打开的数组
+ * 获取window.location.pathname的菜单打开的数组
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */

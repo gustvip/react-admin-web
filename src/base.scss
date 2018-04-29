@@ -3,20 +3,3 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
-html {
-	display: flex;
-	flex-direction: column;
-	min-height: 100%;
-	body {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-		:global {
-			.ant-menu-dark .ant-menu-sub {
-				background-color: #333;
-			}
-		}
-	}
-}
-

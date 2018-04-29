@@ -1,97 +1,66 @@
-@import "resource/scss/baseStyleVarity.scss";
+@import "baseStyleVarity.scss";
 
-$base-sider-background-color: #333;
-$base-right-content-background-color: #eee;
 $right-main-content-header-height: 40px;
 $right-main-content-basis-padding: 20px;
+
+html {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	body {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		background-color: $base-body-background-color;
+		:global {
+			.ant-menu-dark .ant-menu-sub {
+				background-color: $base-sider-background-color;
+			}
+		}
+	}
+}
+
 #main-container {
-	padding-top: $header-height;
 	flex-grow: 1;
 	flex-direction: column;
 	display: flex;
-	/*header*/
-	.main-header-container {
+	/*sider*/
+	.sider-container {
 		position: fixed;
 		left: 0;
-		right: 0;
 		top: 0;
-		z-index: 1;
-		box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
-		background-color: #fff;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		height: $header-height;
-		padding: 0 $right-main-content-basis-padding;
-		font-size: 16px;
-		.left-container {
-			display: flex;
-
-			/*logo*/
-			.logo-container {
-				width: 118px;
-				height: 18px;
-				img {
-					vertical-align: middle;
-					display: inline-block;
-					width: 100%;
-				}
-			}
-
-			/*一级路由*/
-			.drop-down-menu-container {
-				margin-left: 24px;
-			}
-
-			/*分类路由*/
-			.category-menu-container {
-				margin-left: 24px;
-				font-size: 12px;
-				a {
-					i {
-						margin-right: 8px;
-						vertical-align: middle;
-					}
-					text-decoration: none;
-					display: inline-block;
-					vertical-align: middle;
-					height: $header-height;
-					position: relative;
-					padding: 0 24px;
-					&.active {
-						&::after {
-							content: '';
-							position: absolute;
-							left: 12px;
-							right: 12px;
-							bottom: 0;
-							height: 2px;
-							background-color: $base-color;
-							z-index: 1;
+		bottom: 0;
+		background-color: $base-sider-background-color;
+		.sider-menu {
+			padding: 20px 0;
+			font-size: 14px;
+			background-color: $base-sider-background-color;
+			overflow-y: auto;
+			:global {
+				.ant-menu-item {
+					margin-bottom: 0;
+					height: 32px;
+					line-height: 32px;
+					&.ant-menu-item-selected {
+						a {
+							color: #fafcff;
 						}
 					}
-					&::before {
-						content: '';
-						position: absolute;
-						left: 0;
-						margin: auto;
-						top: 16px;
-						bottom: 16px;
-						width: 1px;
-						background-color: #ddd;
-					}
 				}
-			}
-		}
-		.right-container {
-			:global {
-				.iconfont {
+				.ant-menu-submenu-title {
+					height: 32px;
+					line-height: 32px;
+
+					background-color: $base-sider-background-color;
+				}
+				.iconfont, .anticon {
 					margin-right: 8px;
 				}
 			}
-			.loginOut {
-				padding: 8px;
-				cursor: pointer;
+		}
+		:global {
+			.ant-layout-sider-trigger {
+				background-color: $base-sider-background-color;
 			}
 		}
 	}
@@ -101,54 +70,84 @@ $right-main-content-basis-padding: 20px;
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
-		/*sider*/
-		.sider-container {
-			position: fixed;
-			left: 0;
-			top: $header-height;
-			bottom: 0;
-			background-color: $base-sider-background-color;
-			.sider-menu {
-				height: 100%;
-				font-size: 14px;
-				background-color: $base-sider-background-color;
-				overflow-y: auto;
-				:global {
-					.ant-menu {
-						height: 100%;
-						background-color: $base-sider-background-color;
-					}
-					.ant-menu-item {
-						margin-bottom: 0;
-						height: 32px;
-						line-height: 32px;
-						&.ant-menu-item-selected {
-							a {
-								color: #fafcff;
+		/*header*/
+		.main-header-container {
+			z-index: 1;
+			box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
+			background-color: $base-body-header-background-color;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: $header-height;
+			padding: 0 $right-main-content-basis-padding;
+			font-size: 16px;
+			.left-container {
+				display: flex;
+				/*logo*/
+				.logo-container {
+				}
+
+				/*一级路由*/
+				.drop-down-menu-container {
+					margin-left: 24px;
+				}
+
+				/*分类路由*/
+				.category-menu-container {
+					margin-left: 24px;
+					font-size: 12px;
+					a {
+						i {
+							margin-right: 8px;
+							vertical-align: middle;
+						}
+						text-decoration: none;
+						display: inline-block;
+						vertical-align: middle;
+						height: $header-height;
+						position: relative;
+						padding: 0 24px;
+						&.active {
+							&::after {
+								content: '';
+								position: absolute;
+								left: 12px;
+								right: 12px;
+								bottom: 0;
+								height: 2px;
+								background-color: $base-color;
+								z-index: 1;
 							}
 						}
-					}
-					.ant-menu-submenu-title {
-						height: 32px;
-						line-height: 32px;
-
-						background-color: $base-sider-background-color;
-					}
-					.iconfont, .anticon {
-						margin-right: 8px;
+						&::before {
+							content: '';
+							position: absolute;
+							left: 0;
+							margin: auto;
+							top: 16px;
+							bottom: 16px;
+							width: 1px;
+							background-color: #ddd;
+						}
 					}
 				}
 			}
-			:global {
-				.ant-layout-sider-trigger {
-					background-color: $base-sider-background-color;
+			.right-container {
+				:global {
+					.iconfont {
+						margin-right: 8px;
+					}
+				}
+				.loginOut {
+					padding: 8px;
+					cursor: pointer;
 				}
 			}
 		}
 
 		/*content*/
 		.main-content-container {
-			background-color: $base-right-content-background-color;
+			background-color: $base-body-background-color;
 			padding: $right-main-content-basis-padding;
 			display: flex;
 			flex-direction: column;

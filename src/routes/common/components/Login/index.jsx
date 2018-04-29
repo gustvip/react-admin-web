@@ -28,15 +28,11 @@ export default class Login extends React.PureComponent {
 	 */
 	handleEnterDown = (e) => e.keyCode === 13 ? this.handleSubmit() : null;
 	
-	/**
-	 * 提交
-	 */
 	handleSubmit = () => {
 		const _this = this;
 		const {user_name, user_password} = _this.state;
 		/**
 		 * user_password和id是否符合格式
-		 * 不符合---进行提示
 		 */
 		const canSubmit = (T.regExp.name.test(user_name.trim()) || T.regExp.email.test(user_name.trim()) || T.regExp.telephone.test(user_name.trim())) && T.regExp.password.test(user_password.trim());
 		
@@ -48,14 +44,7 @@ export default class Login extends React.PureComponent {
 					user_name: user_name.trim(),
 					user_password: user_password.trim(),
 					successCallback() {
-						/**
-						 * 设置登录的localStorage
-						 */
 						T.auth.setLoginStorageValue();
-						
-						/**
-						 * 重定向
-						 */
 						T.auth.loginSuccessRedirect(
 							_this.context.router.history,
 							_this.context.router.route.location.state

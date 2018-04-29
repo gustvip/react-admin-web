@@ -18,24 +18,15 @@ import ENV from 'ENV'
 import { Select, Menu, Icon, Layout, Dropdown } from 'antd'
 import { Link } from 'react-router-dom'
 
-const logoPic = require('./img/logo.png')
 /**
  * 获取图标字体
  * @param {Object} icon {{type: String, value: String}}
  */
 const getIcon = icon => {
   if (icon) {
-    /**
-     * 自定义icon
-     */
     if (icon.type === EnumIconTypes.custom) {
       return <i className={T.helper.classNames()(icon.value)}/>
-    }
-    
-    /**
-     * ant-design的icon
-     */
-    else if (icon.type === EnumIconTypes.antd) {
+    } else if (icon.type === EnumIconTypes.antd) {
       return <Icon type={icon.value}/>
     }
   }
@@ -104,7 +95,7 @@ MainContent.propTypes = {
   handleCollapsed: PropTypes.func.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
 })
-class LeftMenu extends React.PureComponent {
+class SiderMenu extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -180,18 +171,12 @@ class LeftMenu extends React.PureComponent {
    */
   handleDefaultOpenKeys = (defaultOpenKeys) => {
     /**
-     * defaultOpenKeys肯定为长度大于0的数组，在此不做判断
-     * 只判断defaultOpenKeys和原来的openKeys的每一项是否都相等
+     * 判断defaultOpenKeys和原来的openKeys的每一项是否都相等
      * 如果相等则截取defaultOpenKeys的0到length-1
      * 否则就将defaultOpenKeys设置为新的openKeys
-     * 获取原来的openkeys
      */
     const _this = this
     const oldOpenKeys = _this.state.defaultOpenKeys
-    
-    /**
-     * 是否每一项都相等
-     */
     const isEqual = defaultOpenKeys.every((item, index) => item === oldOpenKeys[index])
     _this.setState({
       defaultOpenKeys: isEqual
@@ -208,7 +193,7 @@ class LeftMenu extends React.PureComponent {
     const _this = this
     
     /**
-     * 将打开的菜单关闭---菜单宽度减少到80px，但是submenu离左侧还是200px
+     * 将打开的菜单关闭---菜单宽度减少到80px，但是subMenu离左侧还是200px
      */
     if (collapsed) {
       _this.setState({defaultOpenKeys: []})
@@ -264,14 +249,7 @@ class Header extends React.PureComponent {
     
     T.auth.loginOut({
       successCallback () {
-        /**
-         * 移除登录的localStorage值
-         */
         T.auth.removeLoginStorageValue()
-        
-        /**
-         * 跳转到登录页
-         */
         _this.context.router.history.push(
           `${ENV.login.loginUrl}?${ENV.defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
           _this.context.router.route.location.state,
@@ -328,7 +306,7 @@ class Header extends React.PureComponent {
         <section className={style['left-container']}>
           
           <div className={style['logo-container']}>
-            <img src={logoPic} alt="logo"/>
+            logo
           </div>
           
           {/*一级路由*/}
@@ -377,25 +355,27 @@ export default class MainLayout extends React.PureComponent {
   
   render () {
     const _this = this
-    return <Layout id={style['main-container']}>
-      <Header
+    return <Layout
+      id={style['main-container']}
+      style={{paddingLeft: _this.state.isCollapsed ? 80 : 200}}
+    >
+      <SiderMenu
         clickLink={_this.clickLink.bind(_this)}
         locationPathname={_this.locationPathname}
+        isCollapsed={_this.state.isCollapsed}
+        handleCollapsed={_this.handleCollapsed.bind(_this)}
       />
-      <Layout
+      <Layout.Content
         className={style['content-container']}
-        style={{marginLeft: _this.state.isCollapsed ? 80 : 200}}
       >
-        <LeftMenu
+        <Header
           clickLink={_this.clickLink.bind(_this)}
           locationPathname={_this.locationPathname}
-          isCollapsed={_this.state.isCollapsed}
-          handleCollapsed={_this.handleCollapsed.bind(_this)}
         />
-        <Layout className={style['main-content-container']}>
+        <Layout.Content className={style['main-content-container']}>
           {_this.props.children}
-        </Layout>
-      </Layout>
+        </Layout.Content>
+      </Layout.Content>
     </Layout>
   }
 }

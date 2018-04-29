@@ -18,22 +18,14 @@ const excludeRegex = /(node_modules|bower_modules)/
 
 /**
  * 自定义antd的样式
- * @type {{@text-color: string, @border-color-base: string, @primary-color: string, @font-size-base: string, @body-background: string}}
  */
 const customAntdStyle = {
-  '@layout-body-background': '#fff',              // 修改layout布局的body背景颜色
-  '@text-color': '#333',
+  '@text-color': '#333',                  // 修改字体基本颜色
   '@border-color-base': '#a3babf',				// 更改border颜色
   '@primary-color': '#00d9ca',		            // 更改antd的主题颜色;
   '@font-size-base': '12px',                      // 修改基础字体大小
-  '@body-background': 'fff',                    // 修改body的背景颜色
 }
 
-/**
- * 格式化不同的样式loader
- * @param otherLoader
- * @return {[null,null]}
- */
 const formatStyleLoader = (otherLoader) => {
   const baseLoaders = [
     {
@@ -51,7 +43,8 @@ const formatStyleLoader = (otherLoader) => {
           require('postcss-flexbugs-fixes'),
           require('autoprefixer')({
             browsers: [
-              'last 5 Chrome versions'],
+              'last 5 Chrome versions',
+            ],
             flexbox: 'no-2009',
           }),
         ],
@@ -81,9 +74,6 @@ const formatStyleLoader = (otherLoader) => {
   return baseLoaders
 }
 
-/**
- * 静态资源
- */
 const staticResource = (function () {
   const staticResourceBaseName = 'staticResource'
   
@@ -126,9 +116,6 @@ module.exports = {
   devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-source-map
   
   optimization: {
-    /**
-     * 代码分割策略配置
-     */
     splitChunks: {
       chunks: 'all',
       name: 'vendor',
@@ -137,9 +124,6 @@ module.exports = {
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
       cacheGroups: {
-        /**
-         * 提取样式
-         */
         styles: {
           name: 'vendor',
           test: /\.scss|css|less$/,
@@ -149,9 +133,6 @@ module.exports = {
           enforce: true,
         },
         
-        /**
-         * 提取公共内容
-         */
         commons: { // key 为entry中定义的 入口名称
           chunks: 'all', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
           name: 'commons', // 要缓存的 分隔出来的 chunk 名称
@@ -165,17 +146,11 @@ module.exports = {
       },
     },
     
-    /**
-     * webpack运行所需
-     */
     runtimeChunk: {
       name: 'runtime',
     },
   },
   
-  /**
-   * 入口
-   */
   entry: {
     app: ['./src/index'],
     commons: [
@@ -185,29 +160,11 @@ module.exports = {
     ],
   },
   
-  /**
-   * 指定模块目录名称
-   */
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx',],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', 'scss'],
     modules: ['node_modules', 'web_modules', './src'],
   },
   
-  /*/!**
-   * 排除打包的内容---走cdn
-   *!/
-  externals: {
-    jquery: '$',
-    lodash: '_',
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    leaflet: 'L',
-    echarts: 'echarts',
-  },*/
-  
-  /**
-   * loader
-   */
   module: {
     rules: [
       ...staticResource,
@@ -259,37 +216,29 @@ module.exports = {
         ],
       },
       
-      /*
-            {
-              test: /\.tsx?$/,
-              use: [
-                {
-                  loader: 'ts-loader',
-                },
-                {
-                  loader: 'babel-loader',
-                },
-              ],
-              exclude: [
-                excludeRegex,
-                routesComponentsRegex,
-              ],
-            },
-      */
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+          {
+            loader: 'babel-loader',
+          },
+        ],
+        exclude: [
+          excludeRegex,
+          routesComponentsRegex,
+        ],
+      },
     ],
   },
   
   plugins: [
-    /**
-     * 提取css
-     */
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
     
-    /**
-     * 自动加载赋值模块
-     */
     new webpack.ProvidePlugin({
       React: 'react',
       _: 'lodash',

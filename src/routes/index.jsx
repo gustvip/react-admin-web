@@ -15,9 +15,6 @@ import CommonRoutes from './common'         // 公共模块--相关路由,如:�
 import UserRoutes from './user'         // 用户相关模块
 import ENV from 'ENV'
 
-/**
- * 重定向
- */
 const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>
 
 /**
