@@ -39,12 +39,9 @@ export const EnumMenus = (() => {
         /**
          * url的处理
          */
-        if (Array.isArray(item.url)) {
+        if (Array.isArray(item.url) || T.helper.checkString(itemUrl)) {
           resultUrl = resultUrl.concat(item.url)
           itemUrl = itemUrl.concat(item.url)
-        } else if (T.helper.checkString(itemUrl)) {
-          resultUrl = resultUrl.concat([item.url])
-          itemUrl = itemUrl.concat([item.url])
         }
         
         if (T.helper.checkArray(item.children)) {
@@ -181,7 +178,7 @@ export const getOpenKeys = locationPathname => {
   
   (function fn (_dataSource) {
     /**
-     * 从顶层开始判断当前的location.pathname是否在其中
+     * 从顶层开始判断当前的window.location.pathname是否在其中
      * 如果在将对应的url[0]添加到返回的data中
      * 如果该行的children为长度大于0的数组则继续递归
      */

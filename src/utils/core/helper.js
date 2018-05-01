@@ -24,13 +24,13 @@ class Helper {
   
   /**
    * @param {*} data
-   * @param {[Function]} callBack
+   * @param {[Function]} callback
    * @param {[Boolean]} enumerable 属性是否可以枚举
    * @return {*}
    */
-  immutable (data, callBack, enumerable = true) {
+  immutable (data, callback, enumerable = true) {
     const _this = this
-    callBack = _.isFunction(callBack) ? callBack : value => value
+    callback = _.isFunction(callback) ? callback : value => value
     
     return (function fn (_data) {
       let result = _data
@@ -39,7 +39,7 @@ class Helper {
         result = Array.isArray(_data) ? [] : {}
         _.each(_data, (value, key) => {
           Object.defineProperty(result, key, {
-            value: fn(callBack(value, key)),
+            value: fn(callback(value, key)),
             enumerable,
           })
         })
@@ -115,7 +115,7 @@ class Helper {
   /**
    * 去除字符串的空白
    * @param {String} x
-   * @return {* | String}
+   * @return {* || String}
    */
   removeBlank (x) {
     return _.isString(x) ? [].filter.call(x, val => val).join('') : x
