@@ -18,15 +18,15 @@ export default helper.immutable([
   {
     label: '数据平台',
     value: 'data_platform',
-    url: [EnumRouter.user_list],
+    url: EnumRouter.user_list,
     children: [
       {
         label: '数据采集',
-        url: [EnumRouter.user_list],
+        url: EnumRouter.user_list,
         children: [
           {
             label: '用户管理',
-            url: [EnumRouter.user_list],
+            url: EnumRouter.user_list,
             icon: {
               type: EnumIconTypes.antd,
               value: 'up-square-o',
@@ -34,7 +34,7 @@ export default helper.immutable([
             children: [
               {
                 label: 'list',
-                url: [EnumRouter.user_list],
+                url: EnumRouter.user_list,
                 icon: {
                   type: EnumIconTypes.antd,
                   value: 'up-square-o',

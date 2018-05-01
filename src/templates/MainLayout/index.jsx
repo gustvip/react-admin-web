@@ -109,77 +109,75 @@ class SiderMenu extends React.PureComponent {
    * @param {String} locationPathname
    * @param {Array} openKeys ---一般不填，递归时需要
    */
-  getMenu = (data, locationPathname, openKeys = []) => data.map(item => {
+  getMenu = (data, locationPathname, openKeys = []) => {
     const _this = this
     openKeys = Array.isArray(openKeys) ? openKeys : []
-    const defaultOpenKeys = [].concat(openKeys)
-    
-    if (!T.helper.checkArray(data)) {
-      return null
-    } else if (!T.helper.checkArray(item.children)) {
-      /**
-       * 判断children是为长度大于0的数组
-       * 是则返回submenu
-       * 不是返回menu.Item
-       * 绑定Submenu的click事件---menu.Item不需要(已经跳转到对应的url---组件卸载---组件渲染)
-       * 是否需要添加图标字体
-       * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
-       */
-      return <Menu.Item
-        key={item.url[0]}
-      >
-        <Link
-          to={{
-            pathname: item.url[0],
-          }}
-          onClick={e => _this.props.clickLink(e, locationPathname, item.url[0])}
-        >
+    if (T.helper.checkArray(data)) {
+      return data.map(item => {
+        const defaultOpenKeys = [].concat(openKeys)
+        if (!T.helper.checkArray(item.children)) {
+          /**
+           * 判断children是为长度大于0的数组
+           * 是则返回submenu
+           * 不是返回menu.Item
+           * 绑定Submenu的click事件---menu.Item不需要(已经跳转到对应的url---组件卸载---组件渲染)
+           * 是否需要添加图标字体
+           * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
+           */
+          return <Menu.Item
+            key={item.url[0]}
+          >
+            <Link
+              to={{
+                pathname: item.url[0],
+              }}
+              onClick={e => _this.props.clickLink(e, locationPathname, item.url[0])}
+            >
           <span>
             {getIcon(item.icon)}
             <span>
             {item.label}
             </span>
           </span>
-        </Link>
-      </Menu.Item>
-    } else {
-      /**
-       * 设置可能的defaulOpenKeys
-       * 绑定Submenu的onClick事件
-       * 将子defaultOpenKeys传下去
-       * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
-       */
-      defaultOpenKeys.push(item.url[0])
-      
-      return <Menu.SubMenu
-        key={item.url[0]}
-        title={
-          <span>
-					{getIcon(item.icon)}<span>{item.label}</span>
-				</span>
+            </Link>
+          </Menu.Item>
+        } else {
+          /**
+           * 设置可能的defaulOpenKeys
+           * 绑定Submenu的onClick事件
+           * 将子defaultOpenKeys传下去
+           * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
+           */
+          defaultOpenKeys.push(item.url[0])
+          return <Menu.SubMenu
+            key={item.url[0]}
+            title={
+              <span>
+					  {getIcon(item.icon)}<span>{item.label}</span>
+				     </span>
+            }
+            onTitleClick={() => _this.handleDefaultOpenKeys(defaultOpenKeys.slice())}
+          >
+            {_this.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
+          </Menu.SubMenu>
         }
-        onTitleClick={() => _this.handleDefaultOpenKeys(defaultOpenKeys.slice())}
-      >
-        {_this.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
-      </Menu.SubMenu>
+      })
     }
-  })
+  }
   
   /**
    * 设置openKeys
    * @param {Array} defaultOpenKeys
    */
-  handleDefaultOpenKeys = (defaultOpenKeys) => {
+  handleDefaultOpenKeys = defaultOpenKeys => {
     /**
      * 判断defaultOpenKeys和原来的openKeys的每一项是否都相等
      * 如果相等则截取defaultOpenKeys的0到length-1
      * 否则就将defaultOpenKeys设置为新的openKeys
      */
     const _this = this
-    const oldOpenKeys = _this.state.defaultOpenKeys
-    const isEqual = defaultOpenKeys.every((item, index) => item === oldOpenKeys[index])
     _this.setState({
-      defaultOpenKeys: isEqual
+      defaultOpenKeys: T.lodash.isEqual(defaultOpenKeys, _this.state.defaultOpenKeys)
         ? defaultOpenKeys.slice(0, defaultOpenKeys.length - 1)
         : defaultOpenKeys,
     })

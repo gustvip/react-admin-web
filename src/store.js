@@ -8,8 +8,6 @@ import { createStore as _createStore, applyMiddleware, combineReducers } from 'r
 
 export const STORE_INJECT = '@@STORE_INJECT'
 
-
-
 /**
  * 注册
  */

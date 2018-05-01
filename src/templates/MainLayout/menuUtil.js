@@ -7,8 +7,8 @@ import EnumDefaultMenus from 'constants/EnumDefaultMenus'
 import helper from '../../utils/core/helper'
 
 /**
- * window.location.pathname和分类值的对应关系
- * @type {{[window.location.pathname]:{category:String}}}
+ * location.pathname和分类值的对应关系
+ * @type {{[location.pathname]:{category:String}}}
  */
 let mapUrlToCategory = {}
 
@@ -36,42 +36,30 @@ export const EnumMenus = (() => {
       resultChildren = children.map(item => {
         let itemUrl = []
         
-        /**
-         * url的处理
-         */
-        if (Array.isArray(item.url) || T.helper.checkString(itemUrl)) {
-          resultUrl = resultUrl.concat(item.url)
-          itemUrl = itemUrl.concat(item.url)
-        }
-        
         if (T.helper.checkArray(item.children)) {
           const result = formatData(item.children)
-          /**
-           * 注意返回的url和当前的url连接---去重
-           */
-          itemUrl = T.lodash.uniq(result.resultUrl.concat(itemUrl))
-          
-          /**
-           * 在children下的所有和parent的url连接---去重
-           */
-          resultUrl = T.lodash.uniq(resultUrl.concat(itemUrl))
+          itemUrl = result.resultUrl.concat(itemUrl)
+          resultUrl = resultUrl.concat(itemUrl)
           
           return T.lodash.assign(
             {},
             item,
             {
               children: result.resultChildren,
-              url: Array.isArray(item.url)
-                ? T.lodash.uniq(item.url.concat(itemUrl))
-                : T.helper.checkString(item.url)
-                  ? T.lodash.uniq([item.url].concat(itemUrl))
-                  : [],
+              url: T.lodash.uniq(
+                (Array.isArray(item.url)
+                    ? item.url
+                    : T.helper.checkString(item.url)
+                      ? [item.url]
+                      : []
+                ).concat(result.resultUrl),
+              ),
             },
           )
         } else {
           
-          if (helper.checkString(item.url)) {
-            resultUrl = T.lodash.uniq(resultUrl.concat(item.url))
+          if (Array.isArray(item.url) || T.helper.checkString(item.url)) {
+            resultUrl = resultUrl.concat(item.url)
           }
           
           return T.lodash.assign(
@@ -104,7 +92,16 @@ export const EnumMenus = (() => {
     return T.lodash.assign(
       {},
       item,
-      {children: result.resultChildren, url: T.lodash.uniq(item.url.concat(result.resultUrl))},
+      {
+        children: result.resultChildren,
+        url: T.lodash.uniq(
+          (Array.isArray(item.url)
+              ? item.url
+              : T.helper.checkString(item.url)
+                ? [item.url]
+                : []
+          ).concat(result.resultUrl)),
+      },
     )
   })
   
@@ -118,8 +115,7 @@ export const EnumMenus = (() => {
  * @return {String || null}
  */
 export const getCategoryData = locationPathname => {
-  locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
-  const result = mapUrlToCategory[locationPathname]
+  const result = mapUrlToCategory[T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)]
   
   return T.helper.isObject(result) ? result.category : null
 }
@@ -140,15 +136,11 @@ export const getCategoryChildrenData = category => {
 }
 
 /**
- * 获取window.location.pathname的分类路由
+ * 获取分类路由
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
-export const getCategoryRoute = locationPathname => {
-  const result = T.lodash.flowRight(getCategoryChildrenData, getCategoryData, T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
-  
-  return Array.isArray(result) ? result : []
-}
+export const getCategoryRoute = locationPathname => T.lodash.flowRight(getCategoryChildrenData, getCategoryData)(locationPathname)
 
 /**
  * 获取window.location.pathname对应的菜单数据
@@ -167,7 +159,7 @@ export const getMenuData = locationPathname => {
 }
 
 /**
- * 获取window.location.pathname的菜单打开的数组
+ * 获取菜单打开的数组
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
@@ -178,7 +170,7 @@ export const getOpenKeys = locationPathname => {
   
   (function fn (_dataSource) {
     /**
-     * 从顶层开始判断当前的window.location.pathname是否在其中
+     * 从顶层开始判断当前的location.pathname是否在其中
      * 如果在将对应的url[0]添加到返回的data中
      * 如果该行的children为长度大于0的数组则继续递归
      */
@@ -189,5 +181,5 @@ export const getOpenKeys = locationPathname => {
     }
   })(dataSource)
   
-  return data
+  return data.slice(0, data.length - 1)
 }
