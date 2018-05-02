@@ -4,7 +4,6 @@
 
 import T from 'utils/T'
 import EnumDefaultMenus from 'constants/EnumDefaultMenus'
-import helper from '../../utils/core/helper'
 
 /**
  * location.pathname和分类值的对应关系
@@ -26,20 +25,15 @@ export const EnumMenus = (() => {
     /**
      * 定义返回parent的url和children
      * 注意children的url和遍历的url不能混为一谈
-     *        parent的url包含children的url
-     *        children的url在遍历中定义----最后再和parent连接
      */
     let resultUrl = []
     let resultChildren = []
     
     if (T.helper.checkArray(children)) {
       resultChildren = children.map(item => {
-        let itemUrl = []
-        
         if (T.helper.checkArray(item.children)) {
           const result = formatData(item.children)
-          itemUrl = result.resultUrl.concat(itemUrl)
-          resultUrl = resultUrl.concat(itemUrl)
+          resultUrl = resultUrl.concat(result.resultUrl)
           
           return T.lodash.assign(
             {},
@@ -148,8 +142,8 @@ export const getCategoryRoute = locationPathname => T.lodash.flowRight(getCatego
  * @return {Array}
  */
 export const getMenuData = locationPathname => {
-  const data = getCategoryRoute(locationPathname)
-  const result = T.lodash.find(data, item => item.url.indexOf(locationPathname) !== -1)
+  locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)
+  const result = T.lodash.find(getCategoryRoute(locationPathname), item => item.url.indexOf(locationPathname) !== -1)
   
   return T.helper.isObject(result)
     ? Array.isArray(result.children)

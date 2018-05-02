@@ -24,13 +24,12 @@ class Helper {
   
   /**
    * @param {*} data
-   * @param {[Function]} callback
-   * @param {[Boolean]} enumerable 属性是否可以枚举
+   * @param {Function} callback
+   * @param {Boolean} enumerable 属性是否可以枚举
    * @return {*}
    */
-  immutable (data, callback, enumerable = true) {
+  immutable (data, callback = _.identity, enumerable = true) {
     const _this = this
-    callback = _.isFunction(callback) ? callback : value => value
     
     return (function fn (_data) {
       let result = _data
@@ -51,7 +50,7 @@ class Helper {
   
   /**
    * 设置class
-   * @param {[*]} basisClass 不是字符串，默认为iconfont,不想加传递''
+   * @param {*} basisClass 不是字符串，默认为iconfont,不想加传递''
    * @return {Function}
    */
   classNames (basisClass) {
@@ -61,7 +60,7 @@ class Helper {
   /**
    * 字符串类型的渲染默认值
    * @param {String}    val  检测的字段
-   * @param {[String]}    defaultVal  不满足条件的默认值
+   * @param {String}    defaultVal  不满足条件的默认值
    * @return {String}
    */
   showValue (val, defaultVal = '-') {
@@ -126,12 +125,11 @@ class Helper {
    * @param {Array} data
    * @param {*} stopValue 停止的值
    * @param {Function} stopCallback 停止的回调
-   * @param {[Function]} resultCallback 如果没有,stopCallback替换
-   * @param {[String]} childrenProperty 递归的属性名称
+   * @param {Function} resultCallback 如果没有,stopCallback替换
+   * @param {String} childrenProperty 递归的属性名称
    * @return {Array}
    */
   findPath ({data, stopValue, stopCallback, resultCallback, childrenProperty = 'children'} = {}) {
-    data = Array.isArray(data) ? data.slice() : []
     resultCallback = resultCallback ? resultCallback : stopCallback
     
     let tag = false
@@ -141,9 +139,6 @@ class Helper {
     
     while (!tag && index < len) {
       (function fn (_data, _array) {
-        /**
-         * 将值添加到数组---无条件
-         */
         const val = stopCallback(_data)
         _array.push(resultCallback(_data))
         
@@ -172,7 +167,6 @@ class Helper {
    * @return {Array}
    */
   formatTree ({data, resultCallback, childrenName = 'children'} = {}) {
-    data = _.isArray(data) ? data.slice() : []
     const _this = this
     
     return (function fn (_data) {

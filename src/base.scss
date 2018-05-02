@@ -1,5 +1,14 @@
-* {
+*,
+*::before,
+*::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	word-wrap: break-word;
 }
+
+/*h5tag*/
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+	display: block;
+}
+
