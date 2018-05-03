@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/02/19
  */
-import ENV from 'ENV'
 import helper from 'utils/core/helper'
 import lodash from 'lodash'
 

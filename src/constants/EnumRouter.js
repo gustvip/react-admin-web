@@ -4,7 +4,6 @@
 
 import helper from 'utils/core/helper'
 import lodash from 'lodash'
-import ENV from 'ENV'
 
 /**
  * 所有路由

@@ -2,7 +2,6 @@
  * Created by joey on 2018/2/19
  */
 import { create } from 'axios'
-import ENV from 'ENV'
 import _ from 'lodash'
 
 /**

@@ -8,7 +8,6 @@
 import PropTypes from 'prop-types'
 import T from 'utils/T'
 import { STORE_INJECT } from 'store.js'
-import ENV from 'ENV'
 
 /**
  * 组件

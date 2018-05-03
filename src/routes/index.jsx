@@ -13,7 +13,6 @@ import {
 import { NoMatch } from './routeTool'
 import CommonRoutes from './common'         // 公共模块--相关路由,如:登录,注册...
 import UserRoutes from './user'         // 用户相关模块
-import ENV from 'ENV'
 
 const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>
 

@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil'
 import style from './index.scss'
 import { EnumIconTypes } from 'constants/EnumDefaultMenus'
-import ENV from 'ENV'
 
 /**
  * 组件

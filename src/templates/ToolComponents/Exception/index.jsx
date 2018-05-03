@@ -2,7 +2,6 @@ import styles from './index.scss'
 import img_404 from './img/404.svg'
 import img_403 from './img/403.svg'
 import img_500 from './img/500.svg'
-import ENV from 'ENV'
 
 import { createElement } from 'react'
 import { Button } from 'antd'

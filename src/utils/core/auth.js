@@ -5,7 +5,6 @@ import EnumAPI from 'constants/EnumAPI'
 import helper from './helper'
 import queryString from 'query-string'
 import localStorage from './localStorage'
-import ENV from 'ENV'
 import _ from 'lodash'
 import * as request from './request'
 

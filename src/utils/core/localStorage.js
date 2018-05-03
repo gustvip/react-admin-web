@@ -1,7 +1,6 @@
 /**
  * created by joey 2018/02/20
  */
-import ENV from 'ENV'
 
 var localStorageInstance = (function () {
   var toString = Object.prototype.toString
