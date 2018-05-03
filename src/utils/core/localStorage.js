@@ -160,7 +160,7 @@ var localStorageInstance = (function () {
           expTime = parseInt(expTime)
           
           if (storage && isFinite(expTime)) {
-            storage.expire = storage.expire + expTime
+            storage.expire += expTime
             update(STORAGE_KEY, storageValue)
             
             return true
@@ -182,7 +182,7 @@ var localStorageInstance = (function () {
           this.clearExpired()
           var storage = storageValue[key]
           expTime = parseInt(expTime)
-
+          
           if (!isFinite(expTime) || expTime < 0) {
             expTime = NO_EXPIRE
           }
@@ -200,7 +200,7 @@ var localStorageInstance = (function () {
       },
       
       /**
-       * 删除localStorage的某一项数据---固定信息不可删除
+       * 删除localStorage的某一项数据
        * @param {string} key 数据名
        * @return {_constructor}
        */
@@ -217,7 +217,7 @@ var localStorageInstance = (function () {
       },
       
       /**
-       * 清空本地数据---固定信息不可删除
+       * 清空本地数据
        * @return {_constructor}
        */
       'clear': {

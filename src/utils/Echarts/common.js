@@ -31,7 +31,7 @@ export default class BasisChart extends React.PureComponent {
 		const props = _this.props
 		
 		return <ReactEcharts
-			option={_.assign({}, BASIS_OPTION, props.option)}
+			option={_.merge({}, BASIS_OPTION, props.option)}
 			notMerge={_.isBoolean(props.notMerge) ? props.notMerge : false}
 			lazyUpdate={_.isBoolean(props.lazyUpdate) ? props.lazyUpdate : false}
 			theme={props.theme}

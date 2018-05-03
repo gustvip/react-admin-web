@@ -77,7 +77,7 @@ class mapBasisHelper {
     this.setMap(
       new this.AMapInstance.Map(
         container,
-        _.assign(
+        _.merge(
           {},
           mapBasisHelper.setOptions(),
           options,
@@ -940,7 +940,7 @@ class mapBasisHelper {
    * @return {Object}
    */
   createNormalLayer (name, options) {
-    options = _.assign({}, options, {map: this.mapInstance})
+    options = _.merge({}, options, {map: this.mapInstance})
     switch (name) {
       /**
        * 默认的切片图层
@@ -977,7 +977,7 @@ class mapBasisHelper {
   createMassMarksLayer (data, options) {
     return new this.AMapInstance.MassMarks(
       data,
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -992,7 +992,7 @@ class mapBasisHelper {
    */
   createFlexibleLayer (options) {
     return new this.AMapInstance.TileLayer.Flexible(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1007,7 +1007,7 @@ class mapBasisHelper {
    */
   createImageLayer (options) {
     return new this.AMapInstance.ImageLayer(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1022,7 +1022,7 @@ class mapBasisHelper {
    */
   createCanvasLayer (options) {
     return new this.AMapInstance.CanvasLayer(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1037,7 +1037,7 @@ class mapBasisHelper {
    */
   createVideoLayer (options) {
     return new this.AMapInstance.VideoLayer(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1052,7 +1052,7 @@ class mapBasisHelper {
    */
   createCustomLayer (options) {
     return new this.AMapInstance.CustomLayer(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1067,7 +1067,7 @@ class mapBasisHelper {
    */
   createWMSLayer (options) {
     return new this.AMapInstance.TileLayer.WMS(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1082,7 +1082,7 @@ class mapBasisHelper {
    */
   createWMTSLayer (options) {
     return new this.AMapInstance.TileLayer.WMTS(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1107,7 +1107,7 @@ class mapBasisHelper {
    */
   createMarker (options) {
     return new this.AMapInstance.Marker(
-      _.assign(
+      _.merge(
         {},
         EnumMap.COVER_COMMON_STYLE,
         options,
@@ -1123,7 +1123,7 @@ class mapBasisHelper {
    */
   createIcon (options) {
     return new this.AMapInstance.Icon(
-      _.assign(
+      _.merge(
         {},
         options,
         {map: this.mapInstance},
@@ -1138,11 +1138,11 @@ class mapBasisHelper {
    */
   createText (options, style) {
     return new this.AMapInstance.Text(
-      _.assign(
+      _.merge(
         {},
         EnumMap.COVER_COMMON_STYLE,
         options,
-        {style: _.assign({}, EnumMap.COVER_TEXT_STYLE, style)},
+        {style: _.merge({}, EnumMap.COVER_TEXT_STYLE, style)},
         {map: this.mapInstance},
       ),
     )
@@ -1155,9 +1155,9 @@ class mapBasisHelper {
    */
   createPolyline (options) {
     return new this.AMapInstance.Polyline(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_POLYLINE_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_POLYLINE_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1171,9 +1171,9 @@ class mapBasisHelper {
    */
   createPolygon (options) {
     return new this.AMapInstance.Polygon(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_POLYGON_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_POLYGON_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1187,9 +1187,9 @@ class mapBasisHelper {
    */
   createBezirCure (options) {
     return new this.AMapInstance.BezierCurve(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_BEZIRCURE_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_BEZIRCURE_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1203,9 +1203,9 @@ class mapBasisHelper {
    */
   createCircle (options) {
     return new this.AMapInstance.Circle(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_CIRCLE_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_CIRCLE_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1219,9 +1219,9 @@ class mapBasisHelper {
    */
   createCircleMarker (options) {
     return new this.AMapInstance.CircleMarker(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_CIRCLE_MARKER_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_CIRCLE_MARKER_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1235,9 +1235,9 @@ class mapBasisHelper {
    */
   createEllipse (options) {
     return new this.AMapInstance.Ellipse(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_ELLIPSE_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_ELLIPSE_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1251,9 +1251,9 @@ class mapBasisHelper {
    */
   createRectangle (options) {
     return new this.AMapInstance.Rectangle(
-      _.assign(
+      _.merge(
         {},
-        _.assign({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_RECTANGLE_STYLE),
+        _.merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_RECTANGLE_STYLE),
         options,
         {map: this.mapInstance},
       ),
@@ -1277,7 +1277,7 @@ class mapBasisHelper {
    * @return {Object}
    */
   createInfoWindow (options) {
-    return new this.AMapInstance.InfoWindow(_.assign({}, options, {map: this.mapInstance}))
+    return new this.AMapInstance.InfoWindow(_.merge({}, options, {map: this.mapInstance}))
   }
 }
 

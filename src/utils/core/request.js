@@ -75,7 +75,7 @@ const _request = (options = {}) => {
  * @returns {Promise}
  */
 export function get (url, params = {}, options = {}) {
-  options = _.assign({
+  options = _.merge({
     url,
     method: 'get',
     params,
@@ -92,15 +92,11 @@ export function get (url, params = {}, options = {}) {
  * @returns {Promise}
  */
 export function post (url, data = {}, options = {}) {
-  options = _.assign({
+  options = _.merge({
     url,
     method: 'post',
-    data: (function () {
-      const requestParams = new URLSearchParams()
-      _.each(data, (value, key) => requestParams.append(key, value))
-      
-      return requestParams
-    })(),
+    data: _.transform(data, (result, value, key) => result.append(key, value), new URLSearchParams()),
+    
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
   }, options)
   
@@ -115,7 +111,7 @@ export function post (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function postJSON (url, data = {}, options = {}) {
-  options = _.assign({
+  options = _.merge({
     url,
     method: 'post',
     data,
@@ -134,17 +130,12 @@ export function postJSON (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function upload (url, data = {}, options = {}, onUploadProgress = _.noop) {
-  options = _.assign({
+  options = _.merge({
     url,
     method: 'post',
     data: data instanceof FormData
       ? data
-      : (function () {
-        const formData = new FormData()
-        _.each(data, (value, key) => formData.append(key, value))
-        
-        return formData
-      })(),
+      : _.transform(data, (result, value, key) => result.append(key, value), new FormData()),
     onUploadProgress,
     
     headers: {
@@ -163,7 +154,7 @@ export function upload (url, data = {}, options = {}, onUploadProgress = _.noop)
  * @returns {Promise}
  */
 export function del (url, data = {}, options = {}) {
-  options = _.assign({
+  options = _.merge({
     url,
     method: 'delete',
     data,
@@ -183,7 +174,7 @@ export function del (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function put (url, data = {}, options = {}) {
-  options = _.assign({
+  options = _.merge({
     url,
     method: 'put',
     data,

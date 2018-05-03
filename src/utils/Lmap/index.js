@@ -88,7 +88,7 @@ class mapBasisHelper {
     this.setMap(
       new this.LInstance.map(
         container,
-        _.assign(
+        _.merge(
           {},
           mapBasisHelper.setOptions(),
           options,
@@ -488,7 +488,7 @@ class mapBasisHelper {
   createPolyline (latLngs, options) {
     return this.LInstance.polyline(
       latLngs,
-      _.assign({}, EnumMap.COVER_POLYLINE_STYLE, options)
+      _.merge({}, EnumMap.COVER_POLYLINE_STYLE, options)
     )
   }
   
@@ -501,7 +501,7 @@ class mapBasisHelper {
   createPolygon (latLngs, options) {
     return this.LInstance.polygon(
       latLngs,
-      _.assign({}, EnumMap.COVER_POLYGON_STYLE, options)
+      _.merge({}, EnumMap.COVER_POLYGON_STYLE, options)
     )
   }
   
@@ -514,7 +514,7 @@ class mapBasisHelper {
   createRectangle (latLngs, options) {
     return this.LInstance.rectangle(
       latLngs,
-      _.assign({}, EnumMap.COVER_RECTANGLE_STYLE, options),
+      _.merge({}, EnumMap.COVER_RECTANGLE_STYLE, options),
     )
   }
   
@@ -527,7 +527,7 @@ class mapBasisHelper {
   createCircle (latLngs, options) {
     return this.LInstance.circle(
       latLngs,
-      _.assign({}, EnumMap.COVER_CIRCLE_STYLE, options),
+      _.merge({}, EnumMap.COVER_CIRCLE_STYLE, options),
     )
   }
   
@@ -540,7 +540,7 @@ class mapBasisHelper {
   createCircleMarker (latLngs, options) {
     return this.LInstance.circleMarker(
       latLngs,
-      _.assign({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options))
+      _.merge({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options))
   }
   
   /**

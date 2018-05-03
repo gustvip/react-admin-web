@@ -18,13 +18,7 @@ import MainLayoutComponent from 'templates/MainLayout'
  */
 export const DefaultLayout = ({component: Component, reducers, ...rest}) => {
   const LazyComponent = lazyLoad(Component)
-  return (
-    <Route
-      key={rest.path}{...rest} exact render={matchProps => (
-      <LazyComponent {...matchProps} reducers={reducers}/>
-    )}
-    />
-  )
+  return <Route key={rest.path}{...rest} exact render={() => <LazyComponent reducers={reducers}/>}/>
 }
 
 /**
@@ -39,12 +33,11 @@ export const MainLayout = ({component: Component, reducers, ...rest}) => {
   const LazyComponent = lazyLoad(Component)
   return (
     <Route
-      key={rest.path}{...rest} exact render={matchProps => (
+      key={rest.path}{...rest} exact render={() => (
       <MainLayoutComponent>
-        <LazyComponent {...matchProps} reducers={reducers}/>
+        <LazyComponent reducers={reducers}/>
       </MainLayoutComponent>
-    )}
-    />
+    )}/>
   )
 }
 

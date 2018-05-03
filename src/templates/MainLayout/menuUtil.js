@@ -24,7 +24,6 @@ export const EnumMenus = (() => {
   const formatData = children => {
     /**
      * 定义返回parent的url和children
-     * 注意children的url和遍历的url不能混为一谈
      */
     let resultUrl = []
     let resultChildren = []
@@ -94,7 +93,8 @@ export const EnumMenus = (() => {
               : T.helper.checkString(item.url)
                 ? [item.url]
                 : []
-          ).concat(result.resultUrl)),
+          ).concat(result.resultUrl),
+        ),
       },
     )
   })

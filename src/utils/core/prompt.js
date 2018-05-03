@@ -49,7 +49,7 @@ class Prompt {
    * @param {Object} options
    */
   confirm (options = {}) {
-    options = _.assign({
+    options = _.merge({
       title: '确定删除吗？',
       content: '',    // content可以是react节点实例
       okText: '确定',

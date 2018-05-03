@@ -84,7 +84,7 @@ import _ from 'lodash'
     
     _initWindy: function (self) {
       // windy object, copy options
-      const options = _.assign({canvas: self._canvasLayer._canvas}, self.options)
+      const options = _.merge({canvas: self._canvasLayer._canvas}, self.options)
       this._windy = new Windy(options)
       
       // prepare context global var, start drawing

@@ -138,7 +138,7 @@ const drawPolygonOrpolyline = (type, map, L, options = {}) => new Promise((resol
     
     return shape[type](
       [[clickedEvent.latlng.lat, clickedEvent.latlng.lng]],
-      _.assign({
+      _.merge({
         color: '#ff7800',
         weight: 1,
       }, options),
@@ -235,7 +235,7 @@ export default class MouseTool {
         const clickCb = (e) => {
           const marker = L.marker(
             [e.latlng.lat, e.latlng.lng],
-            _.assign({
+            _.merge({
               icon: L.icon({
                 iconUrl: IconMarker,
                 iconSize: [16, 16],
@@ -273,7 +273,7 @@ export default class MouseTool {
         return L.rectangle(
           [[downEvent.latlng.lat, downEvent.latlng.lng], [moveEvent.latlng.lat, moveEvent.latlng.lng]],
           
-          _.assign({
+          _.merge({
             color: '#ff7800',
             weight: 1,
           }, options),
@@ -314,7 +314,7 @@ export default class MouseTool {
         return L.circle(
           [downEvent.latlng.lat, downEvent.latlng.lng],
           
-          _.assign({
+          _.merge({
             color: '#ff7800',
             weight: 1,
             radius: map.distance([downEvent.latlng.lat, downEvent.latlng.lng], [moveEvent.latlng.lat, moveEvent.latlng.lng]),

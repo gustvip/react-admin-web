@@ -6,7 +6,7 @@ export default class Measure {
     this._map = map
     this.L = L
     
-    this.options = _.assign({
+    this.options = _.merge({
       circleMarker: {
         color: 'rgb(252, 249, 242)',
         radius: 2,
@@ -33,7 +33,7 @@ export default class Measure {
    * @param {Object} options 测距样式可以修改
    */
   start (options = {}) {
-    this.options = _.assign(this.options, options)
+    this.options = _.merge(this.options, options)
     
     const L = this.L
     this._defaultCursor = this._map._container.style.cursor || 'move'

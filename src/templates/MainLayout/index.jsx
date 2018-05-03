@@ -44,7 +44,7 @@ export const MainHeader = ({className = '', title = '', styles = {}, leftRender 
   const defaultStyle = {}
   
   return (
-    <header className={T.helper.classNames(defaultClassName)(className)} style={T.lodash.assign(defaultStyle, styles)}>
+    <header className={T.helper.classNames(defaultClassName)(className)} style={T.lodash.merge(defaultStyle, styles)}>
       <section className={style['left-container']}>
         <section className={style['title-container']}>{title}</section>
         {leftRender}
@@ -75,7 +75,7 @@ export const MainContent = ({className = '', styles = {}, children = null}) => {
   
   return (
     <section
-      style={T.lodash.assign(defaultStyle, styles)}
+      style={T.lodash.merge(defaultStyle, styles)}
       className={T.helper.classNames(defaultClassName)(className)}
     >
       {children}
