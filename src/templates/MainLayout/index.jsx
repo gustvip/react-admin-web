@@ -313,20 +313,11 @@ class Header extends React.PureComponent {
           {_this.getCategoryRoute()}
         
         </section>
-        <section className={style['right-container']}>
-          <Dropdown
-            trigger={['click']}
-            placement="bottomCenter"
-            overlay={
-              <Menu>
-                <Menu.Item onClick={() => _this.loginOut()}>
-                  退出登录
-                </Menu.Item>
-              </Menu>
-            }
-          >
-            <Icon type='user' style={{fontSize: '18px'}}/>
-          </Dropdown>
+        <section
+          onClick={() => _this.loginOut()}
+          className={style['right-container']}
+        >
+          退出登录
         </section>
       </Layout.Header>
     )

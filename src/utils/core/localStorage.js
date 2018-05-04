@@ -2,7 +2,7 @@
  * created by joey 2018/02/20
  */
 
-var localStorageInstance = (function () {
+export default (function () {
   var toString = Object.prototype.toString
   
   /**
@@ -30,7 +30,7 @@ var localStorageInstance = (function () {
   }
   
   function canJSON (x) {
-    return isObject(x) || isString(x) || isNumber(x) || isObject(x) || isArray(x) || isBoolean(x)
+    return isString(x) || isNumber(x) || isObject(x) || isArray(x) || isBoolean(x)
   }
   
   /**
@@ -71,194 +71,151 @@ var localStorageInstance = (function () {
       return isObject(result) ? result : {}
     })()
     
-    Object.defineProperties(_constructor.prototype, {
-      /**
-       * 定义length
-       * @return {Number}
-       */
-      'length': {
-        get: function () {
-          this.clearExpired()
-          
-          return Object.keys(storageValue).length
-        },
-        configurable: false,
-      },
+    /**
+     * 获取长度
+     * @return {Number}
+     */
+    function length () {
+      clearExpired()
       
-      /**
-       * 返回localStorage的所有值
-       * @return {Object}
-       */
-      'getAll': {
-        value: function () {
-          this.clearExpired()
-          
-          return JSON.parse(JSON.stringify(storageValue))
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 设置localStorage
-       * @param {String} key 名称
-       * @param {String || Number ||  Boolean || Array || Object} value 设置的值
-       * @param {Number} expTime 过期时间
-       * @return {_constructor}
-       */
-      'setItem': {
-        value: function (key, value, expTime) {
-          this.clearExpired()
-          expTime = parseInt(expTime, 10)
-          
-          if (!canJSON(value)) {
-            console.warn('设置的值不可序列化，请重新设置')
-            return this
-          }
-          
-          if (!isFinite(expTime) || expTime < 0) {
-            expTime = NO_EXPIRE
-          }
-          
-          storageValue[key] = {
-            value,
-            expire: expTime === NO_EXPIRE ? NO_EXPIRE : expTime + Date.now(),
-          }
-          update(STORAGE_KEY, storageValue)
-          
-          return this
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 获取localStorage某一项的值
-       * @param {String} key 数据名
-       * @returns {String || Boolean || Number || Array || Object}
-       */
-      'getItem': {
-        value: function (key) {
-          this.clearExpired()
-          
-          var storage = storageValue[key]
-          if (storage) {
-            return storage.value
-          }
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 续期localStorage的expire
-       * @param {String} key 数据名
-       * @param {Number} expTime 过期时间
-       * @return {_constructor}
-       */
-      'keepExpire': {
-        value: function (key, expTime) {
-          this.clearExpired()
-          var storage = storageValue[key]
-          expTime = parseInt(expTime)
-          
-          if (storage && isFinite(expTime)) {
-            storage.expire += expTime
-            update(STORAGE_KEY, storageValue)
-            
-            return true
-          } else {
-            return false
-          }
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 更新localStorage的expire
-       * @param {String} key 数据名
-       * @param {Number} expTime 过期时间
-       * @return {_constructor}
-       */
-      'updateExpire': {
-        value: function (key, expTime) {
-          this.clearExpired()
-          var storage = storageValue[key]
-          expTime = parseInt(expTime)
-          
-          if (!isFinite(expTime) || expTime < 0) {
-            expTime = NO_EXPIRE
-          }
-          
-          if (storage) {
-            storage.expire = expTime === NO_EXPIRE ? NO_EXPIRE : Date.now() + expTime
-            update(STORAGE_KEY, storageValue)
-            
-            return true
-          } else {
-            return false
-          }
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 删除localStorage的某一项数据
-       * @param {string} key 数据名
-       * @return {_constructor}
-       */
-      'removeItem': {
-        value: function (key) {
-          this.clearExpired()
-          
-          delete storageValue[key]
-          update(STORAGE_KEY, storageValue)
-          
-          return this
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 清空本地数据
-       * @return {_constructor}
-       */
-      'clear': {
-        value: function () {
-          storageValue = {}
-          update(STORAGE_KEY, storageValue)
-          
-          return this
-        },
-        configurable: false,
-      },
-      
-      /**
-       * 清空过期的数据
-       * @return {_constructor}
-       */
-      'clearExpired': {
-        value: function () {
-          for (var key in storageValue) {
-            if (storageValue.hasOwnProperty(key)) {
-              var value = storageValue[key]
-              if (!isObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
-                delete storageValue[key]
-              }
-            }
-          }
-          
-          update(STORAGE_KEY, storageValue)
-          
-          return this
-        },
-        configurable: false,
-      },
-    })
+      return Object.keys(storageValue).length
+    }
     
     /**
-     * 清除localStorage中过期的数据
+     * 清空过期的数据
      */
-    this.clearExpired()
+    function clearExpired () {
+      for (var key in storageValue) {
+        if (storageValue.hasOwnProperty(key)) {
+          var value = storageValue[key]
+          if (!isObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
+            delete storageValue[key]
+          }
+        }
+      }
+      
+      update(STORAGE_KEY, storageValue)
+      
+      return this
+    }
+    
+    /**
+     * 返回localStorage的所有值
+     * @return {Object}
+     */
+    function getAll () {
+      clearExpired()
+      
+      return JSON.parse(JSON.stringify(storageValue))
+    }
+    
+    /**
+     * 设置localStorage
+     * @param {String} key 名称
+     * @param {String || Number ||  Boolean || Array || Object} value 设置的值
+     * @param {Number} expTime 过期时间
+     */
+    function setItem (key, value, expTime) {
+      clearExpired()
+      expTime = parseInt(expTime, 10)
+      
+      if (!canJSON(value)) {
+        console.warn('设置的值不可序列化，请重新设置')
+        return
+      }
+      
+      if (!isFinite(expTime) || expTime < 0) {
+        expTime = NO_EXPIRE
+      }
+      
+      storageValue[key] = {
+        value,
+        expire: expTime === NO_EXPIRE ? NO_EXPIRE : expTime + Date.now(),
+      }
+      update(STORAGE_KEY, storageValue)
+    }
+    
+    /**
+     * 获取localStorage某一项的值
+     * @param {String} key 数据名
+     * @returns {String || Boolean || Number || Array || Object}
+     */
+    function getItem (key) {
+      clearExpired()
+      var storage = storageValue[key]
+      
+      if (storage) {
+        return storage.value
+      }
+    }
+    
+    /**
+     * 续期localStorage的expire
+     * @param {String} key 数据名
+     * @param {Number} expTime 过期时间
+     * @return {Boolean}
+     */
+    function keepItem (key, expTime) {
+      clearExpired()
+      var storage = storageValue[key]
+      expTime = parseInt(expTime)
+      
+      if (storage && isFinite(expTime)) {
+        storage.expire += expTime
+        update(STORAGE_KEY, storageValue)
+      }
+      
+    }
+    
+    /**
+     * 更新localStorage的expire
+     * @param {String} key 数据名
+     * @param {Number} expTime 过期时间
+     */
+    function updateItem (key, expTime) {
+      clearExpired()
+      var storage = storageValue[key]
+      expTime = parseInt(expTime)
+      
+      if (!isFinite(expTime) || expTime < 0) {
+        expTime = NO_EXPIRE
+      }
+      
+      if (storage) {
+        storage.expire = expTime === NO_EXPIRE ? NO_EXPIRE : Date.now() + expTime
+        update(STORAGE_KEY, storageValue)
+      }
+    }
+    
+    /**
+     * 删除localStorage的某一项数据
+     * @param {string} key 数据名
+     */
+    function removeItem (key) {
+      clearExpired()
+      delete storageValue[key]
+      update(STORAGE_KEY, storageValue)
+    }
+    
+    /**
+     * 清空本地数据
+     */
+    function clear () {
+      storageValue = {}
+      update(STORAGE_KEY, storageValue)
+    }
+    
+    return {
+      length: length,
+      clearExpired: clearExpired,
+      getAll: getAll,
+      setItem: setItem,
+      getItem: getItem,
+      keepItem: keepItem,
+      updateItem: updateItem,
+      removeItem: removeItem,
+      clear: clear,
+    }
   }
-})()
-
-export default new localStorageInstance(ENV.localStorage.mainKeyName)
+})()(ENV.localStorage.mainKeyName)
 

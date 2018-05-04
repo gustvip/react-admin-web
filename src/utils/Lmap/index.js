@@ -40,9 +40,7 @@ class mapBasisHelper {
    * @param {Object} map
    */
   setMap (map) {
-    if (this.mapInstance !== map) {
-      this.map = map
-    }
+    this.map = map
     
     if (!this.mouseTool) {
       this.mouseTool = new mouseTool(this.mapInstance, this.LInstance)
@@ -84,7 +82,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createMap (container, options) {
+  map (container, options) {
     this.setMap(
       new this.LInstance.map(
         container,
@@ -445,7 +443,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createMarker (latLng, options) {
+  marker (latLng, options) {
     return this.LInstance.marker(latLng, options)
   }
   
@@ -455,7 +453,7 @@ class mapBasisHelper {
    * @param {Object} sources
    * @return {Object}
    */
-  createPopup (options, sources) {
+  popup (options, sources) {
     return this.LInstance.popup(options, sources)
   }
   
@@ -465,7 +463,7 @@ class mapBasisHelper {
    * @param {Object} sources
    * @return {Object}
    */
-  createTooltip (options, sources) {
+  tooltip (options, sources) {
     return this.LInstance.tooltip(options, sources)
   }
   
@@ -475,7 +473,7 @@ class mapBasisHelper {
    * @param {Object} sources
    * @return {Object}
    */
-  createPath (options, sources) {
+  path (options, sources) {
     return this.LInstance.path(options, sources)
   }
   
@@ -485,10 +483,10 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createPolyline (latLngs, options) {
+  polyline (latLngs, options) {
     return this.LInstance.polyline(
       latLngs,
-      _.merge({}, EnumMap.COVER_POLYLINE_STYLE, options)
+      _.merge({}, EnumMap.COVER_POLYLINE_STYLE, options),
     )
   }
   
@@ -498,10 +496,10 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createPolygon (latLngs, options) {
+  polygon (latLngs, options) {
     return this.LInstance.polygon(
       latLngs,
-      _.merge({}, EnumMap.COVER_POLYGON_STYLE, options)
+      _.merge({}, EnumMap.COVER_POLYGON_STYLE, options),
     )
   }
   
@@ -511,7 +509,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createRectangle (latLngs, options) {
+  rectangle (latLngs, options) {
     return this.LInstance.rectangle(
       latLngs,
       _.merge({}, EnumMap.COVER_RECTANGLE_STYLE, options),
@@ -524,7 +522,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCircle (latLngs, options) {
+  circle (latLngs, options) {
     return this.LInstance.circle(
       latLngs,
       _.merge({}, EnumMap.COVER_CIRCLE_STYLE, options),
@@ -537,7 +535,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCircleMarker (latLngs, options) {
+  circleMarker (latLngs, options) {
     return this.LInstance.circleMarker(
       latLngs,
       _.merge({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options))
@@ -548,7 +546,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createSvg (options) {
+  svg (options) {
     return this.LInstance.svg(options)
   }
   

@@ -161,7 +161,7 @@ export default class List extends React.PureComponent {
       {
         title: '创建时间',
         dataIndex: 'created_at',
-        render: val => T.helper.formatDate(val),
+        render: val => new Date(val).toLocaleDateString(),
         sorter (a, b) {
           return T.helper.sort({
             prev: a,
@@ -173,7 +173,7 @@ export default class List extends React.PureComponent {
       {
         title: '更新时间',
         dataIndex: 'updated_at',
-        render: val => T.helper.formatDate(val),
+        render: val => new Date(val).toLocaleDateString(),
         sorter (a, b) {
           return T.helper.sort({
             prev: a,
