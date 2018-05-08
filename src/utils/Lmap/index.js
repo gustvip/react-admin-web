@@ -555,7 +555,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCanvas (options) {
+  canvas (options) {
     return this.LInstance.canvas(options)
   }
 }

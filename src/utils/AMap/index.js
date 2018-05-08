@@ -727,7 +727,7 @@ class mapBasisHelper {
    * 创建MouseTool实列
    * @return {Object}
    */
-  creatMouseTool () {
+  mouseTool () {
     if (!this.AMapInstance.MouseTool) {
       this.mapInstance.plugin(['AMap.MouseTool'])
     }
@@ -739,7 +739,7 @@ class mapBasisHelper {
    * 创建RangingTool实列
    * @return {Object}
    */
-  creatRangingTool (options) {
+  rangingTool (options) {
     if (!this.AMapInstance.RangingTool) {
       this.mapInstance.plugin(['AMap.RangingTool'])
     }
@@ -752,7 +752,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createGeocoder (options) {
+  geocoder (options) {
     /**
      * 判读地图实列是否添加了插件
      */
@@ -836,7 +836,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createAutocomplete (options) {
+  autocomplete (options) {
     /**
      * 判读地图实列是否添加了插件
      */
@@ -887,7 +887,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createDistrictSearch (options) {
+  districtSearch (options) {
     /**
      * 判读地图实列是否添加了插件
      */
@@ -939,7 +939,7 @@ class mapBasisHelper {
    * @param {Object} options 附加选项
    * @return {Object}
    */
-  createNormalLayer (name, options) {
+  normalLayer (name, options) {
     options = _.merge({}, options, {map: this.mapInstance})
     switch (name) {
       /**
@@ -974,7 +974,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createMassMarksLayer (data, options) {
+  massMarksLayer (data, options) {
     return new this.AMapInstance.MassMarks(
       data,
       _.merge(
@@ -990,7 +990,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createFlexibleLayer (options) {
+  flexibleLayer (options) {
     return new this.AMapInstance.TileLayer.Flexible(
       _.merge(
         {},
@@ -1005,7 +1005,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createImageLayer (options) {
+  imageLayer (options) {
     return new this.AMapInstance.ImageLayer(
       _.merge(
         {},
@@ -1020,7 +1020,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCanvasLayer (options) {
+  canvasLayer (options) {
     return new this.AMapInstance.CanvasLayer(
       _.merge(
         {},
@@ -1035,7 +1035,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createVideoLayer (options) {
+  videoLayer (options) {
     return new this.AMapInstance.VideoLayer(
       _.merge(
         {},
@@ -1050,7 +1050,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCustomLayer (options) {
+  customLayer (options) {
     return new this.AMapInstance.CustomLayer(
       _.merge(
         {},
@@ -1065,7 +1065,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createWMSLayer (options) {
+  WMSLayer (options) {
     return new this.AMapInstance.TileLayer.WMS(
       _.merge(
         {},
@@ -1080,7 +1080,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createWMTSLayer (options) {
+  WMTSLayer (options) {
     return new this.AMapInstance.TileLayer.WMTS(
       _.merge(
         {},
@@ -1094,7 +1094,7 @@ class mapBasisHelper {
    * 创建layer集合
    * @param layer
    */
-  createLayerGroup (layer) {
+  layerGroup (layer) {
     return new this.AMapInstance.LayerGroup(
       Array.isArray(layer) ? layer : arguments.slice(),
     )
@@ -1105,7 +1105,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createMarker (options) {
+  marker (options) {
     return new this.AMapInstance.Marker(
       _.merge(
         {},
@@ -1121,7 +1121,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createIcon (options) {
+  icon (options) {
     return new this.AMapInstance.Icon(
       _.merge(
         {},
@@ -1136,7 +1136,7 @@ class mapBasisHelper {
    * @param {Object} style
    * @return {Object}
    */
-  createText (options, style) {
+  text (options, style) {
     return new this.AMapInstance.Text(
       _.merge(
         {},
@@ -1153,7 +1153,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createPolyline (options) {
+  polyline (options) {
     return new this.AMapInstance.Polyline(
       _.merge(
         {},
@@ -1169,7 +1169,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createPolygon (options) {
+  polygon (options) {
     return new this.AMapInstance.Polygon(
       _.merge(
         {},
@@ -1185,7 +1185,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createBezirCure (options) {
+  bezirCure (options) {
     return new this.AMapInstance.BezierCurve(
       _.merge(
         {},
@@ -1201,7 +1201,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCircle (options) {
+  circle (options) {
     return new this.AMapInstance.Circle(
       _.merge(
         {},
@@ -1217,7 +1217,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createCircleMarker (options) {
+  circleMarker (options) {
     return new this.AMapInstance.CircleMarker(
       _.merge(
         {},
@@ -1233,7 +1233,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createEllipse (options) {
+  ellipse (options) {
     return new this.AMapInstance.Ellipse(
       _.merge(
         {},
@@ -1249,7 +1249,7 @@ class mapBasisHelper {
    * @param {Object} options
    * @return {Object}
    */
-  createRectangle (options) {
+  rectangle (options) {
     return new this.AMapInstance.Rectangle(
       _.merge(
         {},
@@ -1265,7 +1265,7 @@ class mapBasisHelper {
    * @param {Array} options
    * @return {Object}
    */
-  createOverlayGroup (options) {
+  overlayGroup (options) {
     return new this.AMapInstance.OverlayGroup(
       Array.isArray(options) ? options : arguments.slice(),
     )
@@ -1276,7 +1276,7 @@ class mapBasisHelper {
    * @param {Array} options
    * @return {Object}
    */
-  createInfoWindow (options) {
+  infoWindow (options) {
     return new this.AMapInstance.InfoWindow(_.merge({}, options, {map: this.mapInstance}))
   }
 }

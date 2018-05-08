@@ -95,8 +95,6 @@ export default (function () {
       }
       
       update(STORAGE_KEY, storageValue)
-      
-      return this
     }
     
     /**

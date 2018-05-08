@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import classNames from 'classnames'
+import moment from 'moment'
 
 class Helper {
   /**
@@ -211,6 +212,18 @@ class Helper {
   toFixed (num, fixNum = 2, defaultVal = '-') {
     num = Number(num)
     return !isFinite(num) ? defaultVal : num.toFixed(fixNum)
+  }
+  
+  /**
+   * 时间格式化
+   * @param {*} date
+   * @param {String} template
+   * @return {String}
+   */
+  formatDate (date, template = 'YYYY-MM-DD HH:mm:ss') {
+    return moment(
+      this.isUsefulNumber(date) ? Math.round(date) : Date.now(),
+    ).format(template)
   }
   
   /**

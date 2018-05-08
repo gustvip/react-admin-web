@@ -240,8 +240,7 @@ module.exports = {
     }),
     
     new webpack.ProvidePlugin({
-      React: 'react',
-      _: 'lodash',
+      React: 'react'
     }),
   ],
 }
