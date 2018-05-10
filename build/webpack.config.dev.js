@@ -9,8 +9,8 @@ module.exports = merge(baseConfig, {
   mode: 'development',
   
   output: {
-    publicPath: '/public/',
-    path: `${__dirname}/../public/`,
+    publicPath: '/dist/',
+    path: `${__dirname}/../dist/`,
     filename: '[name].js',
   },
 })

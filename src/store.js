@@ -51,8 +51,7 @@ class Registry {
 function registryMiddleware (registry) {
   return dispatch => next => action => {
     if (T.lodash.isPlainObject(action) && action.hasOwnProperty(STORE_INJECT)) {
-      const reducers = action[STORE_INJECT]
-      return T.helper.checkArray(reducers) && registry.injectReducers(reducers)
+      return T.helper.checkArray(action[STORE_INJECT]) && registry.injectReducers(action[STORE_INJECT])
     }
     
     return next(action)
@@ -67,7 +66,6 @@ export default function createStore (initialState = {}) {
   const registry = new Registry()
   let finalCreateStore = applyMiddleware(...[registryMiddleware(registry), thunk])
   
-  // if we have redux devtools installed hook into it.
   if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     finalCreateStore = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(finalCreateStore)
   }

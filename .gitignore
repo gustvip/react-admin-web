@@ -2,10 +2,10 @@
 .DS_Store
 node_modules
 /test/*
-/public/*
-!/public/favicon.ico
-!/public/screen
-!/public/index.html
-!/public/config
-!/public/asserts
+/dist/*
+!/dist/favicon.ico
+!/dist/screen
+!/dist/index.html
+!/dist/config
+!/dist/asserts
 *.log

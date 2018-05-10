@@ -32,9 +32,10 @@ export default class List extends React.PureComponent {
    * 获取用户所有信息
    */
   componentDidMount () {
-    this.props.dispatch(actionTypes.getInitialDataAction({
-      currentPage: this.props.mapProps.currentPage,
-      pageSize: this.props.mapProps.pageSize,
+    const _this = this
+    _this.props.dispatch(actionTypes.getInitialDataAction({
+      currentPage: _this.props.mapProps.currentPage,
+      pageSize: _this.props.mapProps.pageSize,
     }))
   }
   
@@ -73,7 +74,7 @@ export default class List extends React.PureComponent {
   }
   
   /**
-   * 选中行
+   * 搜索
    * @param {String} value
    */
   handleSearch = value => {
@@ -275,9 +276,9 @@ export default class List extends React.PureComponent {
   render () {
     const _this = this
     
-    return <div id={style['main-container']}>
-      <MainHeader title="content-header"/>
-      <MainContent className={style['main-content-container']}>
+    return [
+      <MainHeader title="content-header" key="0"/>,
+      <MainContent className={style['main-content-container']} key="1">
         <header className={style['table-header-container']}>
           <div className={style['left-container']}>
             <Button
@@ -297,7 +298,7 @@ export default class List extends React.PureComponent {
           pagination={_this.pagination}
           rowSelection={_this.rowSelection}
         />
-      </MainContent>
-    </div>
+      </MainContent>,
+    ]
   }
 }

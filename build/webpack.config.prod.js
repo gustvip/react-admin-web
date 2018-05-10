@@ -29,17 +29,17 @@ module.exports = merge(baseConfig, {
         parallel: true,
         sourceMap: true // set to true if you want JS source maps
       }),
-      new OptimizeCssAssetsPlugin({}),
+      new OptimizeCssAssetsPlugin(),
     ],
   },
   
   output: {
-    publicPath: '/public/',
-    path: `${__dirname}/../public/`,
+    publicPath: '/dist/',
+    path: `${__dirname}/../dist/`,
     filename: '[name].js',
   },
   
   plugins: [
-    new cleanWebpackPlugin(['public/*.js', 'public/*.map', 'public/*.css ', 'public/resource/*']),
+    new cleanWebpackPlugin(['dist/*.js', 'dist/*.map', 'dist/*.css ', 'dist/resources/*']),
   ],
 })

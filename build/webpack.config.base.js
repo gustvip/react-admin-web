@@ -75,36 +75,36 @@ const formatStyleLoader = (otherLoader) => {
 }
 
 const staticResource = (function () {
-  const staticResourceBaseName = 'staticResource'
+  const resourceBaseName = 'resources'
   
   return [
     {
       test: /\.(png|jpg|gif)$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]&limit=8192` //  <= 8kb的图片base64内联
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=8192` //  <= 8kb的图片base64内联
     },
     {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
     },
     {
       test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
     },
     {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
     },
     {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]`,
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
     },
     {
       test: /\.(txt|doc|docx|swf)$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]`,
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
     },
     {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      use: `url-loader?name=${staticResourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=image/svg+xml`,
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=image/svg+xml`,
     },
   ]
 })()
@@ -117,8 +117,6 @@ module.exports = {
   
   optimization: {
     splitChunks: {
-      chunks: 'all',
-      name: 'vendor',
       minSize: 30000,
       minChunks: 1,
       maxAsyncRequests: 5,
@@ -240,7 +238,7 @@ module.exports = {
     }),
     
     new webpack.ProvidePlugin({
-      React: 'react'
+      React: 'react',
     }),
   ],
 }
