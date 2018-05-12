@@ -156,7 +156,7 @@ export default (function () {
     function keepItem (key, expTime) {
       clearExpired()
       var storage = storageValue[key]
-      expTime = parseInt(expTime)
+      expTime = parseInt(expTime, 10)
       
       if (storage && isFinite(expTime)) {
         storage.expire += expTime
@@ -173,7 +173,7 @@ export default (function () {
     function updateItem (key, expTime) {
       clearExpired()
       var storage = storageValue[key]
-      expTime = parseInt(expTime)
+      expTime = parseInt(expTime, 10)
       
       if (!isFinite(expTime) || expTime < 0) {
         expTime = NO_EXPIRE
@@ -203,17 +203,46 @@ export default (function () {
       update(STORAGE_KEY, storageValue)
     }
     
-    return {
-      length: length,
-      clearExpired: clearExpired,
-      getAll: getAll,
-      setItem: setItem,
-      getItem: getItem,
-      keepItem: keepItem,
-      updateItem: updateItem,
-      removeItem: removeItem,
-      clear: clear,
-    }
+    return Object.defineProperties({}, {
+      length: {
+        get: function () {
+          return length()
+        },
+        configurable: false,
+      },
+      clearExpired: {
+        value: clearExpired,
+        configurable: false,
+      },
+      getAll: {
+        value: getAll,
+        configurable: false,
+      },
+      setItem: {
+        value: setItem,
+        configurable: false,
+      },
+      getItem: {
+        value: getItem,
+        configurable: false,
+      },
+      keepItem: {
+        value: keepItem,
+        configurable: false,
+      },
+      updateItem: {
+        value: updateItem,
+        configurable: false,
+      },
+      removeItem: {
+        value: removeItem,
+        configurable: false,
+      },
+      clear: {
+        value: clear,
+        configurable: false,
+      },
+    })
   }
 })()(ENV.localStorage.mainKeyName)
 

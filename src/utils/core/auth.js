@@ -24,7 +24,6 @@ class Auth {
   
   /**
    * 获取localStorage(自定义)的login值
-   * @return {*|{value, configurable}}
    */
   getLoginStorageValue () {
     return localStorage.getItem(ENV.localStorage.login.key)

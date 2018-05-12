@@ -22,9 +22,6 @@ export const EnumMenus = (() => {
    * @return {{resultChildren: Array, resultUrl: Array}}
    */
   const formatData = children => {
-    /**
-     * 定义返回parent的url和children
-     */
     let resultUrl = []
     let resultChildren = []
     

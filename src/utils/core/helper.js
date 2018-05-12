@@ -118,7 +118,7 @@ class Helper {
    * @return {* || String}
    */
   removeBlank (x) {
-    return _.isString(x) ? [].filter.call(x, val => val).join('') : x
+    return _.isString(x) ? [].filter.call(x, val => val.trim().length > 0).join('') : x
   }
   
   /**
@@ -172,7 +172,7 @@ class Helper {
     
     return (function fn (_data) {
       return _data.map(item => {
-        const children = _.get(item, childrenName)
+        const children = item[childrenName]
         const info = resultCallback(item)
         
         if (_this.checkArray(children)) {

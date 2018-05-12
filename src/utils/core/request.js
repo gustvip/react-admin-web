@@ -42,7 +42,7 @@ const Singleton = (function () {
 
 /**
  * 请求中转函数
- * @param options
+ * @param {Object} options
  * @return {Promise}
  * @private
  */
@@ -69,9 +69,9 @@ const _request = (options = {}) => {
 
 /**
  * get请求
- * @param {string} url
- * @param {object} params
- * @param {object} options
+ * @param {String} url
+ * @param {Object} params
+ * @param {Object} options
  * @returns {Promise}
  */
 export function get (url, params = {}, options = {}) {
@@ -86,9 +86,9 @@ export function get (url, params = {}, options = {}) {
 
 /**
  * post请求
- * @param {string} url
- * @param {object} data
- * @param {object} options
+ * @param {String} url
+ * @param {Object} data
+ * @param {Object} options
  * @returns {Promise}
  */
 export function post (url, data = {}, options = {}) {
@@ -105,9 +105,9 @@ export function post (url, data = {}, options = {}) {
 
 /**
  * post json请求
- * @param {string} url
- * @param {object} data
- * @param {object} options
+ * @param {String} url
+ * @param {Object} data
+ * @param {Object} options
  * @returns {Promise}
  */
 export function postJSON (url, data = {}, options = {}) {
