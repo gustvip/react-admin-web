@@ -6,16 +6,12 @@
   
   var rootPath = '/'
   
-  function isFunction (x) {
-    return typeof x === 'function'
-  }
-  
   function isObject (x) {
     return x !== null && typeof x === 'object'
   }
   
   function immutable (data, callback) {
-    callback = isFunction(callback) ? callback : function (value) {
+    callback = callback ? callback : function (value) {
       return value
     }
     
@@ -58,7 +54,7 @@
        * 登陆配置
        */
       login: {
-        isCheckLogin: true,                            // web端是否验证登录
+        isCheckLogin: false,                            // web端是否验证登录
         defaultRedirectUrl: rootPath + 'user/list',  // 登录成功默认重定向的url
         loginUrl: rootPath + 'login',                   // 登录页面url
         noCheckIsLoginRoutes: [    						// 不需要验证是否登录的路由配置

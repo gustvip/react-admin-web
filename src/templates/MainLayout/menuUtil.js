@@ -96,8 +96,8 @@ export const EnumMenus = (() => {
     )
   })
   
-  mapUrlToCategory = T.helper.immutable(mapUrlToCategory, null)
-  return T.helper.immutable(menuData, null)
+  mapUrlToCategory = T.helper.immutable(mapUrlToCategory)
+  return T.helper.immutable(menuData)
 })()
 
 /**

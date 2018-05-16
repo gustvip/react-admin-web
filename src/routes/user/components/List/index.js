@@ -21,7 +21,6 @@ import Table from 'templates/ToolComponents/Table'
  * 枚举
  */
 import EnumRouter from 'constants/EnumRouter'
-import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 
 /**
  * 入口组件
@@ -234,10 +233,7 @@ export default class List extends React.PureComponent {
    * 获取表格数据
    */
   get dataSource () {
-    return this.props.mapProps.dataSource.map((item, index) => ({
-      ...item,
-      key: index,
-    }))
+    return this.props.mapProps.dataSource.map((item, index) => T.lodash.assign({}, item, {key: index}))
   }
   
   /**

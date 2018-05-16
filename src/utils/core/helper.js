@@ -28,9 +28,8 @@ class Helper {
    * @param {Boolean} enumerable 属性是否可以枚举
    * @return {*}
    */
-  immutable (data, callback, enumerable = true) {
+  immutable (data, callback=_.identity, enumerable = true) {
     const _this = this
-    callback = _.isFunction(callback) ? callback : _.identity
     
     return (function fn (_data) {
       let result = _data
@@ -118,7 +117,7 @@ class Helper {
    * @return {* || String}
    */
   removeBlank (x) {
-    return _.isString(x) ? [].filter.call(x, val => val.trim().length > 0).join('') : x
+    return _.isString(x) ? x.replace(/\s/g, '') : x
   }
   
   /**

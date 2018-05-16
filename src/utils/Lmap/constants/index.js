@@ -9,7 +9,7 @@ import helper from 'utils/core/helper';
  */
 export const CENTER = helper.immutable({
 	normal: [39.90923, 116.397428],		// 默认中心
-}, null);
+});
 
 /**
  * 缩放
@@ -19,7 +19,7 @@ export const ZOOM = helper.immutable({
 	normal: 7,		// 默认缩放级别
 	min: 3,		// 最小缩放级别
 	max: 18,		// 最大缩放级别
-}, null);
+});
 
 /**
  * 覆盖物Polyline样式
@@ -30,7 +30,7 @@ export const COVER_POLYLINE_STYLE = helper.immutable({
 	weight: 3,   // 描边宽度，
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
-}, null);
+});
 
 /**
  * 覆盖物Polygon样式
@@ -42,7 +42,7 @@ export const COVER_POLYGON_STYLE = helper.immutable({
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	fillColor: '#0f0', // 填充颜色
-}, null);
+});
 
 /**
  * 覆盖物rectangle样式
@@ -54,7 +54,7 @@ export const COVER_RECTANGLE_STYLE = helper.immutable({
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	fillColor: '#00f', // 填充颜色
-}, null);
+});
 
 /**
  * 覆盖物Circle样式
@@ -67,7 +67,7 @@ export const COVER_CIRCLE_STYLE = helper.immutable({
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	radius: 100, // 圆半径
 	fillColor: '#ff0', // 填充颜色
-}, null);
+});
 
 /**
  * 覆盖物CircleMarker样式
@@ -80,6 +80,6 @@ export const COVER_CIRCLE_MARKER_STYLE = helper.immutable({
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	radius: 100, // 圆半径
 	fillColor: '#fd56ff', // 填充颜色
-}, null);
+});
 
 

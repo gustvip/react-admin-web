@@ -15,7 +15,6 @@ import './base.scss'
  * 加载 redux store
  */
 import store from './store'
-
 /**
  * 加载路由
  */

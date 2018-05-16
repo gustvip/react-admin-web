@@ -12,7 +12,7 @@ import EnumRouter from './EnumRouter'
 export const EnumIconTypes = helper.immutable({
   antd: 'antd',
   custom: 'custom',
-}, null)
+})
 
 export default helper.immutable([
   {
@@ -47,5 +47,5 @@ export default helper.immutable([
       },
     ],
   },
-], null)
+])
 
