@@ -4,7 +4,7 @@
 
 import * as webAPI from '../../webAPI/list'
 import * as actionTypes from '../../constants/list'
-import T from 'utils/T'
+import T from 'utils/t'
 
 /**
  * 获取初始化数据

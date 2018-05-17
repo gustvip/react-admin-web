@@ -6,7 +6,7 @@
  * 基本
  */
 import PropTypes from 'prop-types'
-import T from 'utils/T'
+import T from 'utils/t'
 import { STORE_INJECT } from 'store.js'
 
 /**

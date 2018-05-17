@@ -47,15 +47,15 @@ export const LANG = helper.immutable({
  * @type {{normal: {value: string, label: string}, whitesmoke: {value: string, label: string}, graffiti: {value: string, label: string}, darkblue: {value: string, label: string}, blue: {value: string, label: string}, fresh: {value: string, label: string}, dark: {value: string, label: string}, light: {value: string, label: string}, grey: {value: string, label: string}}}
  */
 export const MAP_STYLE = helper.immutable({
-  normal: {value: 'amap://styles/normal', label: '标准'},
-  whitesmoke: {value: 'amap://styles/whitesmoke', label: '远山黛'},
-  graffiti: {value: 'amap://styles/graffiti', label: '涂鸦'},
-  darkblue: {value: 'amap://styles/darkblue', label: '极夜蓝'},
-  blue: {value: 'amap://styles/blue', label: '靛青蓝'},
-  fresh: {value: 'amap://styles/fresh', label: '草色青'},
-  dark: {value: 'amap://styles/dark', label: '幻影黑'},
-  light: {value: 'amap://styles/light', label: '月光银'},
-  grey: {value: 'amap://styles/grey', label: '雅士灰'},
+  normal: {value: 'AMap://styles/normal', label: '标准'},
+  whitesmoke: {value: 'AMap://styles/whitesmoke', label: '远山黛'},
+  graffiti: {value: 'AMap://styles/graffiti', label: '涂鸦'},
+  darkblue: {value: 'AMap://styles/darkblue', label: '极夜蓝'},
+  blue: {value: 'AMap://styles/blue', label: '靛青蓝'},
+  fresh: {value: 'AMap://styles/fresh', label: '草色青'},
+  dark: {value: 'AMap://styles/dark', label: '幻影黑'},
+  light: {value: 'AMap://styles/light', label: '月光银'},
+  grey: {value: 'AMap://styles/grey', label: '雅士灰'},
 })
 
 /**

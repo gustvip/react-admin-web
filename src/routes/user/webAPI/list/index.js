@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/18
  */
 
-import EnumAPI from 'constants/EnumAPI'
-import T from 'utils/T'
+import EnumAPI from 'constants/enum_api'
+import T from 'utils/t'
 
 /**
  * 获取用户详情

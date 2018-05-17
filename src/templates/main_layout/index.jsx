@@ -5,11 +5,11 @@
 /**
  * 基本
  */
-import T from 'utils/T'
+import T from 'utils/t'
 import PropTypes from 'prop-types'
-import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil'
+import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menu_util'
 import style from './index.scss'
-import { EnumIconTypes } from 'constants/EnumDefaultMenus'
+import { EnumIconTypes } from 'constants/enum_default_menus'
 
 /**
  * 组件

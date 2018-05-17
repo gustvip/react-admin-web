@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import T from 'utils/T'
+import T from 'utils/t'
 import {
 	BrowserRouter,
 	Route,
@@ -10,7 +10,7 @@ import {
 	Redirect,
 } from 'react-router-dom'
 
-import { NoMatch } from './routeTool'
+import { NoMatch } from './route_tool'
 import CommonRoutes from './common'         // 公共模块--相关路由,如:登录,注册...
 import UserRoutes from './user'         // 用户相关模块
 

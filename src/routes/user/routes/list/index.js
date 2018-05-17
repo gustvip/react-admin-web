@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import List from '../../components/List/index'
+import List from '../../components/list/index'
 import { connect } from 'react-redux'
 
 /**

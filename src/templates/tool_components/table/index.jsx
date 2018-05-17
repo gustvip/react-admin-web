@@ -1,6 +1,6 @@
-import T from 'utils/T'
+import T from 'utils/t'
 import { Table } from 'antd'
-import style from './tableExchange.scss'
+import style from './table_exchange.scss'
 
 const TableExchange = function (props) {
 	return <Table

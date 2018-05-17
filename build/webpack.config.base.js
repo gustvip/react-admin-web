@@ -26,6 +26,11 @@ const customAntdStyle = {
   '@font-size-base': '12px',                      // 修改基础字体大小
 }
 
+/**
+ * css-loader less-loader scss-loader 公共
+ * @param otherLoader
+ * @return {*[]}
+ */
 const formatStyleLoader = (otherLoader) => {
   const baseLoaders = [
     {
@@ -74,6 +79,9 @@ const formatStyleLoader = (otherLoader) => {
   return baseLoaders
 }
 
+/**
+ * 静态资源
+ */
 const staticResource = (function () {
   const resourceBaseName = 'resources'
   
@@ -152,14 +160,14 @@ module.exports = {
   entry: {
     app: ['./src/index'],
     commons: [
-      'utils/T',
+      'utils/t',
       'es6-promise',
       'url-search-params-polyfill',
     ],
   },
   
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', 'scss'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
     modules: ['node_modules', 'web_modules', './src'],
   },
   

@@ -2,17 +2,17 @@
  * 基本
  */
 import styles from './index.scss'
-import T from 'utils/T'
+import T from 'utils/t'
 
 /**
  * 组件
  */
 import { Button } from 'antd'
 
-const loginBack = require('./img/loginBack.png')
-const loginBox = require('./img/loginBox.png')
-const userImg = require('./img/username.png')
-const passImg = require('./img/password.png')
+const loginBack = require('./img/login_back.png')
+const loginBox = require('./img/login_box.png')
+const userImg = require('./img/user_name.png')
+const passImg = require('./img/user_password.png')
 
 @T.decorator.contextTypes('router')
 export default class Login extends React.PureComponent {

@@ -4,19 +4,12 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import _ from 'lodash'
-
-/**
- * 加载鼠标工具
- */
-import mouseTool from './extend/mouseTool'
-
 import * as EnumMap from './constants/index'
 
 class mapBasisHelper {
   constructor () {
     this.map = null
     this.L = L
-    this.mouseTool = null
   }
   
   /**
@@ -41,10 +34,6 @@ class mapBasisHelper {
    */
   setMap (map) {
     this.map = map
-    
-    if (!this.mouseTool) {
-      this.mouseTool = new mouseTool(this.mapInstance, this.LInstance)
-    }
     
     return this
   }

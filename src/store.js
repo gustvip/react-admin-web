@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 
-import T from 'utils/T'
+import T from 'utils/t'
 import thunk from 'redux-thunk'
 import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux'
 

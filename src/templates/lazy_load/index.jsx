@@ -3,7 +3,7 @@
  * created by joey 2018/02/19
  */
 
-import LazyLoad from './lazyLoad'
+import LazyLoad from './lazy_load'
 
 export default lazyLoader => {
 	return props => {

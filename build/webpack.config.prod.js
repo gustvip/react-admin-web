@@ -20,6 +20,7 @@ module.exports = merge(baseConfig, {
     'react-dom': 'ReactDOM',
     leaflet: 'L',
     echarts: 'echarts',
+    moment: 'moment',
   },
   
   optimization: {
@@ -27,14 +28,14 @@ module.exports = merge(baseConfig, {
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true // set to true if you want JS source maps
+        sourceMap: true, // set to true if you want JS source maps
       }),
       new OptimizeCssAssetsPlugin(),
     ],
   },
   
   output: {
-    publicPath: '/dist/',
+    publicPath: '/static/',
     path: `${__dirname}/../dist/`,
     filename: '[name].js',
   },

@@ -5,7 +5,7 @@
 /**
  * 基本
  */
-import T from 'utils/T'
+import T from 'utils/t'
 import * as actionTypes from '../../actions/list'
 import style from './list.scss'
 
@@ -14,13 +14,13 @@ import style from './list.scss'
  */
 import { Button, Input } from 'antd'
 import { Link } from 'react-router-dom'
-import { MainHeader, MainContent } from 'templates/MainLayout'
-import Table from 'templates/ToolComponents/Table'
+import { MainHeader, MainContent } from 'templates/main_layout'
+import Table from 'templates/tool_components/table'
 
 /**
  * 枚举
  */
-import EnumRouter from 'constants/EnumRouter'
+import EnumRouter from 'constants/enum_router'
 
 /**
  * 入口组件

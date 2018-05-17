@@ -4,7 +4,7 @@
 
 import * as actionTypes from '../../constants/list'
 import update from 'immutability-helper'
-import T from 'utils/T'
+import T from 'utils/t'
 
 /**
  * 初始state

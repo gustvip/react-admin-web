@@ -2,8 +2,8 @@
  * Created by joey on 18-2-7
  */
 
-import T from 'utils/T'
-import EnumDefaultMenus from 'constants/EnumDefaultMenus'
+import T from 'utils/t'
+import EnumDefaultMenus from 'constants/enum_default_menus'
 
 /**
  * location.pathname和分类值的对应关系

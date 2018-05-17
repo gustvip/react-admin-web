@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/18
  */
 
-import EnumRouter from 'constants/EnumRouter'
-import { AssembleRoute } from 'routes/routeTool'
+import EnumRouter from 'constants/enum_router'
+import { AssembleRoute } from 'routes/route_tool'
 
 /**
  * 组件
