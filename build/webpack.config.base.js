@@ -88,7 +88,7 @@ const staticResource = (function () {
   return [
     {
       test: /\.(png|jpg|gif)$/,
-      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=8192` //  <= 8kb的图片base64内联
+      use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=8192`, //  <= 8kb的图片base64内联
     },
     {
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -147,7 +147,7 @@ module.exports = {
           enforce: true,
           maxAsyncRequests: 1, // 最大异步请求数， 默认1
           maxInitialRequests: 1, // 最大初始化请求书，默认1
-          reuseExistingChunk: true // 可设置是否重用该chunk（查看源码没有发现默认值）
+          reuseExistingChunk: true, // 可设置是否重用该chunk（查看源码没有发现默认值）
         },
       },
     },
@@ -247,6 +247,8 @@ module.exports = {
     
     new webpack.ProvidePlugin({
       React: 'react',
+      $: 'jquery',
+      jquery: 'jquery',
     }),
   ],
 }
