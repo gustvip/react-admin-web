@@ -118,11 +118,6 @@ const staticResource = (function () {
 })()
 
 module.exports = {
-  /**
-   * 用于生成源代码的mapping
-   */
-  devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-source-map
-  
   optimization: {
     splitChunks: {
       minSize: 30000,
@@ -140,10 +135,10 @@ module.exports = {
         },
         
         commons: { // key 为entry中定义的 入口名称
-          chunks: 'all', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
+          chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
           name: 'commons', // 要缓存的 分隔出来的 chunk 名称
-          minSize: 0,
-          minChunks: 1,
+          minChunks: 2,
+          priority: -10,
           enforce: true,
           maxAsyncRequests: 1, // 最大异步请求数， 默认1
           maxInitialRequests: 1, // 最大初始化请求书，默认1
@@ -160,7 +155,6 @@ module.exports = {
   entry: {
     app: ['./src/index'],
     commons: [
-      'utils/t',
       'es6-promise',
       'url-search-params-polyfill',
     ],
