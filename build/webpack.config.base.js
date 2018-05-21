@@ -138,11 +138,8 @@ module.exports = {
           chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
           name: 'commons', // 要缓存的 分隔出来的 chunk 名称
           minChunks: 2,
-          priority: -10,
-          enforce: true,
-          maxAsyncRequests: 1, // 最大异步请求数， 默认1
-          maxInitialRequests: 1, // 最大初始化请求书，默认1
-          reuseExistingChunk: true, // 可设置是否重用该chunk（查看源码没有发现默认值）
+          minSize: 0,
+          priority: 1,
         },
       },
     },
@@ -155,6 +152,7 @@ module.exports = {
   entry: {
     app: ['./src/index'],
     commons: [
+      'utils/t',
       'es6-promise',
       'url-search-params-polyfill',
     ],

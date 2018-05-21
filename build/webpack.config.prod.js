@@ -36,7 +36,7 @@ module.exports = merge(baseConfig, {
   
   output: {
     publicPath: '/static/dist/',
-    path: `${__dirname}/../dist/`,
+    path: `${__dirname}/../dist/dist/`,
     filename: '[name].js',
   },
   
