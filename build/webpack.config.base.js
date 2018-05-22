@@ -45,8 +45,11 @@ const formatStyleLoader = (otherLoader) => {
         sourceMap: true,
         ident: 'postcss',
         plugins: () => [
+          require('postcss-apply'),
+          require('postcss-import'),
           require('postcss-flexbugs-fixes'),
-          require('autoprefixer')({flexbox: 'no-2009'}),
+          require('postcss-cssnext')(),
+          require('cssnano')(),
         ],
       },
     },
