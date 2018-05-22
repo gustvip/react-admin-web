@@ -9,7 +9,7 @@ const host = '0.0.0.0'
 const port = 8080        // 端口号
 const mockHost = 'http://10.0.1.150:8360'	// mock服务主机+端口
 
-const config = merge(require('./build/webpack.config.dev'), {
+const config = merge(require('./webpack.config.dev'), {
   plugins: [
     new BundleAnalyzerPlugin({
       openAnalyzer: false,            // 禁止自动弹出浏览器窗口
@@ -21,7 +21,7 @@ const config = merge(require('./build/webpack.config.dev'), {
     app: [`webpack-dev-server/client?http://${host}:${port}/`],
   },
 })
-const server = new WebpackDevServer(webpack(config), {
+const webpackConfigDevServer = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   contentBase: config.output.path,
   
@@ -31,7 +31,7 @@ const server = new WebpackDevServer(webpack(config), {
   },
   hot: false,
   historyApiFallback: {
-    index: '/dist/',
+    index: '/',
     disableDotRule: true,
   },
   stats: {
@@ -50,9 +50,9 @@ const server = new WebpackDevServer(webpack(config), {
   },
 })
 
-server.app.get('*', (req, res) => {
-  res.sendFile(`${__dirname}/dist/index.html`)
+webpackConfigDevServer.app.get('*', (req, res) => {
+  res.sendFile(`${__dirname}/../dist/index.html`)
 })
 
-server.listen(port, host)
+webpackConfigDevServer.listen(port, host)
 

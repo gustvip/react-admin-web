@@ -5,7 +5,7 @@
 	"description": "react+redux+react-router+axios+lodash+echarts+antd-design+typescript+webpack4.6",
 	"main": "src/index",
 	"scripts": {
-		"dev": "node server.js",
+		"dev": "node ./build/webpack.config.dev.server.js",
 		"build": "webpack --config ./build/webpack.config.prod.js"
 	},
 	"dependencies": {
