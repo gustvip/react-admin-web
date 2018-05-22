@@ -34,6 +34,9 @@ const customAntdStyle = {
 const formatStyleLoader = (otherLoader) => {
   const baseLoaders = [
     {
+      loader:MiniCssExtractPlugin.loader
+    },
+    {
       loader: 'css-loader',
       options: {
         sourceMap: true,
@@ -60,7 +63,7 @@ const formatStyleLoader = (otherLoader) => {
      * 针对scss进行css-module处理---项目用scss
      */
     if (otherLoader.loader === 'sass-loader') {
-      baseLoaders[0] = {
+      baseLoaders[1] = {
         loader: 'css-loader',
         options: {
           sourceMap: true,
@@ -72,7 +75,6 @@ const formatStyleLoader = (otherLoader) => {
     
     baseLoaders.push(otherLoader)
   }
-  baseLoaders.unshift(MiniCssExtractPlugin.loader)
   
   return baseLoaders
 }
@@ -167,7 +169,7 @@ module.exports = {
   
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
-    modules: ['node_modules', 'web_modules', './src'],
+    modules: ['node_modules', 'web_modules', './src/'],
   },
   
   module: {
