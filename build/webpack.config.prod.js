@@ -35,12 +35,12 @@ module.exports = merge(baseConfig, {
   },
   
   output: {
-    publicPath: '/static/dist/',
-    path: `${__dirname}/../dist/dist/`,
+    publicPath: '/static/platform/',
+    path: `${__dirname}/../dist/platform/`,
     filename: '[name].js',
   },
   
   plugins: [
-    new cleanWebpackPlugin(['dist/*.js', 'dist/*.map', 'dist/*.css ', 'dist/resources/*']),
+    new cleanWebpackPlugin(['dist/platform/*.js', 'dist/platform/*.map', 'dist/platform/*.css ', 'dist/platform/resources/*']),
   ],
 })

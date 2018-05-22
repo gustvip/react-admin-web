@@ -34,7 +34,7 @@ const customAntdStyle = {
 const formatStyleLoader = (otherLoader) => {
   const baseLoaders = [
     {
-      loader:MiniCssExtractPlugin.loader
+      loader: MiniCssExtractPlugin.loader,
     },
     {
       loader: 'css-loader',
@@ -152,7 +152,10 @@ module.exports = {
   entry: {
     app: ['./src/index'],
     commons: [
-      'utils/t',
+      'utils/core/decorator.js',
+      'utils/core/local_storage.js',
+      'utils/core/prompt.js',
+      'utils/core/request.js',
       'classnames',
       'es6-promise',
       'immutability-helper',
