@@ -46,12 +46,7 @@ const formatStyleLoader = (otherLoader) => {
         ident: 'postcss',
         plugins: () => [
           require('postcss-flexbugs-fixes'),
-          require('autoprefixer')({
-            browsers: [
-              'last 5 Chrome versions',
-            ],
-            flexbox: 'no-2009',
-          }),
+          require('autoprefixer')({flexbox: 'no-2009'}),
         ],
       },
     },
