@@ -28,11 +28,9 @@ const renderApp = Component => {
   wrapper.id = 'wrapper'
   document.body.appendChild(wrapper)
   
-  return render(
-    <Provider store={store()}>
+  return render(<Provider store={store()}>
       <Component/>
     </Provider>,
-    wrapper,
-  )
+    wrapper)
 }
 renderApp(Routes)

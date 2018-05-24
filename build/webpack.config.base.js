@@ -87,7 +87,7 @@ const staticResource = (function () {
   
   return [
     {
-      test: /\.(png|jpg|gif)$/,
+      test: /\.(png|jpg|gif|jpeg)$/,
       use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=8192`, //  <= 8kb的图片base64内联
     },
     {
@@ -120,8 +120,6 @@ const staticResource = (function () {
 module.exports = {
   optimization: {
     splitChunks: {
-      minSize: 30000,
-      minChunks: 1,
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
       cacheGroups: {
@@ -172,7 +170,7 @@ module.exports = {
   
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
-    modules: ['node_modules', 'web_modules', './src/'],
+    modules: ['node_modules', 'web_modules', 'src/'],
   },
   
   module: {

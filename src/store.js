@@ -49,7 +49,7 @@ class Registry {
  * @return {function(*): function(*): function(*=)}
  */
 function registryMiddleware (registry) {
-  return dispatch => next => action => {
+  return () => next => action => {
     if (T.lodash.isPlainObject(action) && action.hasOwnProperty(STORE_INJECT)) {
       return T.helper.checkArray(action[STORE_INJECT]) && registry.injectReducers(action[STORE_INJECT])
     }
@@ -64,7 +64,7 @@ function registryMiddleware (registry) {
  */
 export default function createStore (initialState = {}) {
   const registry = new Registry()
-  let finalCreateStore = applyMiddleware(...[registryMiddleware(registry), thunk])
+  let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunk)
   
   if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     finalCreateStore = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(finalCreateStore)
