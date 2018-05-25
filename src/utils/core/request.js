@@ -28,7 +28,7 @@ const Singleton = (function () {
       responseType: 'json',
       
       headers: {
-        //'X-Requested-With': 'XMLHttpRequest'
+        /*'X-Requested-With': 'XMLHttpRequest',*/
       },
     })
   }

@@ -182,10 +182,6 @@ class SiderMenu extends React.PureComponent {
     })
   }
   
-  /**
-   * 菜单收缩
-   * @param {Boolean} collapsed
-   */
   handleCollapsed = collapsed => {
     const _this = this
     

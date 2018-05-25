@@ -101,7 +101,7 @@ export default (function () {
      * 返回localStorage的所有值
      * @return {Object}
      */
-    function getAll () {
+    function getAllItem () {
       clearExpired()
       
       return JSON.parse(JSON.stringify(storageValue))
@@ -214,8 +214,8 @@ export default (function () {
         value: clearExpired,
         configurable: false,
       },
-      getAll: {
-        value: getAll,
+      getAllItem: {
+        value: getAllItem,
         configurable: false,
       },
       setItem: {

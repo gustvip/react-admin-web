@@ -8,9 +8,6 @@ import { createStore as _createStore, applyMiddleware, combineReducers } from 'r
 
 export const STORE_INJECT = '@@STORE_INJECT'
 
-/**
- * 注册
- */
 class Registry {
   constructor () {
     this.store = null
@@ -20,6 +17,9 @@ class Registry {
     this.finallyReducer = {}
   }
   
+  /**
+   * @param {Array} reducers
+   */
   injectReducers (reducers) {
     const _this = this
     _this.finallyReducer = T.lodash.assign(
@@ -45,7 +45,7 @@ class Registry {
 
 /**
  * 注册中间件
- * @param registry
+ * @param {Object} registry
  * @return {function(*): function(*): function(*=)}
  */
 function registryMiddleware (registry) {
@@ -60,7 +60,7 @@ function registryMiddleware (registry) {
 
 /**
  * createStore
- * @param initialState
+ * @param {Object} initialState
  */
 export default function createStore (initialState = {}) {
   const registry = new Registry()

@@ -10,7 +10,6 @@ import moment from 'moment'
 import lodash from 'lodash'
 import helper from './core/helper'
 import prompt from './core/prompt'
-import socket from './core/socket'
 import auth from './core/auth'
 import regExp from './core/reg_exp'
 import localStorage from './core/local_storage'
@@ -30,9 +29,6 @@ const T = {
   
   // 常用自己封装的方法
   helper,
-  
-  // websocket类
-  socket,
   
   // 权限
   auth,

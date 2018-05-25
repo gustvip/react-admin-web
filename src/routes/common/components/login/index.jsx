@@ -31,9 +31,6 @@ export default class Login extends React.PureComponent {
   handleSubmit = () => {
     const _this = this
     const {user_name, user_password} = _this.state
-    /**
-     * user_password和id是否符合格式
-     */
     const canSubmit = (T.regExp.name.test(user_name.trim()) || T.regExp.email.test(user_name.trim()) || T.regExp.telephone.test(user_name.trim())) && T.regExp.password.test(user_password.trim())
     
     if (!canSubmit) {

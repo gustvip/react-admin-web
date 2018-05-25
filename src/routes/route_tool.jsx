@@ -10,11 +10,9 @@ import MainLayoutComponent from 'templates/main_layout'
 
 /**
  * 默认布局方式
- * @param Component
- * @param rest
- * @param reducers
- * @returns {XML}
- * @constructor
+ * @param {Object}  Component
+ * @param {Array} rest
+ * @param {Array} reducers
  */
 export const DefaultLayout = ({component: Component, reducers, ...rest}) => {
   const LazyComponent = lazyLoad(Component)
@@ -27,11 +25,9 @@ export const DefaultLayout = ({component: Component, reducers, ...rest}) => {
 
 /**
  * 主要页面布局
- * @param Component
- * @param rest
- * @param reducers
- * @returns {XML}
- * @constructor
+ * @param {Object} Component
+ * @param {Array} rest
+ * @param {Array} reducers
  */
 export const MainLayout = ({component: Component, reducers, ...rest}) => {
   const LazyComponent = lazyLoad(Component)
@@ -52,12 +48,10 @@ export const MainLayout = ({component: Component, reducers, ...rest}) => {
  * 组装路由
  * @param {Array} routes
  * @returns {function()}
- * @constructor
  */
 export const AssembleRoute = (...routes) => () => T.lodash.flattenDeep(routes).map(val => val.Layout ? DefaultLayout(val) : MainLayout(val))
 
 /**
  * 未匹配到的页面
- * @constructor
  */
 export const NoMatch = () => <Exception type="404" style={{minHeight: 500, height: '100%'}} linkElement={Link}/>

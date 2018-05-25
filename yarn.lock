@@ -5198,10 +5198,6 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-onfire.js@^1.0.6:
-  version "1.0.6"
-  resolved "http://registry.npm.taobao.org/onfire.js/download/onfire.js-1.0.6.tgz#f654b03ee02811503caae53fbb560f5a3aae9b7c"
-
 opener@^1.4.3:
   version "1.4.3"
   resolved "http://registry.npm.taobao.org/opener/download/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"

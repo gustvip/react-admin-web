@@ -50,9 +50,6 @@
       apiFailCode: 900,                          // api响应失败的code
       defaultQuery: 'redirect_uri',							// 跳转时search的key
       
-      /**
-       * 登陆配置
-       */
       login: {
         isCheckLogin: false,                            // web端是否验证登录
         defaultRedirectUrl: rootPath + 'user/list',  // 登录成功默认重定向的url
@@ -62,21 +59,15 @@
         ],
       },
       
-      /**
-       * localStorage配置
-       */
       localStorage: {
         mainKeyName: '__STORAGE__', 			// 私有localStorage的key
         login: {
           key: '__LOGIN_USER_INFO__',		// 私有localStorage的key下的登陆的key
           value: true,									// 私有localStorage的key下的登陆的value
-          expire: 24 * 60 * 60 * 1000		// 私有localStorage的key下的登陆的expire
+          expire: 24 * 60 * 60 * 1000,		// 私有localStorage的key下的登陆的expire
         },
       },
       
-      /**
-       * websocket配置
-       */
       socket: {
         etl: {
           isStart: true,                          // 是否开启etl websocket服务
@@ -87,9 +78,6 @@
         },
       },
       
-      /**
-       * 单元测试配置
-       */
       mock: {
         apiDomain: 'http://localhost:8180',     // mockApi请求接口
         isStart: false,                         // 是否开启mock

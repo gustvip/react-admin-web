@@ -9,16 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
  * @type {RegExp}
  */
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?|index.tsx?)$/ig
-
-/**
- * 编译排除的文件
- * @type {RegExp}
- */
-const excludeRegex = /(node_modules|bower_modules)/
-
-/**
- * 自定义antd的样式
- */
+const excludeRegex = /node_modules/
 const customAntdStyle = {
   '@text-color': '#333',                  // 修改字体基本颜色
   '@border-color-base': '#a3babf',				// 更改border颜色
@@ -79,9 +70,6 @@ const formatStyleLoader = (otherLoader) => {
   return baseLoaders
 }
 
-/**
- * 静态资源
- */
 const staticResource = (function () {
   const resourceBaseName = 'resources'
   
@@ -158,7 +146,6 @@ module.exports = {
       'es6-promise',
       'immutability-helper',
       'js-cookie',
-      'onfire.js',
       'prop-types',
       'query-string',
       'react-redux',
@@ -170,7 +157,7 @@ module.exports = {
   
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
-    modules: ['node_modules', 'web_modules', 'src/'],
+    modules: ['node_modules', 'src/'],
   },
   
   module: {
