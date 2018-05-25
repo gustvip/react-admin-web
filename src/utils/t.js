@@ -3,7 +3,6 @@
  */
 
 import cookies from 'js-cookie'
-import onfire from 'onfire.js'
 import queryString from 'query-string'
 import moment from 'moment'
 
@@ -50,9 +49,6 @@ const T = {
   
   // 说明文档: https://github.com/sindresorhus/query-string
   queryString,
-  
-  // 说明文档: https://github.com/hustcc/onfire.js
-  onfire,
   
   // 说明文档: http://momentjs.cn/docs/
   moment,
