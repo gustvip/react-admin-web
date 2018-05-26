@@ -129,10 +129,6 @@ module.exports = {
         },
       },
     },
-    
-    runtimeChunk: {
-      name: 'runtime',
-    },
   },
   
   entry: {

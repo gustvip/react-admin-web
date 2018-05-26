@@ -8,11 +8,16 @@
 						"targets": {
 							"browsers": [
 								">1%",
-								"last 4 versions",
 								"Firefox ESR",
-								"not ie < 10"
+								"ie >= 10",
+								"firefox >= 30",
+								"chrome >= 25",
+								"safari >= 7",
+								"opera >= 15",
+								"android >= 4.4",
+								"ios >= 9"
 							],
-							"node": "8.10"
+							"node": "8.11"
 						},
 						"modules": false,
 						"useBuiltIns": true,

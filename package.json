@@ -1,8 +1,8 @@
 {
 	"name": "demo",
 	"version": "0.0.1",
-	"author": "joey <zhouhaifei1994@sina.com>",
-	"description": "react+redux+react-router+axios+lodash+echarts+antd-design+typescript+webpack4.6",
+	"author": "zhouhaifei <zhouhaifei1994@sina.com>",
+	"description": "react+redux+react-router+axios+lodash+echarts+d3+antd-design+typescript+webpack4.8练习",
 	"main": "src/index",
 	"scripts": {
 		"dev": "node ./build/webpack.config.dev.server.js",
@@ -12,6 +12,7 @@
 		"antd": "^3.5.0",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",
+		"d3": "^5.4.0",
 		"echarts": "^4.1.0",
 		"echarts-for-react": "^2.0.8",
 		"es6-promise": "^4.2.4",
@@ -70,13 +71,21 @@
 	},
 	"browserslist": [
 		">1%",
-		"last 4 versions",
 		"Firefox ESR",
-		"not ie < 10"
+		"ie >= 10",
+		"firefox >= 30",
+		"chrome >= 25",
+		"safari >= 7",
+		"opera >= 15",
+		"android >= 4.4",
+		"ios >= 9"
 	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/air-supply94/react-demo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/air-supply94/react-demo/issues"
 	},
 	"homepage": "https://github.com/air-supply94/react-demo",
 	"license": "ISC"

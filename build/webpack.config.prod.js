@@ -21,6 +21,7 @@ module.exports = merge(baseConfig, {
     leaflet: 'L',
     echarts: 'echarts',
     moment: 'moment',
+    d3: 'd3',
   },
   
   optimization: {
