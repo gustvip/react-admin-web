@@ -4,7 +4,6 @@
 
 import cookies from 'js-cookie'
 import queryString from 'query-string'
-import moment from 'moment'
 
 import lodash from 'lodash'
 import helper from './core/helper'
@@ -49,9 +48,6 @@ const T = {
   
   // 说明文档: https://github.com/sindresorhus/query-string
   queryString,
-  
-  // 说明文档: http://momentjs.cn/docs/
-  moment,
 }
 export default T
 

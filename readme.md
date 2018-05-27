@@ -1,1 +1,1 @@
-react+redux+react-router+axios+lodash+echarts+antd-design+typescript+webpack4.6的demo练习
+react+redux+react-router+axios+lodash+echarts+antd-design+webpack4.9的demo

@@ -6,10 +6,11 @@ const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const BundleAnalyzerPlugin = require(
 	'webpack-bundle-analyzer').BundleAnalyzerPlugin
-const host = '0.0.0.0'
+const devConfig = require('./webpack.config.dev')
+const host = 'localhost'
 const port = 8080        // 端口号
 
-const config = merge(require('./webpack.config.dev'), {
+const config = merge(devConfig, {
 	plugins: [
 		new BundleAnalyzerPlugin({
 			openAnalyzer: false,            // 禁止自动弹出浏览器窗口

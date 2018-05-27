@@ -2,7 +2,6 @@
  * @description webpack 打包基本配置
  */
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 /**
  * 页面入口文件,使用异步加载方式
@@ -10,69 +9,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
  */
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?)$/g
 const excludeRegex = /node_modules/
-const customAntdStyle = {
-	'@text-color': '#333',                  // 修改字体基本颜色
-	'@border-color-base': '#a3babf',				// 更改border颜色
-	'@primary-color': '#00d9ca',		            // 更改antd的主题颜色;
-	'@font-size-base': '12px',                      // 修改基础字体大小
-}
-
-/**
- * css-loader less-loader scss-loader 公共
- * @param otherLoader
- * @return {*[]}
- */
-const formatStyleLoader = (otherLoader) => {
-	const baseLoaders = [
-		{loader: 'style-loader'},
-		/*
-						{
-							loader: MiniCssExtractPlugin.loader,
-						},
-		*/
-		{
-			loader: 'css-loader',
-			options: {
-				sourceMap: true,
-			},
-		},
-		{
-			loader: 'postcss-loader',
-			options: {
-				sourceMap: true,
-				ident: 'postcss',
-				plugins: () => [
-					//require('postcss-apply'),
-					//require('postcss-import'),
-					require('postcss-flexbugs-fixes'),
-					//require('postcss-cssnext')(),
-					//require('cssnano')(),
-				],
-			},
-		},
-	]
-	
-	if (otherLoader) {
-		/**
-		 * 针对scss进行css-module处理---项目用scss
-		 */
-		if (otherLoader.loader === 'sass-loader') {
-			baseLoaders[1] = {
-				loader: 'css-loader',
-				options: {
-					sourceMap: true,
-					modules: true,
-					localIdentName: '[name]__[local]__[hash:base64:5]',
-				},
-			}
-		}
-		
-		baseLoaders.push(otherLoader)
-	}
-	
-	return baseLoaders
-}
-
 const staticResource = (function () {
 	const resourceBaseName = 'resources'
 	
@@ -114,7 +50,7 @@ module.exports = {
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
-				/*styles: {
+				styles: {
 					name: 'vendor',
 					test: /\.scss|css|less$/,
 					chunks: 'all',    // merge all the css chunk to one file
@@ -122,7 +58,7 @@ module.exports = {
 					reuseExistingChunk: true,
 					enforce: true,
 					priority: 0,
-				},*/
+				},
 				
 				commons: { // key 为entry中定义的 入口名称
 					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
@@ -155,46 +91,31 @@ module.exports = {
 			'redux',
 			'redux-thunk',
 			'url-search-params-polyfill',
-			'lodash',
-			'react',
-			'react-dom',
-			'moment',
 		],
 	},
 	
 	resolve: {
-		extensions: ['.js', '.jsx', '.scss'],
+		extensions: ['.js', '.jsx'],
 		modules: ['node_modules', 'src/'],
+	},
+	
+	/**
+	 * 排除打包的内容---走cdn
+	 */
+	externals: {
+		jquery: '$',
+		lodash: '_',
+		react: 'React',
+		'react-dom': 'ReactDOM',
+		leaflet: 'L',
+		echarts: 'echarts',
+		moment: 'moment',
+		d3: 'd3',
 	},
 	
 	module: {
 		rules: [
 			...staticResource,
-			{
-				test: /\.css$/,
-				use: formatStyleLoader(),
-			},
-			{
-				test: /\.scss/,
-				exclude: excludeRegex,
-				use: formatStyleLoader({
-					loader: 'sass-loader',
-					options: {
-						sourceMap: true,
-					},
-				}),
-			},
-			
-			{
-				test: /\.less/,
-				use: formatStyleLoader({
-					loader: 'less-loader',
-					options: {
-						sourceMap: true,
-						modifyVars: customAntdStyle,
-					},
-				}),
-			},
 			
 			{
 				test: routesComponentsRegex,
@@ -217,31 +138,11 @@ module.exports = {
 					routesComponentsRegex,
 				],
 			},
-			
-			{
-				test: /\.tsx?$/,
-				use: [
-					{
-						loader: 'ts-loader',
-					},
-					{
-						loader: 'babel-loader',
-					},
-				],
-				exclude: [
-					excludeRegex,
-					routesComponentsRegex,
-				],
-			},
+		
 		],
 	},
 	
 	plugins: [
-/*
-		new MiniCssExtractPlugin({
-			filename: '[name].css',
-		}),
-*/
 		
 		new webpack.ProvidePlugin({
 			React: 'react',
