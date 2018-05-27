@@ -37,6 +37,7 @@ const webpackConfigDevServer = new WebpackDevServer(webpack(config), {
 	stats: {
 		colors: true,
 	},
+	open: true,
 })
 
 webpackConfigDevServer.app.get('*', (req, res) => {

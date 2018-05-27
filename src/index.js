@@ -24,11 +24,11 @@ import Routes from './routes/index'
  * 渲染程序
  */
 const renderApp = Component => {
-  const wrapper = document.createElement('div')
-  wrapper.id = 'wrapper'
-  return render(<Provider store={store()}>
-      <Component/>
-    </Provider>,
-    document.body.appendChild(wrapper))
+	const wrapper = document.createElement('div')
+	wrapper.id = 'wrapper'
+	return render(<Provider store={store()}>
+			<Component/>
+		</Provider>,
+		document.body.appendChild(wrapper))
 }
 renderApp(Routes)

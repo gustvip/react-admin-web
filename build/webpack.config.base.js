@@ -24,9 +24,12 @@ const customAntdStyle = {
  */
 const formatStyleLoader = (otherLoader) => {
 	const baseLoaders = [
-		{
-			loader: MiniCssExtractPlugin.loader,
-		},
+		{loader: 'style-loader'},
+		/*
+						{
+							loader: MiniCssExtractPlugin.loader,
+						},
+		*/
 		{
 			loader: 'css-loader',
 			options: {
@@ -42,7 +45,7 @@ const formatStyleLoader = (otherLoader) => {
 					//require('postcss-apply'),
 					//require('postcss-import'),
 					require('postcss-flexbugs-fixes'),
-					require('postcss-cssnext')(),
+					//require('postcss-cssnext')(),
 					//require('cssnano')(),
 				],
 			},
@@ -111,7 +114,7 @@ module.exports = {
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
-				styles: {
+				/*styles: {
 					name: 'vendor',
 					test: /\.scss|css|less$/,
 					chunks: 'all',    // merge all the css chunk to one file
@@ -119,16 +122,8 @@ module.exports = {
 					reuseExistingChunk: true,
 					enforce: true,
 					priority: 0,
-				},
+				},*/
 				
-				app: {
-					chunks: 'all', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
-					name: 'app', // 要缓存的 分隔出来的 chunk 名称
-					minChunks: 2,
-					minSize: 0,
-					priority: 1,
-					
-				},
 				commons: { // key 为entry中定义的 入口名称
 					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
 					name: 'commons', // 要缓存的 分隔出来的 chunk 名称
@@ -168,7 +163,7 @@ module.exports = {
 	},
 	
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx', '.scss'],
 		modules: ['node_modules', 'src/'],
 	},
 	
@@ -242,9 +237,11 @@ module.exports = {
 	},
 	
 	plugins: [
+/*
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 		}),
+*/
 		
 		new webpack.ProvidePlugin({
 			React: 'react',

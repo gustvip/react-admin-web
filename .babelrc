@@ -9,8 +9,6 @@
 							"browsers": [
 								">1%",
 								"Firefox ESR",
-								"ie >= 10",
-								"firefox >= 30",
 								"chrome >= 25",
 								"safari >= 7",
 								"opera >= 15",
@@ -39,6 +37,13 @@
 				[
 					"transform-decorators-legacy",
 					"transform-decorators"
+				],
+				[
+					"transform-runtime",
+					{
+						"polyfill": false,
+						"regenerator": true
+					}
 				]
 			]
 		}
