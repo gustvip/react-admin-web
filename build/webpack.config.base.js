@@ -7,8 +7,9 @@ const webpack = require('webpack')
  * 页面入口文件,使用异步加载方式
  * @type {RegExp}
  */
-const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?)$/g
+const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?)$/ig
 const excludeRegex = /node_modules/
+
 const staticResource = (function () {
 	const resourceBaseName = 'resources'
 	
@@ -84,7 +85,6 @@ module.exports = {
 			'classnames',
 			'es6-promise',
 			'immutability-helper',
-			'js-cookie',
 			'prop-types',
 			'query-string',
 			'react-redux',
@@ -95,22 +95,8 @@ module.exports = {
 	},
 	
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx', '.scss'],
 		modules: ['node_modules', 'src/'],
-	},
-	
-	/**
-	 * 排除打包的内容---走cdn
-	 */
-	externals: {
-		jquery: '$',
-		lodash: '_',
-		react: 'React',
-		'react-dom': 'ReactDOM',
-		leaflet: 'L',
-		echarts: 'echarts',
-		moment: 'moment',
-		d3: 'd3',
 	},
 	
 	module: {
@@ -143,11 +129,8 @@ module.exports = {
 	},
 	
 	plugins: [
-		
 		new webpack.ProvidePlugin({
 			React: 'react',
-			$: 'jquery',
-			jquery: 'jquery',
 		}),
 	],
 }

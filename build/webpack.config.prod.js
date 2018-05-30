@@ -7,8 +7,6 @@ const cleanWebpackPlugin = require('clean-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
-const excludeRegex = /node_modules/
 const customAntdStyle = {
 	'@text-color': '#333',                  // 修改字体基本颜色
 	'@border-color-base': '#a3babf',				// 更改border颜色
@@ -32,10 +30,10 @@ const formatStyleLoader = (otherLoader) => {
 				sourceMap: true,
 				ident: 'postcss',
 				plugins: () => [
-					require('postcss-import'),
 					require('postcss-apply'),
+					require('postcss-import'),
 					require('postcss-flexbugs-fixes'),
-					require('autoprefixer')({flexbox: 'no-2009'}),
+					require('autoprefixer')(),
 					require('cssnano')(),
 				],
 			},
@@ -62,20 +60,29 @@ const formatStyleLoader = (otherLoader) => {
 
 module.exports = merge(baseConfig, {
 	mode: 'production',
+	
 	/**
 	 * 排除打包的内容---走cdn
 	 */
 	externals: {
-		jquery: '$',
 		lodash: '_',
 		react: 'React',
 		'react-dom': 'ReactDOM',
 		leaflet: 'L',
 		echarts: 'echarts',
-		moment: 'moment',
 		d3: 'd3',
 	},
 	
+	optimization: {
+		minimizer: [
+			new UglifyJsPlugin({
+				cache: true,
+				parallel: true,
+				sourceMap: true, // set to true if you want JS source maps
+			}),
+			new OptimizeCssAssetsPlugin(),
+		],
+	},
 	module: {
 		rules: [
 			{
@@ -84,7 +91,7 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.scss/,
-				exclude: excludeRegex,
+				exclude: /node_modules/,
 				use: formatStyleLoader({
 					loader: 'sass-loader',
 					options: {
@@ -105,17 +112,6 @@ module.exports = merge(baseConfig, {
 		],
 	},
 	
-	optimization: {
-		minimizer: [
-			new UglifyJsPlugin({
-				cache: true,
-				parallel: true,
-				sourceMap: true,
-			}),
-			new OptimizeCssAssetsPlugin(),
-		],
-	},
-	
 	output: {
 		publicPath: '/static/platform/',
 		path: `${__dirname}/../dist/platform/`,
@@ -126,10 +122,6 @@ module.exports = merge(baseConfig, {
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 		}),
-		new cleanWebpackPlugin([
-			`${__dirname}/../dist/platform/*.js`,
-			`${__dirname}/../dist/platform/*.map`,
-			`${__dirname}/../dist/platform/*.css`,
-			`${__dirname}/../dist/platform/resources/*`]),
+		new cleanWebpackPlugin(['dist/platform/*.js', 'dist/platform/*.map', 'dist/platform/*.css ', 'dist/platform/resources/*']),
 	],
 })

@@ -9,6 +9,7 @@
 							"browsers": [
 								">1%",
 								"Firefox ESR",
+								"firefox >= 30",
 								"chrome >= 25",
 								"safari >= 7",
 								"opera >= 15",

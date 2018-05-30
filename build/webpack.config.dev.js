@@ -1,9 +1,11 @@
 /**
  * @description webpack 开发模式下的打包基本配置
  */
-const excludeRegex = /node_modules/
 const baseConfig = require('./webpack.config.base')
 const merge = require('webpack-merge')
+const host = 'localhost'
+const port = 8080        // 端口号
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const customAntdStyle = {
 	'@text-color': '#333',                  // 修改字体基本颜色
@@ -33,9 +35,6 @@ const formatStyleLoader = (otherLoader) => {
 	]
 	
 	if (otherLoader) {
-		/**
-		 * 针对scss进行css-module处理---项目用scss
-		 */
 		if (otherLoader.loader === 'sass-loader') {
 			baseLoaders[1] = {
 				loader: 'css-loader',
@@ -61,11 +60,6 @@ module.exports = merge(baseConfig, {
 	
 	mode: 'development',
 	
-	output: {
-		publicPath: '/dist/',
-		path: `${__dirname}/../dist/`,
-		filename: '[name].js',
-	},
 	module: {
 		rules: [
 			{
@@ -74,7 +68,7 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.scss/,
-				exclude: excludeRegex,
+				exclude: /node_modules/,
 				use: formatStyleLoader({
 					loader: 'sass-loader',
 					options: {
@@ -94,4 +88,40 @@ module.exports = merge(baseConfig, {
 			},
 		],
 	},
+	
+	devServer: {
+		host,
+		port,
+		inline: true,
+		publicPath: '/dist/',
+		contentBase: `${__dirname}/../dist/`,
+		
+		watchContentBase: true,
+		watchOptions: {
+			ignored: /node_modules/,
+		},
+		hot: false,
+		historyApiFallback: {
+			index: '/',
+			disableDotRule: true,
+		},
+		stats: {
+			colors: true,
+		},
+		open: true,
+	},
+	
+	output: {
+		publicPath: '/dist/',
+		path: `${__dirname}/../dist/`,
+		filename: '[name].js',
+	},
+	
+	plugins: [
+		new BundleAnalyzerPlugin({
+			openAnalyzer: false,            // 禁止自动弹出浏览器窗口
+			analyzerHost: host,      // 主机ip
+			analyzerPort: port + 100,             // 端口
+		}),
+	],
 })
