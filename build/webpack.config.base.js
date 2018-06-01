@@ -48,6 +48,10 @@ const staticResource = (function () {
 module.exports = {
 	optimization: {
 		splitChunks: {
+			chunks: 'all',
+			name: 'vendor',
+			minSize: 30000,
+			minChunks: 1,
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
@@ -69,6 +73,9 @@ module.exports = {
 					priority: 2,
 				},
 			},
+		},
+		runtimeChunk: {
+			name: 'runtime',
 		},
 	},
 	
@@ -93,10 +100,15 @@ module.exports = {
 			'url-search-params-polyfill',
 		],
 	},
+	node: {
+		// Resolve node module use of fs
+		fs: 'empty',
+	},
 	
 	resolve: {
 		extensions: ['.js', '.jsx', '.scss'],
 		modules: ['node_modules', 'src/'],
+		mainFields: ['browser', 'main', 'module'],
 	},
 	
 	module: {

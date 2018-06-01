@@ -92,7 +92,6 @@ module.exports = merge(baseConfig, {
 	devServer: {
 		host,
 		port,
-		inline: true,
 		publicPath: '/dist/',
 		contentBase: `${__dirname}/../dist/`,
 		
