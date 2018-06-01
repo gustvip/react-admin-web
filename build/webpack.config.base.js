@@ -2,6 +2,7 @@
  * @description webpack 打包基本配置
  */
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 /**
  * 页面入口文件,使用异步加载方式
@@ -9,6 +10,12 @@ const webpack = require('webpack')
  */
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?)$/ig
 const excludeRegex = /node_modules/
+const customAntdStyle = {
+	'@text-color': '#333',                  // 修改字体基本颜色
+	'@border-color-base': '#a3babf',				// 更改border颜色
+	'@primary-color': '#00d9ca',		            // 更改antd的主题颜色;
+	'@font-size-base': '12px',                      // 修改基础字体大小
+}
 
 const staticResource = (function () {
 	const resourceBaseName = 'resources'
@@ -45,6 +52,47 @@ const staticResource = (function () {
 	]
 })()
 
+const formatStyleLoader = (otherLoader) => {
+	const baseLoaders = [
+		{
+			loader: MiniCssExtractPlugin.loader,
+		},
+		{
+			loader: 'css-loader',
+			options: {
+				sourceMap: true,
+			},
+		},
+		{
+			loader: 'postcss-loader',
+			options: {
+				sourceMap: true,
+				ident: 'postcss',
+				plugins: () => [
+					require('postcss-flexbugs-fixes'),
+				],
+			},
+		},
+	]
+	
+	if (otherLoader) {
+		if (otherLoader.loader === 'sass-loader') {
+			baseLoaders[1] = {
+				loader: 'css-loader',
+				options: {
+					sourceMap: true,
+					modules: true,
+					localIdentName: '[name]__[local]__[hash:base64:5]',
+				},
+			}
+		}
+		
+		baseLoaders.push(otherLoader)
+	}
+	
+	return baseLoaders
+}
+
 module.exports = {
 	optimization: {
 		splitChunks: {
@@ -73,9 +121,6 @@ module.exports = {
 					priority: 2,
 				},
 			},
-		},
-		runtimeChunk: {
-			name: 'runtime',
 		},
 	},
 	
@@ -113,6 +158,33 @@ module.exports = {
 	
 	module: {
 		rules: [
+			{
+				test: /\.css$/,
+				use: formatStyleLoader(),
+			},
+			
+			{
+				test: /\.scss/,
+				exclude: /node_modules/,
+				use: formatStyleLoader({
+					loader: 'sass-loader',
+					options: {
+						sourceMap: true,
+					},
+				}),
+			},
+			
+			{
+				test: /\.less/,
+				use: formatStyleLoader({
+					loader: 'less-loader',
+					options: {
+						sourceMap: true,
+						modifyVars: customAntdStyle,
+					},
+				}),
+			},
+			
 			...staticResource,
 			
 			{
@@ -141,6 +213,9 @@ module.exports = {
 	},
 	
 	plugins: [
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+		}),
 		new webpack.ProvidePlugin({
 			React: 'react',
 		}),
