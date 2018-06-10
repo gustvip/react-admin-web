@@ -1,6 +1,3 @@
-/**
- * created by joey 2018/02/19
- */
 (function () {
 	'use strict'
 	

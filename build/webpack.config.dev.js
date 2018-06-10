@@ -1,9 +1,11 @@
 /**
  * @description webpack 开发模式下的打包基本配置
  */
+const {getLocalIp} = require('./util')
 const baseConfig = require('./webpack.config.base')
 const merge = require('webpack-merge')
 const host = 'localhost'
+//const host = getLocalIp()
 const port = 8080        // 端口号
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 

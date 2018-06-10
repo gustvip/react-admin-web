@@ -3,19 +3,17 @@
  */
 const baseConfig = require('./webpack.config.base')
 const merge = require('webpack-merge')
-const cleanWebpackPlugin = require('clean-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const plugins = () => [
+baseConfig.module.rules[0].use[2].options.plugins
+	= baseConfig.module.rules[1].use[2].options.plugins
+	= baseConfig.module.rules[2].use[2].options.plugins = () => [
 	require('postcss-apply'),
 	require('postcss-import'),
 	require('postcss-flexbugs-fixes'),
 	require('autoprefixer')(),
 	require('cssnano')(),
 ]
-baseConfig.module.rules[0].use[2].options.plugins
-	= baseConfig.module.rules[1].use[2].options.plugins
-	= baseConfig.module.rules[2].use[2].options.plugins = plugins
 module.exports = merge(baseConfig, {
 	mode: 'production',
 	
@@ -63,19 +61,4 @@ module.exports = merge(baseConfig, {
 			new OptimizeCssAssetsPlugin(),
 		],
 	},
-	
-	output: {
-		publicPath: '/static/platform/',
-		path: `${__dirname}/../dist/platform/`,
-		filename: '[name].js',
-	},
-	
-	plugins: [
-		new cleanWebpackPlugin([
-			'dist/platform/*.js',
-			'dist/platform/*.map',
-			'dist/platform/*.css ',
-			'dist/platform/resources/*',
-		]),
-	],
 })
