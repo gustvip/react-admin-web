@@ -2,7 +2,6 @@
  * Created by joey on 2018/2/18
  */
 import queryString from 'query-string'
-
 import lodash from 'lodash'
 import helper from './core/helper'
 import prompt from './core/prompt'

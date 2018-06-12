@@ -145,10 +145,6 @@ module.exports = {
 			'url-search-params-polyfill',
 		],
 	},
-	node: {
-		// Resolve node module use of fs
-		fs: 'empty',
-	},
 	
 	resolve: {
 		extensions: ['.js', '.jsx', '.scss'],

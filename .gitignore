@@ -1,7 +1,7 @@
 .idea
 .DS_Store
 node_modules
-/test/*
+/__tests__/*
 /dist/*
 !/dist/favicon.ico
 !/dist/index.html
