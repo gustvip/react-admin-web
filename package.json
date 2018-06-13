@@ -72,6 +72,7 @@
 	"browserslist": [
 		">1%",
 		"Firefox ESR",
+		"ie >=10",
 		"chrome >= 25",
 		"firefox >= 30",
 		"safari >= 7",
@@ -87,5 +88,5 @@
 		"url": "https://github.com/air-supply94/react-demo/issues"
 	},
 	"homepage": "https://github.com/air-supply94/react-demo",
-	"license": "ISC"
+	"license": "MIT"
 }

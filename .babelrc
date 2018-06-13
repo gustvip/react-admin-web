@@ -9,8 +9,9 @@
 							"browsers": [
 								">1%",
 								"Firefox ESR",
-								"firefox >= 30",
+								"ie >=10",
 								"chrome >= 25",
+								"firefox >= 30",
 								"safari >= 7",
 								"opera >= 15",
 								"android >= 4.4",
@@ -53,7 +54,7 @@
 				[
 					"env",
 					{
-						"modules": false,
+						"modules": false
 					}
 				],
 				"react",
