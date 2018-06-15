@@ -64,11 +64,10 @@ export default (function () {
 	
 	/**
 	 * 促发监听的函数
-	 * @param {String || Number} type 类型
-	 * @param {*} [id] 监听时的id
+	 * @param {Number} id 监听时的id
 	 * @returns {undefined}
 	 */
-	function trigger (type, id) {
+	function trigger (id) {
 		var arg = arguments,
 			index,
 			key,
@@ -77,7 +76,7 @@ export default (function () {
 			if (_listeners.hasOwnProperty(key)) {
 				keyValue = _listeners[key]
 				index = findIndex(keyValue, function (value) {
-					return value.id === type
+					return value.id === id
 				})
 				if (index !== -1) {
 					keyValue[index].callback.apply(null, [].slice.call(arg, 1))
