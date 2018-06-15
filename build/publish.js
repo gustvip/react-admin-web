@@ -5,6 +5,7 @@ const merge = require('webpack-merge')
 const cleanWebpackPlugin = require('clean-webpack-plugin')
 const clc = require('cli-color')
 const webpack = require('webpack')
+const copyWebpackPlugin = require('copy-webpack-plugin')
 let {indexHtmlInfo} = require('./util')
 
 console.log(clc.green('webpack打包开始'))
@@ -37,6 +38,12 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 			path.join(conf.webPath, conf.appName, '/*.map'),
 			path.join(conf.webPath, conf.appName, '/*.css'),
 			path.join(conf.webPath, conf.appName, '/resources/*'),
+		]),
+		new copyWebpackPlugin([
+			{
+				from: path.join(__dirname, '../dist/config/env.js'),
+				to: path.join(conf.webPath, 'config'),
+			},
 		]),
 	],
 })
