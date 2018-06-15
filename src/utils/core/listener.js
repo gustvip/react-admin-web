@@ -1,6 +1,6 @@
 export default (function () {
-	var listeners = {},
-		id = -1
+	var _listeners = {},
+		_id = -1
 	
 	/**
 	 * 增加监听函数
@@ -15,57 +15,81 @@ export default (function () {
 		}
 		type = String(type)
 		isOnce = isNil(isOnce) ? false : !!type
-		var row = listeners[type]
-		if (row) {
-			row.push({isOnce: isOnce, callback: callback, id: ++id})
-			return id
-		} else {
-			listeners[type] = [{isOnce: isOnce, callback: callback, id: ++id}]
-			return id
-		}
+		var row = _listeners[type]
+		row ? row.push({isOnce: isOnce, callback: callback, id: ++_id})
+			: _listeners[type] = [{isOnce: isOnce, callback: callback, id: ++_id}]
+		return _id
 	}
 	
 	/**
 	 * 移除监听的函数
-	 * @param {String} type 类型
-	 * @param {Number} [id] 监听时的id
+	 * @param {String || Number} type 类型
+	 * @param {Number || Null || Undefined} [id] 监听时的id
 	 * @returns {undefined}
 	 */
 	function removeListener (type, id) {
-		type = String(type)
-		var row = listeners[type],
-			index
-		if (row) {
-			if (isNumber(id)) {
-				index = findIndex(row, function (value) {
-					return value.id === callback
-				})
-				if (index === -1) {
-					console.warn('do not found id or function')
-				} else {
-					row.splice(index, 1)
+		var row = _listeners[type],
+			index,
+			key,
+			keyValue
+		if (isNil(id) && isNumber(type)) {
+			for (key in _listeners) {
+				if (_listeners.hasOwnProperty(key)) {
+					keyValue = _listeners[key]
+					index = findIndex(keyValue, function (value) {
+						return value.id === type
+					})
+					if (index !== -1) {
+						keyValue.splice(index, 1)
+						break
+					}
 				}
-			} else {
-				delete  listeners[type]
 			}
+			if (index === -1) {
+				console.warn('can not found id')
+			}
+		} else if (isString(type) && isNumber(id)) {
+			index = findIndex(row, function (value) {
+				return value.id === id
+			})
+			if (index === -1) {
+				console.warn('can not found id')
+			} else {
+				row.splice(index, 1)
+			}
+		} else {
+			delete _listeners[type]
 		}
 	}
 	
 	/**
-	 * 移除监听的函数
-	 * @param {String} type 类型
+	 * 促发监听的函数
+	 * @param {String || Number} type 类型
+	 * @param {*} [id] 监听时的id
 	 * @returns {undefined}
 	 */
-	function trigger (type) {
+	function trigger (type, id) {
 		var arg = arguments,
-			row = listeners[type]
-		if (row && row.length) {
-			row.forEach(function (value) {
-				value.callback([].slice.call(arg, 1))
-			})
-			listeners[type] = row.filter(function (value) {
-				return !value.isOnce
-			})
+			index,
+			key,
+			keyValue
+		for (key in _listeners) {
+			if (_listeners.hasOwnProperty(key)) {
+				keyValue = _listeners[key]
+				index = findIndex(keyValue, function (value) {
+					return value.id === type
+				})
+				if (index !== -1) {
+					keyValue[index].callback.apply(null, [].slice.call(arg, 1))
+					if (keyValue[index].isOnce) {
+						keyValue.splice(index, 1)
+					}
+					break
+				}
+			}
+		}
+		if (index === -1) {
+			console.warn('can not found id')
 		}
 	}
 	
@@ -95,12 +119,11 @@ export default (function () {
 	 */
 	function findIndex (x, predicate) {
 		var len = x.length,
-			thisArg = arguments[2],
 			k = -1,
 			kValue
 		while (++k < len) {
 			kValue = x[k]
-			if (predicate.call(thisArg, kValue, k, x)) {
+			if (predicate(kValue, k, x)) {
 				return k
 			}
 		}
@@ -116,12 +139,21 @@ export default (function () {
 		return x == null
 	}
 	
-	return Object.defineProperties({}, {
-		on: {value: addListener, configurable: false},
-		addListener: {value: addListener, configurable: false},
-		off: {value: removeListener, configurable: false},
-		removeListener: {value: removeListener, configurable: false},
-		trigger: {value: trigger, configurable: false},
-		dispatch: {value: trigger, configurable: false},
-	})
+	/**
+	 * 判断是否为string
+	 * @param {*} x
+	 * @returns {boolean}
+	 */
+	function isString (x) {
+		return typeof x === 'string'
+	}
+	
+	return {
+		on: addListener,
+		addListener: addListener,
+		off: removeListener,
+		removeListener: removeListener,
+		trigger: trigger,
+		dispatch: trigger,
+	}
 })()
