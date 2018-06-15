@@ -8,10 +8,14 @@ import prompt from './core/prompt'
 import auth from './core/auth'
 import regExp from './core/reg_exp'
 import localStorage from './core/local_storage'
+import listener from './core/listener'
 import * as decorator from './core/decorator'
 import * as request from './core/request'
 
 const T = {
+	// 时间监听
+	listener,
+	
 	// 确认弹窗
 	prompt,
 	
