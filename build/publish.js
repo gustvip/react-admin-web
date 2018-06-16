@@ -74,8 +74,6 @@ function doCompilerPlatform () {
  * @param errorMsg
  */
 function handleError (errorMsg) {
-	promisify(fs.rmdir)(webpackConfigProd.output.path).then(() => console.log(clc.red('webpack打包出错,已删除相关文件'))).catch(() => console.log(clc.red('webpack打包出错,请手动删除文件')))
-	
 	console.log(clc.yellow('webpack打包出错:'))
 	console.log(clc.red(errorMsg))
 	
