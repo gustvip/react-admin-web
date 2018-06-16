@@ -5,6 +5,7 @@ const baseConfig = require('./webpack.config.base')
 const merge = require('webpack-merge')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 baseConfig.module.rules[0].use[2].options.plugins
 	= baseConfig.module.rules[1].use[2].options.plugins
 	= baseConfig.module.rules[2].use[2].options.plugins = () => [
@@ -14,20 +15,10 @@ baseConfig.module.rules[0].use[2].options.plugins
 	require('autoprefixer')(),
 	require('cssnano')(),
 ]
+const resourceBaseName = require('./util').resourceBaseName
+
 module.exports = merge(baseConfig, {
 	mode: 'production',
-	
-	/**
-	 * 排除打包的内容---走cdn
-	 */
-	externals: {
-		lodash: '_',
-		react: 'React',
-		'react-dom': 'ReactDOM',
-		leaflet: 'L',
-		echarts: 'echarts',
-		d3: 'd3',
-	},
 	
 	optimization: {
 		minimizer: [
@@ -59,6 +50,52 @@ module.exports = merge(baseConfig, {
 				},
 			}),
 			new OptimizeCssAssetsPlugin(),
+		],
+	},
+	module: {
+		rules: [
+			{
+				test: /\.(png|jpg|gif|jpeg|svg)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							name: `${resourceBaseName}/[name].[hash:8].[ext]`,
+							limit: 8192,	 // <= 8kb的图片base64内联
+						},
+					},
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							mozjpeg: {
+								progressive: true,
+								quality: 70,
+								speed: 4,
+							},
+							optipng: {
+								progressive: true,
+								quality: 70,
+								speed: 4,
+							},
+							pngquant: {
+								progressive: true,
+								quality: 70,
+								speed: 4,
+							},
+							gifsicle: {
+								progressive: true,
+								quality: 70,
+								speed: 4,
+							},
+							webp: {
+								progressive: true,
+								quality: 70,
+								speed: 4,
+							},
+						},
+					},
+				],
+			},
 		],
 	},
 })

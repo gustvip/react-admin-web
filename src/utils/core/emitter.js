@@ -39,8 +39,10 @@ export default (function () {
 			if (index !== -1) {
 				row.splice(index, 1)
 			} else {
-				console.warn('can not found callback')
+				console.warn('remove listener failed, because can not found callback')
 			}
+		} else {
+			console.warn('remove listener failed,because' + 'the' + type + 'do not registry any event')
 		}
 	}
 	
@@ -58,7 +60,7 @@ export default (function () {
 				return !value.isOnce
 			})
 		} else {
-			console.warn('the' + type + 'do not registry any event')
+			console.warn('trigger event failed,because' + 'the' + type + 'do not registry any event')
 		}
 	}
 	

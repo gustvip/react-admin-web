@@ -18,13 +18,9 @@ const customAntdStyle = {
 }
 
 const staticResource = (function () {
-	const resourceBaseName = 'resources'
+	const resourceBaseName = require('./util').resourceBaseName
 	
 	return [
-		{
-			test: /\.(png|jpg|gif|jpeg)$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=8192`, //  <= 8kb的图片base64内联
-		},
 		{
 			test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
 			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
@@ -44,10 +40,6 @@ const staticResource = (function () {
 		{
 			test: /\.(txt|doc|docx|swf)$/,
 			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
-		},
-		{
-			test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=image/svg+xml`,
 		},
 	]
 })()
@@ -144,6 +136,18 @@ module.exports = {
 			'redux-thunk',
 			'url-search-params-polyfill',
 		],
+	},
+	
+	/**
+	 * 排除打包的内容---走cdn
+	 */
+	externals: {
+		lodash: '_',
+		react: 'React',
+		'react-dom': 'ReactDOM',
+		leaflet: 'L',
+		echarts: 'echarts',
+		d3: 'd3',
 	},
 	
 	resolve: {

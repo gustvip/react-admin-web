@@ -60,6 +60,7 @@ function getLocalIp () {
 module.exports = {
 	getLocalIp,
 	indexHtmlInfo,
+	resourceBaseName: 'resources',
 }
 
 

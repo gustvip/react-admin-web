@@ -8,6 +8,7 @@ const host = 'localhost'
 //const host = getLocalIp()
 const port = 8080        // 端口号
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const resourceBaseName = require('./util').resourceBaseName
 
 module.exports = merge(baseConfig, {
 	/**
@@ -16,7 +17,14 @@ module.exports = merge(baseConfig, {
 	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-source-map
 	
 	mode: 'development',
-	
+	module: {
+		rules: [
+			{
+				test: /\.(png|jpg|gif|jpeg|svg)$/,
+				use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`, //  <= 8kb的图片base64内联
+			},
+		],
+	},
 	devServer: {
 		host,
 		port,
