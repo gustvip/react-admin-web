@@ -1,7 +1,7 @@
 (function () {
 	'use strict'
 	
-	var rootPath = '/'
+	var rootPath = '/pw/'
 	
 	function isObject (x) {
 		return x !== null && typeof x === 'object'

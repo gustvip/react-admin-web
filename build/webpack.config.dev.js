@@ -28,8 +28,8 @@ module.exports = merge(baseConfig, {
 	devServer: {
 		host,
 		port,
-		publicPath: '/dist/',
-		contentBase: `${__dirname}/../dist/`,
+		publicPath: '/public/',
+		contentBase: `${__dirname}/../public/`,
 		
 		watchContentBase: true,
 		watchOptions: {
@@ -47,8 +47,8 @@ module.exports = merge(baseConfig, {
 	},
 	
 	output: {
-		publicPath: '/dist/',
-		path: `${__dirname}/../dist/`,
+		publicPath: '/public/',
+		path: `${__dirname}/../public/`,
 		filename: '[name].js',
 	},
 	
