@@ -8,7 +8,7 @@ import prompt from './core/prompt'
 import auth from './core/auth'
 import regExp from './core/reg_exp'
 import localStorage from './core/local_storage'
-import listener from './core/listener'
+import listener from './core/emitter'
 import * as decorator from './core/decorator'
 import * as request from './core/request'
 
