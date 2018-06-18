@@ -39,15 +39,14 @@ export default class LazyLoadTpl extends React.PureComponent {
   componentDidMount () {
     const _this = this
     const {defaultQuery, login} = ENV
-    
-    if (!T.auth.isLogin) {
+		if (!T.auth.isLogin) {
       _this.context.router.history.push(
         `${login.loginUrl}?${defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
         _this.context.router.route.location.state,
       )
     } else if (!_this.state.Component) {
       _this.props.lazyLoader(Component => {
-        _this.setState({
+				_this.setState({
           Component: Component.default,
         })
       })
@@ -64,7 +63,7 @@ export default class LazyLoadTpl extends React.PureComponent {
       }
       return <Component {..._this.props} />
     } else {
-      return <Spin size="large"/>
+			return <Spin size="large"/>
     }
   }
 }

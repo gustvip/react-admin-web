@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import List from '../../components/list/index'
+import Index from '../../components/list/index'
 import { connect } from 'react-redux'
 
 /**
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
 /**
  * 连接组件
  */
-const ListComponent = connect(mapStateToProps, mapDispatchToProps)(List)
+const ListComponent = connect(mapStateToProps, mapDispatchToProps)(Index)
 
 export default () => <ListComponent/>
 

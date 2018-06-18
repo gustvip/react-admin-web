@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import * as actionTypes from '../../constants/list'
+import * as actionTypes from '../../constants/list/index'
 import update from 'immutability-helper'
 import T from 'utils/t'
 

@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/18
  */
 
-import * as webAPI from '../../webAPI/list'
-import * as actionTypes from '../../constants/list'
+import * as webAPI from '../../webAPI/list/index'
+import * as actionTypes from '../../constants/list/index'
 import T from 'utils/t'
 
 /**

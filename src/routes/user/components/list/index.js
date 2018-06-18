@@ -6,16 +6,16 @@
  * 基本
  */
 import T from 'utils/t'
-import * as actionTypes from '../../actions/list'
-import style from './list.scss'
+import * as actionTypes from '../../actions/list/index'
+import style from '../../scss/list/index.scss'
 
 /**
  * 组件
  */
 import { Button, Input } from 'antd'
 import { Link } from 'react-router-dom'
-import { MainHeader, MainContent } from 'templates/main_layout'
-import Table from 'templates/tool_components/table'
+import { MainHeader, MainContent } from 'templates/main_layout/index'
+import Table from 'templates/tool_components/table/index'
 
 /**
  * 枚举
@@ -26,7 +26,7 @@ import EnumRouter from 'constants/enum_router'
  * 入口组件
  */
 @T.decorator.contextTypes('router')
-export default class List extends React.PureComponent {
+export default class Index extends React.PureComponent {
 	/**
 	 * 获取用户所有信息
 	 */

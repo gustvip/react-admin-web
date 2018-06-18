@@ -142,6 +142,8 @@ module.exports = {
 	 * 排除打包的内容---走cdn
 	 */
 	externals: {
+		$: 'jQuery',
+		jQuery: 'jQuery',
 		lodash: '_',
 		react: 'React',
 		'react-dom': 'ReactDOM',
