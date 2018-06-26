@@ -5,6 +5,7 @@ const merge = require('webpack-merge')
 const clc = require('cli-color')
 const webpack = require('webpack')
 const copyWebpackPlugin = require('copy-webpack-plugin')
+const rm = require('rimraf')
 let {indexHtmlInfo} = require('./util')
 
 console.log(clc.green('webpack打包开始'))
@@ -22,7 +23,7 @@ const conf = {
 }
 
 /**
- * 1 更新webpack配置
+ * 更新webpack配置
  */
 const webpackConfigProd = merge(require('./webpack.config.prod'), {
 	output: {
@@ -41,7 +42,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 })
 
 /**
- * 2 配置index.html
+ * 配置index.html
  */
 indexHtmlInfo = indexHtmlInfo.replace('{$publicVendorCSS}', path.join(webpackConfigProd.output.publicPath, conf.vendorCss)).
 	replace('{$EnvConfJS}', path.join(conf.proxyPath, conf.configEnvPath)).
@@ -50,22 +51,31 @@ indexHtmlInfo = indexHtmlInfo.replace('{$publicVendorCSS}', path.join(webpackCon
 	replace('{$publicCommonsJS}', path.join(webpackConfigProd.output.publicPath, conf.commonsJs))
 
 /**
- * 3 开始打包
+ * 开始打包
  */
 doCompilerPlatform()
 
 function doCompilerPlatform () {
-	webpack(webpackConfigProd, (err, stats) => {
-		let jsonStats = stats.toJson()
-		jsonStats.errors.length && handleError(jsonStats.errors)
-		jsonStats.warnings.length && handleWarn(jsonStats.warnings)
-		
-		console.log(clc.green('webpack打包结束'))
-		
-		/**
-		 * 4 生成html文件
-		 */
-		createHtmlFile().then(() => console.log(clc.green(`生成${conf.indexHtmlName}成功`))).catch(() => console.log(clc.green(`生成${conf.indexHtmlName}错误`)))
+	/**
+	 * 删除文件
+	 */
+	rm(conf.webPath, err => {
+		if (err) {
+			handleError(err)
+		} else {
+			webpack(webpackConfigProd, (err, stats) => {
+				let jsonStats = stats.toJson()
+				jsonStats.errors.length && handleError(jsonStats.errors)
+				jsonStats.warnings.length && handleWarn(jsonStats.warnings)
+				
+				console.log(clc.green('webpack打包结束'))
+				
+				/**
+				 * 生成html文件
+				 */
+				createHtmlFile().then(() => console.log(clc.green(`生成${conf.indexHtmlName}成功`))).catch(() => console.log(clc.green(`生成${conf.indexHtmlName}错误`)))
+			})
+		}
 	})
 }
 
