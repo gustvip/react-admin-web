@@ -12,10 +12,11 @@ export default (function () {
 		if (!isFunction(callback)) {
 			throw new TypeError('"callback" must be function')
 		}
-		isOnce = isNil(isOnce) ? false : !!type
-		var row = _listeners[type]
-		row ? row.push({isOnce: isOnce, callback: callback})
-			: _listeners[type] = [{isOnce: isOnce, callback: callback}]
+		isOnce = isNil(isOnce) ? false : !!isOnce
+		var row = _listeners[type],
+			obj = {isOnce: isOnce, callback: callback}
+		row ? row.push(obj)
+			: _listeners[type] = [obj]
 	}
 	
 	/**
@@ -30,7 +31,7 @@ export default (function () {
 		
 		if (isNil(type) && isNil(callback)) {
 			_listeners = {}
-		} else if (row && isNil(callback)) {
+		} else if (row && !isFunction(callback)) {
 			delete _listeners[type]
 		} else if (row && isFunction(callback)) {
 			index = findIndex(row, function (value) {
@@ -39,10 +40,8 @@ export default (function () {
 			if (index !== -1) {
 				row.splice(index, 1)
 			} else {
-				console.warn('remove listener failed, because can not found callback')
+				console.warn('can not found callback')
 			}
-		} else {
-			console.warn('remove listener failed,because' + 'the' + type + 'do not registry any event')
 		}
 	}
 	
@@ -60,7 +59,7 @@ export default (function () {
 				return !value.isOnce
 			})
 		} else {
-			console.warn('trigger event failed,because' + 'the' + type + 'do not registry any event')
+			console.warn('can not found registry event')
 		}
 	}
 	
@@ -85,9 +84,7 @@ export default (function () {
 			kValue
 		while (++k < len) {
 			kValue = x[k]
-			if (predicate(kValue, k, x)) {
-				return k
-			}
+			if (predicate(kValue, k, x)) return k
 		}
 		return -1
 	}
