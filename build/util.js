@@ -41,11 +41,11 @@ const indexHtmlInfo = `<!doctype html>
 
 function flattenDeep (array) {
 	const result = []
-	(function fn () {
-		array.forEach(value => {
+	(function fn (_array) {
+		_array.forEach(value => {
 			Array.isArray(value) ? fn(value) : result.push(value)
 		})
-	})()
+	})(array)
 	return result
 }
 
