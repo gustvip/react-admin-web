@@ -3,6 +3,7 @@
  */
 import { create } from 'axios'
 import _ from 'lodash'
+import helper from './helper'
 
 /**
  * 解决IE报warning Unhandled Rejections Error 参数书不正确的问题
@@ -57,13 +58,7 @@ const _request = (options = {}) => {
 			} else {
 				reject({code, data, msg})
 			}
-		}).catch(info => {
-			reject({
-				code: info.code,
-				data: info.data,
-				msg: info.message,
-			})
-		})
+		}).catch(info => reject({code: info.code, data: info.data, msg: info.message}))
 	})
 }
 
@@ -75,13 +70,11 @@ const _request = (options = {}) => {
  * @returns {Promise}
  */
 export function get (url, params = {}, options = {}) {
-	options = _.merge({
+	return _request(_.merge({
 		url,
 		method: 'get',
 		params,
-	}, options)
-	
-	return _request(options)
+	}, options))
 }
 
 /**
@@ -92,16 +85,14 @@ export function get (url, params = {}, options = {}) {
  * @returns {Promise}
  */
 export function post (url, data = {}, options = {}) {
-	options = _.merge({
+	return _request(_.merge({
 		url,
 		method: 'post',
 		data: _.transform(data, (result, value, key) => result.append(key, value),
 			new URLSearchParams()),
 		
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	}, options)
-	
-	return _request(options)
+	}, options))
 }
 
 /**
@@ -112,14 +103,12 @@ export function post (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function postJSON (url, data = {}, options = {}) {
-	options = _.merge({
+	return _request(_.merge({
 		url,
 		method: 'post',
 		data,
 		headers: {'Content-Type': 'application/json'},
-	}, options)
-	
-	return _request(options)
+	}, options))
 }
 
 /**
@@ -130,23 +119,16 @@ export function postJSON (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function upload (
-	url, data = {}, options = {}, onUploadProgress = _.noop) {
-	options = _.merge({
+export function upload (url, data = {}, options = {}, onUploadProgress = _.noop) {
+	return _request(_.merge({
 		url,
 		method: 'post',
 		data: data instanceof FormData
 			? data
-			: _.transform(data, (result, value, key) => result.append(key, value),
-				new FormData()),
+			: Object.prototype.toString.call(data) === '[object FormData]' ? data : helper.objectToFormData(data),
 		onUploadProgress,
-		
-		headers: {
-			'Content-Type': 'multipart/form-data',
-		},
-	}, options)
-	
-	return _request(options)
+		headers: {'Content-Type': 'multipart/form-data'},
+	}, options))
 }
 
 /**
@@ -157,16 +139,12 @@ export function upload (
  * @returns {Promise}
  */
 export function del (url, data = {}, options = {}) {
-	options = _.merge({
+	return _request(_.merge({
 		url,
 		method: 'delete',
 		data,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	}, options)
-	
-	return _request(options)
+		headers: {'Content-Type': 'application/json'},
+	}, options))
 }
 
 /**
@@ -177,16 +155,13 @@ export function del (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function put (url, data = {}, options = {}) {
-	options = _.merge({
+	
+	return _request(_.merge({
 		url,
 		method: 'put',
 		data,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	}, options)
-	
-	return _request(options)
+		headers: {'Content-Type': 'application/json'},
+	}, options))
 }
 
 /**
