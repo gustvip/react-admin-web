@@ -6,15 +6,6 @@ const merge = require('webpack-merge')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-baseConfig.module.rules[0].use[2].options.plugins
-	= baseConfig.module.rules[1].use[2].options.plugins
-	= baseConfig.module.rules[2].use[2].options.plugins = () => [
-	require('postcss-apply'),
-	require('postcss-import'),
-	require('postcss-flexbugs-fixes'),
-	require('autoprefixer')(),
-	require('cssnano')(),
-]
 const resourceBaseName = require('./util').resourceBaseName
 
 module.exports = merge(baseConfig, {

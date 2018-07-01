@@ -34,6 +34,7 @@ const indexHtmlInfo = `<!doctype html>
 
 <script type="text/javascript" src="{$EnvConfJS}"></script>
 <script type="text/javascript" src="{$publicCommonsJS}"></script>
+<script type="text/javascript" src="{$publicRuntimeJS}"></script>
 <script type="text/javascript" src="{$publicVendorJS}"></script>
 <script type="text/javascript" src="{$publicAppJS}"></script>
 </body>
