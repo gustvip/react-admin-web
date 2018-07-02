@@ -3,7 +3,7 @@
  */
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const happyPack = require('happypack')
 /**
  * 页面入口文件,使用异步加载方式
  * @type {RegExp}
@@ -176,7 +176,7 @@ module.exports = {
       
       {
         test: /\.scss/,
-        exclude: /node_modules/,
+        exclude: excludeRegex,
         use: formatStyleLoader({
           loader: 'sass-loader',
           options: {
@@ -213,7 +213,7 @@ module.exports = {
       
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        use: 'happypack/loader?id=js',
         exclude: [
           excludeRegex,
           routesComponentsRegex,
@@ -224,6 +224,12 @@ module.exports = {
   },
   
   plugins: [
+    new happyPack({
+      id: 'js',
+      threads: 4,
+      loaders: ['babel-loader'],
+    }),
+    
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
