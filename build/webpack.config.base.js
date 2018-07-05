@@ -146,7 +146,7 @@ module.exports = {
   /**
    * 排除打包的内容---走cdn
    */
-  externals: {
+  /*externals: {
     $: 'jQuery',
     jQuery: 'jQuery',
     lodash: '_',
@@ -155,7 +155,7 @@ module.exports = {
     leaflet: 'L',
     echarts: 'echarts',
     d3: 'd3',
-  },
+  },*/
   
   resolve: {
     extensions: ['.js', '.jsx', '.scss'],
