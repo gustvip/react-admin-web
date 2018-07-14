@@ -15,20 +15,30 @@ import './base.scss'
  * 加载 redux store
  */
 import store from './store'
+
 /**
  * 加载路由
  */
 import Routes from './routes/index'
 
 /**
+ * 错误处理程序
+ */
+import ErrorBoundary from 'templates/tool_components/errorBoundary'
+
+/**
  * 渲染程序
  */
 const renderApp = Component => {
-	const wrapper = document.createElement('div')
-	wrapper.id = 'wrapper'
-	return render(<Provider store={store()}>
-			<Component/>
-		</Provider>,
-		document.body.appendChild(wrapper))
+  const wrapper = document.createElement('div')
+  wrapper.id = 'wrapper'
+  return render(
+    <ErrorBoundary>
+      <Provider store={store()}>
+        <Component/>
+      </Provider>
+    </ErrorBoundary>
+    ,
+    document.body.appendChild(wrapper))
 }
 renderApp(Routes)

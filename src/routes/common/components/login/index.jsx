@@ -1,13 +1,11 @@
 /**
- * 基本
+ * Created by joey on 17-8-30.
  */
+
 import styles from './index.scss'
 import T from 'utils/t'
 import bg from './img/bg.png'
 
-/**
- * 组件
- */
 import { Button, Input } from 'antd'
 
 @T.decorator.contextTypes('router')

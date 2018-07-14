@@ -1,8 +1,10 @@
 /**
  * Created by joey on 2018/2/18
  */
+import numeral from 'numeral'
 import queryString from 'query-string'
 import lodash from 'lodash'
+
 import helper from './core/helper'
 import prompt from './core/prompt'
 import auth from './core/auth'
@@ -14,11 +16,21 @@ import * as request from './core/request'
 import crypto from './core/crypto'
 
 const T = {
+  
+  // 说明文档: https://lodash.com/docs/4.17.5
+  lodash,
+  
+  // 说明文档: https://github.com/sindresorhus/query-string
+  queryString,
+  
+  // 说明文档: http://numeraljs.com/
+  numeral,
+  
   // 加密算法
   crypto,
   
   // 事件监听
-  emitter,
+  emitter: new emitter(),
   
   // 确认弹窗
   prompt,
@@ -40,13 +52,6 @@ const T = {
   
   // localStorage
   localStorage,
-  
-  // 说明文档: https://lodash.com/docs/4.17.5
-  lodash,
-  
-  // 说明文档: https://github.com/sindresorhus/query-string
-  queryString,
-  
 }
 export default T
 

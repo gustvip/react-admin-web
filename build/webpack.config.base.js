@@ -120,24 +120,27 @@ module.exports = {
   },
   
   entry: {
-    app: ['./src/index'],
+    app: './src/index',
     commons: [
-      'utils/core/decorator.js',
-      'utils/core/local_storage.js',
-      'utils/core/prompt.js',
-      'utils/core/request.js',
-      'utils/core/auth.js',
-      'utils/core/reg_exp.js',
-      'utils/core/helper.js',
-      'classnames',
-      'es6-promise',
-      'immutability-helper',
-      'prop-types',
-      'query-string',
+      'react',
+      'react-dom',
       'react-redux',
       'redux',
       'redux-thunk',
+      'prop-types',
+      'classnames',
+      'jquery',
+      'lodash',
+      'numeral',
+      'immutability-helper',
+      'query-string',
+      'es6-promise',
       'url-search-params-polyfill',
+      
+      'utils/core/decorator.js',
+      'utils/core/local_storage.js',
+      'utils/core/request.js',
+      'utils/core/emitter.js',
     ],
   },
   
@@ -151,8 +154,6 @@ module.exports = {
     react: 'React',
     'react-dom': 'ReactDOM',
     leaflet: 'L',
-    echarts: 'echarts',
-    d3: 'd3',
   },*/
   
   resolve: {

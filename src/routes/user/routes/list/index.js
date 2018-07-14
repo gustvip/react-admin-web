@@ -12,9 +12,9 @@ import { connect } from 'react-redux'
  */
 const mapStateToProps = (state, ownProps) => {
   return {
-		mapProps: state.userListReducer,
-		...ownProps,
-	}
+    mapProps: state.userListReducer,
+    ...ownProps,
+  }
 }
 
 /**
@@ -22,9 +22,9 @@ const mapStateToProps = (state, ownProps) => {
  * @param dispatch
  */
 const mapDispatchToProps = dispatch => {
-	return {
-		dispatch,
-	}
+  return {
+    dispatch,
+  }
 }
 
 /**

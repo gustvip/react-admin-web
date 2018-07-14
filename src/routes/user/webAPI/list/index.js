@@ -6,14 +6,14 @@ import EnumAPI from 'constants/enum_api'
 import T from 'utils/t'
 
 /**
- * 获取用户详情
+ * 获取用户列表
  * @param {Object} condition {{userInfo: String, limitLength: Number}}
  * @return {Promise}
  */
 export const searchUser = condition => T.request.get(EnumAPI.user_search, condition)
 
 /**
- * 获取用户详情
+ * 获取用户列表
  * @param {Object} condition {{currentPage: Number, pageSize: Number}}
  * @return {Promise}
  */

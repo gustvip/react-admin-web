@@ -5,14 +5,8 @@
 import EnumRouter from 'constants/enum_router'
 import { AssembleRoute } from 'routes/route_tool'
 
-/**
- * 组件
- */
 import UserList from './routes/list'
 
-/**
- * reducers
- */
 import userListReducer from './reducers/list'
 
 export default AssembleRoute([

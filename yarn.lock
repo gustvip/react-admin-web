@@ -6511,6 +6511,10 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/number-is-nan/download/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+numeral@^2.0.6:
+  version "2.0.6"
+  resolved "http://registry.npm.taobao.org/numeral/download/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
+
 nwsapi@^2.0.0:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/nwsapi/download/nwsapi-2.0.3.tgz#3f4010d6c943f34018d3dfb5f2fbc0de90476959"

@@ -23,6 +23,7 @@
 		"lodash": "^4.17.10",
 		"mathjs": "^5.0.2",
 		"normalize.css": "^8.0.0",
+		"numeral": "^2.0.6",
 		"prop-types": "^15.6.0",
 		"query-string": "6.1.0",
 		"react": "^16.4.0",

@@ -16,12 +16,12 @@ export const EnumIconTypes = helper.immutable({
 
 export default helper.immutable([
   {
-    label: '数据平台',
+    label: '大栏目',
     value: 'data_platform',
     url: EnumRouter.user_list,
     children: [
       {
-        label: '数据采集',
+        label: '小栏目',
         url: EnumRouter.user_list,
         children: [
           {

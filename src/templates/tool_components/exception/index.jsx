@@ -1,3 +1,6 @@
+/**
+ * Created by joey on 2018/02/19
+ */
 import styles from './index.scss'
 import img_404 from './img/404.svg'
 import img_403 from './img/403.svg'

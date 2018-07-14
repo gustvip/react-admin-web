@@ -2,18 +2,12 @@
  * Created by joey on 18-2-7
  */
 
-/**
- * 基本
- */
 import T from 'utils/t'
 import PropTypes from 'prop-types'
 import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menu_util'
 import style from './index.scss'
 import { EnumIconTypes } from 'constants/enum_default_menus'
 
-/**
- * 组件
- */
 import { Select, Menu, Icon, Layout } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -89,7 +83,6 @@ MainContent.propTypes = {
 }
 
 @T.decorator.propTypes({
-  clickLink: PropTypes.func.isRequired,
   locationPathname: PropTypes.string.isRequired,
   handleCollapsed: PropTypes.func.isRequired,
   isCollapsed: PropTypes.bool.isRequired,
@@ -123,21 +116,9 @@ class SiderMenu extends React.PureComponent {
            * 是否需要添加图标字体
            * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
            */
-          return <Menu.Item
-            key={item.url[0]}
-          >
-            <Link
-              to={{
-                pathname: item.url[0],
-              }}
-              onClick={e => _this.props.clickLink(e, locationPathname, item.url[0])}
-            >
-          <span>
-            {getIcon(item.icon)}
-            <span>
-            {item.label}
-            </span>
-          </span>
+          return <Menu.Item key={item.url[0]}>
+            <Link to={{pathname: item.url[0]}}>
+              <span>{getIcon(item.icon)}<span>{item.label}</span></span>
             </Link>
           </Menu.Item>
         } else {
@@ -150,11 +131,7 @@ class SiderMenu extends React.PureComponent {
           defaultOpenKeys.push(item.url[0])
           return <Menu.SubMenu
             key={item.url[0]}
-            title={
-              <span>
-					  {getIcon(item.icon)}<span>{item.label}</span>
-				     </span>
-            }
+            title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
             onTitleClick={() => _this.handleDefaultOpenKeys(defaultOpenKeys.slice())}
           >
             {_this.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
@@ -224,19 +201,9 @@ class SiderMenu extends React.PureComponent {
   }
 }
 
-@T.decorator.propTypes({
-  clickLink: PropTypes.func.isRequired,
-  locationPathname: PropTypes.string.isRequired,
-})
+@T.decorator.propTypes({locationPathname: PropTypes.string.isRequired})
 @T.decorator.contextTypes('router')
 class Header extends React.PureComponent {
-  handleRedirect = value => {
-    const _this = this
-    if (value !== _this.props.locationPathname) {
-      _this.context.router.history.push(value)
-    }
-  }
-  
   logout = () => {
     const _this = this
     
@@ -259,7 +226,7 @@ class Header extends React.PureComponent {
     
     return <div className={style['drop-down-menu-container']}>
       <Select
-        onSelect={value => _this.handleRedirect(value)}
+        onSelect={value => _this.context.router.history.push(value)}
         value={T.lodash.find(EnumMenus, value => value.url.indexOf(_this.props.locationPathname) !== -1).url[0]}
       >
         {
@@ -280,7 +247,6 @@ class Header extends React.PureComponent {
           return <Link
             className={T.helper.classNames('')({[style['active']]: item.url.indexOf(_this.props.locationPathname) !== -1})}
             key={index}
-            onClick={e => _this.props.clickLink(e, _this.props.locationPathname, item.url[0])}
             to={{pathname: item.url[0]}}
           >
             {getIcon(item.icon)}
@@ -329,10 +295,6 @@ export default class MainLayout extends React.PureComponent {
     }
   }
   
-  clickLink = (e, locationPathname, url) => {
-    if (locationPathname === url) e.preventDefault()
-  }
-  
   handleCollapsed = () => {
     this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}))
   }
@@ -344,7 +306,6 @@ export default class MainLayout extends React.PureComponent {
       style={{paddingLeft: _this.state.isCollapsed ? 80 : 200}}
     >
       <SiderMenu
-        clickLink={_this.clickLink.bind(_this)}
         locationPathname={_this.locationPathname}
         isCollapsed={_this.state.isCollapsed}
         handleCollapsed={_this.handleCollapsed.bind(_this)}
@@ -353,7 +314,6 @@ export default class MainLayout extends React.PureComponent {
         className={style['content-container']}
       >
         <Header
-          clickLink={_this.clickLink.bind(_this)}
           locationPathname={_this.locationPathname}
         />
         <Layout.Content className={style['main-content-container']}>

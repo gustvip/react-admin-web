@@ -27,6 +27,7 @@ const Routes = () => (
 	>
 		<Switch>
 			< Route exact path="/" render={() => checkLoginRedirect()}/>
+			< Route exact path={ENV.rootPath} render={() => checkLoginRedirect()}/>
 			
 			{/* 公共--路由 */}
 			{CommonRoutes()}

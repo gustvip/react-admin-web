@@ -2,16 +2,10 @@
  * created by joey 2018/02/19
  */
 
-/**
- * 基本
- */
 import PropTypes from 'prop-types'
 import T from 'utils/t'
 import { STORE_INJECT } from 'store.js'
 
-/**
- * 组件
- */
 import { Spin } from 'antd'
 
 /**
