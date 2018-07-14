@@ -11,38 +11,42 @@ import localStorage from './core/local_storage'
 import emitter from './core/emitter'
 import * as decorator from './core/decorator'
 import * as request from './core/request'
+import crypto from './core/crypto'
 
 const T = {
-	// 事件监听
-	emitter,
-	
-	// 确认弹窗
-	prompt,
-	
-	// 常用正则
-	regExp,
-	
-	// 常用自己封装的方法
-	helper,
-	
-	// 权限
-	auth,
-	
-	// 装饰器
-	decorator,
-	
-	// axios
-	request,
-	
-	// localStorage
-	localStorage,
-	
-	// 说明文档: https://lodash.com/docs/4.17.5
-	lodash,
-	
-	// 说明文档: https://github.com/sindresorhus/query-string
-	queryString,
-	
+  // 加密算法
+  crypto,
+  
+  // 事件监听
+  emitter,
+  
+  // 确认弹窗
+  prompt,
+  
+  // 常用正则
+  regExp,
+  
+  // 常用自己封装的方法
+  helper,
+  
+  // 权限
+  auth,
+  
+  // 装饰器
+  decorator,
+  
+  // axios
+  request,
+  
+  // localStorage
+  localStorage,
+  
+  // 说明文档: https://lodash.com/docs/4.17.5
+  lodash,
+  
+  // 说明文档: https://github.com/sindresorhus/query-string
+  queryString,
+  
 }
 export default T
 

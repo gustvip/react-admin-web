@@ -88,9 +88,7 @@ export function post (url, data = {}, options = {}) {
   return _request(_.merge({
     url,
     method: 'post',
-    data: _.transform(data, (result, value, key) => result.append(key, value),
-      new URLSearchParams()),
-    
+    data: _.transform(data, (result, value, key) => result.append(key, value), new URLSearchParams()),
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
   }, options))
 }

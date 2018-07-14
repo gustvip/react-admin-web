@@ -37,7 +37,6 @@ body {
 					line-height: 32px;
 					&.ant-menu-item-selected {
 						a {
-							color: #fafcff;
 						}
 					}
 				}
@@ -66,8 +65,8 @@ body {
 		/*header*/
 		.main-header-container {
 			z-index: 1;
-			box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
 			background-color: $base-body-header-background-color;
+			box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -100,13 +99,13 @@ body {
 						padding: 0 24px;
 						&.active {
 							&::after {
+								background-color: $base-primary-color;
 								content: '';
 								position: absolute;
 								left: 12px;
 								right: 12px;
 								bottom: 0;
 								height: 2px;
-								background-color: $base-color;
 								z-index: 1;
 							}
 						}

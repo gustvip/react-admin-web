@@ -12,8 +12,6 @@ const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)
 const excludeRegex = /node_modules/
 const customAntdStyle = {
   '@text-color': '#333',                  // 修改字体基本颜色
-  '@border-color-base': '#a3babf',				// 更改border颜色
-  '@primary-color': '#00d9ca',		            // 更改antd的主题颜色;
   '@font-size-base': '12px',                      // 修改基础字体大小
 }
 

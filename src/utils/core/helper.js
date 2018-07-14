@@ -213,22 +213,6 @@ class Helper {
 	}
 	
 	/**
-	 * 跳转页面
-	 * @param {String} url
-	 * @param {Number} timeout
-	 */
-	redirect (url, timeout) {
-		if (this.isUsefulNumber(url) && _.isNil(timeout)) {
-			timeout = Math.round(url)
-			url = null
-		}
-		
-		setTimeout(function () {
-			location.href = url || location.href
-		}, timeout || 0)
-	}
-	
-	/**
 	 * 浮点型保留小数
 	 * @param {*} num 要转化的数字
 	 * @param {Number} fixNum 小数位数

@@ -15,8 +15,8 @@ export default helper.immutable({
 	 | 用户相关API地址
 	 |----------------------------------------------------------------
 	 */
-	user_loginIn: _userAPI('/user/loginIn'),
-	user_loginOut: _userAPI('/user/loginOut'),
+	user_login: _userAPI('/user/login'),
+	user_logout: _userAPI('/user/logout'),
 	user_add: _userAPI('/user/add'),
 	user_delete: _userAPI('/user/delete'),
 	user_detail: _userAPI('/user/detail'),

@@ -237,10 +237,10 @@ class Header extends React.PureComponent {
     }
   }
   
-  loginOut = () => {
+  logout = () => {
     const _this = this
     
-    T.auth.loginOut({
+    T.auth.logout({
       successCallback () {
         T.auth.removeLoginStorageValue()
         _this.context.router.history.push(
@@ -310,7 +310,7 @@ class Header extends React.PureComponent {
         
         </section>
         <section
-          onClick={() => _this.loginOut()}
+          onClick={() => _this.logout()}
           className={style['right-container']}
         >
           退出登录

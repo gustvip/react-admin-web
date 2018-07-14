@@ -46,14 +46,62 @@ class Auth {
   }
   
   /**
+   * 获取localStorage(自定义)的user_name值
+   * @returns {*}
+   */
+  getUserNameStorageValue () {
+    return localStorage.getItem(ENV.localStorage.user_name.key)
+  }
+  
+  /**
+   * 设置登录的localStorage(自定义)的user_name值
+   * @param {String} user_name_value 用户名
+   */
+  setUserNameStorageValue (user_name_value) {
+    const user_name = ENV.localStorage.user_name
+    localStorage.setItem(user_name.key, user_name_value, user_name.expire)
+  }
+  
+  /**
+   * 移除登录的localStorage(自定义)的user_name值
+   */
+  removeUserNameStorageValue () {
+    localStorage.removeItem(ENV.localStorage.login.key)
+  }
+  
+  /**
+   * 获取localStorage(自定义)的user_password值
+   * @returns {*}
+   */
+  getUserPasswordStorageValue () {
+    return localStorage.getItem(ENV.localStorage.user_password.key)
+  }
+  
+  /**
+   * 设置登录的localStorage(自定义)的user_password值
+   * @param {String} user_password_value 用户名
+   */
+  setUserPasswordStorageValue (user_password_value) {
+    const user_password = ENV.localStorage.user_password
+    localStorage.setItem(user_password.key, user_password_value, user_password.expire)
+  }
+  
+  /**
+   * 移除登录的localStorage(自定义)的user_password值
+   */
+  removeUserPasswordStorageValue () {
+    localStorage.removeItem(ENV.localStorage.user_password.key)
+  }
+  
+  /**
    * 登录
    * @param {String} user_name
    * @param {String} user_password
    * @param {[Function]} successCallback
    * @param {[Function]} failCallback
    */
-  loginIn ({user_name, user_password, successCallback = _.noop, failCallback = _.noop} = {}) {
-    request.post(EnumAPI.user_loginIn, {user_name, user_password}).then(info => successCallback(info)).catch(info => failCallback(info))
+  login ({user_name, user_password, successCallback = _.noop, failCallback = _.noop} = {}) {
+    request.post(EnumAPI.user_login, {user_name, user_password}).then(info => successCallback(info)).catch(info => failCallback(info))
   }
   
   /**
@@ -61,8 +109,8 @@ class Auth {
    * @param {[Function]} successCallback
    * @param {[Function]} failCallback
    */
-  loginOut ({successCallback = _.noop, failCallback = _.noop} = {}) {
-    request.post(EnumAPI.user_loginOut).then(info => successCallback(info)).catch(info => failCallback(info))
+  logout ({successCallback = _.noop, failCallback = _.noop} = {}) {
+    request.post(EnumAPI.user_logout).then(info => successCallback(info)).catch(info => failCallback(info))
   }
   
   /**

@@ -3,23 +3,26 @@
  */
 import styles from './index.scss'
 import T from 'utils/t'
+import bg from './img/bg.png'
 
 /**
  * 组件
  */
-import { Button } from 'antd'
-
-const loginBack = require('./img/login_back.png')
-const loginBox = require('./img/login_box.png')
-const userImg = require('./img/user_name.png')
-const passImg = require('./img/user_password.png')
+import { Button, Input } from 'antd'
 
 @T.decorator.contextTypes('router')
 export default class Login extends React.PureComponent {
-  state = {
-    user_name: '',
-    user_password: '',
-    loading: false,
+  
+  static userNameStorageValue = T.auth.getUserNameStorageValue()
+  static userPasswordStorageValue = T.auth.getUserPasswordStorageValue()
+  
+  constructor () {
+    super()
+    this.state = {
+      user_name: Login.userNameStorageValue ? Login.userNameStorageValue : '',
+      user_password: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : '',
+      loading: false,
+    }
   }
   
   /**
@@ -31,16 +34,38 @@ export default class Login extends React.PureComponent {
   handleSubmit = () => {
     const _this = this
     const {user_name, user_password} = _this.state
-    const canSubmit = (T.regExp.name.test(user_name.trim()) || T.regExp.email.test(user_name.trim()) || T.regExp.telephone.test(user_name.trim())) && T.regExp.password.test(user_password.trim())
+    /**
+     * 验证账号密码是否符合格式
+     * @type {*|boolean}
+     */
+    const canSubmit = (
+      T.regExp.name.test(user_name.trim())
+      || T.regExp.email.test(user_name.trim())
+      || T.regExp.telephone.test(user_name.trim())
+    ) && (
+      user_password.trim() === Login.userPasswordStorageValue ||
+      T.regExp.password.test(user_password.trim())
+    )
     
     if (!canSubmit) {
       T.prompt.warn('请填写相关信息')
     } else {
       _this.setState({loading: true}, () => {
-        T.auth.loginIn({
-          user_name: user_name.trim(),
-          user_password: user_password.trim(),
+        const username = user_name.trim()
+        const password = user_password.trim() === Login.userPasswordStorageValue ? Login.userPasswordStorageValue : T.crypto.sha512(user_password.trim())
+        T.auth.login({
+          user_name: username,
+          user_password: password,
           successCallback () {
+            T.prompt.success('登陆成功,正在跳转')
+            /**
+             * 储存用户名
+             * 储存用户密码
+             * 储存登陆成功标志
+             * 跳转到首页
+             */
+            T.auth.setUserNameStorageValue(username)
+            T.auth.setUserPasswordStorageValue(password)
             T.auth.setLoginStorageValue()
             T.auth.loginSuccessRedirect(
               _this.context.router.history,
@@ -60,40 +85,34 @@ export default class Login extends React.PureComponent {
     const _this = this
     
     return (
-      <div className={styles.login}>
-        <img src={loginBack} className={styles['img-top']} alt="login-back"/>
-        <div className={styles['login_box']}>
-          <div className={styles['login_box_left']}>
-            <img className={styles['loginBoxImg']} src={loginBox} alt="loginBox"/>
-            <img className={styles['userImg']} src={userImg} alt="userImg"/>
-            <img className={styles['passImg']} src={passImg} alt="passImg"/>
-            <input
-              type="text"
-              value={_this.state.user_name}
-              className={styles['login_email']}
-              onChange={e => _this.setState({user_name: e.target.value.trim()})}
-              placeholder="邮箱"
-              onKeyDown={e => _this.handleEnterDown(e)}
-            />
-            
-            <input
-              type="password"
-              value={_this.state.user_password}
-              className={styles['login_password']}
-              onChange={e => _this.setState({user_password: e.target.value.trim()})}
-              placeholder="密码"
-              onKeyDown={e => _this.handleEnterDown(e)}
-            />
-            
-            <Button
-              disabled={_this.state.loading}
-              loading={_this.state.loading}
-              className={styles['btn_login']}
-              onClick={() => _this.handleSubmit()}
-            >
-              登&nbsp;&nbsp;录
-            </Button>
-          </div>
+      <div className={styles['login-container']}>
+        <img src={bg} alt="背景图片"/>
+        <div className={styles['condition-container']}>
+          <Input
+            type="text"
+            value={_this.state.user_name}
+            className={styles['login_email']}
+            onChange={e => _this.setState({user_name: e.target.value.trim()})}
+            placeholder="邮箱"
+            onKeyDown={e => _this.handleEnterDown(e)}
+          />
+          <Input
+            type="password"
+            value={_this.state.user_password}
+            className={styles['login_password']}
+            onChange={e => _this.setState({user_password: e.target.value.trim()})}
+            placeholder="密码"
+            onKeyDown={e => _this.handleEnterDown(e)}
+          />
+          
+          <Button
+            type="primary"
+            disabled={_this.state.loading}
+            loading={_this.state.loading}
+            onClick={() => _this.handleSubmit()}
+          >
+            登&nbsp;&nbsp;录
+          </Button>
         </div>
       </div>
     )

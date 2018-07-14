@@ -5,7 +5,6 @@
 			border: none;
 			font-size: 14px;
 			line-height: 1;
-			color: #666;
 			border-radius: 4px;
 			.ant-table-thead > tr > th {
 				border: none;
@@ -13,7 +12,6 @@
 				background: #f0f0f0;
 				font-size: 16px;
 				font-weight: normal;
-				color: #333;
 			}
 			.ant-table-tbody > tr:nth-child(2n) {
 				background-color: #f9f9f9;
@@ -28,12 +26,9 @@
 			float: none !important;
 			text-align: center;
 			.ant-pagination-item {
-				color: #fff;
 			}
 			.ant-pagination-item-active {
-				background-color: #00d9ca;
 				a {
-					color: #fff;
 				}
 			}
 		}
