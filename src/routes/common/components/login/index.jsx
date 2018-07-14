@@ -50,7 +50,7 @@ export default class Login extends React.PureComponent {
     } else {
       _this.setState({loading: true}, () => {
         const username = user_name.trim()
-        const password = user_password.trim() === Login.userPasswordStorageValue ? Login.userPasswordStorageValue : T.crypto.sha512(user_password.trim())
+        const password = user_password.trim() === Login.userPasswordStorageValue ? Login.userPasswordStorageValue : T.crypto.hmacSHA512(user_password.trim(), user_password.trim())
         T.auth.login({
           user_name: username,
           user_password: password,
