@@ -7,15 +7,14 @@
 					{
 						"targets": {
 							"browsers": [
-								">1%",
-								"Firefox ESR",
-								"ie >=10",
-								"chrome >= 25",
-								"firefox >= 30",
-								"safari >= 7",
-								"opera >= 15",
-								"android >= 4.4",
-								"ios >= 9"
+								"Chrome >= 45",
+								"Firefox >= 38",
+								"Edge >= 12",
+								"Explorer >= 10",
+								"iOS >= 9",
+								"Safari >= 9",
+								"Android >= 4.4",
+								"Opera >= 30"
 							],
 							"node": "8.11"
 						},
