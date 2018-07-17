@@ -13,6 +13,7 @@ import {
 import { NoMatch } from './route_tool'
 import CommonRoutes from './common'         // 公共模块--相关路由,如:登录,注册...
 import UserRoutes from './user'         // 用户相关模块
+import TestRoutes from './test'	         // 测试相关模块
 
 const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>
 
@@ -34,6 +35,9 @@ const Routes = () => (
 			
 			{/* 用户--路由 */}
 			{UserRoutes()}
+			
+			{/* 测试--路由 */}
+			{TestRoutes()}
 			
 			{/* 404 NOT found */}
 			<Route component={NoMatch}/>

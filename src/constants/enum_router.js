@@ -10,14 +10,14 @@ import _ from 'lodash'
  */
 
 export default helper.immutable({
-  rootPath: '',
-  login: 'login',
-  
-  /*
-   |-----------------------------------------------
-   | 用户-相关的路由
-   |-----------------------------------------------
-   */
-  user_list: 'user/list',
-  
+	rootPath: '',
+	login: 'login',
+	test_demo: 'test/demo',
+	
+	/*
+	 |-----------------------------------------------
+	 | 用户-相关的路由
+	 |-----------------------------------------------
+	 */
+	user_list: 'user/list',
 }, value => ENV.rootPath.trim() + _.flowRight(helper.removeTrailingSlash, helper.removeBlank)(value))

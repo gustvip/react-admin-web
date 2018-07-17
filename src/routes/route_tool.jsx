@@ -49,7 +49,7 @@ export const MainLayout = ({component: Component, reducers, ...rest}) => {
  * @param {Array} routes
  * @returns {function()}
  */
-export const AssembleRoute = (...routes) => () => T.lodash.flattenDeep(routes).map(val => val.Layout ? DefaultLayout(val) : MainLayout(val))
+export const AssembleRoute = (...routes) => () => T.lodash.flattenDeep(routes).map(val => val.layout ? DefaultLayout(val) : MainLayout(val))
 
 /**
  * 未匹配到的页面

@@ -14,11 +14,12 @@ const indexHtmlInfo = `<!doctype html>
 	<meta charset="UTF-8">
 	<meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+	<link rel="shortcut icon" href="{$favicon}" title="Favicon">
 	<link rel="stylesheet" href="{$publicVendorCSS}">
 </head>
 <body>
-<script type="text/javascript" src="{$EnvConfJS}"></script>
+<script type="text/javascript" src="{$envConfJS}"></script>
+<script type="text/javascript" src="{$cesiumJS}"></script>
 <script type="text/javascript" src="{$publicCommonsJS}"></script>
 <script type="text/javascript" src="{$publicRuntimeJS}"></script>
 <script type="text/javascript" src="{$publicVendorJS}"></script>
