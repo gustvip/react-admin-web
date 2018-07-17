@@ -59,8 +59,10 @@ const formatStyleLoader = (otherLoader) => {
         sourceMap: true,
         ident: 'postcss',
         plugins: () => [
+          require('postcss-import'),
+          require('postcss-cssnext'),
           require('postcss-flexbugs-fixes'),
-          require('autoprefixer')(),
+          require('cssnano'),
         ],
       },
     },
@@ -88,7 +90,6 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      name: 'vendor',
       minSize: 30000,
       minChunks: 1,
       maxAsyncRequests: 5,

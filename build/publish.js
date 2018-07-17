@@ -30,7 +30,6 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
   output: {
     publicPath: path.join(conf.proxyPath, conf.appName, '/'),
     path: path.join(conf.webPath, conf.appName),
-    filename: '[name].js',
   },
   plugins: [
     new copyWebpackPlugin([
@@ -66,7 +65,7 @@ function doCompilerPlatform () {
       handleError(err)
     } else {
       webpack(webpackConfigProd, (err, stats) => {
-        let jsonStats = stats.toJson()
+        const jsonStats = stats.toJson()
         jsonStats.errors.length && handleError(jsonStats.errors)
         jsonStats.warnings.length && handleWarn(jsonStats.warnings)
         
