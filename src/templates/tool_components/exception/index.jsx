@@ -6,7 +6,7 @@ import img_404 from './img/404.svg'
 import img_403 from './img/403.svg'
 import img_500 from './img/500.svg'
 
-import { createElement } from 'react'
+import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 
 const config = {
@@ -42,12 +42,7 @@ export default ({className = '', linkElement = 'a', type, title, desc, img, ...r
         <h1>{title || config[pageType].title}</h1>
         <div className={styles.content}>{desc || config[pageType].desc}</div>
         <div className={styles.actions}>
-          {
-            createElement(linkElement, {
-              to: ENV.rootPath,
-              href: ENV.rootPath,
-            }, <Button type="primary">返回首页</Button>)
-          }
+          <Link to={ENV.rootPath}><Button type="primary">返回首页</Button></Link>
         </div>
       </div>
     </div>

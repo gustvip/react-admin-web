@@ -9,7 +9,6 @@ import style from './index.scss'
 import { EnumIconTypes } from 'constants/enum_default_menus'
 
 import { Select, Menu, Icon, Layout } from 'antd'
-import { Link } from 'react-router-dom'
 
 /**
  * 获取图标字体
@@ -117,9 +116,9 @@ class SiderMenu extends React.PureComponent {
            * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
            */
           return <Menu.Item key={item.url[0]}>
-            <Link to={{pathname: item.url[0]}}>
+            <a href={item.url[0]}>
               <span>{getIcon(item.icon)}<span>{item.label}</span></span>
-            </Link>
+            </a>
           </Menu.Item>
         } else {
           /**
@@ -231,7 +230,9 @@ class Header extends React.PureComponent {
       >
         {
           EnumMenus.map((item, index) => {
-            return <Select.Option key={index} value={item.url[0]}>{item.label}</Select.Option>
+            return <Select.Option key={index} value={item.url[0]}>
+              <a href={item.url[0]}>{item.label}</a>
+            </Select.Option>
           })
         }
       </Select>
@@ -244,14 +245,14 @@ class Header extends React.PureComponent {
     return <div className={style['category-menu-container']}>
       {
         getCategoryRoute(_this.props.locationPathname).map((item, index) => {
-          return <Link
+          return <a
             className={T.helper.classNames('')({[style['active']]: item.url.indexOf(_this.props.locationPathname) !== -1})}
             key={index}
-            to={{pathname: item.url[0]}}
+            href={item.url[0]}
           >
             {getIcon(item.icon)}
             {item.label}
-          </Link>
+          </a>
         })
       }
     </div>
