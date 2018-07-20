@@ -30,15 +30,15 @@ import ErrorBoundary from 'templates/tool_components/errorBoundary'
  * 渲染程序
  */
 const renderApp = Component => {
-	const wrapper = document.createElement('div')
-	wrapper.id = 'wrapper'
-	return render(
-		<ErrorBoundary>
-			<Provider store={store()}>
-				<Component/>
-			</Provider>
-		</ErrorBoundary>
-		,
-		document.body.appendChild(wrapper))
+  const wrapper = document.createElement('div')
+  wrapper.id = 'wrapper'
+  return render(
+    <ErrorBoundary>
+      <Provider store={store()}>
+        <Component/>
+      </Provider>
+    </ErrorBoundary>
+    ,
+    document.body.appendChild(wrapper))
 }
 renderApp(Routes)
