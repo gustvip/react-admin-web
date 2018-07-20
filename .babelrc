@@ -1,5 +1,53 @@
 {
 	"env": {
+		"development": {
+			"presets": [
+				[
+					"env",
+					{
+						"targets": {
+							"browsers": [
+								"Chrome >= 45",
+								"Firefox >= 38",
+								"Edge >= 12",
+								"Explorer >= 10",
+								"iOS >= 9",
+								"Safari >= 9",
+								"Android >= 4.4",
+								"Opera >= 30"
+							],
+							"node": "8.11"
+						},
+						"modules": false,
+						"useBuiltIns": true,
+						"debug": true
+					}
+				],
+				"react",
+				"stage-0"
+			],
+			"plugins": [
+				[
+					"import",
+					{
+						"libraryName": "antd",
+						"libraryDirectory": "es",
+						"style": true
+					}
+				],
+				[
+					"transform-decorators-legacy",
+					"transform-decorators"
+				],
+				[
+					"transform-runtime",
+					{
+						"polyfill": false,
+						"regenerator": true
+					}
+				]
+			]
+		},
 		"test": {
 			"presets": [
 				[

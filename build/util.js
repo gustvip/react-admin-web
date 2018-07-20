@@ -49,6 +49,14 @@ module.exports = {
 	getLocalIp,
 	indexHtmlInfo,
 	resourceBaseName: 'resources',
+	postCssPlugin: {
+		plugins: () => [
+			require('postcss-import'),
+			require('postcss-cssnext'),
+			require('postcss-flexbugs-fixes'),
+			require('cssnano'),
+		],
+	},
 }
 
 

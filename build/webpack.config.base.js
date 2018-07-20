@@ -4,7 +4,6 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const happyPack = require('happypack')
-const packageJSON = require('../package.json')
 
 /**
  * 页面入口文件,使用异步加载方式
@@ -16,14 +15,7 @@ const customAntdStyle = {
 	'@text-color': '#333',                  // 修改字体基本颜色
 	'@font-size-base': '12px',                      // 修改基础字体大小
 }
-const postCssPlugin = {
-	plugins: () => [
-		require('postcss-import'),
-		require('postcss-cssnext'),
-		require('postcss-flexbugs-fixes'),
-		require('cssnano'),
-	],
-}
+
 const staticResource = (function () {
 	const resourceBaseName = require('./util').resourceBaseName
 	
@@ -67,7 +59,7 @@ const formatStyleLoader = (otherLoader) => {
 			options: {
 				sourceMap: true,
 				ident: 'postcss',
-				...postCssPlugin,
+				...require('./util').postCssPlugin,
 			},
 		},
 	]
@@ -162,7 +154,7 @@ module.exports = {
 	},*/
 	
 	resolve: {
-		extensions: ['.js', '.jsx', '.scss'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
 		modules: ['node_modules', 'src/'],
 		mainFields: ['browser', 'main', 'module'],
 	},
@@ -173,11 +165,13 @@ module.exports = {
 	
 	module: {
 		rules: [
+			// css
 			{
 				test: /\.css$/,
 				use: formatStyleLoader(),
 			},
 			
+			//scss
 			{
 				test: /\.scss/,
 				exclude: excludeRegex,
@@ -189,6 +183,7 @@ module.exports = {
 				}),
 			},
 			
+			// less
 			{
 				test: /\.less/,
 				use: formatStyleLoader({
@@ -200,8 +195,10 @@ module.exports = {
 				}),
 			},
 			
+			// 静态资源
 			...staticResource,
 			
+			// 懒加载
 			{
 				test: routesComponentsRegex,
 				exclude: excludeRegex,
@@ -215,12 +212,19 @@ module.exports = {
 				],
 			},
 			
+			// jsx?配置
 			{
 				test: /\.jsx?$/,
 				use: 'happypack/loader?id=js',
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
-		
+			
+			// tsx?配置
+			{
+				test: /\.tsx?$/,
+				use: ['ts-loader', 'babel-loader'],
+				exclude: [excludeRegex, routesComponentsRegex],
+			},
 		],
 	},
 	
@@ -228,49 +232,7 @@ module.exports = {
 		new happyPack({
 			id: 'js',
 			threads: 4,
-			loaders: [
-				{
-					loader: 'babel-loader',
-					options: {
-						'presets': [
-							[
-								'env',
-								{
-									'targets': {
-										'browsers': packageJSON.browserslist,
-										'node': packageJSON.engines.node,
-									},
-									'modules': false,
-									'useBuiltIns': true,
-									'debug': true,
-								},
-							],
-							'react',
-							'stage-0',
-						],
-						'plugins': [
-							[
-								'import',
-								{
-									'libraryName': 'antd',
-									'libraryDirectory': 'es',
-									'style': true,
-								},
-							],
-							[
-								'transform-decorators-legacy',
-								'transform-decorators',
-							],
-							[
-								'transform-runtime',
-								{
-									'polyfill': false,
-									'regenerator': true,
-								},
-							],
-						],
-					},
-				}],
+			loaders: ['babel-loader'],
 		}),
 		
 		new MiniCssExtractPlugin({
