@@ -29,7 +29,7 @@ const indexHtmlInfo = `<!doctype html>
 
 function flattenDeep (array) {
 	const result = []
-	(function fn (_array) {
+	!(function fn (_array) {
 		_array.forEach(value => {
 			Array.isArray(value) ? fn(value) : result.push(value)
 		})
