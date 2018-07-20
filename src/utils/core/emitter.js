@@ -96,7 +96,7 @@ export default (function () {
 	function removeListener (type, callback) {
 		var row = this.__selfListeners__[type],
 			index
-		if (type) {
+		if (row) {
 			index = findIndex(row, function (value) {
 				return value.callback === callback
 			})
