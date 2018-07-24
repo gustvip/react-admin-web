@@ -28,6 +28,10 @@ export default class AMap extends React.PureComponent {
 		})
 	}
 	
+	componentWillUnmount () {
+		this.mapUtils.destroy()
+	}
+	
 	render () {
 		const baseStyle = {
 			position: 'absolute',
