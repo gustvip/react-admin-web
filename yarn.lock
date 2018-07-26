@@ -5787,18 +5787,18 @@ less-loader@^4.0.5:
     loader-utils "^1.1.0"
     pify "^3.0.0"
 
-less@2.7.3:
-  version "2.7.3"
-  resolved "http://registry.npm.taobao.org/less/download/less-2.7.3.tgz#cc1260f51c900a9ec0d91fb6998139e02507b63b"
+less@3.8.0:
+  version "3.8.0"
+  resolved "http://registry.npm.taobao.org/less/download/less-3.8.0.tgz#44785e40c23841c15ba3be741d36bd2775dd0596"
   optionalDependencies:
     errno "^0.1.1"
     graceful-fs "^4.1.2"
     image-size "~0.5.0"
-    mime "^1.2.11"
+    mime "^1.4.1"
     mkdirp "^0.5.0"
     promise "^7.1.1"
-    request "2.81.0"
-    source-map "^0.5.3"
+    request "^2.83.0"
+    source-map "~0.6.0"
 
 leven@^2.1.0:
   version "2.1.0"
@@ -6256,7 +6256,7 @@ mime@1.4.1:
   version "1.4.1"
   resolved "http://registry.npm.taobao.org/mime/download/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
-mime@^1.2.11:
+mime@^1.4.1:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/mime/download/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
@@ -8565,7 +8565,32 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
-request@2.81.0, "request@>=2.9.0 <2.82.0":
+request@2.87.0, request@^2.83.0:
+  version "2.87.0"
+  resolved "http://registry.npm.taobao.org/request/download/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
+  dependencies:
+    aws-sign2 "~0.7.0"
+    aws4 "^1.6.0"
+    caseless "~0.12.0"
+    combined-stream "~1.0.5"
+    extend "~3.0.1"
+    forever-agent "~0.6.1"
+    form-data "~2.3.1"
+    har-validator "~5.0.3"
+    http-signature "~1.2.0"
+    is-typedarray "~1.0.0"
+    isstream "~0.1.2"
+    json-stringify-safe "~5.0.1"
+    mime-types "~2.1.17"
+    oauth-sign "~0.8.2"
+    performance-now "^2.1.0"
+    qs "~6.5.1"
+    safe-buffer "^5.1.1"
+    tough-cookie "~2.3.3"
+    tunnel-agent "^0.6.0"
+    uuid "^3.1.0"
+
+"request@>=2.9.0 <2.82.0":
   version "2.81.0"
   resolved "http://registry.npm.taobao.org/request/download/request-2.81.0.tgz#c6928946a0e06c5f8d6f8a9333469ffda46298a0"
   dependencies:
@@ -8591,31 +8616,6 @@ request@2.81.0, "request@>=2.9.0 <2.82.0":
     tough-cookie "~2.3.0"
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
-
-request@2.87.0, request@^2.83.0:
-  version "2.87.0"
-  resolved "http://registry.npm.taobao.org/request/download/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
-  dependencies:
-    aws-sign2 "~0.7.0"
-    aws4 "^1.6.0"
-    caseless "~0.12.0"
-    combined-stream "~1.0.5"
-    extend "~3.0.1"
-    forever-agent "~0.6.1"
-    form-data "~2.3.1"
-    har-validator "~5.0.3"
-    http-signature "~1.2.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.17"
-    oauth-sign "~0.8.2"
-    performance-now "^2.1.0"
-    qs "~6.5.1"
-    safe-buffer "^5.1.1"
-    tough-cookie "~2.3.3"
-    tunnel-agent "^0.6.0"
-    uuid "^3.1.0"
 
 require-directory@^2.1.1:
   version "2.1.1"
@@ -9110,7 +9110,7 @@ source-map@^0.5.3, source-map@^0.5.6, source-map@^0.5.7, source-map@~0.5.1:
   version "0.5.7"
   resolved "http://registry.npm.taobao.org/source-map/download/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
-source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
+source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "http://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
