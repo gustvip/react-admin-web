@@ -51,7 +51,7 @@ module.exports = merge(baseConfig, {
           {
             loader: 'url-loader',
             options: {
-              name: `${resourceBaseName}/[name].[hash:8].[ext]`,
+              name: `${resourceBaseName}/[name].[hash].[ext]`,
               limit: 8192,	 // <= 8kb的图片base64内联
             },
           },

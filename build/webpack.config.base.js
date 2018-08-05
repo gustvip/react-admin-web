@@ -97,7 +97,6 @@ module.exports = {
       cacheGroups: {
         vendor: {
           name: 'vendor',
-          test: /\.scss|css|less$/,
           chunks: 'all',    // merge all the css chunk to one file
           minChunks: 1,
           reuseExistingChunk: true,
@@ -241,7 +240,7 @@ module.exports = {
     }),
     
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: '[name].[contenthash].css',
     }),
     new webpack.ProvidePlugin({
       React: 'react',
