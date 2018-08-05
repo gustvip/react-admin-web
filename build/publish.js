@@ -30,6 +30,7 @@ const conf = {
  */
 const webpackConfigProd = merge(require('./webpack.config.prod'), {
   output: {
+    filename: '[name].[chunkhash].js',
     publicPath: path.join(conf.proxyPath, conf.appName, '/'),
     path: path.join(conf.webPath, conf.appName),
   },

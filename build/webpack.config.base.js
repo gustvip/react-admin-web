@@ -63,7 +63,12 @@ const formatStyleLoader = (otherLoader) => {
       options: {
         sourceMap: true,
         ident: 'postcss',
-        ...require('./util').postCssPlugin,
+        plugins: () => [
+          require('postcss-import'),
+          require('postcss-cssnext'),
+          require('postcss-flexbugs-fixes'),
+          require('cssnano'),
+        ],
       },
     },
   ]
@@ -241,7 +246,7 @@ module.exports = {
     }),
     
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: '[name].[chunkhash].css',
     }),
     new webpack.ProvidePlugin({
       React: 'react',

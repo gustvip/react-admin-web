@@ -28,13 +28,13 @@ const indexHtmlInfo = `<!doctype html>
 </html>`
 
 function flattenDeep (array) {
-	const result = []
-	!(function fn (_array) {
-		_array.forEach(value => {
-			Array.isArray(value) ? fn(value) : result.push(value)
-		})
-	})(array)
-	return result
+  const result = []
+  !(function fn (_array) {
+    _array.forEach(value => {
+      Array.isArray(value) ? fn(value) : result.push(value)
+    })
+  })(array)
+  return result
 }
 
 /**
@@ -42,23 +42,11 @@ function flattenDeep (array) {
  * @returns {null}
  */
 function getLocalIp () {
-	return flattenDeep(Object.values(os.networkInterfaces())).find(value => value.family === 'IPv4' && value.address !== '127.0.0.1' && !value.internal).address
+  return flattenDeep(Object.values(os.networkInterfaces())).find(value => value.family === 'IPv4' && value.address !== '127.0.0.1' && !value.internal).address
 }
 
 module.exports = {
-	getLocalIp,
-	indexHtmlInfo,
-	resourceBaseName: 'resources',
-	postCssPlugin: {
-		plugins: () => [
-			require('postcss-import'),
-			require('postcss-cssnext'),
-			require('postcss-flexbugs-fixes'),
-			require('cssnano'),
-		],
-	},
+  getLocalIp,
+  indexHtmlInfo,
+  resourceBaseName: 'resources',
 }
-
-
-
-
