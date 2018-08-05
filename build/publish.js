@@ -6,6 +6,7 @@ const clc = require('cli-color')
 const webpack = require('webpack')
 const copyWebpackPlugin = require('copy-webpack-plugin')
 const rm = require('rimraf')
+
 let {indexHtmlInfo} = require('./util')
 
 console.log(clc.green('webpack打包开始'))
@@ -13,7 +14,7 @@ console.log(clc.green('webpack打包开始'))
 const conf = {
   favicon: 'favicon.ico',
   runtimeJS: 'runtime.js',
-  vendorCss: 'vendor.css',
+  vendorCss: 'vendor.js',
   appJs: 'app.js',
   commonsJs: 'commons.js',
   vendorJs: 'vendor.js',
@@ -24,6 +25,19 @@ const conf = {
   proxyPath: process.argv[3] ? process.argv[3] : '/',  // 代理的前缀 注意：后面必须带斜线
   webPath: process.argv[2],    // web目录
 }
+
+/**
+ * 配置index.html
+ */
+indexHtmlInfo = indexHtmlInfo.
+  replace('{$favicon}', path.join(conf.proxyPath, conf.favicon)).
+  replace('{$envConfJS}', path.join(conf.proxyPath, conf.configEnvPath)).
+  replace('{$cesiumJS}', path.join(conf.proxyPath, conf.cesiumPath)).
+  replace('{$publicVendorCSS}', path.join(conf.proxyPath, conf.appName, conf.vendorCss)).
+  replace('{$publicRuntimeJS}', path.join(conf.proxyPath, conf.appName, conf.runtimeJS)).
+  replace('{$publicVendorJS}', path.join(conf.proxyPath, conf.appName, conf.vendorJs)).
+  replace('{$publicAppJS}', path.join(conf.proxyPath, conf.appName, conf.appJs)).
+  replace('{$publicCommonsJS}', path.join(conf.proxyPath, conf.appName, conf.commonsJs))
 
 /**
  * 更新webpack配置
@@ -68,19 +82,6 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 })
 
 /**
- * 配置index.html
- */
-indexHtmlInfo = indexHtmlInfo.
-  replace('{$favicon}', path.join(conf.proxyPath, conf.favicon)).
-  replace('{$envConfJS}', path.join(conf.proxyPath, conf.configEnvPath)).
-  replace('{$cesiumJS}', path.join(conf.proxyPath, conf.cesiumPath)).
-  replace('{$publicVendorCSS}', path.join(conf.proxyPath, conf.appName, conf.vendorCss)).
-  replace('{$publicRuntimeJS}', path.join(conf.proxyPath, conf.appName, conf.runtimeJS)).
-  replace('{$publicVendorJS}', path.join(conf.proxyPath, conf.appName, conf.vendorJs)).
-  replace('{$publicAppJS}', path.join(conf.proxyPath, conf.appName, conf.appJs)).
-  replace('{$publicCommonsJS}', path.join(conf.proxyPath, conf.appName, conf.commonsJs))
-
-/**
  * 开始打包
  */
 doCompilerPlatform()
@@ -100,9 +101,6 @@ function doCompilerPlatform () {
         
         console.log(clc.green('webpack打包结束'))
         
-        /**
-         * 生成html文件
-         */
         createHtmlFile().then(() => console.log(clc.green(`生成${conf.indexHtmlName}成功`))).catch(err => console.log(clc.green(`生成${conf.indexHtmlName}错误: ${err}`)))
       })
     }
