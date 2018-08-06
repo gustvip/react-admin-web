@@ -245,9 +245,6 @@ module.exports = {
       loaders: ['babel-loader'],
     }),
     
-    new MiniCssExtractPlugin({
-      filename: '[name].[chunkhash].css',
-    }),
     new webpack.ProvidePlugin({
       React: 'react',
     }),

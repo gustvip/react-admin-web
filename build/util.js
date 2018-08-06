@@ -19,9 +19,9 @@ const indexHtmlInfo = `<!doctype html>
 </head>
 <body>
 <script type="text/javascript" src="{$envConfJS}"></script>
+<script type="text/javascript" src="{$publicRuntimeJS}"></script>
 <script type="text/javascript" src="{$cesiumJS}"></script>
 <script type="text/javascript" src="{$publicCommonsJS}"></script>
-<script type="text/javascript" src="{$publicRuntimeJS}"></script>
 <script type="text/javascript" src="{$publicVendorJS}"></script>
 <script type="text/javascript" src="{$publicAppJS}"></script>
 </body>

@@ -5,6 +5,7 @@ const baseConfig = require('./webpack.config.base')
 const merge = require('webpack-merge')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const resourceBaseName = require('./util').resourceBaseName
 
@@ -84,4 +85,10 @@ module.exports = merge(baseConfig, {
       },
     ],
   },
+  
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[chunkhash].css',
+    }),
+  ],
 })
