@@ -44,7 +44,7 @@ indexHtmlInfo = indexHtmlInfo.
  */
 const webpackConfigProd = merge(require('./webpack.config.prod'), {
   output: {
-    filename: '[name].[chunkhash].js',
+    filename: '[name].js?[chunkhash]',
     publicPath: path.join(conf.proxyPath, conf.appName, '/'),
     path: path.join(conf.webPath, conf.appName),
   },
@@ -76,8 +76,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
       {
         from: path.join(__dirname, '../public/favicon.ico'),
         to: conf.webPath,
-      },
-    ]),
+      }]),
   ],
 })
 

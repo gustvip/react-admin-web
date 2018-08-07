@@ -9,7 +9,7 @@ const happyPack = require('happypack')
  * 页面入口文件,使用异步加载方式
  * @type {RegExp}
  */
-const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.jsx?)$/ig
+const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig
 const excludeRegex = /node_modules/
 const customAntdStyle = {
   '@text-color': '#333',                  // 修改字体基本颜色
@@ -232,7 +232,7 @@ module.exports = {
       // tsx?配置
       {
         test: /\.tsx?$/,
-        use: ['ts-loader', 'babel-loader'],
+        use: ['babel-loader', 'ts-loader'],
         exclude: [excludeRegex, routesComponentsRegex],
       },
     ],
@@ -244,7 +244,9 @@ module.exports = {
       threads: 4,
       loaders: ['babel-loader'],
     }),
-    
+    new MiniCssExtractPlugin({
+      filename: '[name].css?[chunkhash]',
+    }),
     new webpack.ProvidePlugin({
       React: 'react',
     }),
