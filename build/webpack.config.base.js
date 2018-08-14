@@ -1,23 +1,23 @@
 /**
  * @description webpack 打包基本配置
  */
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const happyPack = require('happypack')
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const happyPack = require('happypack');
 
 /**
  * 页面入口文件,使用异步加载方式
  * @type {RegExp}
  */
-const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig
-const excludeRegex = /node_modules/
+const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig;
+const excludeRegex = /node_modules/;
 const customAntdStyle = {
   '@text-color': '#333',                  // 修改字体基本颜色
   '@font-size-base': '12px',                      // 修改基础字体大小
-}
+};
 
 const staticResource = (function () {
-  const resourceBaseName = require('./util').resourceBaseName
+  const resourceBaseName = require('./util').resourceBaseName;
   
   return [
     {
@@ -44,8 +44,8 @@ const staticResource = (function () {
       test: /\.(csv|tsv)$/,
       use: 'csv-loader',
     },
-  ]
-})()
+  ];
+})();
 
 const formatStyleLoader = (otherLoader) => {
   const baseLoaders = [
@@ -71,7 +71,7 @@ const formatStyleLoader = (otherLoader) => {
         ],
       },
     },
-  ]
+  ];
   
   if (otherLoader) {
     if (otherLoader.loader === 'sass-loader') {
@@ -82,14 +82,14 @@ const formatStyleLoader = (otherLoader) => {
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
         },
-      }
+      };
     }
     
-    baseLoaders.push(otherLoader)
+    baseLoaders.push(otherLoader);
   }
   
-  return baseLoaders
-}
+  return baseLoaders;
+};
 
 module.exports = {
   optimization: {
@@ -244,11 +244,8 @@ module.exports = {
       threads: 4,
       loaders: ['babel-loader'],
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css?[chunkhash]',
-    }),
     new webpack.ProvidePlugin({
       React: 'react',
     }),
   ],
-}
+};

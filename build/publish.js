@@ -1,15 +1,12 @@
-const fs = require('fs')
-const {promisify} = require('util')
-const path = require('path')
-const merge = require('webpack-merge')
-const clc = require('cli-color')
-const webpack = require('webpack')
-const copyWebpackPlugin = require('copy-webpack-plugin')
-const rm = require('rimraf')
+const path = require('path');
+const merge = require('webpack-merge');
+const clc = require('cli-color');
+const webpack = require('webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const rm = require('rimraf');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let {indexHtmlInfo} = require('./util')
-
-console.log(clc.green('webpack打包开始'))
+console.log(clc.green('webpack打包开始'));
 
 const conf = {
   favicon: 'favicon.ico',
@@ -24,31 +21,39 @@ const conf = {
   appName: 'platform',                                 // 项目名称
   proxyPath: process.argv[3] ? process.argv[3] : '/',  // 代理的前缀 注意：后面必须带斜线
   webPath: process.argv[2],    // web目录
-}
-
-/**
- * 配置index.html
- */
-indexHtmlInfo = indexHtmlInfo.
-  replace('{$favicon}', path.join(conf.proxyPath, conf.favicon)).
-  replace('{$envConfJS}', path.join(conf.proxyPath, conf.configEnvPath)).
-  replace('{$cesiumJS}', path.join(conf.proxyPath, conf.cesiumPath)).
-  replace('{$publicVendorCSS}', path.join(conf.proxyPath, conf.appName, conf.vendorCss)).
-  replace('{$publicRuntimeJS}', path.join(conf.proxyPath, conf.appName, conf.runtimeJS)).
-  replace('{$publicVendorJS}', path.join(conf.proxyPath, conf.appName, conf.vendorJs)).
-  replace('{$publicAppJS}', path.join(conf.proxyPath, conf.appName, conf.appJs)).
-  replace('{$publicCommonsJS}', path.join(conf.proxyPath, conf.appName, conf.commonsJs))
+};
 
 /**
  * 更新webpack配置
  */
 const webpackConfigProd = merge(require('./webpack.config.prod'), {
   output: {
-    filename: '[name].js?[chunkhash]',
+    filename: '[name].[chunkhash].js',
     publicPath: path.join(conf.proxyPath, conf.appName, '/'),
     path: path.join(conf.webPath, conf.appName),
   },
   plugins: [
+    /**
+     * 生成html文件
+     */
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '../public/template.html'), // new 一个这个插件的实例，并传入相关的参数
+      filename: path.join(conf.webPath, conf.indexHtmlName),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
+      chunksSortMode: 'dependency',
+    }),
+    
     /**
      * 复制config
      */
@@ -78,12 +83,12 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
         to: conf.webPath,
       }]),
   ],
-})
+});
 
 /**
  * 开始打包
  */
-doCompilerPlatform()
+doCompilerPlatform();
 
 function doCompilerPlatform () {
   /**
@@ -91,19 +96,18 @@ function doCompilerPlatform () {
    */
   rm(conf.webPath, err => {
     if (err) {
-      handleError(err)
+      handleError(err);
     } else {
       webpack(webpackConfigProd, (err, stats) => {
-        const jsonStats = stats.toJson()
-        jsonStats.errors.length && handleError(jsonStats.errors)
-        jsonStats.warnings.length && handleWarn(jsonStats.warnings)
-        
-        console.log(clc.green('webpack打包结束'))
-        
-        createHtmlFile().then(() => console.log(clc.green(`生成${conf.indexHtmlName}成功`))).catch(err => console.log(clc.green(`生成${conf.indexHtmlName}错误: ${err}`)))
-      })
+        if (!err) {
+          const jsonStats = stats.toJson();
+          jsonStats.errors.length && handleError(jsonStats.errors);
+          jsonStats.warnings.length && handleWarn(jsonStats.warnings);
+          console.log(clc.green('webpack打包结束'));
+        }
+      });
     }
-  })
+  });
 }
 
 /**
@@ -111,10 +115,10 @@ function doCompilerPlatform () {
  * @param errorMsg
  */
 function handleError (errorMsg) {
-  console.log(clc.yellow('webpack打包出错:'))
-  console.log(clc.red(errorMsg))
+  console.log(clc.yellow('webpack打包出错:'));
+  console.log(clc.red(errorMsg));
   
-  process.exit()
+  process.exit();
 }
 
 /**
@@ -122,15 +126,7 @@ function handleError (errorMsg) {
  * @param warnMsg
  */
 function handleWarn (warnMsg) {
-  console.log(clc.yellow('webpack打包警告:'))
-  console.log(clc.yellow(warnMsg))
+  console.log(clc.yellow('webpack打包警告:'));
+  console.log(clc.yellow(warnMsg));
 }
 
-/**
- * 生成html文件
- */
-async function createHtmlFile () {
-  const indexHtmlInfoBuffer = new Buffer(indexHtmlInfo)
-  const fd = await promisify(fs.open)(path.join(conf.webPath, conf.indexHtmlName), 'w')
-  promisify(fs.write)(fd, indexHtmlInfoBuffer)
-}

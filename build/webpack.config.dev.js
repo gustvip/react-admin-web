@@ -1,13 +1,14 @@
 /**
  * @description webpack 开发模式下的打包基本配置
  */
-const baseConfig = require('./webpack.config.base')
-const merge = require('webpack-merge')
-const host = 'localhost'
+const baseConfig = require('./webpack.config.base');
+const merge = require('webpack-merge');
+const host = 'localhost';
 // const host = require('./util').getLocalIp()
-const port = 8080        // 端口号
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const resourceBaseName = require('./util').resourceBaseName
+const port = 8080;        // 端口号
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const resourceBaseName = require('./util').resourceBaseName;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(baseConfig, {
   /**
@@ -57,5 +58,8 @@ module.exports = merge(baseConfig, {
       analyzerHost: host,      // 主机ip
       analyzerPort: port + 100,             // 端口
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
   ],
-})
+});
