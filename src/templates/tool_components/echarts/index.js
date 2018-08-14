@@ -1,13 +1,13 @@
 /**
  * Created by joey on 2018/02/19
  */
-import PropTypes from 'prop-types'
-import echarts from 'echarts/lib/echarts'
-import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/title'
-import 'echarts/lib/component/legend'
-import helper from 'utils/core/helper'
-import _ from 'lodash'
+import PropTypes from 'prop-types';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
+import classnames from 'classnames';
+import _ from 'lodash';
 
 export default class Chart extends React.PureComponent {
   static propTypes = {
@@ -16,16 +16,16 @@ export default class Chart extends React.PureComponent {
     style: PropTypes.object,
     extraOptions: PropTypes.object,
     options: PropTypes.object.isRequired,
-  }
+  };
   
   constructor (props) {
-    super(props)
-    this.chart = null
-    this.chartContainer = null
+    super(props);
+    this.chart = null;
+    this.chartContainer = null;
   }
   
   get echartsInstance () {
-    return this.chart
+    return this.chart;
   }
   
   get defaultOptions () {
@@ -179,23 +179,29 @@ export default class Chart extends React.PureComponent {
           show: true,
           scale: true,
         }],
-    }
+    };
   }
   
   componentDidMount () {
-    this.chart = echarts.init(this.chartContainer, this.props.theme || '', _.assign({
-      height: 400,
-    }, this.props.extraOptions))
-    this.chart.setOption(_.merge(this.defaultOptions, this.props.options))
+    const self = this;
+    self.chart = echarts.init(self.chartContainer, self.props.theme || '', _.assign({
+      height: 300,
+      width: 'auto',
+    }, self.props.extraOptions));
+    self.chart.setOption(_.merge(self.defaultOptions, self.props.options));
+    self.chart.resize();
+    window.addEventListener('resize', _.debounce(function () {
+      self.chart.resize();
+    }, 300));
   }
   
   render () {
     return (
       <div
         style={_.assign({}, this.props.style)}
-        className={helper.classNames('')(this.props.className)}
+        className={classnames(this.props.className || '')}
         ref={chartContainer => this.chartContainer = chartContainer}
       />
-    )
+    );
   }
 }

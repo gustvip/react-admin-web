@@ -2,9 +2,9 @@
  * Created by joey on 2018/2/18
  */
 
-import * as webAPI from '../../webAPI/list/index'
-import * as actionTypes from '../../constants/list/index'
-import T from 'utils/t'
+import * as webAPI from '../../webAPI/list/index';
+import * as actionTypes from '../../constants/list/index';
+import T from 'utils/t';
 
 /**
  * 获取初始化数据
@@ -15,9 +15,9 @@ export const getInitialDataAction = condition => dispatch => {
     dispatch({
       type: actionTypes.GET_INITIAL_DATA,
       data: info[0].data,
-    })
-  }).catch(info => T.prompt.error(info.msg))
-}
+    });
+  }).catch(info => T.prompt.error(info.msg));
+};
 
 /**
  * 设置用户搜索
@@ -28,9 +28,9 @@ export const setUserSearchAction = condition => dispatch => {
     dispatch({
       type: actionTypes.SET_USER_SEARCH,
       data: info.data,
-    })
-  }).catch(info => T.prompt.error(info.msg))
-}
+    });
+  }).catch(info => T.prompt.error(info.msg));
+};
 
 /**
  * 获取用户详情
@@ -41,9 +41,9 @@ export const getUserListAction = condition => dispatch => {
     dispatch({
       type: actionTypes.GET_USER_LIST,
       data: info.data,
-    })
-  }).catch(info => T.prompt.error(info.msg))
-}
+    });
+  }).catch(info => T.prompt.error(info.msg));
+};
 
 /**
  * 删除用户
@@ -51,14 +51,14 @@ export const getUserListAction = condition => dispatch => {
  */
 export const deleteUserAction = condition => dispatch => {
   webAPI.deleteUser(condition.user_id).then(() => {
-    return webAPI.getUserList({currentPage: condition.currentPage, pageSize: condition.pageSize})
+    return webAPI.getUserList({currentPage: condition.currentPage, pageSize: condition.pageSize});
   }).then(info => {
     dispatch({
       type: actionTypes.GET_USER_LIST,
       data: info.data,
-    })
-  }).catch(info => T.prompt.error(info.msg))
-}
+    });
+  }).catch(info => T.prompt.error(info.msg));
+};
 
 /**
  * 设置删除的行
@@ -70,6 +70,6 @@ export const setDeleteRowAction = selectedRowKeys => {
   return {
     type: actionTypes.SET_DELETE_ROW,
     data: selectedRowKeys,
-  }
-}
+  };
+};
 

@@ -7,7 +7,7 @@
 			"es6",
 			"dom"
 		],
-		"jsx": "react",
+		"jsx": "preserve",
 		"noImplicitAny": false,
 		"removeComments": true,
 		"preserveConstEnums": true,

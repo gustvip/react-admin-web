@@ -4,7 +4,6 @@
 
 import styles from './index.scss'
 import T from 'utils/t'
-import { Hello } from './ts'
 
 const bg = require('./img/bg.png')
 
@@ -88,7 +87,6 @@ export default class Login extends React.PureComponent {
       <div className={styles['login-container']}>
         <img src={bg} alt="背景图片"/>
         <div className={styles['condition-container']}>
-          <Hello last={1} first={2}/>
           <Input
             type="text"
             value={_this.state.user_name}
