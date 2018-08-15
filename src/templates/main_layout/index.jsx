@@ -204,20 +204,11 @@ class SiderMenu extends React.PureComponent {
 @T.decorator.contextTypes('router')
 class Header extends React.PureComponent {
   logout = () => {
-    const _this = this;
-    
-    T.auth.logout({
-      successCallback () {
-        T.auth.removeLoginStorageValue();
-        _this.context.router.history.push(
-          `${ENV.login.loginUrl}?${ENV.defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
-          _this.context.router.route.location.state,
-        );
-      },
-      failCallback (info) {
-        T.prompt.error(info.msg);
-      },
-    });
+    T.auth.removeLoginStorageValue();
+    this.context.router.history.push(
+      `${ENV.login.loginUrl}?${ENV.defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
+      this.context.router.route.location.state,
+    );
   };
   
   getTopRoute () {

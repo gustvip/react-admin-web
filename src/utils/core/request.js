@@ -1,19 +1,19 @@
 /**
  * Created by joey on 2018/2/19
  */
-import { create } from 'axios'
-import _ from 'lodash'
-import helper from './helper'
+import { create } from 'axios';
+import _ from 'lodash';
+import helper from './helper';
 
 /**
  * 解决IE报warning Unhandled Rejections Error 参数书不正确的问题
  * @private
  */
-Promise._unhandledRejectionFn = _.noop
+Promise._unhandledRejectionFn = _.noop;
 
 const Singleton = (function () {
-  let instantiated
-  const baseURL = ENV.apiDomain
+  let instantiated;
+  const baseURL = ENV.apiDomain;
   
   function init () {
     
@@ -31,15 +31,15 @@ const Singleton = (function () {
       headers: {
         //'X-Requested-With': 'XMLHttpRequest',
       },
-    })
+    });
   }
   
   return {
     getInstance () {
-      return instantiated ? instantiated : instantiated = init()
+      return instantiated ? instantiated : instantiated = init();
     },
-  }
-})()
+  };
+})();
 
 /**
  * 请求中转函数
@@ -48,19 +48,18 @@ const Singleton = (function () {
  * @private
  */
 const _request = (options = {}) => {
-  
   return new Promise((resolve, reject) => {
     Singleton.getInstance().request(options).then(info => {
-      const {data, code, msg} = info.data
+      const {data, code, msg} = info.data;
       
       if (ENV.apiSuccessCode === code) {
-        resolve({code, data, msg})
+        resolve({code, data, msg});
       } else {
-        reject({code, data, msg})
+        reject({code, data, msg});
       }
-    }).catch(info => reject({code: info.code, data: info.data, msg: info.message}))
-  })
-}
+    }).catch(info => reject({code: info.code, data: info.data, msg: info.message}));
+  });
+};
 
 /**
  * get请求
@@ -74,7 +73,7 @@ export function get (url, params = {}, options = {}) {
     url,
     method: 'get',
     params,
-  }, options))
+  }, options));
 }
 
 /**
@@ -88,9 +87,11 @@ export function post (url, data = {}, options = {}) {
   return _request(_.merge({
     url,
     method: 'post',
-    data: _.transform(data, (result, value, key) => result.append(key, value), new URLSearchParams()),
+    data: data instanceof URLSearchParams
+      ? data
+      : _.transform(data, (result, value, key) => result.append(key, value), new URLSearchParams()),
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  }, options))
+  }, options));
 }
 
 /**
@@ -106,7 +107,7 @@ export function postJSON (url, data = {}, options = {}) {
     method: 'post',
     data,
     headers: {'Content-Type': 'application/json'},
-  }, options))
+  }, options));
 }
 
 /**
@@ -126,7 +127,7 @@ export function upload (url, data = {}, options = {}, onUploadProgress = _.noop)
       : helper.objectToFormData(data),
     onUploadProgress,
     headers: {'Content-Type': 'multipart/form-data'},
-  }, options))
+  }, options));
 }
 
 /**
@@ -142,7 +143,7 @@ export function del (url, data = {}, options = {}) {
     method: 'delete',
     data,
     headers: {'Content-Type': 'application/json'},
-  }, options))
+  }, options));
 }
 
 /**
@@ -153,13 +154,12 @@ export function del (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function put (url, data = {}, options = {}) {
-  
   return _request(_.merge({
     url,
     method: 'put',
     data,
     headers: {'Content-Type': 'application/json'},
-  }, options))
+  }, options));
 }
 
 /**
@@ -167,5 +167,5 @@ export function put (url, data = {}, options = {}) {
  * @returns {Promise.<*>}
  */
 export function all (args) {
-  return Array.isArray(args) ? Promise.all(args) : Promise.all([...arguments])
+  return Array.isArray(args) ? Promise.all(args) : Promise.all([...arguments]);
 }

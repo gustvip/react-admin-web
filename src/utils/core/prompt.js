@@ -2,16 +2,16 @@
  * Created by joey on 2018/02/19
  */
 
-import Modal from 'antd/lib/modal'
-import message from 'antd/lib/message'
-import _ from 'lodash'
+import Modal from 'antd/lib/modal';
+import message from 'antd/lib/message';
+import _ from 'lodash';
 
 class Prompt {
   
   constructor () {
     message.config({
       duration: 2,
-    })
+    });
   }
   
   /**
@@ -21,7 +21,7 @@ class Prompt {
    * @param {Function} onClose
    */
   success (msg, duration = 2, onClose = _.noop) {
-    message.success(msg, duration, onClose)
+    message.success(msg, duration, onClose);
   }
   
   /**
@@ -31,7 +31,7 @@ class Prompt {
    * @param {Function} onClose
    */
   error (msg, duration = 2, onClose = _.noop) {
-    message.error(msg, duration, onClose)
+    message.error(msg, duration, onClose);
   }
   
   /**
@@ -41,7 +41,7 @@ class Prompt {
    * @param {Function} onClose
    */
   warn (msg, duration = 2, onClose = _.noop) {
-    message.warn(msg, duration, onClose)
+    message.warn(msg, duration, onClose);
   }
   
   /**
@@ -55,10 +55,10 @@ class Prompt {
       okText: '确定',
       cancelText: '取消',
       onCancel: _.noop,
-    }, options)
+    }, options);
     
-    return Modal.confirm(options)
+    return Modal.confirm(options);
   }
 }
 
-export default new Prompt()
+export default new Prompt();

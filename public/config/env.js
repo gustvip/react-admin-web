@@ -1,42 +1,42 @@
 (function () {
-  'use strict'
+  'use strict';
   
-  var rootPath = '/pw/'
+  var rootPath = '/pw/';
   
   function isObject (x) {
-    return x !== null && typeof x === 'object'
+    return typeof x === 'object' && x !== null;
   }
   
   function immutable (data, callback) {
-    callback = callback ? callback : function (value) {
-      return value
-    }
+    callback = callback ? callback : function (value, key) {
+      return value;
+    };
     
     return (function fn (_data) {
-      var result = _data
+      var result = _data;
       
       if (Array.isArray(_data)) {
-        result = []
+        result = [];
         _data.forEach(function (value, key) {
           Object.defineProperty(result, key, {
             value: fn(callback(value, key)),
             configurable: false,
-          })
-        })
+          });
+        });
       } else if (isObject(_data)) {
-        result = {}
+        result = {};
         for (var key in _data) {
           if (_data.hasOwnProperty(key)) {
             Object.defineProperty(result, key, {
               value: fn(callback(_data[key], key)),
               configurable: false,
-            })
+            });
           }
         }
       }
       
-      return result
-    })(data)
+      return result;
+    })(data);
   }
   
   Object.defineProperty(window, 'ENV', {
@@ -75,5 +75,5 @@
       
     }, null),
     configurable: false,
-  })
-})()
+  });
+})();
