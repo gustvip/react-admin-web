@@ -3,9 +3,8 @@
  */
 const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const resourceBaseName = require('./util').resourceBaseName;
 
@@ -14,7 +13,7 @@ module.exports = merge(baseConfig, {
   
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new uglifyJsPlugin({
         cache: true,
         parallel: true,
         sourceMap: false,
@@ -41,7 +40,7 @@ module.exports = merge(baseConfig, {
           },
         },
       }),
-      new OptimizeCssAssetsPlugin(),
+      new optimizeCssAssetsPlugin(),
     ],
   },
   module: {
@@ -85,9 +84,4 @@ module.exports = merge(baseConfig, {
       },
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].[chunkhash].css',
-    }),
-  ],
 });

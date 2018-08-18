@@ -120,34 +120,6 @@ class Helper {
   }
   
   /**
-   * 将对象转化为FormDate数据格式
-   * @param {Object} obj
-   * @param {Object} [form]
-   * @param {String} [namespace]
-   * @returns {*|FormData}
-   */
-  objectToFormData (obj, form, namespace) {
-    const fd = form || new FormData();
-    let formKey;
-    _.forOwn(obj, ((value, property) => {
-      let key = Array.isArray(obj) ? '[]' : `[${property}]`;
-      if (namespace) {
-        formKey = namespace + key;
-      } else {
-        formKey = property;
-      }
-      
-      if (this.isObject(value) && !value instanceof File) {
-        this.objectToFormData(obj[property], fd, formKey);
-      } else {
-        fd.append(formKey, obj[property]);
-      }
-    }));
-    
-    return fd;
-  }
-  
-  /**
    * 根据值查找路径
    * @param {Array} data
    * @param {*} stopValue 停止的值

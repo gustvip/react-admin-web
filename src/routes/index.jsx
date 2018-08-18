@@ -1,21 +1,20 @@
 /**
  * Created by joey on 2018/2/18
  */
-
-import T from 'utils/t'
+import T from 'utils/t';
+import EnumRouter from 'constants/enum_router';
 import {
 	BrowserRouter,
 	Route,
 	Switch,
 	Redirect,
-} from 'react-router-dom'
+} from 'react-router-dom';
+import { NoMatch } from './route_tool';
+import CommonRoutes from './common';         // 公共模块--相关路由,如:登录,注册...
+import UserRoutes from './user';         // 用户相关模块
+import TestRoutes from './test';	         // 测试相关模块
 
-import { NoMatch } from './route_tool'
-import CommonRoutes from './common'         // 公共模块--相关路由,如:登录,注册...
-import UserRoutes from './user'         // 用户相关模块
-import TestRoutes from './test'	         // 测试相关模块
-
-const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>
+const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>;
 
 /**
  * 路由配置
@@ -28,7 +27,7 @@ const Routes = () => (
 	>
 		<Switch>
 			< Route exact path="/" render={() => checkLoginRedirect()}/>
-			< Route exact path={ENV.rootPath} render={() => checkLoginRedirect()}/>
+			< Route exact path={EnumRouter.rootPath} render={() => checkLoginRedirect()}/>
 			
 			{/* 公共--路由 */}
 			{CommonRoutes()}
@@ -45,6 +44,6 @@ const Routes = () => (
 		</Switch>
 	
 	</BrowserRouter>
-)
+);
 
-export default Routes
+export default Routes;

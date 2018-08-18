@@ -6,9 +6,9 @@ import { DefaultLayout, AssembleRoute } from 'routes/route_tool';
 import Login from './routes/login';
 
 export default AssembleRoute([
-    {
-        layout: DefaultLayout,
-        path: EnumRouter.login,
-        component: Login,
-    }
+	{
+		layout: DefaultLayout,
+		path: EnumRouter.login,
+		component: Login,
+	},
 ]);

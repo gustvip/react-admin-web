@@ -2,8 +2,8 @@
  * Created by joey on 2018/02/19
  */
 
-import helper from 'utils/core/helper'
-import _ from 'lodash'
+import helper from 'utils/core/helper';
+import _ from 'lodash';
 
 /**
  * @type {{rootPath: string, login: string, userAdd: string, userEdit: string, userList: string}}
@@ -20,4 +20,4 @@ export default helper.immutable({
 	 |-----------------------------------------------
 	 */
 	user_list: 'user/list',
-}, value => ENV.rootPath.trim() + _.flowRight(helper.removeTrailingSlash, helper.removeBlank)(value))
+}, value => ENV.rootPath.trim() + _.flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

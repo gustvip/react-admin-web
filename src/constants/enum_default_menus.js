@@ -2,8 +2,8 @@
  * Created by joey on 2018/02/19
  */
 
-import helper from 'utils/core/helper'
-import EnumRouter from './enum_router'
+import helper from 'utils/core/helper';
+import EnumRouter from './enum_router';
 
 /**
  * icon 类型
@@ -12,7 +12,7 @@ import EnumRouter from './enum_router'
 export const EnumIconTypes = helper.immutable({
 	antd: 'antd',
 	custom: 'custom',
-})
+});
 
 export default helper.immutable([
 	{
@@ -72,5 +72,5 @@ export default helper.immutable([
 			},
 		],
 	},
-])
+]);
 
