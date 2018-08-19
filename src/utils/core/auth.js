@@ -4,7 +4,7 @@
 import EnumAPI from 'constants/enum_api';
 import helper from './helper';
 import queryString from 'query-string';
-import localStorage from './local_storage';
+import localStorage from './localstorage';
 import _ from 'lodash';
 import * as request from './request';
 

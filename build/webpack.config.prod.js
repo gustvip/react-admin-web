@@ -51,15 +51,18 @@ module.exports = merge(baseConfig, {
           {
             loader: 'url-loader',
             options: {
-              name: `${resourceBaseName}/[name].[hash].[ext]`,
+              name: `${resourceBaseName}/[name].[ext]`,
               limit: 8192,	 // <= 8kb的图片base64内联
             },
           },
-          {
+	
+					// 压缩图片
+					{
             loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
                 progressive: true,
+								// 品质
                 quality: 70,
                 speed: 4,
               },

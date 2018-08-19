@@ -18,36 +18,32 @@ const customAntdStyle = {
 	'@font-size-base': '12px',                      // 修改基础字体大小
 };
 
-const staticResource = (function () {
-	const resourceBaseName = require('./util').resourceBaseName;
-	
-	return [
-		{
-			test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
-		},
-		{
-			test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
-		},
-		{
-			test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
-		},
-		{
-			test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
-		},
-		{
-			test: /\.(txt|doc|docx|swf)$/,
-			use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
-		},
-		{
-			test: /\.(csv|tsv)$/,
-			use: 'csv-loader',
-		},
-	];
-})();
+const staticResource = [
+	{
+		test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
+	},
+	{
+		test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
+	},
+	{
+		test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
+	},
+	{
+		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]`,
+	},
+	{
+		test: /\.(txt|doc|docx|swf)$/,
+		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]`,
+	},
+	{
+		test: /\.(csv|tsv)$/,
+		use: 'csv-loader',
+	},
+];
 
 const formatStyleLoader = (otherLoader) => {
 	const baseLoaders = [
@@ -60,13 +56,7 @@ const formatStyleLoader = (otherLoader) => {
 				sourceMap: true,
 			},
 		},
-		{
-			loader: 'postcss-loader',
-			options: {
-				sourceMap: true,
-				ident: 'postcss',
-			},
-		},
+		{loader: 'postcss-loader'},
 	];
 	
 	if (otherLoader) {
@@ -140,9 +130,10 @@ module.exports = {
 			'url-search-params-polyfill',
 			
 			'utils/core/decorator.js',
-			'utils/core/local_storage.js',
+			'utils/core/localstorage.js',
 			'utils/core/request.js',
-			'utils/core/emitter.js',
+			'utils/core/emitter/index.js',
+			'utils/core/collection/map.js',
 		],
 	},
 	
@@ -210,14 +201,12 @@ module.exports = {
 				],
 			},
 			
-			// jsx?配置
 			{
 				test: /\.jsx?$/,
 				use: 'happypack/loader?id=js',
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 			
-			// tsx?配置
 			{
 				test: /\.tsx?$/,
 				use: ['babel-loader', 'ts-loader'],

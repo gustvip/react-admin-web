@@ -4,7 +4,7 @@
 
 export default (function () {
   var toString = Object.prototype.toString;
-  //无限期
+  // 无限期
   var NO_EXPIRE = 0;
   // localStorage的key
   var STORAGE_KEY = '__STORAGE__';

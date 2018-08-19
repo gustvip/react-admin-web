@@ -18,7 +18,6 @@
 							],
 							"node": "8.11"
 						},
-						"modules": false,
 						"useBuiltIns": true,
 						"debug": true
 					}
@@ -50,12 +49,7 @@
 		},
 		"test": {
 			"presets": [
-				[
-					"env",
-					{
-						"modules": false
-					}
-				],
+				"env",
 				"react",
 				"stage-0"
 			]

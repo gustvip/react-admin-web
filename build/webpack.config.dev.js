@@ -4,15 +4,12 @@
 const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
 const host = 'localhost';
-// const host = require('./util').getLocalIp()
+// const host = require('./util').getLocalIp();
 const port = 8080;        // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const resourceBaseName = require('./util').resourceBaseName;
 
 module.exports = merge(baseConfig, {
-  /**
-   * 用于生成源代码的mapping
-   */
   devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-source-map
   
   mode: 'development',
