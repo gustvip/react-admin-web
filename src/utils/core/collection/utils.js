@@ -1,3 +1,6 @@
+/**
+ * Created by joey on 2018/8/20
+ */
 export default (function () {
 	function isObject (object) {
 		return typeof object === 'object' && typeof object != null;

@@ -1,3 +1,6 @@
+/**
+ * Created by joey on 2018/8/20
+ */
 import helper from './utils';
 
 function Map () {
@@ -141,7 +144,7 @@ function map (object) {
 		var i = -1,
 			n = object.length,
 			o;
-		while (++i < n && Array.isArray(o = object[n])) {
+		while (++i < n && Array.isArray(o = object[i])) {
 			_map.set(o[0], o[1]);
 		}
 	}

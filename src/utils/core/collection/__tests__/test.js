@@ -1,10 +1,17 @@
+/**
+ * Created by joey on 2018/8/20
+ */
 import Map from '../map';
 
+const mockCallback = jest.fn();
+const key1 = {name: 'a'};
+const value1 = {name: 'b'};
+const map = Map([[key1, value1]]);
+const _map = new Map([[key1, value1]]);
+
 test('map test', () => {
-	let mockCallback = jest.fn();
-	const _map = new Map();
-	const key1 = {name: 'a'};
-	const value1 = {name: 'b'};
+	expect(_map).toEqual(map);
+	expect(_map.__data__).toEqual([{key: key1, value: value1}]);
 	expect(_map.remove(2)).toEqual(_map);
 	expect(_map.clear()).toEqual(_map);
 	expect(_map.__data__).toEqual([]);
