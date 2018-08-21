@@ -33,11 +33,6 @@ test('test findIndex', () => {
 	const array2 = ['a', 'b'];
 	
 	expect(findIndex(str1, mockCallback)).toBe(-1);
-	expect(() => {
-		findIndex(str1);
-	}).toThrow();
-	
-	expect(findIndex(str1, mockCallback)).toBe(-1);
 	expect(mockCallback.mock.calls.length).toBe(0);
 	expect(findIndex(array1, mockCallback)).toBe(-1);
 	expect(mockCallback.mock.calls.length).toBe(0);
@@ -74,12 +69,10 @@ test('test findIndex', () => {
 
 test('test forOwn', () => {
 	const mockCallback = jest.fn();
+	Object.prototype.aaaaaaaaaaaaaaaaaaaaaaaa = 'aaa';
 	const obj = {key1: 'value1', key2: 'value2', key3: 'value3'};
 	expect(forOwn({}, mockCallback)).toBeUndefined();
 	expect(forOwn('', mockCallback)).toBeUndefined();
-	expect(() => {
-		forOwn(obj, 1);
-	}).toThrow();
 	
 	mockCallback.mockReturnValueOnce(true).mockReturnValueOnce(false);
 	forOwn(obj, mockCallback);
