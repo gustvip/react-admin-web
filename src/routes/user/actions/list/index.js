@@ -11,12 +11,12 @@ import T from 'utils/t';
  * @param {Object} condition {{currentPage: Number, pageSize: Number}}
  */
 export const getInitialDataAction = condition => dispatch => {
-  webAPI.getInitialData(condition).then(info => {
-    dispatch({
-      type: actionTypes.GET_INITIAL_DATA,
-      data: info[0].data,
-    });
-  }).catch(info => T.prompt.error(info.msg));
+	webAPI.getInitialData(condition).then(info => {
+		dispatch({
+			type: actionTypes.GET_INITIAL_DATA,
+			data: info[0].data,
+		});
+	}).catch(info => T.prompt.error(info.msg));
 };
 
 /**
@@ -24,12 +24,12 @@ export const getInitialDataAction = condition => dispatch => {
  * @param {Object} condition {{userInfo: String, limitLength: Number}}
  */
 export const setUserSearchAction = condition => dispatch => {
-  webAPI.searchUser(condition).then(info => {
-    dispatch({
-      type: actionTypes.SET_USER_SEARCH,
-      data: info.data,
-    });
-  }).catch(info => T.prompt.error(info.msg));
+	webAPI.searchUser(condition).then(info => {
+		dispatch({
+			type: actionTypes.SET_USER_SEARCH,
+			data: info.data,
+		});
+	}).catch(info => T.prompt.error(info.msg));
 };
 
 /**
@@ -37,12 +37,12 @@ export const setUserSearchAction = condition => dispatch => {
  * @param {Object} condition {{currentPage: Number, pageSize: Number}}
  */
 export const getUserListAction = condition => dispatch => {
-  webAPI.getUserList(condition).then(info => {
-    dispatch({
-      type: actionTypes.GET_USER_LIST,
-      data: info.data,
-    });
-  }).catch(info => T.prompt.error(info.msg));
+	webAPI.getUserList(condition).then(info => {
+		dispatch({
+			type: actionTypes.GET_USER_LIST,
+			data: info.data,
+		});
+	}).catch(info => T.prompt.error(info.msg));
 };
 
 /**
@@ -50,14 +50,14 @@ export const getUserListAction = condition => dispatch => {
  * @param {Object} condition {{user_id: Array, currentPage: Number, pageSize: Number}}
  */
 export const deleteUserAction = condition => dispatch => {
-  webAPI.deleteUser(condition.user_id).then(() => {
-    return webAPI.getUserList({currentPage: condition.currentPage, pageSize: condition.pageSize});
-  }).then(info => {
-    dispatch({
-      type: actionTypes.GET_USER_LIST,
-      data: info.data,
-    });
-  }).catch(info => T.prompt.error(info.msg));
+	webAPI.deleteUser(condition.user_id).then(() => {
+		return webAPI.getUserList({currentPage: condition.currentPage, pageSize: condition.pageSize});
+	}).then(info => {
+		dispatch({
+			type: actionTypes.GET_USER_LIST,
+			data: info.data,
+		});
+	}).catch(info => T.prompt.error(info.msg));
 };
 
 /**
@@ -67,9 +67,9 @@ export const deleteUserAction = condition => dispatch => {
  * @constructor
  */
 export const setDeleteRowAction = selectedRowKeys => {
-  return {
-    type: actionTypes.SET_DELETE_ROW,
-    data: selectedRowKeys,
-  };
+	return {
+		type: actionTypes.SET_DELETE_ROW,
+		data: selectedRowKeys,
+	};
 };
 

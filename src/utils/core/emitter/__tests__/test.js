@@ -13,6 +13,7 @@ const array = [
 	{isOnce: false, callback: mockCallback2},
 	{isOnce: false, callback: mockCallback3},
 ];
+
 test('emitter return', () => {
 	expect(emitter).toEqual(_emitter);
 	expect(emitter.__selfListeners__).toEqual({});

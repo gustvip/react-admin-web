@@ -2,62 +2,62 @@
  * created by joey 2018/02/19
  */
 
-import PropTypes from 'prop-types'
-import T from 'utils/t'
-import { STORE_INJECT } from 'store.js'
+import PropTypes from 'prop-types';
+import T from 'utils/t';
+import { STORE_INJECT } from 'store.js';
 
-import { Spin } from 'antd'
+import { Spin } from 'antd';
 
 /**
  * 定义注入的reducer
  * @param reducers {Object}
  */
-const injectReducers = reducers => ({[STORE_INJECT]: reducers})
+const injectReducers = reducers => ({[STORE_INJECT]: reducers});
 
 @T.decorator.contextTypes('store', 'router')
 @T.decorator.propTypes({
-  lazyLoader: PropTypes.func.isRequired,
-  reducers: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      reducer: PropTypes.func.isRequired,
-    }).isRequired,
-  ),
+	lazyLoader: PropTypes.func.isRequired,
+	reducers: PropTypes.arrayOf(
+		PropTypes.shape({
+			name: PropTypes.string.isRequired,
+			reducer: PropTypes.func.isRequired,
+		}).isRequired,
+	),
 })
 export default class LazyLoadTpl extends React.PureComponent {
-  
-  state = {
-    Component: null,
-  }
-  
-  componentDidMount () {
-    const _this = this
-    const {defaultQuery, login} = ENV
+	
+	state = {
+		Component: null,
+	};
+	
+	componentDidMount () {
+		const _this = this;
+		const {defaultQuery, login} = ENV;
 		if (!T.auth.isLogin) {
-      _this.context.router.history.push(
-        `${login.loginUrl}?${defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
-        _this.context.router.route.location.state,
-      )
-    } else if (!_this.state.Component) {
-      _this.props.lazyLoader(Component => {
+			_this.context.router.history.push(
+				`${login.loginUrl}?${defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
+				_this.context.router.route.location.state,
+			);
+		} else if (!_this.state.Component) {
+			_this.props.lazyLoader(Component => {
 				_this.setState({
-          Component: Component.default,
-        })
-      })
-    }
-  }
-  
-  render () {
-    const _this = this
-    const Component = _this.state.Component
-    
-    if (Component) {
-      if (T.helper.checkArray(_this.props.reducers)) {
-        _this.context.store.dispatch(injectReducers(_this.props.reducers))
-      }
-      return <Component {..._this.props} />
-    } else {
-			return <Spin size="large"/>
-    }
-  }
+					Component: Component.default,
+				});
+			});
+		}
+	}
+	
+	render () {
+		const _this = this;
+		const Component = _this.state.Component;
+		
+		if (Component) {
+			if (T.helper.checkArray(_this.props.reducers)) {
+				_this.context.store.dispatch(injectReducers(_this.props.reducers));
+			}
+			return <Component {..._this.props} />;
+		} else {
+			return <Spin size="large"/>;
+		}
+	}
 }

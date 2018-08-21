@@ -6,7 +6,7 @@
 	"main": "src/index",
 	"scripts": {
 		"dev": "webpack-dev-server --config ./build/webpack.config.dev.js",
-		"build": "node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
+		"build": "npm run test && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
 		"test": "jest",
 		"eslint": "eslint ./src/*"
 	},

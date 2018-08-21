@@ -2,13 +2,13 @@
  * Created by joey on 2018/2/27
  */
 
-import * as EnumMap from './constants/index'
-import _ from 'lodash'
+import * as EnumMap from './constants/index';
+import _ from 'lodash';
 
 class mapBasisHelper {
 	constructor () {
-		this.map = null
-		this.AMap = window.AMap
+		this.map = null;
+		this.AMap = window.AMap;
 	}
 	
 	/**
@@ -16,7 +16,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	get mapInstance () {
-		return this.map
+		return this.map;
 	}
 	
 	/**
@@ -24,7 +24,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	get AMapInstance () {
-		return this.AMap
+		return this.AMap;
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	get geometryUtil () {
-		return this.AMapInstance.GeometryUtil
+		return this.AMapInstance.GeometryUtil;
 	}
 	
 	/**
@@ -41,10 +41,10 @@ class mapBasisHelper {
 	 */
 	setMap (map) {
 		if (this.mapInstance !== map) {
-			this.map = map
+			this.map = map;
 		}
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -61,7 +61,7 @@ class mapBasisHelper {
 			lang: EnumMap.LANG.zh_cn,		// 中文简体语言
 			viewMode: EnumMap.VIEW_MODE.two,		// 二维地图
 			crs: EnumMap.CRS.EPSG3857,		// 地图显示的参考坐标系
-		}
+		};
 	}
 	
 	/**
@@ -80,9 +80,9 @@ class mapBasisHelper {
 					options,
 				),
 			),
-		)
+		);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -92,7 +92,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	pixel (x, y) {
-		return new this.AMapInstance.Pixel(x, y)
+		return new this.AMapInstance.Pixel(x, y);
 	}
 	
 	/**
@@ -102,7 +102,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	size (w, h) {
-		return new this.AMapInstance.Size(w, h)
+		return new this.AMapInstance.Size(w, h);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	lngLat (lng, lat) {
-		return new this.AMapInstance.LngLat(lng, lat)
+		return new this.AMapInstance.LngLat(lng, lat);
 	}
 	
 	/**
@@ -122,7 +122,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	bounds (southWest, northEast) {
-		return new this.AMapInstance.Bounds(southWest, northEast)
+		return new this.AMapInstance.Bounds(southWest, northEast);
 	}
 	
 	/**
@@ -130,7 +130,7 @@ class mapBasisHelper {
 	 * @return {Number}
 	 */
 	getZoom () {
-		return this.mapInstance.getZoom()
+		return this.mapInstance.getZoom();
 	}
 	
 	/**
@@ -138,7 +138,7 @@ class mapBasisHelper {
 	 * @return {Array}
 	 */
 	getLayers () {
-		return this.mapInstance.getLayers()
+		return this.mapInstance.getLayers();
 	}
 	
 	/**
@@ -146,7 +146,7 @@ class mapBasisHelper {
 	 * @return {Object} LngLat
 	 */
 	getCenter () {
-		return this.mapInstance.getCenter()
+		return this.mapInstance.getCenter();
 	}
 	
 	/**
@@ -155,7 +155,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	getCity (cb) {
-		return this.mapInstance.getCity(cb)
+		return this.mapInstance.getCity(cb);
 	}
 	
 	/**
@@ -163,7 +163,7 @@ class mapBasisHelper {
 	 * @return {Object} HTMLDivElement
 	 */
 	getContainer () {
-		return this.mapInstance.getContainer()
+		return this.mapInstance.getContainer();
 	}
 	
 	/**
@@ -171,7 +171,7 @@ class mapBasisHelper {
 	 * @return {Object} Bounds
 	 */
 	getBounds () {
-		return this.mapInstance.getBounds()
+		return this.mapInstance.getBounds();
 	}
 	
 	/**
@@ -179,7 +179,7 @@ class mapBasisHelper {
 	 * @return {Number}
 	 */
 	getLabelzIndex () {
-		return this.mapInstance.getLabelzIndex()
+		return this.mapInstance.getLabelzIndex();
 	}
 	
 	/**
@@ -187,7 +187,7 @@ class mapBasisHelper {
 	 * @return {Object} Bounds
 	 */
 	getLimitBounds () {
-		return this.mapInstance.getLimitBounds()
+		return this.mapInstance.getLimitBounds();
 	}
 	
 	/**
@@ -195,7 +195,7 @@ class mapBasisHelper {
 	 * @return {String}
 	 */
 	getLang () {
-		return this.mapInstance.getLang()
+		return this.mapInstance.getLang();
 	}
 	
 	/**
@@ -203,7 +203,7 @@ class mapBasisHelper {
 	 * @return {Object} size
 	 */
 	getSize () {
-		return this.mapInstance.getSize()
+		return this.mapInstance.getSize();
 	}
 	
 	/**
@@ -211,7 +211,7 @@ class mapBasisHelper {
 	 * @return {Number}
 	 */
 	getRotation () {
-		return this.mapInstance.getRotation()
+		return this.mapInstance.getRotation();
 	}
 	
 	/**
@@ -220,7 +220,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	getStatus () {
-		return this.mapInstance.getStatus()
+		return this.mapInstance.getStatus();
 	}
 	
 	/**
@@ -228,7 +228,7 @@ class mapBasisHelper {
 	 * @return {String}
 	 */
 	getDefaultCursor () {
-		return this.mapInstance.getDefaultCursor()
+		return this.mapInstance.getDefaultCursor();
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class mapBasisHelper {
 	 * @return {Number}
 	 */
 	getResolution (LngLat) {
-		return this.mapInstance.getResolution(LngLat)
+		return this.mapInstance.getResolution(LngLat);
 	}
 	
 	/**
@@ -245,7 +245,7 @@ class mapBasisHelper {
 	 * @return {Number}
 	 */
 	getScale () {
-		return this.mapInstance.getScale()
+		return this.mapInstance.getScale();
 	}
 	
 	/**
@@ -254,7 +254,7 @@ class mapBasisHelper {
 	 * @return {Array}
 	 */
 	getAllOverlays (type) {
-		return this.mapInstance.getAllOverlays(type)
+		return this.mapInstance.getAllOverlays(type);
 	}
 	
 	/**
@@ -262,7 +262,7 @@ class mapBasisHelper {
 	 * @return {String}
 	 */
 	getMapStyle () {
-		return this.mapInstance.getMapStyle()
+		return this.mapInstance.getMapStyle();
 	}
 	
 	/**
@@ -270,7 +270,7 @@ class mapBasisHelper {
 	 * @return {Array}
 	 */
 	getFeatures () {
-		return this.mapInstance.getFeatures()
+		return this.mapInstance.getFeatures();
 	}
 	
 	/**
@@ -278,7 +278,7 @@ class mapBasisHelper {
 	 * @return {Number}
 	 */
 	getPitch () {
-		return this.mapInstance.getPitch()
+		return this.mapInstance.getPitch();
 	}
 	
 	/**
@@ -287,9 +287,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setZoom (level) {
-		this.mapInstance.setZoom(level)
+		this.mapInstance.setZoom(level);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -298,9 +298,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setLabelzIndex (index) {
-		this.mapInstance.setLabelzIndex(index)
+		this.mapInstance.setLabelzIndex(index);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -309,9 +309,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setLayers (layers) {
-		this.mapInstance.setLayers(layers)
+		this.mapInstance.setLayers(layers);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -320,9 +320,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	add (layers) {
-		this.mapInstance.add(layers)
+		this.mapInstance.add(layers);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -331,9 +331,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	remove (layers) {
-		this.mapInstance.remove(layers)
+		this.mapInstance.remove(layers);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -342,9 +342,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setCenter (LngLat) {
-		this.mapInstance.setCenter(LngLat)
+		this.mapInstance.setCenter(LngLat);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -354,9 +354,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setZoomAndCenter (zoomLevel, LngLat) {
-		this.mapInstance.setZoomAndCenter(zoomLevel, LngLat)
+		this.mapInstance.setZoomAndCenter(zoomLevel, LngLat);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -366,9 +366,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setCity (city, cb) {
-		this.mapInstance.setCity(city, cb)
+		this.mapInstance.setCity(city, cb);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -377,9 +377,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setBounds (bounds) {
-		this.mapInstance.setBounds(bounds)
+		this.mapInstance.setBounds(bounds);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -388,9 +388,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setLimitBounds (bounds) {
-		this.mapInstance.setLimitBounds(bounds)
+		this.mapInstance.setLimitBounds(bounds);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -398,9 +398,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	clearLimitBounds () {
-		this.mapInstance.clearLimitBounds()
+		this.mapInstance.clearLimitBounds();
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -409,9 +409,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setLang (lang) {
-		this.mapInstance.setLang(lang)
+		this.mapInstance.setLang(lang);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -420,9 +420,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setRotation (rotation) {
-		this.mapInstance.setRotation(rotation)
+		this.mapInstance.setRotation(rotation);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -431,9 +431,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setStatus (status) {
-		this.mapInstance.setStatus(status)
+		this.mapInstance.setStatus(status);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -442,9 +442,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setDefaultCursor (cursor) {
-		this.mapInstance.setDefaultCursor(cursor)
+		this.mapInstance.setDefaultCursor(cursor);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -452,9 +452,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	zoomIn () {
-		this.mapInstance.zoomIn()
+		this.mapInstance.zoomIn();
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -462,9 +462,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	zoomOut () {
-		this.mapInstance.zoomOut()
+		this.mapInstance.zoomOut();
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -473,9 +473,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	panTo (position) {
-		this.mapInstance.panTo(position)
+		this.mapInstance.panTo(position);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -485,9 +485,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	panBy (x, y) {
-		this.mapInstance.panBy(x, y)
+		this.mapInstance.panBy(x, y);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -496,9 +496,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setFitView (overlayList) {
-		this.mapInstance.setFitView(overlayList)
+		this.mapInstance.setFitView(overlayList);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -506,9 +506,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	clearMap () {
-		this.mapInstance.clearMap()
+		this.mapInstance.clearMap();
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -516,9 +516,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	destroy () {
-		this.mapInstance.destroy()
+		this.mapInstance.destroy();
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -526,9 +526,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	plugin (name, cb) {
-		this.mapInstance.plugin(name, cb)
+		this.mapInstance.plugin(name, cb);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -536,9 +536,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	addControl (obj) {
-		this.mapInstance.addControl(obj)
+		this.mapInstance.addControl(obj);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -546,9 +546,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	removeControl (obj) {
-		this.mapInstance.removeControl(obj)
+		this.mapInstance.removeControl(obj);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -556,9 +556,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	clearInfoWindow () {
-		this.mapInstance.clearInfoWindow()
+		this.mapInstance.clearInfoWindow();
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -568,7 +568,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	pixelToLngLat (pixel, level) {
-		return this.mapInstance.pixelToLngLat(pixel, level)
+		return this.mapInstance.pixelToLngLat(pixel, level);
 	}
 	
 	/**
@@ -578,7 +578,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	lnglatToPixel (lngLat, level) {
-		return this.mapInstance.lnglatToPixel(lngLat, level)
+		return this.mapInstance.lnglatToPixel(lngLat, level);
 	}
 	
 	/**
@@ -587,7 +587,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	containerToLngLat (pixel) {
-		return this.mapInstance.containerToLngLat(pixel)
+		return this.mapInstance.containerToLngLat(pixel);
 	}
 	
 	/**
@@ -596,7 +596,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	lngLatToContainer (LngLat) {
-		return this.mapInstance.lngLatToContainer(LngLat)
+		return this.mapInstance.lngLatToContainer(LngLat);
 	}
 	
 	/**
@@ -605,9 +605,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setMapStyle (style) {
-		this.mapInstance.setMapStyle(style)
+		this.mapInstance.setMapStyle(style);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -616,9 +616,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setFeatures (features) {
-		this.mapInstance.setFeatures(features)
+		this.mapInstance.setFeatures(features);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -627,9 +627,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	setPitch (pitch) {
-		this.mapInstance.setPitch(pitch)
+		this.mapInstance.setPitch(pitch);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -641,9 +641,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	on (eventName, handler, context) {
-		this.mapInstance.on(eventName, handler, context)
+		this.mapInstance.on(eventName, handler, context);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -655,9 +655,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	off (eventName, handler, context) {
-		this.mapInstance.off(eventName, handler, context)
+		this.mapInstance.off(eventName, handler, context);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -669,7 +669,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	addDomListener (instance, eventName, handler, context) {
-		return this.AMapInstance.event.addDomListener(instance, eventName, handler, context)
+		return this.AMapInstance.event.addDomListener(instance, eventName, handler, context);
 	}
 	
 	/**
@@ -681,7 +681,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	addListener (instance, eventName, handler, context) {
-		return this.AMapInstance.event.addListener(instance, eventName, handler, context)
+		return this.AMapInstance.event.addListener(instance, eventName, handler, context);
 	}
 	
 	/**
@@ -693,7 +693,7 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	addListenerOnce (instance, eventName, handler, context) {
-		return this.AMapInstance.event.addListenerOnce(instance, eventName, handler, context)
+		return this.AMapInstance.event.addListenerOnce(instance, eventName, handler, context);
 	}
 	
 	/**
@@ -702,9 +702,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	removeListener (listener) {
-		this.AMapInstance.event.removeListener(listener)
+		this.AMapInstance.event.removeListener(listener);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -715,9 +715,9 @@ class mapBasisHelper {
 	 * @return {mapBasisHelper}
 	 */
 	trigger (instance, eventName, extArgs) {
-		this.AMapInstance.event.trigger(instance, eventName, extArgs)
+		this.AMapInstance.event.trigger(instance, eventName, extArgs);
 		
-		return this
+		return this;
 	}
 	
 	/**
@@ -726,10 +726,10 @@ class mapBasisHelper {
 	 */
 	mouseTool () {
 		if (!this.AMapInstance.MouseTool) {
-			this.mapInstance.plugin(['AMap.MouseTool'])
+			this.mapInstance.plugin(['AMap.MouseTool']);
 		}
 		
-		return new this.AMapInstance.MouseTool(this.mapInstance)
+		return new this.AMapInstance.MouseTool(this.mapInstance);
 	}
 	
 	/**
@@ -738,10 +738,10 @@ class mapBasisHelper {
 	 */
 	rangingTool (options) {
 		if (!this.AMapInstance.RangingTool) {
-			this.mapInstance.plugin(['AMap.RangingTool'])
+			this.mapInstance.plugin(['AMap.RangingTool']);
 		}
 		
-		return new this.AMapInstance.RangingTool(this.mapInstance, options)
+		return new this.AMapInstance.RangingTool(this.mapInstance, options);
 	}
 	
 	/**
@@ -754,15 +754,15 @@ class mapBasisHelper {
 		 * 判读地图实列是否添加了插件
 		 */
 		if (!this.AMapInstance.Geocoder) {
-			this.mapInstance.plugin(['AMap.Geocoder'])
+			this.mapInstance.plugin(['AMap.Geocoder']);
 		}
 		
 		/**
 		 * 修改实列的getLocation方法
 		 */
-		const result = new this.AMapInstance.Geocoder(options)
-		const getLocation = result.getLocation.bind(result)
-		const getAddress = result.getAddress.bind(result)
+		const result = new this.AMapInstance.Geocoder(options);
+		const getLocation = result.getLocation.bind(result);
+		const getAddress = result.getAddress.bind(result);
 		Object.defineProperties(result, {
 			'getLocation': {
 				value: function (address) {
@@ -772,24 +772,24 @@ class mapBasisHelper {
 							 * 没有查到数据---但是查询是成功的
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-								resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info})
+								resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
 							}
 							
 							/**
 							 * 查询成功
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-								resolve({msg: result.info, data: result.geocodes})
+								resolve({msg: result.info, data: result.geocodes});
 							}
 							
 							/**
 							 * 查询错误
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-								reject({msg: result, data: null})
+								reject({msg: result, data: null});
 							}
-						})
-					})
+						});
+					});
 				},
 				configurable: false,
 			},
@@ -802,30 +802,30 @@ class mapBasisHelper {
 							 * 没有查到数据---但是查询是成功的
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-								resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info})
+								resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
 							}
 							
 							/**
 							 * 查询成功
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-								resolve({msg: result.info, data: result.regeocode})
+								resolve({msg: result.info, data: result.regeocode});
 							}
 							
 							/**
 							 * 查询错误
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-								reject({msg: result, data: null})
+								reject({msg: result, data: null});
 							}
-						})
-					})
+						});
+					});
 				},
 				configurable: false,
 			},
-		})
+		});
 		
-		return result
+		return result;
 	}
 	
 	/**
@@ -838,14 +838,14 @@ class mapBasisHelper {
 		 * 判读地图实列是否添加了插件
 		 */
 		if (!this.AMapInstance.Autocomplete) {
-			this.mapInstance.plugin(['AMap.Autocomplete'])
+			this.mapInstance.plugin(['AMap.Autocomplete']);
 		}
 		
 		/**
 		 * 修改实列的search方法
 		 */
-		const result = new this.AMapInstance.Autocomplete(options)
-		const search = result.search.bind(result)
+		const result = new this.AMapInstance.Autocomplete(options);
+		const search = result.search.bind(result);
 		Object.defineProperty(result, 'search', {
 			value: function (address) {
 				return new Promise((resolve, reject) => {
@@ -854,29 +854,29 @@ class mapBasisHelper {
 						 * 没有查到数据---但是查询是成功的
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-							resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info})
+							resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
 						}
 						
 						/**
 						 * 查询成功
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-							resolve({msg: result.info, data: result.tips})
+							resolve({msg: result.info, data: result.tips});
 						}
 						
 						/**
 						 * 查询错误
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-							reject({msg: result, data: null})
+							reject({msg: result, data: null});
 						}
-					})
-				})
+					});
+				});
 			},
 			configurable: false,
-		})
+		});
 		
-		return result
+		return result;
 	}
 	
 	/**
@@ -889,14 +889,14 @@ class mapBasisHelper {
 		 * 判读地图实列是否添加了插件
 		 */
 		if (!this.AMapInstance.DistrictSearch) {
-			this.mapInstance.plugin(['AMap.DistrictSearch'])
+			this.mapInstance.plugin(['AMap.DistrictSearch']);
 		}
 		
 		/**
 		 * 修改实列的search方法
 		 */
-		const result = new this.AMapInstance.DistrictSearch(options)
-		const search = result.search.bind(result)
+		const result = new this.AMapInstance.DistrictSearch(options);
+		const search = result.search.bind(result);
 		Object.defineProperty(result, 'search', {
 			value: function (address) {
 				return new Promise((resolve, reject) => {
@@ -905,29 +905,29 @@ class mapBasisHelper {
 						 * 没有查到数据---但是查询是成功的
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-							resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info})
+							resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
 						}
 						
 						/**
 						 * 查询成功
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-							resolve({msg: result.info, data: result.districtList})
+							resolve({msg: result.info, data: result.districtList});
 						}
 						
 						/**
 						 * 查询错误
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-							reject({msg: result, data: null})
+							reject({msg: result, data: null});
 						}
-					})
-				})
+					});
+				});
 			},
 			configurable: false,
-		})
+		});
 		
-		return result
+		return result;
 	}
 	
 	/**
@@ -937,31 +937,31 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	normalLayer (name, options) {
-		options = _.merge({}, options, {map: this.mapInstance})
+		options = _.merge({}, options, {map: this.mapInstance});
 		switch (name) {
 			/**
 			 * 默认的切片图层
 			 */
 			case EnumMap.LAYER.TileLayer.value:
-				return new this.AMapInstance.TileLayer(options)
+				return new this.AMapInstance.TileLayer(options);
 			
 			/**
 			 * 卫星图层
 			 */
 			case EnumMap.LAYER.TileLayer_Satellite.value:
-				return new this.AMapInstance.TileLayer.Satellite(options)
+				return new this.AMapInstance.TileLayer.Satellite(options);
 			
 			/**
 			 * 路网图层
 			 */
 			case EnumMap.LAYER.TileLayer_RoadNet.value:
-				return new this.AMapInstance.TileLayer.RoadNet(options)
+				return new this.AMapInstance.TileLayer.RoadNet(options);
 			
 			/**
 			 * 实时交通图层
 			 */
 			case EnumMap.LAYER.TileLayer_Traffic.value:
-				return new this.AMapInstance.TileLayer.Traffic(options)
+				return new this.AMapInstance.TileLayer.Traffic(options);
 		}
 	}
 	
@@ -979,7 +979,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -994,7 +994,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1009,7 +1009,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1024,7 +1024,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1039,7 +1039,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1054,7 +1054,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1069,7 +1069,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1084,7 +1084,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1094,7 +1094,7 @@ class mapBasisHelper {
 	layerGroup (layer) {
 		return new this.AMapInstance.LayerGroup(
 			Array.isArray(layer) ? layer : arguments.slice(),
-		)
+		);
 	}
 	
 	/**
@@ -1110,7 +1110,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1124,7 +1124,7 @@ class mapBasisHelper {
 				{},
 				options,
 				{map: this.mapInstance},
-			))
+			));
 	}
 	
 	/**
@@ -1142,7 +1142,7 @@ class mapBasisHelper {
 				{style: _.merge({}, EnumMap.COVER_TEXT_STYLE, style)},
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1158,7 +1158,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1174,7 +1174,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1190,7 +1190,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1206,7 +1206,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1222,7 +1222,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1238,7 +1238,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1254,7 +1254,7 @@ class mapBasisHelper {
 				options,
 				{map: this.mapInstance},
 			),
-		)
+		);
 	}
 	
 	/**
@@ -1265,7 +1265,7 @@ class mapBasisHelper {
 	overlayGroup (options) {
 		return new this.AMapInstance.OverlayGroup(
 			Array.isArray(options) ? options : arguments.slice(),
-		)
+		);
 	}
 	
 	/**
@@ -1274,8 +1274,8 @@ class mapBasisHelper {
 	 * @return {Object}
 	 */
 	infoWindow (options) {
-		return new this.AMapInstance.InfoWindow(_.merge({}, options, {map: this.mapInstance}))
+		return new this.AMapInstance.InfoWindow(_.merge({}, options, {map: this.mapInstance}));
 	}
 }
 
-export default mapBasisHelper
+export default mapBasisHelper;
