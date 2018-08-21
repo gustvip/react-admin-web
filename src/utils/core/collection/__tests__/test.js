@@ -8,9 +8,13 @@ const key1 = {name: 'a'};
 const value1 = {name: 'b'};
 const map = Map([[key1, value1]]);
 const _map = new Map([[key1, value1]]);
+const map2 = new Map(_map);
+const map3 = new Map('');
 
 test('map test', () => {
 	expect(_map).toEqual(map);
+	expect(_map).toEqual(map2);
+	expect(map3.__data__).toEqual([]);
 	expect(_map.__data__).toEqual([{key: key1, value: value1}]);
 	expect(_map.remove(2)).toEqual(_map);
 	expect(_map.clear()).toEqual(_map);
@@ -64,6 +68,10 @@ test('map test', () => {
 	expect(mockCallback.mock.calls[2][1]).toEqual(key1);
 	expect(mockCallback.mock.calls[3][0]).toEqual(key1);
 	expect(mockCallback.mock.calls[3][1]).toEqual(value1);
+	_map.remove('aaa');
+	expect(_map.__data__).toEqual([{key: key1, value: value1}, {key: value1, value: key1}]);
+	_map.remove(key1);
+	expect(_map.__data__).toEqual([{key: value1, value: key1}]);
 	
 	_map.clear();
 	expect(_map.__data__).toEqual([]);

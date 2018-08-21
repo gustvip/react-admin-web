@@ -1,34 +1,11 @@
 /**
  * Created by joey on 2018/6/20
  */
+import findIndex from '../utils/findIndex';
+import isFunction from '../utils/isFunction';
+
 export default (function () {
 	'use strict';
-	
-	/**
-	 * 是否为函数
-	 * @param {*} x
-	 * @returns {Boolean}
-	 */
-	function isFunction (x) {
-		return typeof x === 'function';
-	}
-	
-	/**
-	 * 查找符合条件的索引
-	 * @param {String || Array} x
-	 * @param {Function} predicate
-	 * @returns {Number}
-	 */
-	function findIndex (x, predicate) {
-		var len = x.length,
-			k = -1,
-			kValue;
-		while (++k < len) {
-			kValue = x[k];
-			if (predicate(kValue, k, x)) return k;
-		}
-		return -1;
-	}
 	
 	/**
 	 * 内部增加监听函数处理
@@ -45,7 +22,6 @@ export default (function () {
 			obj = {isOnce: isOnce, callback: callback};
 		row ? row.push(obj)
 			: this.__selfListeners__[type] = [obj];
-		
 		return this;
 	}
 	
@@ -109,7 +85,6 @@ export default (function () {
 				delete this.__selfListeners__[type];
 			}
 		}
-		
 		return this;
 	}
 	
@@ -130,7 +105,6 @@ export default (function () {
 				delete this.__selfListeners__[type];
 			}
 		}
-		
 		return this;
 	}
 	

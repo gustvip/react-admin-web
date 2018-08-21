@@ -114,7 +114,7 @@ export function post (url, data = {}, options = {}) {
 	return _request(_.merge({
 		url,
 		method: 'post',
-		data: _.transform(data, (result, value, key) => result.append(key, value), new URLSearchParams()),
+		data: _.transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	}, options));
 }
@@ -147,9 +147,7 @@ export function upload (url, data = {}, options = {}, onUploadProgress = _.noop)
 	return _request(_.merge({
 		url,
 		method: 'post',
-		data: data instanceof FormData
-			? data
-			: objectToFormData(data),
+		data: objectToFormData(data),
 		onUploadProgress,
 		headers: {'Content-Type': 'multipart/form-data'},
 	}, options));
