@@ -24,7 +24,7 @@ import Routes from './routes/index';
 /**
  * 错误处理程序
  */
-import ErrorBoundary from 'templates/tool_components/errorBoundary';
+import ErrorBoundary from 'templates/toolComponents/errorBoundary';
 
 /**
  * 渲染程序

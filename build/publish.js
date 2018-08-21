@@ -16,7 +16,7 @@ const conf = {
 	commonsJs: 'commons.js',
 	vendorJs: 'vendor.js',
 	configEnvPath: 'config/env.js',
-	cesiumPath: 'asserts/Cesium/Cesium.js',
+	cesiumPath: 'asserts/Cesium/cesium.js',
 	indexHtmlName: 'index_index.html',		// 生成的html的名字
 	appName: 'platform',                                 // 项目名称
 	proxyPath: process.argv[3] ? process.argv[3] : '/',  // 代理的前缀 注意：后面必须带斜线
@@ -68,12 +68,12 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 		/**
 		 * 复制asserts
 		 */
-		new copyWebpackPlugin([
+	/*	new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, '../public/asserts/'),
 				to: path.join(conf.webPath, 'asserts'),
 			},
-		]),
+		]),*/
 		
 		/**
 		 * 复制favicon

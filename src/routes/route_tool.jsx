@@ -3,9 +3,9 @@
  */
 import { Route } from 'react-router-dom';
 import T from 'utils/t';
-import Exception from 'templates/tool_components/exception';
-import lazyLoad from 'templates/lazy_load';
-import MainLayoutComponent from 'templates/main_layout';
+import Exception from 'templates/toolComponents/exception';
+import lazyLoad from 'templates/lazyLoad';
+import MainLayoutComponent from 'templates/mainLayout';
 
 /**
  * 默认布局方式

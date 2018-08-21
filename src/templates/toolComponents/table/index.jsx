@@ -3,7 +3,7 @@
  */
 import T from 'utils/t'
 import { Table } from 'antd'
-import style from './table_exchange.scss'
+import style from './tableExchange.scss'
 
 const TableExchange = function (props) {
   return <Table

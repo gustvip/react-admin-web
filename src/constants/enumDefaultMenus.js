@@ -3,7 +3,7 @@
  */
 
 import helper from 'utils/core/helper';
-import EnumRouter from './enum_router';
+import EnumRouter from './enumRouter';
 
 /**
  * icon 类型

@@ -1,4 +1,4 @@
-import CesiumComponent from 'templates/tool_components/cesium'
+import CesiumComponent from 'templates/toolComponents/cesium'
 import T from 'utils/t';
 // import * as  THREE from 'three'
 import { Hello } from './ts';

@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import EnumRouter from 'constants/enum_router';
+import EnumRouter from 'constants/enumRouter';
 import {
 	BrowserRouter,
 	Route,

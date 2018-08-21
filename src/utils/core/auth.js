@@ -1,10 +1,10 @@
 /**
  * created by joey 2018/02/19
  */
-import EnumAPI from 'constants/enum_api';
+import EnumAPI from 'constants/enumAPI';
 import helper from './helper';
 import queryString from 'query-string';
-import localStorage from './localstorage';
+import localStorage from './localStorage';
 import _ from 'lodash';
 import * as request from './request';
 

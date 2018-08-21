@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import EnumRouter from 'constants/enum_router'
+import EnumRouter from 'constants/enumRouter'
 import { AssembleRoute } from 'routes/route_tool'
 
 import UserList from './routes/list'

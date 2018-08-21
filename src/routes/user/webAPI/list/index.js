@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import EnumAPI from 'constants/enum_api'
+import EnumAPI from 'constants/enumAPI'
 import T from 'utils/t'
 
 /**

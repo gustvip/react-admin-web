@@ -4,9 +4,9 @@
 
 import T from 'utils/t';
 import PropTypes from 'prop-types';
-import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menu_util';
+import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil';
 import style from './index.scss';
-import { EnumIconTypes } from 'constants/enum_default_menus';
+import { EnumIconTypes } from 'constants/enumDefaultMenus';
 
 import { Select, Menu, Icon, Layout } from 'antd';
 

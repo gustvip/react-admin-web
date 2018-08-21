@@ -32,13 +32,11 @@ export default class Component extends React.PureComponent {
 			imageryProvider: amapSatelitte,		//高德卫星图
 		});
 		this.drawHelper = new DrawHelper(this.viewer);
-		console.log(this.drawHelper);
 		this.drawHelper.startDrawingPolygon({
 			callback: function (positions) {
-				console.log(positions);
 				var polygon = new DrawHelper.PolygonPrimitive({
 					positions: positions,
-					material: Cesium.Material.fromType('Checkerboard')
+					material: Cesium.Material.fromType('Checkerboard'),
 				});
 				self.viewer.scene.primitives.add(polygon);
 			},

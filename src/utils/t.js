@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/2/18
  */
-import numeral from 'numeral';
 import queryString from 'query-string';
 import lodash from 'lodash';
 
@@ -9,7 +8,7 @@ import helper from './core/helper';
 import prompt from './core/prompt';
 import auth from './core/auth';
 import regExp from './core/regexp';
-import localStorage from './core/localstorage';
+import localStorage from './core/localStorage';
 import emitter from './core/emitter/index';
 import * as decorator from './core/decorator';
 import * as request from './core/request';
@@ -25,9 +24,6 @@ const T = {
 	
 	// 说明文档: https://github.com/sindresorhus/query-string
 	queryString,
-	
-	// 说明文档: http://numeraljs.com/
-	numeral,
 	
 	// 加密算法
 	crypto,

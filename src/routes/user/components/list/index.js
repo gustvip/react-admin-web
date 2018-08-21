@@ -8,10 +8,10 @@ import style from '../../scss/list/index.scss'
 
 import { Button, Input } from 'antd'
 import { Link } from 'react-router-dom'
-import { MainHeader, MainContent } from 'templates/main_layout/index'
-import Table from 'templates/tool_components/table/index'
+import { MainHeader, MainContent } from 'templates/mainLayout/index'
+import Table from 'templates/toolComponents/table/index'
 
-import EnumRouter from 'constants/enum_router'
+import EnumRouter from 'constants/enumRouter'
 
 @T.decorator.contextTypes('router')
 export default class Index extends React.PureComponent {
