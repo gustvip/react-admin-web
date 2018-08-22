@@ -13,8 +13,9 @@ export default function findIndex (x, predicate) {
 		k = -1,
 		kValue;
 	while (++k < len) {
-		kValue = x[k];
-		if (predicate(kValue, k, x) === true) return k;
+		if (predicate(kValue = x[k], k, x) === true) {
+			return k;
+		}
 	}
 	return -1;
 };

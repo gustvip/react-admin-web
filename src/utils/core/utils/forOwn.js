@@ -13,7 +13,9 @@ export default function forOwn (object, callback) {
 	if (isObject(object)) {
 		for (var key in object) {
 			if (object.hasOwnProperty(key)) {
-				if (callback(object[key], key, object) === false) return;
+				if (callback(object[key], key, object) === false) {
+					return;
+				}
 			}
 		}
 	}
