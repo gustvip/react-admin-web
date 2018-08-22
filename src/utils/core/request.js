@@ -1,8 +1,10 @@
 /**
  * Created by joey on 2018/2/19
  */
-import { create } from 'axios';
+import { create, CancelToken } from 'axios';
 import _ from 'lodash';
+
+const source = CancelToken.source();
 
 /**
  * 将对象转化为FormDate数据格式
@@ -55,6 +57,9 @@ const singleton = (function () {
 			 */
 			responseType: 'json',
 			
+			// 取消请求的令牌
+			cancelToken: source.token,
+			
 			headers: {
 				//'X-Requested-With': 'XMLHttpRequest',
 			},
@@ -84,9 +89,19 @@ const _request = (options = {}) => {
 			} else {
 				reject({code, data, msg});
 			}
-		}).catch(info => reject({code: info.code, data: info.data, msg: info.message}));
+		}).catch(info => {
+			reject({code: info.code, data: info.data, msg: info.message});
+		});
 	});
 };
+
+/**
+ * 取消请求
+ * @param {string} reason
+ */
+export function cancelAllRequest (reason = '') {
+	source.cancel(reason);
+}
 
 /**
  * get请求

@@ -4,7 +4,7 @@
 import helper from 'utils/core/helper';
 import _ from 'lodash';
 
-const _userAPI = api => api;
+const _userAPI = api => window.ENV.apiDomain + api;
 
 /**
  * @type {{user_login: *, user_list: *, user_add: *, user_delete: *, user_detail: *, user_update: *, user_search: *}}

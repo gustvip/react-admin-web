@@ -1,9 +1,7 @@
 import Mock from 'mockjs';
 
 class MockUtil {
-	constructor () {
-		this.apiSuccessCode = 0;
-	}
+	static apiSuccessCode = 0;
 	
 	/**
 	 * 中转
@@ -13,7 +11,7 @@ class MockUtil {
 	 */
 	request (url, type, template) {
 		return Mock.mock(url, type, {
-			code: this.apiSuccessCode,
+			code: MockUtil.apiSuccessCode,
 			data: template,
 			msg: '成功',
 		});
@@ -25,7 +23,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	get (url, template) {
-		return this.request(url, 'get', template);
+		return this.request(new RegExp(url, 'i'), 'get', template);
 	}
 	
 	/**
