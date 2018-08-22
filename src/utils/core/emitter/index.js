@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import findIndex from '../utils/findIndex';
-import isFunction from '../utils/isFunction';
+import findIndex from '../utils/findIndex/index';
+import isFunction from '../utils/isFunction/index';
 
 export default (function () {
 	'use strict';
@@ -108,11 +108,11 @@ export default (function () {
 		return this;
 	}
 	
-	function Emitter () {
-		this.removeAllListener();
-	}
-	
 	Object.defineProperties(Emitter.prototype, {
+		constructor: {
+			value: Emitter,
+			configuarable: false,
+		},
 		on: {
 			value: addListener,
 			configuarable: false,
@@ -154,6 +154,10 @@ export default (function () {
 			configuarable: false,
 		},
 	});
+	
+	function Emitter () {
+		this.removeAllListener();
+	}
 	
 	return function emitter () {
 		return new Emitter;

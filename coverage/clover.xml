@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1534866667264" clover="3.2.0">
-  <project timestamp="1534866667264" name="All files">
-    <metrics statements="94" coveredstatements="94" conditionals="34" coveredconditionals="34" methods="39" coveredmethods="39" elements="167" coveredelements="167" complexity="0" loc="94" ncloc="94" packages="3" files="7" classes="7">
+<coverage generated="1534933209499" clover="3.2.0">
+  <project timestamp="1534933209499" name="All files">
+    <metrics statements="113" coveredstatements="113" conditionals="46" coveredconditionals="46" methods="53" coveredmethods="53" elements="212" coveredelements="212" complexity="0" loc="113" ncloc="113" packages="11" files="11" classes="11">
       <package name="collection">
         <metrics statements="47" coveredstatements="47" conditionals="12" coveredconditionals="12" methods="22" coveredmethods="22"/>
         <file name="map.js" path="/Users/joey/Desktop/react-demo/src/utils/core/collection/map.js">
@@ -91,39 +91,94 @@
           <line num="108" count="8" type="stmt"/>
           <line num="112" count="2" type="stmt"/>
           <line num="115" count="1" type="stmt"/>
-          <line num="158" count="1" type="stmt"/>
-          <line num="159" count="2" type="stmt"/>
+          <line num="162" count="1" type="stmt"/>
+          <line num="163" count="2" type="stmt"/>
         </file>
       </package>
-      <package name="utils">
-        <metrics statements="13" coveredstatements="13" conditionals="8" coveredconditionals="8" methods="5" coveredmethods="5"/>
-        <file name="findIndex.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/findIndex.js">
+      <package name="utils.comparator">
+        <metrics statements="15" coveredstatements="15" conditionals="10" coveredconditionals="10" methods="11" coveredmethods="11"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/comparator/index.js">
+          <metrics statements="15" coveredstatements="15" conditionals="10" coveredconditionals="10" methods="11" coveredmethods="11"/>
+          <line num="8" count="21" type="cond" truecount="2" falsecount="0"/>
+          <line num="9" count="9" type="stmt"/>
+          <line num="11" count="12" type="cond" truecount="2" falsecount="0"/>
+          <line num="15" count="16" type="stmt"/>
+          <line num="19" count="10" type="stmt"/>
+          <line num="23" count="11" type="stmt"/>
+          <line num="27" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="31" count="9" type="cond" truecount="2" falsecount="0"/>
+          <line num="35" count="1" type="stmt"/>
+          <line num="36" count="1" type="stmt"/>
+          <line num="37" count="8" type="stmt"/>
+          <line num="41" count="1" type="stmt"/>
+          <line num="73" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="76" count="1" type="stmt"/>
+          <line num="77" count="2" type="stmt"/>
+        </file>
+      </package>
+      <package name="utils.findIndex">
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/findIndex/index.js">
           <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
           <line num="12" count="33" type="stmt"/>
           <line num="13" count="33" type="stmt"/>
           <line num="15" count="33" type="stmt"/>
-          <line num="16" count="31" type="stmt"/>
-          <line num="17" count="31" type="cond" truecount="2" falsecount="0"/>
-          <line num="19" count="18" type="stmt"/>
+          <line num="16" count="31" type="cond" truecount="2" falsecount="0"/>
+          <line num="17" count="15" type="stmt"/>
+          <line num="20" count="18" type="stmt"/>
         </file>
-        <file name="forOwn.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/forOwn.js">
-          <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+      </package>
+      <package name="utils.forOwn">
+        <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/forOwn/index.js">
+          <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
           <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
           <line num="14" count="2" type="stmt"/>
           <line num="15" count="3" type="cond" truecount="2" falsecount="0"/>
           <line num="16" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="17" count="1" type="stmt"/>
         </file>
-        <file name="isArray.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isArray.js">
+      </package>
+      <package name="utils.isArray">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isArray/index.js">
           <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
           <line num="11" count="7" type="stmt"/>
         </file>
-        <file name="isFunction.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isFunction.js">
+      </package>
+      <package name="utils.isFunction">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isFunction/index.js">
           <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-          <line num="11" count="14" type="stmt"/>
+          <line num="11" count="16" type="stmt"/>
         </file>
-        <file name="isObject.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isObject.js">
+      </package>
+      <package name="utils.isNil">
+        <metrics statements="1" coveredstatements="1" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isNil/index.js">
+          <metrics statements="1" coveredstatements="1" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+          <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
+        </file>
+      </package>
+      <package name="utils.isNull">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isNull/index.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="11" count="5" type="stmt"/>
+        </file>
+      </package>
+      <package name="utils.isObject">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isObject/index.js">
           <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
           <line num="11" count="8" type="stmt"/>
+        </file>
+      </package>
+      <package name="utils.isUndefined">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <file name="index.js" path="/Users/joey/Desktop/react-demo/src/utils/core/utils/isUndefined/index.js">
+          <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+          <line num="11" count="4" type="stmt"/>
         </file>
       </package>
     </metrics>

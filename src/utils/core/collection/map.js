@@ -1,12 +1,61 @@
 /**
  * Created by joey on 2018/8/20
  */
-import findIndex from '../utils/findIndex';
-import isArray from '../utils/isArray';
+import findIndex from '../utils/findIndex/index';
+import isArray from '../utils/isArray/index';
 
 export default (function () {
-	function Map () {
-		this.clear();
+	function size () {
+		return this.__data__.length;
+	}
+	
+	function has (property) {
+		return findIndex(this.__data__, function (value) {
+			return value.key === property;
+		}) !== -1;
+	}
+	
+	function get (property) {
+		var index = findIndex(this.__data__, function (value) {
+			return value.key === property;
+		});
+		return index === -1 ? undefined : this.__data__[index].value;
+	}
+	
+	function clear () {
+		this.__data__ = [];
+		return this;
+	}
+	
+	function keys () {
+		var keys = [];
+		this.__data__.forEach(function (value) {
+			keys.push(value.key);
+		});
+		return keys;
+	}
+	
+	function values () {
+		var values = [];
+		this.__data__.forEach(function (value) {
+			values.push(value.value);
+		});
+		return values;
+	}
+	
+	function entries () {
+		var entries = [];
+		this.__data__.forEach(function (value) {
+			entries.push([value.key, value.value]);
+		});
+		return entries;
+	}
+	
+	function forEach (callback) {
+		this.__data__.forEach(function (value) {
+			callback(value.value, value.key);
+		});
+		return this;
 	}
 	
 	function setItem (property, value) {
@@ -36,30 +85,16 @@ export default (function () {
 			value: Map,
 			configuarable: false,
 		},
-		
 		size: {
-			get: function () {
-				return this.__data__.length;
-			},
+			get: size,
 			configuarable: false,
 		},
-		
 		has: {
-			value: function (property) {
-				return findIndex(this.__data__, function (value) {
-					return value.key === property;
-				}) !== -1;
-			},
+			value: has,
 			configuarable: false,
 		},
-		
 		get: {
-			value: function (property) {
-				var index = findIndex(this.__data__, function (value) {
-					return value.key === property;
-				});
-				return index === -1 ? undefined : this.__data__[index].value;
-			},
+			value: get,
 			configuarable: false,
 		},
 		
@@ -84,56 +119,34 @@ export default (function () {
 		},
 		
 		clear: {
-			value: function () {
-				this.__data__ = [];
-				return this;
-			},
+			value: clear,
 			configuarable: false,
 		},
 		
 		keys: {
-			get: function () {
-				var keys = [];
-				this.__data__.forEach(function (value) {
-					keys.push(value.key);
-				});
-				return keys;
-			},
+			get: keys,
 			configuarable: false,
 		},
 		
 		values: {
-			get: function () {
-				var values = [];
-				this.__data__.forEach(function (value) {
-					values.push(value.value);
-				});
-				return values;
-			},
+			get: values,
 			configuarable: false,
 		},
 		
 		entries: {
-			get: function () {
-				var entries = [];
-				this.__data__.forEach(function (value) {
-					entries.push([value.key, value.value]);
-				});
-				return entries;
-			},
+			get: entries,
 			configuarable: false,
 		},
 		
 		forEach: {
-			value: function (callback) {
-				this.__data__.forEach(function (value) {
-					callback(value.value, value.key);
-				});
-				return this;
-			},
+			value: forEach,
 			configuarable: false,
 		},
 	});
+	
+	function Map () {
+		this.clear();
+	}
 	
 	return function map (object) {
 		var _map = new Map;

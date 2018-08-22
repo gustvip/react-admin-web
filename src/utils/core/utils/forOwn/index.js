@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isObject from './isObject';
+import isObject from '../isObject/index';
 
 /**
  * 遍历对象(含有自身属性)
