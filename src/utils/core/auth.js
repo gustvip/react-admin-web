@@ -9,16 +9,20 @@ import _ from 'lodash';
 import * as request from './request';
 
 class Auth {
+	constructor () {
+		this.ENV = window.ENV;
+	}
+	
 	/**
 	 * 验证是否登录
 	 * @returns {boolean}
 	 */
 	get isLogin () {
 		const locationPathname = _.flowRight(helper.removeTrailingSlash, helper.removeBlank)(window.location.pathname);
-		const isNeedGetLocalStorage = ENV.login.isCheckLogin && ENV.login.noCheckIsLoginRoutes.indexOf(locationPathname) === -1;
+		const isNeedGetLocalStorage = this.ENV.login.isCheckLogin && this.ENV.login.noCheckIsLoginRoutes.indexOf(locationPathname) === -1;
 		
 		return isNeedGetLocalStorage
-			? this.getLoginStorageValue() === ENV.localStorage.login.value
+			? this.getLoginStorageValue() === this.ENV.localStorage.login.value
 			: true;
 	}
 	
@@ -27,14 +31,14 @@ class Auth {
 	 * @returns {*}
 	 */
 	getLoginStorageValue () {
-		return localStorage.getItem(ENV.localStorage.login.key);
+		return localStorage.getItem(this.ENV.localStorage.login.key);
 	}
 	
 	/**
 	 * 设置登录的localStorage(自定义)值
 	 */
 	setLoginStorageValue () {
-		const login = ENV.localStorage.login;
+		const login = this.ENV.localStorage.login;
 		localStorage.setItem(login.key, login.value, login.expire);
 	}
 	
@@ -42,7 +46,7 @@ class Auth {
 	 * 移除登录的localStorage(自定义)值
 	 */
 	removeLoginStorageValue () {
-		localStorage.removeItem(ENV.localStorage.login.key);
+		localStorage.removeItem(this.ENV.localStorage.login.key);
 	}
 	
 	/**
@@ -50,7 +54,7 @@ class Auth {
 	 * @returns {*}
 	 */
 	getUserNameStorageValue () {
-		return localStorage.getItem(ENV.localStorage.user_name.key);
+		return localStorage.getItem(this.ENV.localStorage.user_name.key);
 	}
 	
 	/**
@@ -58,7 +62,7 @@ class Auth {
 	 * @param {String} user_name_value 用户名
 	 */
 	setUserNameStorageValue (user_name_value) {
-		const user_name = ENV.localStorage.user_name;
+		const user_name = this.ENV.localStorage.user_name;
 		localStorage.setItem(user_name.key, user_name_value, user_name.expire);
 	}
 	
@@ -66,7 +70,7 @@ class Auth {
 	 * 移除登录的localStorage(自定义)的user_name值
 	 */
 	removeUserNameStorageValue () {
-		localStorage.removeItem(ENV.localStorage.login.key);
+		localStorage.removeItem(this.ENV.localStorage.login.key);
 	}
 	
 	/**
@@ -74,7 +78,7 @@ class Auth {
 	 * @returns {*}
 	 */
 	getUserPasswordStorageValue () {
-		return localStorage.getItem(ENV.localStorage.user_password.key);
+		return localStorage.getItem(this.ENV.localStorage.user_password.key);
 	}
 	
 	/**
@@ -82,7 +86,7 @@ class Auth {
 	 * @param {String} user_password_value 用户名
 	 */
 	setUserPasswordStorageValue (user_password_value) {
-		const user_password = ENV.localStorage.user_password;
+		const user_password = this.ENV.localStorage.user_password;
 		localStorage.setItem(user_password.key, user_password_value, user_password.expire);
 	}
 	
@@ -90,7 +94,7 @@ class Auth {
 	 * 移除登录的localStorage(自定义)的user_password值
 	 */
 	removeUserPasswordStorageValue () {
-		localStorage.removeItem(ENV.localStorage.user_password.key);
+		localStorage.removeItem(this.ENV.localStorage.user_password.key);
 	}
 	
 	/**
@@ -111,10 +115,10 @@ class Auth {
 	 */
 	loginSuccessRedirect (history, state) {
 		const urlParams = queryString.parse(window.location.search);
-		let redirectUrl = ENV.login.defaultRedirectUrl;
+		let redirectUrl = this.ENV.login.defaultRedirectUrl;
 		
-		if (helper.isObject(urlParams) && ENV.defaultQuery in urlParams) {
-			redirectUrl = decodeURIComponent(urlParams[ENV.defaultQuery]);
+		if (helper.isObject(urlParams) && this.ENV.defaultQuery in urlParams) {
+			redirectUrl = decodeURIComponent(urlParams[this.ENV.defaultQuery]);
 		}
 		
 		setTimeout(() => history.push(redirectUrl, state), 1000);

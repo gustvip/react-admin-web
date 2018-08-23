@@ -3,9 +3,18 @@ import Comparator from '../../utils/comparator';
 import isFunction from '../../utils/isFunction';
 import isUndefined from '../../utils/isUndefined';
 import isArray from '../../utils/isArray';
+import isObject from '../../utils/isObject';
 
 export default (function () {
 	'use strict';
+	
+	/**
+	 * 是否为空
+	 * @return {boolean}
+	 */
+	function isEmpty () {
+		return !this.head;
+	}
 	
 	/**
 	 * @param {*} value
@@ -13,7 +22,7 @@ export default (function () {
 	 */
 	function prepend (value) {
 		// Make new node to be a head.
-		const newNode = new LinkedListNode(value, this.head);
+		var newNode = new LinkedListNode(value, this.head);
 		this.head = newNode;
 		
 		// If there is no tail yet let's make new node a tail.
@@ -29,19 +38,17 @@ export default (function () {
 	 * @return {LinkedList}
 	 */
 	function append (value) {
-		const newNode = new LinkedListNode(value);
+		var newNode = new LinkedListNode(value);
 		
 		// If there is no head yet let's make new node a head.
 		if (!this.head) {
 			this.head = newNode;
 			this.tail = newNode;
-			
-			return this;
+		} else {
+			// Attach new node to the end of linked list.
+			this.tail.next = newNode;
+			this.tail = newNode;
 		}
-		
-		// Attach new node to the end of linked list.
-		this.tail.next = newNode;
-		this.tail = newNode;
 		
 		return this;
 	}
@@ -51,11 +58,11 @@ export default (function () {
 	 * @return {LinkedListNode}
 	 */
 	function _delete (value) {
-		if (!this.head) {
+		if (this.isEmpty()) {
 			return null;
 		}
 		
-		let deletedNode = null;
+		var deletedNode = null;
 		
 		// If the head must be deleted then make next node that is differ
 		// from the head to be a new head.
@@ -64,7 +71,7 @@ export default (function () {
 			this.head = this.head.next;
 		}
 		
-		let currentNode = this.head;
+		var currentNode = this.head;
 		
 		if (currentNode !== null) {
 			// If next node must be deleted then make next node to be a next next one.
@@ -92,16 +99,15 @@ export default (function () {
 	 * @param {function} [findParams.callback]
 	 * @return {LinkedListNode}
 	 */
-	function find ({value = undefined, callback = undefined}) {
-		if (!this.head) {
-			return null;
-		}
-		
-		let currentNode = this.head;
+	function find (findParams) {
+		findParams = isObject(findParams) ? findParams : {};
+		var value = findParams.value;
+		var callback = findParams.callback;
+		var currentNode = this.head;
 		
 		while (currentNode) {
 			// If callback is specified then try to find node by callback.
-			if (isFunction(callback) && callback(currentNode.value)) {
+			if (callback && isFunction(callback) && callback(currentNode.value)) {
 				return currentNode;
 			}
 			
@@ -120,29 +126,24 @@ export default (function () {
 	 * @return {LinkedListNode}
 	 */
 	function deleteTail () {
-		const deletedTail = this.tail;
+		var deletedTail = this.tail;
+		var currentNode = this.head;
 		
 		if (this.head === this.tail) {
-			// There is only one node in linked list.
+			// There is only one or zero node in linked list.
 			this.head = null;
 			this.tail = null;
-			
-			return deletedTail;
-		}
-		
-		// If there are many nodes in linked list...
-		
-		// Rewind to the last node and delete "next" link for the node before the last one.
-		let currentNode = this.head;
-		while (currentNode.next) {
-			if (!currentNode.next.next) {
-				currentNode.next = null;
-			} else {
-				currentNode = currentNode.next;
+		} else {
+			while (currentNode.next) {
+				if (!currentNode.next.next) {
+					currentNode.next = null;
+				} else {
+					currentNode = currentNode.next;
+				}
 			}
+			
+			this.tail = currentNode;
 		}
-		
-		this.tail = currentNode;
 		
 		return deletedTail;
 	}
@@ -151,17 +152,13 @@ export default (function () {
 	 * @return {LinkedListNode}
 	 */
 	function deleteHead () {
-		if (!this.head) {
-			return null;
-		}
-		
-		const deletedHead = this.head;
-		
-		if (this.head.next) {
-			this.head = this.head.next;
-		} else {
+		var deletedHead = this.head;
+		if (this.head === this.tail) {
+			// There is only one or zero node in linked list.
 			this.head = null;
 			this.tail = null;
+		} else {
+			this.head = this.head.next;
 		}
 		
 		return deletedHead;
@@ -179,16 +176,15 @@ export default (function () {
 			});
 		}
 		
-		return this;
+		return self;
 	}
 	
 	/**
 	 * @return {LinkedListNode[]}
 	 */
 	function toArray () {
-		const nodes = [];
-		
-		let currentNode = this.head;
+		var nodes = [];
+		var currentNode = this.head;
 		while (currentNode) {
 			nodes.push(currentNode);
 			currentNode = currentNode.next;
@@ -202,12 +198,18 @@ export default (function () {
 	 * @return {string}
 	 */
 	function toString (callback) {
-		return this.toArray().map(node => node.toString(callback)).toString();
+		return this.toArray().map(function (node) {
+			return node.toString(callback);
+		}).toString();
 	}
 	
 	Object.defineProperties(LinkedList.prototype, {
 		constructor: {
 			value: LinkedList,
+			configuarable: false,
+		},
+		isEmpty: {
+			value: isEmpty,
 			configuarable: false,
 		},
 		prepend: {

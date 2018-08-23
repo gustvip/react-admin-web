@@ -691,7 +691,6 @@ var DrawHelper = (function () {
 			if (callbacks.dragHandlers) {
 				var _self = this;
 				setListener(billboard, 'leftDown', function (position) {
-					// TODO - start the drag handlers here
 					// create handlers for mouseOut and leftUp for the billboard and a mouseMove
 					function onDrag (position) {
 						billboard.position = position;
@@ -1117,7 +1116,6 @@ var DrawHelper = (function () {
 			}
 			
 			setListener(billboard, 'leftDown', function (position) {
-				// TODO - start the drag handlers here
 				// create handlers for mouseOut and leftUp for the billboard and a mouseMove
 				function onDrag (position) {
 					billboard.position = position;

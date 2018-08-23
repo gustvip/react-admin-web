@@ -1,5 +1,4 @@
 import Index from '../index';
-import LinkedListNode from '../linkedListNode';
 
 describe('Index', () => {
 	it('should create empty linked list', () => {
@@ -153,6 +152,7 @@ describe('Index', () => {
 		const linkedList = new Index();
 		
 		expect(linkedList.find({value: 5})).toBeNull();
+		expect(linkedList.find(111)).toBeNull();
 		
 		linkedList.append(1);
 		expect(linkedList.find({value: 1})).toBeDefined();
@@ -183,7 +183,6 @@ describe('Index', () => {
 		linkedList.fromArray([1, 1, 2, 3, 3, 3, 4, 5]);
 		
 		expect(linkedList.toString()).toBe('1,1,2,3,3,3,4,5');
-		
 		linkedList = new Index();
 		linkedList.fromArray({'1': 1});
 		expect(linkedList.toString()).toBe('');
@@ -210,50 +209,5 @@ describe('Index', () => {
 		expect(node.value.value).toBe(2);
 		expect(node.value.customValue).toBe('test2');
 		expect(linkedList.find({value: 2, customValue: 'test5'})).toBeNull();
-	});
-});
-
-describe('LinkedListNode', () => {
-	it('should create list node with value', () => {
-		const node = new LinkedListNode(1);
-		
-		expect(node.value).toBe(1);
-		expect(node.next).toBeNull();
-	});
-	
-	it('should create list node with object as a value', () => {
-		const nodeValue = {value: 1, key: 'test'};
-		const node = new LinkedListNode(nodeValue);
-		
-		expect(node.value.value).toBe(1);
-		expect(node.value.key).toBe('test');
-		expect(node.next).toBeNull();
-	});
-	
-	it('should link nodes together', () => {
-		const node2 = new LinkedListNode(2);
-		const node1 = new LinkedListNode(1, node2);
-		
-		expect(node1.next).toBeDefined();
-		expect(node2.next).toBeNull();
-		expect(node1.value).toBe(1);
-		expect(node1.next.value).toBe(2);
-	});
-	
-	it('should convert node to string', () => {
-		const node = new LinkedListNode(1);
-		
-		expect(node.toString()).toBe('1');
-		
-		node.value = 'string value';
-		expect(node.toString()).toBe('string value');
-	});
-	
-	it('should convert node to string with custom stringifier', () => {
-		const nodeValue = {value: 1, key: 'test'};
-		const node = new LinkedListNode(nodeValue);
-		const toStringCallback = value => `value: ${value.value}, key: ${value.key}`;
-		
-		expect(node.toString(toStringCallback)).toBe('value: 1, key: test');
 	});
 });

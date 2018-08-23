@@ -7,7 +7,6 @@ import message from 'antd/lib/message';
 import _ from 'lodash';
 
 class Prompt {
-	
 	constructor () {
 		message.config({
 			duration: 2,

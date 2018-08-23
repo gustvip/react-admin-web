@@ -3,7 +3,6 @@ import md5 from 'crypto-js/md5';
 import hmacSHA512 from 'crypto-js/hmac-sha512';
 
 class Crypto {
-	
 	/**
 	 * md5算法
 	 * @param {*} info

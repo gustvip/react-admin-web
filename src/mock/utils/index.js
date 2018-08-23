@@ -10,7 +10,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	request (url, type, template) {
-		return Mock.mock(url, type, {
+		return Mock.mock(new RegExp(url, 'i'), type, {
 			code: MockUtil.apiSuccessCode,
 			data: template,
 			msg: '成功',
@@ -23,7 +23,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	get (url, template) {
-		return this.request(new RegExp(url, 'i'), 'get', template);
+		return this.request(url, 'get', template);
 	}
 	
 	/**

@@ -1,42 +1,23 @@
 /**
  * created by joey 2018/02/20
  */
+import isObject from '../utils/isObject';
+import isString from '../utils/isString';
+import isNumber from '../utils/isNumber';
+import isBoolean from '../utils/isBoolean';
+import isArray from '../utils/isArray';
+import forOwn from '../utils/forOwn';
 
 export default (function () {
-	const toString = Object.prototype.toString;
 	// 无限期
-	const NO_EXPIRE = 0;
+	var NO_EXPIRE = 0;
 	// localStorage的key
-	const STORAGE_KEY = '__STORAGE__';
+	var STORAGE_KEY = '__STORAGE__';
 	// 临时存储的变量
-	let storageValue = (function () {
-		const result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+	var storageValue = (function () {
+		var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
 		return isObject(result) ? result : {};
 	}());
-	
-	/**
-	 * 验证函数
-	 * null 和 undefined浪费空间,没有意义
-	 */
-	function isObject (x) {
-		return toString.call(x) === '[object Object]';
-	}
-	
-	function isString (x) {
-		return typeof x === 'string';
-	}
-	
-	function isBoolean (x) {
-		return typeof x === 'boolean';
-	}
-	
-	function isNumber (x) {
-		return typeof x === 'number';
-	}
-	
-	function isArray (x) {
-		return Array.isArray(x);
-	}
 	
 	function canJSON (x) {
 		return isString(x) || isNumber(x) || isObject(x) || isArray(x) || isBoolean(x);
@@ -73,14 +54,12 @@ export default (function () {
 	 * 清空过期的数据
 	 */
 	function clearExpired () {
-		for (const key in storageValue) {
-			if (storageValue.hasOwnProperty(key)) {
-				const value = storageValue[key];
-				if (!isObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
-					delete storageValue[key];
-				}
+		forOwn(storageValue, function (value) {
+			if (!isObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
+				delete storageValue[key];
 			}
-		}
+		});
+		
 		update(STORAGE_KEY, storageValue);
 	}
 	
@@ -123,7 +102,7 @@ export default (function () {
 	 */
 	function getItem (key) {
 		clearExpired();
-		const storage = storageValue[key];
+		var storage = storageValue[key];
 		if (storage) {
 			return storage.value;
 		}
@@ -137,7 +116,7 @@ export default (function () {
 	 */
 	function keepItem (key, expTime) {
 		clearExpired();
-		const storage = storageValue[key];
+		var storage = storageValue[key];
 		expTime = parseInt(expTime, 10);
 		if (storage && isFinite(expTime)) {
 			storage.expire += expTime;
@@ -156,7 +135,7 @@ export default (function () {
 	 */
 	function updateItem (key, expTime) {
 		clearExpired();
-		const storage = storageValue[key];
+		var storage = storageValue[key];
 		expTime = parseInt(expTime, 10);
 		
 		if (!isFinite(expTime) || expTime < 0) {

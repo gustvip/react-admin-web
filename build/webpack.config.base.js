@@ -128,10 +128,10 @@ module.exports = {
 			'url-search-params-polyfill',
 			
 			'utils/core/decorator.js',
-			'utils/core/localStorage.js',
+			'utils/core/crypto.js',
 			'utils/core/request.js',
 			'utils/core/emitter/index.js',
-			'utils/core/collection/index.js',
+			'utils/core/localStorage/index.js',
 		],
 	},
 	

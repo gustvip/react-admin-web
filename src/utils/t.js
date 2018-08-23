@@ -8,17 +8,13 @@ import helper from './core/helper';
 import prompt from './core/prompt';
 import auth from './core/auth';
 import regExp from './core/regexp';
-import localStorage from './core/localStorage';
+import localStorage from './core/localStorage/index';
 import emitter from './core/emitter/index';
 import * as decorator from './core/decorator';
 import * as request from './core/request';
 import crypto from './core/crypto';
-import collection from './core/collection';
 
 const T = {
-	// 集合操作
-	collection,
-	
 	// 说明文档: https://lodash.com/docs/4.17.5
 	lodash,
 	
