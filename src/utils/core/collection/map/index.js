@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/8/20
  */
-import findIndex from '../utils/findIndex/index';
-import isArray from '../utils/isArray/index';
+import findIndex from '../../utils/findIndex/index';
+import isArray from '../../utils/isArray/index';
 
 export default (function () {
 	function size () {

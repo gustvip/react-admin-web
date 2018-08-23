@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/20
  */
-import Map from '../map';
+import Map from '../index';
 
 const mockCallback = jest.fn();
 const key1 = {name: 'a'};

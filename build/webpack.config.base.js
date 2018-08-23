@@ -131,7 +131,7 @@ module.exports = {
 			'utils/core/localStorage.js',
 			'utils/core/request.js',
 			'utils/core/emitter/index.js',
-			'utils/core/collection/map.js',
+			'utils/core/collection/index.js',
 		],
 	},
 	
