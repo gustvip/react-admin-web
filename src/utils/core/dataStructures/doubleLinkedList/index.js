@@ -1,4 +1,4 @@
-import LinkedListNode from './linkedListNode';
+import DoubleLinkedListNode from './doubleLinkedListNode';
 import Comparator from '../../utils/comparator';
 import isFunction from '../../utils/isFunction';
 import isUndefined from '../../utils/isUndefined';
@@ -27,7 +27,7 @@ export default (function () {
 	
 	/**
 	 * 清空链表
-	 * @return {LinkedList}
+	 * @return {DoubleLinkedList}
 	 */
 	function clear () {
 		this.head = this.tail = null;
@@ -37,15 +37,16 @@ export default (function () {
 	/**
 	 * 向前添加
 	 * @param {*} value
-	 * @return {LinkedList}
+	 * @return {DoubleLinkedList}
 	 */
 	function prepend (value) {
 		// Make new node to be a head.
-		var newNode = new LinkedListNode(value, this.head);
+		var newNode = new DoubleLinkedListNode(value, this.head);
+		// If there is no head yet let's make new node a head.
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
 		} else {
-			this.head = newNode;
+			this.head = this.head.previous = newNode;
 		}
 		
 		return this;
@@ -54,15 +55,16 @@ export default (function () {
 	/**
 	 * 向后添加
 	 * @param {*} value
-	 * @return {LinkedList}
+	 * @return {DoubleLinkedList}
 	 */
 	function append (value) {
-		var newNode = new LinkedListNode(value);
+		var newNode = new DoubleLinkedListNode(value, null, this.tail);
 		
+		// If there is no head yet let's make new node a head.
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
 		} else {
-			this.tail.next = this.tail = newNode;
+			this.tail = this.tail.next = newNode;
 		}
 		
 		return this;
@@ -71,38 +73,48 @@ export default (function () {
 	/**
 	 * 删除值
 	 * @param {*} value
-	 * @return {LinkedListNode}
+	 * @return {DoubleLinkedListNode}
 	 */
 	function _delete (value) {
-		if (this.isEmpty()) {
-			return null;
-		}
 		var deletedNode = null;
-		
-		// If the head must be deleted then make next node that is differ
-		// from the head to be a new head.
-		while (this.head && this.compare.equal(this.head.value, value)) {
-			deletedNode = this.head;
-			this.head = this.head.next;
-		}
-		
 		var currentNode = this.head;
-		
-		if (currentNode) {
-			// If next node must be deleted then make next node to be a next next one.
-			while (currentNode.next) {
-				if (this.compare.equal(currentNode.next.value, value)) {
-					deletedNode = currentNode.next;
-					currentNode.next = currentNode.next.next;
+		while (currentNode) {
+			if (this.compare.equal(currentNode.value, value)) {
+				deletedNode = currentNode;
+				
+				if (deletedNode === this.head) {
+					// If HEAD is going to be deleted...
+					
+					// Set head to second node, which will become new head.
+					this.head = deletedNode.next;
+					
+					// Set new head's previous to null.
+					if (this.head) {
+						this.head.previous = null;
+					}
+					
+					// If all the nodes in list has same value that is passed as argument
+					// then all nodes will get deleted, therefore tail needs to be updated.
+					if (deletedNode === this.tail) {
+						this.tail = null;
+					}
+				} else if (deletedNode === this.tail) {
+					// If TAIL is going to be deleted...
+					
+					// Set tail to second last node, which will become new tail.
+					this.tail = deletedNode.previous;
+					this.tail.next = null;
 				} else {
-					currentNode = currentNode.next;
+					// If MIDDLE node is going to be deleted...
+					var previousNode = deletedNode.previous;
+					var nextNode = deletedNode.next;
+					
+					previousNode.next = nextNode;
+					nextNode.previous = previousNode;
 				}
 			}
-		}
-		
-		// Check if tail must be deleted.
-		if (this.compare.equal(this.tail.value, value)) {
-			this.tail = currentNode;
+			
+			currentNode = currentNode.next;
 		}
 		
 		return deletedNode;
@@ -113,7 +125,7 @@ export default (function () {
 	 * @param {Object} findParams
 	 * @param {*} findParams.value
 	 * @param {function} [findParams.callback]
-	 * @return {LinkedListNode}
+	 * @return {DoubleLinkedListNode}
 	 */
 	function find (findParams) {
 		findParams = isObject(findParams) ? findParams : {};
@@ -139,26 +151,15 @@ export default (function () {
 	
 	/**
 	 * 删除尾巴
-	 * @return {LinkedListNode}
+	 * @return {DoubleLinkedListNode}
 	 */
 	function deleteTail () {
 		var deletedTail = this.tail;
-		var currentNode = this.head;
-		
 		if (this.head === this.tail) {
-			// There is only one or zero node in linked list.
 			this.head = this.tail = null;
 		} else {
-			while (currentNode.next) {
-				if (!currentNode.next.next) {
-					currentNode.next = null;
-					break;
-				} else {
-					currentNode = currentNode.next;
-				}
-			}
-			
-			this.tail = currentNode;
+			this.tail = this.tail.previous;
+			this.tail.next = null;
 		}
 		
 		return deletedTail;
@@ -166,39 +167,23 @@ export default (function () {
 	
 	/**
 	 * 删除头部
-	 * @return {LinkedListNode}
+	 * @return {DoubleLinkedListNode}
 	 */
 	function deleteHead () {
 		var deletedHead = this.head;
 		if (this.head === this.tail) {
-			// There is only one or zero node in linked list.
 			this.head = this.tail = null;
 		} else {
 			this.head = this.head.next;
+			this.head.previous = null;
 		}
 		
 		return deletedHead;
 	}
 	
 	/**
-	 * 从数组中添加
-	 * @param {*[]} values - Array of values that need to be converted to linked list.
-	 * @return {LinkedList}
-	 */
-	function fromArray (values) {
-		var self = this;
-		if (isArray(values)) {
-			values.forEach(function (value) {
-				self.append(value);
-			});
-		}
-		
-		return self;
-	}
-	
-	/**
-	 * 将节点转化为数组形式
-	 * @return {LinkedListNode[]}
+	 * 将node以数组返回
+	 * @return {DoubleLinkedListNode[]}
 	 */
 	function toArray () {
 		var nodes = [];
@@ -212,6 +197,23 @@ export default (function () {
 	}
 	
 	/**
+	 * 从数组中添加
+	 * @param {*[]} values - Array of values that need to be converted to linked list.
+	 * @return {DoubleLinkedList}
+	 */
+	function fromArray (values) {
+		var self = this;
+		if (isArray(values)) {
+			values.forEach(function (value) {
+				self.append(value);
+			});
+		}
+		
+		return self;
+	}
+	
+	/**
+	 * 转化为字符串
 	 * @param {function} [callback]
 	 * @return {string}
 	 */
@@ -221,9 +223,9 @@ export default (function () {
 		}).toString();
 	}
 	
-	Object.defineProperties(LinkedList.prototype, {
+	Object.defineProperties(DoubleLinkedList.prototype, {
 		constructor: {
-			value: LinkedList,
+			value: DoubleLinkedList,
 			configuarable: false,
 		},
 		isEmpty: {
@@ -279,7 +281,7 @@ export default (function () {
 	/**
 	 * @param {Function} [comparatorFunction]
 	 */
-	function LinkedList (comparatorFunction) {
+	function DoubleLinkedList (comparatorFunction) {
 		/** @var LinkedListNode */
 		this.head = null;
 		
@@ -289,7 +291,7 @@ export default (function () {
 		this.compare = new Comparator(comparatorFunction);
 	}
 	
-	return function linkedList (comparatorFunction) {
-		return new LinkedList(comparatorFunction);
+	return function doubleLinkedList (comparatorFunction) {
+		return new DoubleLinkedList(comparatorFunction);
 	};
 })();

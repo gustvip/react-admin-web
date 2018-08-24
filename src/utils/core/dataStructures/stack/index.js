@@ -19,7 +19,7 @@ export default (function () {
 	
 	/**
 	 * 清空栈
-	 * @return {LinkedList}
+	 * @return {Stack}
 	 */
 	function clear () {
 		this.linkedList.clear();

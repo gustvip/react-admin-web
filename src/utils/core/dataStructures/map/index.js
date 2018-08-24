@@ -5,16 +5,30 @@ import findIndex from '../../utils/findIndex/index';
 import isArray from '../../utils/isArray/index';
 
 export default (function () {
+	/**
+	 * 长度
+	 * @return  {number}
+	 */
 	function size () {
 		return this.__data__.length;
 	}
 	
+	/**
+	 * 是否有此属性
+	 * @param {*} property
+	 * @return {boolean}
+	 */
 	function has (property) {
 		return findIndex(this.__data__, function (value) {
 			return value.key === property;
 		}) !== -1;
 	}
 	
+	/**
+	 * 获取属性对应的值
+	 * @param {*} property
+	 * @return {undefined || *}
+	 */
 	function get (property) {
 		var index = findIndex(this.__data__, function (value) {
 			return value.key === property;
@@ -22,11 +36,19 @@ export default (function () {
 		return index === -1 ? undefined : this.__data__[index].value;
 	}
 	
+	/**
+	 * 清楚
+	 * @return {Map}
+	 */
 	function clear () {
 		this.__data__ = [];
 		return this;
 	}
 	
+	/**
+	 * 获取key组成的数组
+	 * @return {*[]}
+	 */
 	function keys () {
 		var keys = [];
 		this.__data__.forEach(function (value) {
@@ -35,6 +57,10 @@ export default (function () {
 		return keys;
 	}
 	
+	/**
+	 * 获取value组成的数组
+	 * @return {*[]}
+	 */
 	function values () {
 		var values = [];
 		this.__data__.forEach(function (value) {
@@ -43,6 +69,10 @@ export default (function () {
 		return values;
 	}
 	
+	/**
+	 * 获取[key,value]组成的数组
+	 * @return {[][]}
+	 */
 	function entries () {
 		var entries = [];
 		this.__data__.forEach(function (value) {
@@ -51,6 +81,11 @@ export default (function () {
 		return entries;
 	}
 	
+	/**
+	 * 遍历
+	 * @param {function} callback
+	 * @return {Map}
+	 */
 	function forEach (callback) {
 		this.__data__.forEach(function (value) {
 			callback(value.value, value.key);
@@ -58,6 +93,12 @@ export default (function () {
 		return this;
 	}
 	
+	/**
+	 * 设置值
+	 * @param {*} property
+	 * @param {*} value
+	 * @return {Map}
+	 */
 	function setItem (property, value) {
 		var index = findIndex(this.__data__, function (value) {
 			return value.key === property;
@@ -70,6 +111,11 @@ export default (function () {
 		return this;
 	}
 	
+	/**
+	 * 清楚值
+	 * @param {*} property
+	 * @return {Map}
+	 */
 	function removeItem (property) {
 		var index = findIndex(this.__data__, function (value) {
 			return value.key === property;

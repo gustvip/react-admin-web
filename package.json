@@ -11,6 +11,7 @@
 		"eslint": "eslint ./src/*"
 	},
 	"dependencies": {
+		"mockjs": "^1.0.1-beta3",
 		"antd": "^3.8.2",
 		"axios": "^0.18.0",
 		"cesium": "^1.48.0",
@@ -64,7 +65,6 @@
 		"less": "3.8.1",
 		"less-loader": "^4.0.5",
 		"mini-css-extract-plugin": "^0.4.0",
-		"mockjs": "^1.0.1-beta3",
 		"node-sass": "^4.9.3",
 		"optimize-css-assets-webpack-plugin": "^5.0.0",
 		"papaparse": "^4.6.0",

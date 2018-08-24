@@ -19,7 +19,7 @@ export default (function () {
 	
 	/**
 	 * 清空队列
-	 * @return {LinkedList}
+	 * @return {Queue}
 	 */
 	function clear () {
 		this.linkedList.clear();
