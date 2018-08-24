@@ -76,10 +76,6 @@ export default (function () {
 	 * @return {DoubleLinkedListNode | null}
 	 */
 	function _delete (value) {
-		if (this.isEmpty()) {
-			return null;
-		}
-		
 		var deletedNode = null;
 		while (this.head && this.compare.equal(this.head.value, value)) {
 			deletedNode = this.head;

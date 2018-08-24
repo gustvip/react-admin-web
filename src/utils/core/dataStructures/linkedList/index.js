@@ -74,22 +74,14 @@ export default (function () {
 	 * @return {LinkedListNode | null}
 	 */
 	function _delete (value) {
-		if (this.isEmpty()) {
-			return null;
-		}
 		var deletedNode = null;
-		
-		// If the head must be deleted then make next node that is differ
-		// from the head to be a new head.
 		while (this.head && this.compare.equal(this.head.value, value)) {
 			deletedNode = this.head;
 			this.head = this.head.next;
 		}
 		
 		var currentNode = this.head;
-		
 		if (currentNode) {
-			// If next node must be deleted then make next node to be a next next one.
 			while (currentNode.next) {
 				if (this.compare.equal(currentNode.next.value, value)) {
 					deletedNode = currentNode.next;
@@ -101,7 +93,9 @@ export default (function () {
 		}
 		
 		this.tail = currentNode;
-		
+		if (this.tail) {
+			this.tail.next = null;
+		}
 		return deletedNode;
 	}
 	
