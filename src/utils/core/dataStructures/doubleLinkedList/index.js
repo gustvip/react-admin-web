@@ -73,48 +73,41 @@ export default (function () {
 	/**
 	 * 删除值
 	 * @param {*} value
-	 * @return {DoubleLinkedListNode}
+	 * @return {DoubleLinkedListNode | null}
 	 */
 	function _delete (value) {
+		if (this.isEmpty()) {
+			return null;
+		}
+		
 		var deletedNode = null;
+		while (this.head && this.compare.equal(this.head.value, value)) {
+			deletedNode = this.head;
+			this.head = this.head.next;
+		}
+		if (this.head) {
+			this.head.previous = null;
+		}
+		
 		var currentNode = this.head;
-		while (currentNode) {
-			if (this.compare.equal(currentNode.value, value)) {
-				deletedNode = currentNode;
-				
-				if (deletedNode === this.head) {
-					// If HEAD is going to be deleted...
-					
-					// Set head to second node, which will become new head.
-					this.head = deletedNode.next;
-					
-					// Set new head's previous to null.
-					if (this.head) {
-						this.head.previous = null;
+		if (this.head) {
+			while (currentNode.next) {
+				if (this.compare.equal(currentNode.next.value, value)) {
+					deletedNode = currentNode.next;
+					if (currentNode.next.next) {
+						currentNode.next.next.previous = currentNode;
 					}
-					
-					// If all the nodes in list has same value that is passed as argument
-					// then all nodes will get deleted, therefore tail needs to be updated.
-					if (deletedNode === this.tail) {
-						this.tail = null;
-					}
-				} else if (deletedNode === this.tail) {
-					// If TAIL is going to be deleted...
-					
-					// Set tail to second last node, which will become new tail.
-					this.tail = deletedNode.previous;
-					this.tail.next = null;
+					currentNode.next = currentNode.next.next;
 				} else {
-					// If MIDDLE node is going to be deleted...
-					var previousNode = deletedNode.previous;
-					var nextNode = deletedNode.next;
-					
-					previousNode.next = nextNode;
-					nextNode.previous = previousNode;
+					currentNode.next.previous = currentNode;
+					currentNode = currentNode.next;
 				}
 			}
-			
-			currentNode = currentNode.next;
+		}
+		
+		this.tail = currentNode;
+		if (this.tail) {
+			this.tail.next = null;
 		}
 		
 		return deletedNode;
@@ -125,7 +118,7 @@ export default (function () {
 	 * @param {Object} findParams
 	 * @param {*} findParams.value
 	 * @param {function} [findParams.callback]
-	 * @return {DoubleLinkedListNode}
+	 * @return {DoubleLinkedListNode | null}
 	 */
 	function find (findParams) {
 		findParams = isObject(findParams) ? findParams : {};
@@ -151,7 +144,7 @@ export default (function () {
 	
 	/**
 	 * 删除尾巴
-	 * @return {DoubleLinkedListNode}
+	 * @return {DoubleLinkedListNode | null}
 	 */
 	function deleteTail () {
 		var deletedTail = this.tail;
@@ -167,7 +160,7 @@ export default (function () {
 	
 	/**
 	 * 删除头部
-	 * @return {DoubleLinkedListNode}
+	 * @return {DoubleLinkedListNode | null}
 	 */
 	function deleteHead () {
 		var deletedHead = this.head;

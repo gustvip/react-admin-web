@@ -125,8 +125,8 @@ describe('Index', () => {
 		
 		const deletedNode = linkedList.delete(3);
 		expect(deletedNode.value).toBe(3);
-		expect(linkedList.tail.previous.previous.value).toBe(2);
 		expect(linkedList.toString()).toBe('1,1,2,4,5');
+		expect(linkedList.tail.previous.previous.value).toBe(2);
 		
 		linkedList.delete(3);
 		expect(linkedList.toString()).toBe('1,1,2,4,5');

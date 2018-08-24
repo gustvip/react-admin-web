@@ -71,7 +71,7 @@ export default (function () {
 	/**
 	 * 删除值
 	 * @param {*} value
-	 * @return {LinkedListNode}
+	 * @return {LinkedListNode | null}
 	 */
 	function _delete (value) {
 		if (this.isEmpty()) {
@@ -100,10 +100,7 @@ export default (function () {
 			}
 		}
 		
-		// Check if tail must be deleted.
-		if (this.compare.equal(this.tail.value, value)) {
-			this.tail = currentNode;
-		}
+		this.tail = currentNode;
 		
 		return deletedNode;
 	}
@@ -113,7 +110,7 @@ export default (function () {
 	 * @param {Object} findParams
 	 * @param {*} findParams.value
 	 * @param {function} [findParams.callback]
-	 * @return {LinkedListNode}
+	 * @return {LinkedListNode | null}
 	 */
 	function find (findParams) {
 		findParams = isObject(findParams) ? findParams : {};
@@ -139,7 +136,7 @@ export default (function () {
 	
 	/**
 	 * 删除尾巴
-	 * @return {LinkedListNode}
+	 * @return {LinkedListNode | null}
 	 */
 	function deleteTail () {
 		var deletedTail = this.tail;
@@ -166,7 +163,7 @@ export default (function () {
 	
 	/**
 	 * 删除头部
-	 * @return {LinkedListNode}
+	 * @return {LinkedListNode | null}
 	 */
 	function deleteHead () {
 		var deletedHead = this.head;
