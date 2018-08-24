@@ -11,6 +11,22 @@ export default (function () {
 	}
 	
 	/**
+	 * @return {boolean}
+	 */
+	function has (value) {
+		return this.linkedList.has(value);
+	}
+	
+	/**
+	 * 清空队列
+	 * @return {LinkedList}
+	 */
+	function clear () {
+		this.linkedList.clear();
+		return this;
+	}
+	
+	/**
 	 * @return {*}
 	 */
 	function peek () {
@@ -28,7 +44,7 @@ export default (function () {
 	 * @return {*}
 	 */
 	function dequeue () {
-		const removedHead = this.linkedList.deleteHead();
+		var removedHead = this.linkedList.deleteHead();
 		return removedHead ? removedHead.value : null;
 	}
 	
@@ -47,6 +63,14 @@ export default (function () {
 		},
 		isEmpty: {
 			value: isEmpty,
+			configuarable: false,
+		},
+		has: {
+			value: has,
+			configuarable: false,
+		},
+		clear: {
+			value: clear,
 			configuarable: false,
 		},
 		peek: {

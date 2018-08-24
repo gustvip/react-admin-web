@@ -3,7 +3,11 @@ import Index from '../index';
 describe('Index', () => {
 	it('should create empty linked list', () => {
 		const linkedList = new Index();
-		expect(linkedList.toString()).toBe('');
+		linkedList.append(1);
+		expect(linkedList.has(2)).toBeFalsy();
+		expect(linkedList.has(1)).toBeTruthy();
+		expect(linkedList.clear()).toEqual(linkedList);
+		expect(linkedList.has(1)).toBeFalsy();
 	});
 	
 	it('should append node to linked list', () => {
