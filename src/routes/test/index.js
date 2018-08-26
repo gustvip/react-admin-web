@@ -3,7 +3,7 @@
  */
 
 import EnumRouter from 'constants/enumRouter'
-import { AssembleRoute, DefaultLayout } from 'routes/route_tool'
+import { AssembleRoute, DefaultLayout } from 'routes/routeTool'
 
 import TestDemo from './routes/demo'
 

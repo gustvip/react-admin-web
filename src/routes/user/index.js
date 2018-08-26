@@ -3,7 +3,7 @@
  */
 
 import EnumRouter from 'constants/enumRouter'
-import { AssembleRoute } from 'routes/route_tool'
+import { AssembleRoute } from 'routes/routeTool'
 
 import UserList from './routes/list'
 

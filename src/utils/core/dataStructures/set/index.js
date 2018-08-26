@@ -20,22 +20,12 @@ export default (function () {
 	}
 	
 	/**
-	 * 是否有此属性
-	 * @param {*} key
+	 * 是否有此值
+	 * @param {*} value
 	 * @return {boolean}
 	 */
-	function has (key) {
-		return !!this.doubleLinkedList.find({value: {key: key}});
-	}
-	
-	/**
-	 * 获取属性对应的值
-	 * @param {*} key
-	 * @return {undefined || *}
-	 */
-	function get (key) {
-		var result = this.doubleLinkedList.find({value: {key: key}});
-		return result ? result.value.value : undefined;
+	function has (value) {
+		return !!this.doubleLinkedList.find({value: value});
 	}
 	
 	/**
@@ -48,25 +38,13 @@ export default (function () {
 	}
 	
 	/**
-	 * 获取key组成的数组
-	 * @return {*[]}
-	 */
-	function keys () {
-		var keys = [];
-		this.doubleLinkedList.toArray().forEach(function (value) {
-			keys.push(value.value.key);
-		});
-		return keys;
-	}
-	
-	/**
 	 * 获取value组成的数组
 	 * @return {*[]}
 	 */
 	function values () {
 		var values = [];
 		this.doubleLinkedList.toArray().forEach(function (value) {
-			values.push(value.value.value);
+			values.push(value.value);
 		});
 		return values;
 	}
@@ -78,7 +56,7 @@ export default (function () {
 	function entries () {
 		var entries = [];
 		this.doubleLinkedList.toArray().forEach(function (value) {
-			entries.push([value.value.key, value.value.value]);
+			entries.push([value.value, value.value]);
 		});
 		return entries;
 	}
@@ -90,51 +68,37 @@ export default (function () {
 	 */
 	function forEach (callback) {
 		this.doubleLinkedList.toArray().forEach(function (value) {
-			callback(value.value.value, value.value.key);
+			callback(value.value, value.value);
 		});
 		return this;
 	}
 	
 	/**
 	 * 设置值
-	 * @param {*} key
 	 * @param {*} value
 	 * @return {Map}
 	 */
-	function setItem (key, value) {
-		var oldNode = this.doubleLinkedList.find({value: {key: key}});
+	function setItem (value) {
+		var oldNode = this.doubleLinkedList.find({value: value});
 		if (oldNode) {
-			oldNode.value.value = value;
+			oldNode.value = value;
 		} else {
-			this.doubleLinkedList.append({key: key, value: value});
+			this.doubleLinkedList.append(value);
 		}
 		return this;
 	}
 	
 	/**
-	 * 清楚值
-	 * @param {*} key
+	 * 清除值
+	 * @param {*} value
 	 * @return {Map}
 	 */
-	function removeItem (key) {
-		this.doubleLinkedList.delete({key: key});
+	function removeItem (value) {
+		this.doubleLinkedList.delete(value);
 		return this;
 	}
 	
-	/**
-	 * 比较函数
-	 * @param {object} a
-	 * @param {object} b
-	 * @return {number}
-	 */
-	function compareFunction (a, b) {
-		if (a.key === b.key) {
-			return 0;
-		}
-		return a.key < b.key ? -1 : 1;
-	}
-	
-	Object.defineProperties(Map.prototype, {
+	Object.defineProperties(Set.prototype, {
 		constructor: {
 			value: Map,
 			configuarable: false,
@@ -147,11 +111,6 @@ export default (function () {
 			value: has,
 			configuarable: false,
 		},
-		get: {
-			value: get,
-			configuarable: false,
-		},
-		
 		set: {
 			value: setItem,
 			configuarable: false,
@@ -177,11 +136,6 @@ export default (function () {
 			configuarable: false,
 		},
 		
-		keys: {
-			get: keys,
-			configuarable: false,
-		},
-		
 		values: {
 			get: values,
 			configuarable: false,
@@ -198,24 +152,21 @@ export default (function () {
 		},
 	});
 	
-	function Map () {
-		this.doubleLinkedList = DoubleLinkedList(compareFunction);
+	function Set () {
+		this.doubleLinkedList = DoubleLinkedList();
 	}
 	
-	return function map (object) {
-		var _map = new Map;
-		if (object instanceof Map) {
-			object.forEach(function (value, key) {
-				_map.set(key, value);
+	return function set (object) {
+		var _set = new Set;
+		if (object instanceof Set) {
+			object.forEach(function (value) {
+				_set.set(value);
 			});
 		} else if (isArray(object)) {
-			var i = -1,
-				n = object.length,
-				o;
-			while (++i < n && isArray(o = object[i])) {
-				_map.set(o[0], o[1]);
-			}
+			object.forEach(function (value) {
+				_set.set(value);
+			});
 		}
-		return _map;
+		return _set;
 	};
 })();

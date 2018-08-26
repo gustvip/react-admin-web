@@ -1,4 +1,4 @@
-import LinkedList from '../linkedList';
+import DoubleLinkedList from '../doubleLinkedList';
 
 export default (function () {
 	'use strict';
@@ -7,14 +7,14 @@ export default (function () {
 	 * @return {boolean}
 	 */
 	function isEmpty () {
-		return this.linkedList.isEmpty();
+		return this.doubleLinkedList.isEmpty();
 	}
 	
 	/**
 	 * @return {boolean}
 	 */
 	function has (value) {
-		return this.linkedList.has(value);
+		return this.doubleLinkedList.has(value);
 	}
 	
 	/**
@@ -22,7 +22,7 @@ export default (function () {
 	 * @return {Queue}
 	 */
 	function clear () {
-		this.linkedList.clear();
+		this.doubleLinkedList.clear();
 		return this;
 	}
 	
@@ -30,21 +30,21 @@ export default (function () {
 	 * @return {*}
 	 */
 	function peek () {
-		return this.isEmpty() ? null : this.linkedList.head.value;
+		return this.isEmpty() ? null : this.doubleLinkedList.head.value;
 	}
 	
 	/**
 	 * @param {*} value
 	 */
 	function enqueue (value) {
-		this.linkedList.append(value);
+		this.doubleLinkedList.append(value);
 	}
 	
 	/**
 	 * @return {*}
 	 */
 	function dequeue () {
-		var removedHead = this.linkedList.deleteHead();
+		var removedHead = this.doubleLinkedList.deleteHead();
 		return removedHead ? removedHead.value : null;
 	}
 	
@@ -53,7 +53,7 @@ export default (function () {
 	 * @return {string}
 	 */
 	function toString (callback) {
-		return this.linkedList.toString(callback);
+		return this.doubleLinkedList.toString(callback);
 	}
 	
 	Object.defineProperties(Queue.prototype, {
@@ -92,7 +92,7 @@ export default (function () {
 	});
 	
 	function Queue () {
-		this.linkedList = new LinkedList();
+		this.doubleLinkedList = new DoubleLinkedList();
 	}
 	
 	return function queue () {

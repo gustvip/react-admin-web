@@ -86,7 +86,7 @@ export default (function () {
 		}
 		
 		var currentNode = this.head;
-		if (this.head) {
+		if (currentNode) {
 			while (currentNode.next) {
 				if (this.compare.equal(currentNode.next.value, value)) {
 					deletedNode = currentNode.next;

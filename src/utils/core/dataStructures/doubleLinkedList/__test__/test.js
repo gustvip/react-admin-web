@@ -217,6 +217,21 @@ describe('Index', () => {
 		expect(linkedList.tail).toBeNull();
 	});
 	
+	it('should delete linked head and tail', () => {
+		const linkedList = new Index();
+		linkedList.append(1);
+		linkedList.append(1);
+		linkedList.append(2);
+		linkedList.append(1);
+		linkedList.append(1);
+		expect(linkedList.toString()).toBe('1,1,2,1,1');
+		linkedList.delete(1);
+		expect(linkedList.toString()).toBe('2');
+		expect(linkedList.head.next).toBeNull();
+		expect(linkedList.head.value).toBe(2);
+		expect(linkedList.head.previous).toBeNull();
+	});
+	
 	it('should be possible to store objects in the list and to print them out', () => {
 		const linkedList = new Index();
 		

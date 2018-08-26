@@ -3,7 +3,6 @@
  */
 import { create, CancelToken } from 'axios';
 import _ from 'lodash';
-
 const source = CancelToken.source();
 
 /**
@@ -24,7 +23,7 @@ function objectToFormData (obj, form, namespace) {
 			formKey = property;
 		}
 		
-		if (this.isObject(value) && !value instanceof File) {
+		if (_.isPlainObject(value) && !value instanceof File) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);

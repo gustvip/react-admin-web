@@ -54,7 +54,7 @@ export default (function () {
 	 * 清空过期的数据
 	 */
 	function clearExpired () {
-		forOwn(storageValue, function (value) {
+		forOwn(storageValue, function (value, key) {
 			if (!isObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
 				delete storageValue[key];
 			}
@@ -80,10 +80,10 @@ export default (function () {
 	 */
 	function setItem (key, value, expTime) {
 		clearExpired();
-		expTime = parseInt(expTime, 10);
 		if (!canJSON(value)) {
 			console.warn('设置的值不可序列化，请重新设置');
 		} else {
+			expTime = parseInt(expTime, 10);
 			if (!isFinite(expTime) || expTime < 0) {
 				expTime = NO_EXPIRE;
 			}
