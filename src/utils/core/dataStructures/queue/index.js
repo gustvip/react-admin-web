@@ -30,7 +30,7 @@ export default (function () {
 	 * @return {*}
 	 */
 	function peek () {
-		return this.isEmpty() ? null : this.doubleLinkedList.head.value;
+		return this.isEmpty() ? undefined : this.doubleLinkedList.head.value;
 	}
 	
 	/**

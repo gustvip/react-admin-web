@@ -3,7 +3,7 @@ import Index from '../index';
 describe('Index', () => {
 	it('should create empty queue', () => {
 		const queue = new Index();
-		expect(queue).not.toBeNull();
+		expect(queue).not.toBeUndefined();
 		expect(queue.linkedList).not.toBeNull();
 		queue.enqueue(1);
 		expect(queue.has(2)).toBeFalsy();
@@ -38,7 +38,7 @@ describe('Index', () => {
 	it('should peek data from queue', () => {
 		const queue = new Index();
 		
-		expect(queue.peek()).toBeNull();
+		expect(queue.peek()).toBeUndefined();
 		
 		queue.enqueue(1);
 		queue.enqueue(2);
