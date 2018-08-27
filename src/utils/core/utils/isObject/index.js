@@ -3,7 +3,7 @@
  */
 
 /**
- * 是否为对象
+ * 是否为对象 {}
  * @param {*} x
  * @returns {boolean}
  */
