@@ -6,8 +6,6 @@ import isArray from '../isArray';
 import isArrayLike from '../isArrayLike';
 import isString from '../isString';
 import isArguments from '../isArguments';
-import isMap from '../isMap';
-import isSet from '../isSet';
 
 /**
  * 是否为空
@@ -21,10 +19,6 @@ export default function isEmpty (x) {
 	
 	if (isArrayLike(x) && (isArray(x) || isString(x) || isArguments(x))) {
 		return !x.length;
-	}
-	
-	if (isMap(x) || isSet(x)) {
-		return !x.size;
 	}
 	
 	for (var key in x) {

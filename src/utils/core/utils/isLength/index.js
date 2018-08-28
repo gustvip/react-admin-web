@@ -9,5 +9,5 @@ import isNumber from '../isNumber';
  * @returns {boolean}
  */
 export default function isLength (x) {
-	return isNumber(x) && x > -1 && x % 1 === 0 && x <= 9007199254740991;
+	return isNumber(x) && x > -1 && Math.floor(x) === x && x <= 9007199254740991;
 };

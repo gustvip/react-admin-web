@@ -1,8 +1,6 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isNull from '../isNull/index';
-import isUndefined from '../isUndefined/index';
 
 /**
  * 是否为null || undefined
@@ -10,5 +8,5 @@ import isUndefined from '../isUndefined/index';
  * @returns {boolean}
  */
 export default function isNil (x) {
-	return isNull(x) || isUndefined(x);
+	return x == null;
 };
