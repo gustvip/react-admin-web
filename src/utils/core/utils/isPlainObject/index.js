@@ -10,7 +10,7 @@ import isObject from '../isObject';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isPlainObjectisObjectLike (x) {
+export default function isPlainObject (x) {
 	if (!isObjectLike(x) || !isObject(x)) {
 		return false;
 	}
