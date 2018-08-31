@@ -225,5 +225,6 @@ module.exports = {
 		new miniCssExtractPlugin({
 			filename: '[name].css',
 		}),
+		new webpack.HotModuleReplacementPlugin(),
 	],
 };

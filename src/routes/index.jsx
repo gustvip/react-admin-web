@@ -16,6 +16,8 @@ import TestRoutes from './test';	         // 测试相关模块
 
 const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>;
 
+import { hot } from 'react-hot-loader';
+
 /**
  * 路由配置
  * @constructor
@@ -46,4 +48,4 @@ const Routes = () => (
 	</BrowserRouter>
 );
 
-export default Routes;
+export default hot(module)(Routes);
