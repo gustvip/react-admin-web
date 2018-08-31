@@ -46,10 +46,13 @@ const staticResource = [
 ];
 
 const formatStyleLoader = (otherLoader) => {
+	const firstLoader = process.env.NODE_ENV === 'development' ? {
+		loader: 'style-loader',
+	} : {
+		loader: miniCssExtractPlugin.loader,
+	};
 	const baseLoaders = [
-		{
-			loader: miniCssExtractPlugin.loader,
-		},
+		firstLoader,
 		{
 			loader: 'css-loader',
 			options: {
@@ -78,6 +81,7 @@ const formatStyleLoader = (otherLoader) => {
 };
 
 module.exports = {
+	mode: 'development',
 	optimization: {
 		splitChunks: {
 			chunks: 'all',
@@ -213,18 +217,24 @@ module.exports = {
 		],
 	},
 	
-	plugins: [
-		new happyPack({
-			id: 'js',
-			threads: 4,
-			loaders: ['babel-loader'],
-		}),
-		new webpack.ProvidePlugin({
-			React: 'react',
-		}),
-		new miniCssExtractPlugin({
-			filename: '[name].css',
-		}),
-		new webpack.HotModuleReplacementPlugin(),
-	],
+	plugins: (function () {
+		const plugins = [
+			new happyPack({
+				id: 'js',
+				threads: 4,
+				loaders: ['babel-loader'],
+			}),
+			new webpack.ProvidePlugin({
+				React: 'react',
+			}),
+			new webpack.HotModuleReplacementPlugin(),
+		];
+		if (process.env.NODE_ENV !== 'development') {
+			plugins.push(new miniCssExtractPlugin({
+					filename: '[name].css',
+				}),
+			);
+		}
+		return plugins;
+	})(),
 };

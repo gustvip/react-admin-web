@@ -68,12 +68,12 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 		/**
 		 * 复制asserts
 		 */
-	/*	new copyWebpackPlugin([
+		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, '../public/asserts/'),
 				to: path.join(conf.webPath, 'asserts'),
 			},
-		]),*/
+		]),
 		
 		/**
 		 * 复制favicon
