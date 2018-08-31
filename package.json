@@ -11,7 +11,7 @@
 		"eslint": "eslint ./src/*"
 	},
 	"dependencies": {
-		"antd": "^3.8.2",
+		"antd": "3.8.4",
 		"axios": "^0.18.0",
 		"cesium": "^1.48.0",
 		"classnames": "^2.2.5",
@@ -30,6 +30,7 @@
 		"react-router-dom": "^4.3.1",
 		"redux": "3.7.2",
 		"redux-thunk": "^2.3.0",
+		"underscore": "^1.9.1",
 		"url-search-params-polyfill": "^4.0.0"
 	},
 	"devDependencies": {

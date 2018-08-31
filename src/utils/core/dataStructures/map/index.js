@@ -11,10 +11,10 @@ export default (function () {
 	 */
 	function size () {
 		var index = 0;
-		var currentNode = this.doubleLinkedList.head;
-		while (currentNode) {
+		var head = this.doubleLinkedList.head;
+		while (head) {
 			++index;
-			currentNode = currentNode.next;
+			head = head.next;
 		}
 		return index;
 	}
@@ -53,9 +53,11 @@ export default (function () {
 	 */
 	function keys () {
 		var keys = [];
-		this.doubleLinkedList.toArray().forEach(function (value) {
-			keys.push(value.value.key);
-		});
+		var head = this.doubleLinkedList.head;
+		while (head) {
+			keys.push(head.value.key);
+			head = head.next;
+		}
 		return keys;
 	}
 	
@@ -65,9 +67,11 @@ export default (function () {
 	 */
 	function values () {
 		var values = [];
-		this.doubleLinkedList.toArray().forEach(function (value) {
-			values.push(value.value.value);
-		});
+		var head = this.doubleLinkedList.head;
+		while (head) {
+			values.push(head.value.value);
+			head = head.next;
+		}
 		return values;
 	}
 	
@@ -77,9 +81,11 @@ export default (function () {
 	 */
 	function entries () {
 		var entries = [];
-		this.doubleLinkedList.toArray().forEach(function (value) {
-			entries.push([value.value.key, value.value.value]);
-		});
+		var head = this.doubleLinkedList.head;
+		while (head) {
+			entries.push([head.value.key, head.value.value]);
+			head = head.next;
+		}
 		return entries;
 	}
 	
@@ -89,9 +95,11 @@ export default (function () {
 	 * @return {Map}
 	 */
 	function forEach (callback) {
-		this.doubleLinkedList.toArray().forEach(function (value) {
-			callback(value.value.value, value.value.key);
-		});
+		var head = this.doubleLinkedList.head;
+		while (head) {
+			callback(head.value.value, head.value.key);
+			head = head.next;
+		}
 		return this;
 	}
 	

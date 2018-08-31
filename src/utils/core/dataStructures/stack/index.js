@@ -52,9 +52,13 @@ export default (function () {
 	 * @return {*[]}
 	 */
 	function toArray () {
-		return this.doubleLinkedList.toArray().map(function (doubleLinkedListNode) {
-			return doubleLinkedListNode.value;
-		}).reverse();
+		var nodes = [];
+		var tail = this.doubleLinkedList.tail;
+		while (tail) {
+			nodes.push(tail.value);
+			tail = tail.previous;
+		}
+		return nodes;
 	}
 	
 	/**

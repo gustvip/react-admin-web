@@ -3,6 +3,7 @@
  */
 import isObjectLike from '../isObjectLike';
 import isObject from '../isObject';
+import isNull from '../isNull';
 
 /**
  * Checks if `value` is a plain object, that is, an object created by the
@@ -14,11 +15,12 @@ export default function isPlainObject (x) {
 	if (!isObjectLike(x) || !isObject(x)) {
 		return false;
 	}
-	if (Object.getPrototypeOf(x) === null) {
+	
+	if (isNull(Object.getPrototypeOf(x))) {
 		return true;
 	}
 	var proto = x;
-	while (Object.getPrototypeOf(proto) !== null) {
+	while (!isNull(Object.getPrototypeOf(proto))) {
 		proto = Object.getPrototypeOf(proto);
 	}
 	return Object.getPrototypeOf(x) === proto;
