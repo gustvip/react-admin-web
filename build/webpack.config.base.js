@@ -2,7 +2,6 @@
  * @description webpack 打包基本配置
  */
 const webpack = require('webpack');
-const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const happyPack = require('happypack');
 // 处理vtk规则
 const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rules;
@@ -12,73 +11,35 @@ const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rul
  * @type {RegExp}
  */
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig;
-const excludeRegex = /node_modules/;
-const customAntdStyle = {
-	'@text-color': '#333',                  // 修改字体基本颜色
-	'@font-size-base': '12px',                      // 修改基础字体大小
-};
+const excludeRegex = require('./util').excludeRegex;
+const resourceBaseName = require('./util').resourceBaseName;
 
 const staticResource = [
 	{
 		test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
 	},
 	{
 		test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
 	},
 	{
 		test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
 	},
 	{
 		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
 	},
 	{
 		test: /\.(txt|doc|docx|swf)$/,
-		use: `url-loader?name=${require('./util').resourceBaseName}/[name].[hash:8].[ext]`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
 	},
 	{
 		test: /\.(csv|tsv)$/,
 		use: 'csv-loader',
 	},
 ];
-
-const formatStyleLoader = (otherLoader) => {
-	const firstLoader = process.env.NODE_ENV === 'development' ? {
-		loader: 'style-loader',
-	} : {
-		loader: miniCssExtractPlugin.loader,
-	};
-	const baseLoaders = [
-		firstLoader,
-		{
-			loader: 'css-loader',
-			options: {
-				sourceMap: true,
-			},
-		},
-		{loader: 'postcss-loader'},
-	];
-	
-	if (otherLoader) {
-		if (otherLoader.loader === 'sass-loader') {
-			baseLoaders[1] = {
-				loader: 'css-loader',
-				options: {
-					sourceMap: true,
-					modules: true,
-					localIdentName: '[name]__[local]__[hash:base64:5]',
-				},
-			};
-		}
-		
-		baseLoaders.push(otherLoader);
-	}
-	
-	return baseLoaders;
-};
 
 module.exports = {
 	mode: 'development',
@@ -163,31 +124,6 @@ module.exports = {
 	
 	module: {
 		rules: [
-			{
-				test: /\.css$/,
-				use: formatStyleLoader(),
-			},
-			{
-				test: /\.scss/,
-				exclude: excludeRegex,
-				use: formatStyleLoader({
-					loader: 'sass-loader',
-					options: {
-						sourceMap: true,
-					},
-				}),
-			},
-			{
-				test: /\.less/,
-				use: formatStyleLoader({
-					loader: 'less-loader',
-					options: {
-						sourceMap: true,
-						javascriptEnabled: true,
-						modifyVars: customAntdStyle,
-					},
-				}),
-			},
 			...staticResource,
 			...vtkRules,
 			{
@@ -217,24 +153,14 @@ module.exports = {
 		],
 	},
 	
-	plugins: (function () {
-		const plugins = [
-			new happyPack({
-				id: 'js',
-				threads: 4,
-				loaders: ['babel-loader'],
-			}),
-			new webpack.ProvidePlugin({
-				React: 'react',
-			}),
-			new webpack.HotModuleReplacementPlugin(),
-		];
-		if (process.env.NODE_ENV !== 'development') {
-			plugins.push(new miniCssExtractPlugin({
-					filename: '[name].css',
-				}),
-			);
-		}
-		return plugins;
-	})(),
+	plugins: [
+		new happyPack({
+			id: 'js',
+			threads: 4,
+			loaders: ['babel-loader'],
+		}),
+		new webpack.ProvidePlugin({
+			React: 'react',
+		}),
+	],
 };

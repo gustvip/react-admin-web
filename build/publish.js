@@ -9,14 +9,6 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 console.log(clc.green('webpack打包开始'));
 
 const conf = {
-	favicon: 'favicon.ico',
-	runtimeJS: 'runtime.js',
-	vendorCss: 'vendor.js',
-	appJs: 'app.js',
-	commonsJs: 'commons.js',
-	vendorJs: 'vendor.js',
-	configEnvPath: 'config/env.js',
-	cesiumPath: 'asserts/Cesium/cesium.js',
 	indexHtmlName: 'index_index.html',		// 生成的html的名字
 	appName: 'platform',                                 // 项目名称
 	proxyPath: process.argv[3] ? process.argv[3] : '/',  // 代理的前缀 注意：后面必须带斜线

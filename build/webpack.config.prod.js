@@ -5,8 +5,11 @@ const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
 const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const resourceBaseName = require('./util').resourceBaseName;
+const excludeRegex = require('./util').excludeRegex;
+const customAntdStyle = require('./util').customAntdStyle;
 
 module.exports = merge(baseConfig, {
 	mode: 'production',
@@ -46,12 +49,58 @@ module.exports = merge(baseConfig, {
 	module: {
 		rules: [
 			{
+				test: /\.css$/,
+				use: [
+					{loader: miniCssExtractPlugin.loader},
+					'css-loader',
+					'postcss-loader',
+				],
+			},
+			{
+				test: /\.scss/,
+				exclude: excludeRegex,
+				use: [
+					{loader: miniCssExtractPlugin.loader},
+					{
+						loader: 'css-loader',
+						options: {
+							sourceMap: true,
+							modules: true,
+							localIdentName: '[name]__[local]__[hash:base64:5]',
+						},
+					},
+					'postcss-loader',
+					{
+						loader: 'sass-loader',
+						options: {
+							sourceMap: true,
+						},
+					},
+				],
+			},
+			{
+				test: /\.less/,
+				use: [
+					{loader: miniCssExtractPlugin.loader},
+					'css-loader',
+					'postcss-loader',
+					{
+						loader: 'less-loader',
+						options: {
+							sourceMap: true,
+							javascriptEnabled: true,
+							modifyVars: customAntdStyle,
+						},
+					},
+				],
+			},
+			{
 				test: /\.(png|jpg|gif|jpeg|svg)$/,
 				use: [
 					{
 						loader: 'url-loader',
 						options: {
-							name: `${resourceBaseName}/[name].[ext]`,
+							name: `${resourceBaseName}/[name].[hash].[ext]`,
 							limit: 8192,	 // <= 8kb的图片base64内联
 						},
 					},
@@ -92,4 +141,10 @@ module.exports = merge(baseConfig, {
 			},
 		],
 	},
+	
+	plugins: [
+		new miniCssExtractPlugin({
+			filename: '[name].css',
+		}),
+	],
 });

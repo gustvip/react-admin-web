@@ -1,6 +1,7 @@
 /**
  * @description webpack 开发模式下的打包基本配置
  */
+const webpack = require('webpack');
 const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
 const host = 'localhost';
@@ -8,6 +9,8 @@ const host = 'localhost';
 const port = 8080;        // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const resourceBaseName = require('./util').resourceBaseName;
+const excludeRegex = require('./util').excludeRegex;
+const customAntdStyle = require('./util').customAntdStyle;
 
 module.exports = merge(baseConfig, {
 	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-source-map
@@ -17,6 +20,46 @@ module.exports = merge(baseConfig, {
 			{
 				test: /\.(png|jpg|gif|jpeg|svg)$/,
 				use: `url-loader?name=${resourceBaseName}/[name].[ext]`, //  <= 8kb的图片base64内联
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader'],
+			},
+			{
+				test: /\.scss/,
+				exclude: excludeRegex,
+				use: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							sourceMap: true,
+							modules: true,
+							localIdentName: '[name]__[local]__[hash:base64:5]',
+						},
+					},
+					{
+						loader: 'sass-loader',
+						options: {
+							sourceMap: true,
+						},
+					},
+				],
+			},
+			{
+				test: /\.less/,
+				use: [
+					'style-loader',
+					'css-loader',
+					{
+						loader: 'less-loader',
+						options: {
+							sourceMap: true,
+							javascriptEnabled: true,
+							modifyVars: customAntdStyle,
+						},
+					},
+				],
 			},
 		],
 	},
@@ -53,5 +96,6 @@ module.exports = merge(baseConfig, {
 			analyzerHost: host,      // 主机ip
 			analyzerPort: port + 100,             // 端口
 		}),
+		new webpack.HotModuleReplacementPlugin(),
 	],
 });
