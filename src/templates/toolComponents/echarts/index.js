@@ -6,8 +6,8 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
-import classnames from 'classnames';
-import _ from 'lodash';
+import classnames from 'utils/core/classNames';
+import { assign, merge, debounce } from 'lodash';
 
 export default class Chart extends React.PureComponent {
 	static propTypes = {
@@ -184,13 +184,13 @@ export default class Chart extends React.PureComponent {
 	
 	componentDidMount () {
 		const self = this;
-		self.chart = echarts.init(self.chartContainer, self.props.theme || '', _.assign({
+		self.chart = echarts.init(self.chartContainer, self.props.theme || '', assign({
 			height: 300,
 			width: 'auto',
 		}, self.props.extraOptions));
-		self.chart.setOption(_.merge(self.defaultOptions, self.props.options));
+		self.chart.setOption(merge(self.defaultOptions, self.props.options));
 		self.chart.resize();
-		window.addEventListener('resize', _.debounce(function () {
+		window.addEventListener('resize', debounce(function () {
 			self.chart.resize();
 		}, 300));
 	}
@@ -198,8 +198,8 @@ export default class Chart extends React.PureComponent {
 	render () {
 		return (
 			<div
-				style={_.assign({}, this.props.style)}
-				className={classnames(this.props.className || '')}
+				style={assign({}, this.props.style)}
+				className={classnames(this.props.className)}
 				ref={chartContainer => this.chartContainer = chartContainer}
 			/>
 		);

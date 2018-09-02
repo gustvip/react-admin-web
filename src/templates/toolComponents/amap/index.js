@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import mapUtils from 'utils/amap';
-import T from 'utils/T';
+import { noop, merge, isFunction } from 'lodash';
+import classNames from 'utils/core/classNames';
 
 export default class AMap extends React.PureComponent {
 	static defaultProps = {
@@ -21,15 +22,15 @@ export default class AMap extends React.PureComponent {
 	}
 	
 	componentDidMount () {
-		const _this = this;
 		this.mapUtils.createMap(this._mapContainer, {});
-		this.mapUtils.mapInstance.on('complete', function () {
-			(_this.props.mapLoadCallback || T.lodash.noop)();
-		});
+		const {mapLoadCallback} = this.props;
+		this.mapUtils.mapInstance.on('complete', isFunction(mapLoadCallback) ? mapLoadCallback : noop);
 	}
 	
 	componentWillUnmount () {
-		this.mapUtils.destroy();
+		if (this.mapUtils.mapInstance) {
+			this.mapUtils.destroy();
+		}
 	}
 	
 	render () {
@@ -40,12 +41,12 @@ export default class AMap extends React.PureComponent {
 			top: 0,
 			bottom: 0,
 		};
-		const {className = '', style = {}} = this.props;
+		const {className, style = {}} = this.props;
 		return (
 			<div
 				ref={_mapContainer => this._mapContainer = _mapContainer}
-				className={T.helper.classNames('')(className)}
-				style={T.lodash.merge(baseStyle, style)}
+				className={classNames(className)}
+				style={merge(baseStyle, style)}
 			/>
 		);
 	}

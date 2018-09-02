@@ -13,8 +13,11 @@ import emitter from './core/emitter/index';
 import * as decorator from './core/decorator';
 import * as request from './core/request';
 import crypto from './core/crypto';
+import classNames from './core/classNames';
 
 const T = {
+	classNames,
+	
 	// 说明文档: https://lodash.com/docs/4.17.5
 	lodash,
 	

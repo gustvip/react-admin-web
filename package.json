@@ -15,7 +15,7 @@
 	"dependencies": {
 		"antd": "3.8.4",
 		"axios": "^0.18.0",
-		"classnames": "^2.2.5",
+		"chart.js": "^2.7.2",
 		"crypto-js": "^3.1.9-1",
 		"echarts": "^4.1.0",
 		"es6-promise": "^4.2.4",
@@ -30,7 +30,6 @@
 		"react-redux": "^5.0.6",
 		"react-router-dom": "^4.3.1",
 		"redux": "3.7.2",
-		"redux-thunk": "^2.3.0",
 		"url-search-params-polyfill": "^4.0.0"
 	},
 	"devDependencies": {

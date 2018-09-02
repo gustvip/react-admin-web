@@ -2,9 +2,8 @@
  * Created by joey on 2018/02/19
  */
 
-import T from 'utils/t';
-import thunk from 'redux-thunk';
 import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux';
+import { isPlainObject, isFunction, isEmpty, isArray, transform } from 'lodash';
 
 export const STORE_INJECT = '@@STORE_INJECT';
 
@@ -19,13 +18,13 @@ class Registry {
 	
 	injectReducers (reducers) {
 		this.store.replaceReducer(combineReducers(
-			this.finallyReducer = T.lodash.transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
+			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
 		));
 	}
 	
 	get initialReducers () {
 		return combineReducers(
-			T.lodash.isEmpty(this.finallyReducer)
+			isEmpty(this.finallyReducer)
 				? this.initialReducer
 				: this.finallyReducer,
 		);
@@ -39,16 +38,31 @@ class Registry {
  */
 function registryMiddleware (registry) {
 	return () => next => action => {
-		if (T.lodash.isPlainObject(action) && action.hasOwnProperty(STORE_INJECT) && T.helper.checkArray(action[STORE_INJECT])) {
+		if (isPlainObject(action) && action.hasOwnProperty(STORE_INJECT) && isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
 			return registry.injectReducers(action[STORE_INJECT]);
 		}
 		return next(action);
 	};
 }
 
+/**
+ * thunk中间件
+ * @param {*} [extraOptions]
+ * @return {function(*=, *=): function(*): Function}
+ */
+function thunkMiddleware (extraOptions) {
+	return ({dispatch, getState}) => next => action => {
+		if (isFunction(action)) {
+			return action(dispatch, getState, extraOptions);
+		} else {
+			return next(action);
+		}
+	};
+}
+
 export default function createStore (initialState = {}) {
 	const registry = new Registry();
-	let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunk);
+	let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunkMiddleware());
 	
 	if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
 		finalCreateStore = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(finalCreateStore);

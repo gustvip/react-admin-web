@@ -8,4 +8,7 @@ test('test isEmpty', () => {
 	expect(isEmpty({})).toBeTruthy();
 	expect(isEmpty('abc')).toBeFalsy();
 	expect(isEmpty([1, 2])).toBeFalsy();
+	Object.prototype.aaa = 'aaa';
+	expect(isEmpty({})).toBeTruthy();
+	delete Object.prototype.aaa;
 });
