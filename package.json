@@ -5,15 +5,16 @@
 	"description": "react-demo",
 	"main": "src/index",
 	"scripts": {
-		"dev": "NODE_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
+		"dev": "webpack-dev-server --config ./build/webpack.config.dev.js",
 		"build": "npm run test && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
 		"test": "jest",
-		"eslint": "eslint ./src/*"
+		"eslint": "eslint ./src/*",
+		"stylelint": "stylelint src/**/*.scss --syntax scss",
+		"tslint": "tslint 'src/**/*.{ts,tsx}'"
 	},
 	"dependencies": {
 		"antd": "3.8.4",
 		"axios": "^0.18.0",
-		"cesium": "^1.48.0",
 		"classnames": "^2.2.5",
 		"crypto-js": "^3.1.9-1",
 		"echarts": "^4.1.0",
@@ -30,7 +31,6 @@
 		"react-router-dom": "^4.3.1",
 		"redux": "3.7.2",
 		"redux-thunk": "^2.3.0",
-		"underscore": "^1.9.1",
 		"url-search-params-polyfill": "^4.0.0"
 	},
 	"devDependencies": {
@@ -79,8 +79,14 @@
 		"rimraf": "^2.6.2",
 		"sass-loader": "^7.1.0",
 		"style-loader": "^0.23.0",
+		"stylelint": "^9.5.0",
+		"stylelint-config-standard": "^18.2.0",
 		"ts-jest": "^23.1.3",
 		"ts-loader": "^4.5.0",
+		"tslint": "^5.11.0",
+		"tslint-config-prettier": "^1.15.0",
+		"tslint-config-standard": "^8.0.0",
+		"tslint-react": "^3.6.0",
 		"typescript": "^3.0.1",
 		"uglifyjs-webpack-plugin": "^1.3.0",
 		"url-loader": "^1.1.1",
