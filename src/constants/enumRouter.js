@@ -3,7 +3,7 @@
  */
 
 import helper from 'utils/core/helper';
-import _ from 'lodash';
+import { flowRight } from 'lodash';
 
 /**
  * @type {{rootPath: string, login: string, userAdd: string, userEdit: string, userList: string}}
@@ -12,6 +12,7 @@ import _ from 'lodash';
 export default helper.immutable({
 	rootPath: '',
 	login: 'login',
+	register: 'register',
 	test_demo: 'test/demo',
 	
 	/*
@@ -20,4 +21,4 @@ export default helper.immutable({
 	 |-----------------------------------------------
 	 */
 	user_list: 'user/list',
-}, value => ENV.rootPath.trim() + _.flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));
+}, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

@@ -13,7 +13,7 @@ const excludeRegex = require('./util').excludeRegex;
 const customAntdStyle = require('./util').customAntdStyle;
 
 module.exports = merge(baseConfig, {
-	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-source-map
+	devtool: 'cheap-module-eval-source-map',	// cheap-module-source-map,cheap-module-eval-source-map
 	
 	module: {
 		rules: [
