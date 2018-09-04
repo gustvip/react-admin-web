@@ -18,15 +18,15 @@ export default helper.immutable([
 	{
 		label: '大栏目',
 		value: 'data_platform',
-		url: EnumRouter.user_list,
+		url: EnumRouter.userList,
 		children: [
 			{
 				label: '小栏目',
-				url: EnumRouter.user_list,
+				url: EnumRouter.userList,
 				children: [
 					{
 						label: '用户管理',
-						url: EnumRouter.user_list,
+						url: EnumRouter.userList,
 						icon: {
 							type: EnumIconTypes.antd,
 							value: 'up-square-o',
@@ -34,7 +34,7 @@ export default helper.immutable([
 						children: [
 							{
 								label: 'list',
-								url: EnumRouter.user_list,
+								url: EnumRouter.userList,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -47,11 +47,11 @@ export default helper.immutable([
 			},
 			{
 				label: 'test',
-				url: EnumRouter.test_demo,
+				url: EnumRouter.testDemo,
 				children: [
 					{
 						label: '地图',
-						url: EnumRouter.test_demo,
+						url: EnumRouter.testDemo,
 						icon: {
 							type: EnumIconTypes.antd,
 							value: 'up-square-o',
@@ -59,7 +59,7 @@ export default helper.immutable([
 						children: [
 							{
 								label: 'cesium',
-								url: EnumRouter.test_demo,
+								url: EnumRouter.testDemo,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',

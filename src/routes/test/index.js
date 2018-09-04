@@ -10,7 +10,7 @@ import TestDemo from './routes/demo'
 export default AssembleRoute([
 	{
 		layout: DefaultLayout,
-		path: EnumRouter.test_demo,
+		path: EnumRouter.testDemo,
 		component: TestDemo,
 	},
 ])

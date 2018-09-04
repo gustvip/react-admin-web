@@ -184,7 +184,7 @@ export default class Index extends React.PureComponent {
 							</Button>
 							<Link
 								to={{
-									pathname: EnumRouter.user_edit,
+									pathname: EnumRouter.userEdit,
 									state: {
 										user_id: row.user_id,
 									},
@@ -198,7 +198,7 @@ export default class Index extends React.PureComponent {
 							</Link>
 							<Link
 								to={{
-									pathname: EnumRouter.order_add,
+									pathname: EnumRouter.orderAdd,
 									state: {
 										user_id: row.user_id,
 									},

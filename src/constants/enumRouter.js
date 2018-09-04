@@ -13,12 +13,12 @@ export default helper.immutable({
 	rootPath: '',
 	login: 'login',
 	register: 'register',
-	test_demo: 'test/demo',
+	testDemo: 'test/demo',
 	
 	/*
 	 |-----------------------------------------------
 	 | 用户-相关的路由
 	 |-----------------------------------------------
 	 */
-	user_list: 'user/list',
+	userList: 'user/list',
 }, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

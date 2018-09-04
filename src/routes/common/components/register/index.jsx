@@ -4,6 +4,11 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import regExpHelper from 'utils/core/regexp';
+import * as  webAPI from '../../webAPI';
+import crypto from 'utils/core/crypto';
+import PropTypes from 'prop-types';
+import enumRouter from 'constants/enumRouter';
+import T from 'utils/t';
 
 const formItemLayout = {
 	labelCol: {
@@ -17,12 +22,27 @@ const formItemLayout = {
 };
 
 class RegisterComponent extends React.PureComponent {
+	static contextTypes = {
+		router: PropTypes.object.isRequired,
+	};
 	
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
+		const _this = this;
+		_this.props.form.validateFields((err, values) => {
 			if (!err) {
-				console.log('Received values of form: ', values);
+				const {user_name, user_password, user_email, user_phone} = values;
+				webAPI.userAdd({
+					user_name,
+					user_password: crypto.hmacSHA512(user_password, user_password),
+					user_email,
+					user_phone,
+				}).then(() => {
+					T.prompt.success('注册成功,正在跳转至登陆页面');
+					setTimeout(() => {
+						_this.context.router.history.push(enumRouter.login);
+					}, 1000);
+				}).catch(info => T.prompt.error(info.msg));
 			}
 		});
 	};
@@ -41,7 +61,7 @@ class RegisterComponent extends React.PureComponent {
 					{getFieldDecorator('user_name', {
 						rules: [
 							{required: true, message: '请填写名称'},
-							{pattern: regExpHelper.name, message: '名称长度大于等8小于等于16。不能有空格。必须是数字、字母、中文、下划线之一'},
+							{pattern: regExpHelper.name, message: '不能有空格。名称可以是数字、字母、中文、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)'},
 						],
 					})(
 						<Input placeholder="请填写用户名"/>,
@@ -87,7 +107,7 @@ class RegisterComponent extends React.PureComponent {
 					)}
 				</Form.Item>
 				<Form.Item
-					wrapperCol={{span: 12, offset: 6}}
+					wrapperCol={{span: 24, offset: 10}}
 				>
 					<Button type="primary" htmlType="submit">确认</Button>
 				</Form.Item>

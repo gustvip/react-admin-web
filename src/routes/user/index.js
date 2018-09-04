@@ -11,7 +11,7 @@ import userListReducer from './reducers/list'
 
 export default AssembleRoute([
 	{
-		path: EnumRouter.user_list,
+		path: EnumRouter.userList,
 		component: UserList,
 		reducers: [{name: 'userListReducer', reducer: userListReducer}],
 	},
