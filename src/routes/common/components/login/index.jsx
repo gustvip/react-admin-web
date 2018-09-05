@@ -4,10 +4,10 @@
 
 import styles from './index.scss';
 import T from 'utils/t';
+import { Button, Input, Checkbox } from 'antd';
+import enumRouter from 'constants/enumRouter';
 
 const bg = require('./img/bg.png');
-
-import { Button, Input } from 'antd';
 
 @T.decorator.contextTypes('router')
 export default class Login extends React.PureComponent {
@@ -18,6 +18,7 @@ export default class Login extends React.PureComponent {
 	constructor () {
 		super();
 		this.state = {
+			isRemember: true,
 			user_name: Login.userNameStorageValue ? Login.userNameStorageValue : '',
 			user_password: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : '',
 			loading: false,
@@ -26,48 +27,47 @@ export default class Login extends React.PureComponent {
 	
 	handleEnterDown = (e) => e.keyCode === 13 ? this.handleSubmit() : null;
 	
+	checkParam = (user_name, user_password) => {
+		if (!(T.regExp.name.test(user_name) || T.regExp.email.test(user_name) || T.regExp.telephone.test(user_name))) {
+			T.prompt.warn('账号格式不对');
+			return false;
+		}
+		
+		if (!(user_password === Login.userPasswordStorageValue || T.regExp.password.test(user_password))) {
+			T.prompt.warn('密码格式不对');
+			return false;
+		}
+		return true;
+	};
+	
 	handleSubmit = () => {
 		const _this = this;
-		const {user_name, user_password} = _this.state;
-		/**
-		 * 验证账号密码是否符合格式
-		 * @type {*|boolean}
-		 */
-		const canSubmit = (
-			T.regExp.name.test(user_name.trim())
-			|| T.regExp.email.test(user_name.trim())
-			|| T.regExp.telephone.test(user_name.trim())
-		) && (
-			user_password.trim() === Login.userPasswordStorageValue ||
-			T.regExp.password.test(user_password.trim())
-		);
+		const user_name = _this.state.user_name.trim();
+		let user_password = _this.state.user_password.trim();
 		
-		if (!canSubmit) {
-			T.prompt.warn('请填写相关信息');
-		} else {
+		if (_this.checkParam(user_name, user_password)) {
 			_this.setState({loading: true}, () => {
-				const username = user_name.trim();
-				const password = user_password.trim() === Login.userPasswordStorageValue
+				
+				user_password = user_password === Login.userPasswordStorageValue
 					? Login.userPasswordStorageValue
-					: T.crypto.hmacSHA512(user_password.trim(), user_password.trim());
+					: T.crypto.hmacSHA512(user_password, user_password);
+				
 				T.auth.login({
-					user_name: username,
-					user_password: password,
+					user_name: user_name,
+					user_password: user_password,
 					successCallback () {
 						T.prompt.success('登陆成功,正在跳转');
-						/**
-						 * 储存用户名
-						 * 储存用户密码
-						 * 储存登陆成功标志
-						 * 跳转到首页
-						 */
-						T.auth.setUserNameStorageValue(username);
-						T.auth.setUserPasswordStorageValue(password);
+						
+						if (_this.state.isRemember) {
+							T.auth.setUserNameStorageValue(user_name);
+							T.auth.setUserPasswordStorageValue(user_password);
+						} else {
+							T.auth.removeUserNameStorageValue();
+							T.auth.removeUserPasswordStorageValue();
+						}
+						
 						T.auth.setLoginStorageValue();
-						T.auth.loginSuccessRedirect(
-							_this.context.router.history,
-							_this.context.router.route.location.state,
-						);
+						T.auth.loginSuccessRedirect(_this.context.router.history, _this.context.router.route.location.state);
 					},
 					failCallback (info) {
 						_this.setState({loading: false});
@@ -82,7 +82,7 @@ export default class Login extends React.PureComponent {
 		const _this = this;
 		
 		return (
-			<div className={styles['login-container']}>
+			<div id={styles['login-container']}>
 				<img src={bg} alt="背景图片"/>
 				<div className={styles['condition-container']}>
 					<Input
@@ -110,6 +110,16 @@ export default class Login extends React.PureComponent {
 					>
 						登&nbsp;&nbsp;录
 					</Button>
+					<footer>
+						<Checkbox
+							onChange={event => _this.setState({isRemember: event.target.checked})}
+							checked={_this.state.isRemember}
+						>
+							记住我
+						</Checkbox>
+						<a href={enumRouter.register}>注册</a>
+					</footer>
+				
 				</div>
 			</div>
 		);

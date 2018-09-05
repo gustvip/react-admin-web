@@ -70,7 +70,7 @@ class Auth {
 	 * 移除登录的localStorage(自定义)的user_name值
 	 */
 	removeUserNameStorageValue () {
-		localStorage.removeItem(this.ENV.localStorage.login.key);
+		localStorage.removeItem(this.ENV.localStorage.user_name.key);
 	}
 	
 	/**

@@ -1,4 +1,5 @@
-.login-container {
+#login-container {
+	color: #fff;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -18,8 +19,22 @@
 		flex-direction: column;
 		width: 350px;
 		padding: 12px;
-		input {
+		> input {
 			margin-bottom: 24px;
+		}
+		> footer {
+			margin-top: 8px;
+			text-align: center;
+			font-size: 16px;
+			:global {
+				.ant-checkbox-wrapper {
+					font-size: 16px;
+					color: #fff;
+					span {
+						color: #fff;
+					}
+				}
+			}
 		}
 	}
 }
