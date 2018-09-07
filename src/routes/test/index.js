@@ -5,7 +5,7 @@
 import EnumRouter from 'constants/enumRouter'
 import { AssembleRoute, DefaultLayout } from 'routes/routeTool'
 
-import TestDemo from './routes/demo'
+import TestDemo from './routes/demo/index'
 
 export default AssembleRoute([
 	{

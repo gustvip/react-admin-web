@@ -140,7 +140,7 @@ module.exports = {
 			
 			{
 				test: /\.jsx?$/,
-				use: 'happypack/loader?id=js',
+				use: ['babel-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 			
@@ -153,11 +153,6 @@ module.exports = {
 	},
 	
 	plugins: [
-		new happyPack({
-			id: 'js',
-			threads: 4,
-			loaders: ['babel-loader'],
-		}),
 		new webpack.ProvidePlugin({
 			React: 'react',
 		}),

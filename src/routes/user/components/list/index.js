@@ -261,7 +261,7 @@ export default class Index extends React.PureComponent {
 		const _this = this;
 		
 		return [
-			<MainHeader title="content-11header" key="0"/>,
+			<MainHeader title="content-header" key="0"/>,
 			<MainContent className={style['main-content-container']} key="1">
 				<header className={style['table-header-container']}>
 					<div className={style['left-container']}>

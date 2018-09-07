@@ -22,7 +22,7 @@ export default function isEmpty (x) {
 	}
 	
 	for (var key in x) {
-		if (Object.prototype.hasOwnProperty.call(x, key)) {
+		if (x.hasOwnProperty(key)) {
 			return false;
 		}
 	}
