@@ -2,7 +2,8 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import { identity, flowRight } from 'lodash';
+import identity from 'lodash/identity';
+import flowRight from 'lodash/flowRight';
 
 const _userAPI = api => window.ENV.apiDomain + api;
 

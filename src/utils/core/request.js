@@ -2,7 +2,11 @@
  * Created by joey on 2018/2/19
  */
 import { create, CancelToken } from 'axios';
-import { forOwn, isPlainObject, noop, merge, transform } from 'lodash';
+import forOwn from 'lodash/forOwn';
+import isPlainObject from 'lodash/isPlainObject';
+import noop from 'lodash/noop';
+import merge from 'lodash/merge';
+import transform from 'lodash/transform';
 
 const source = CancelToken.source();
 
@@ -13,7 +17,7 @@ const source = CancelToken.source();
  * @param {String} [namespace]
  * @returns {*|FormData}
  */
-function objectToFormData (obj, form, namespace) {
+function objectToFormData(obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
 	forOwn(obj, ((value, property) => {
@@ -44,7 +48,7 @@ const singleton = (function () {
 	let instantiated;
 	const baseURL = ENV.apiDomain;
 	
-	function init () {
+	function init() {
 		
 		return create({
 			baseURL,
@@ -67,7 +71,7 @@ const singleton = (function () {
 	}
 	
 	return {
-		getInstance () {
+		getInstance() {
 			return instantiated ? instantiated : instantiated = init();
 		},
 	};
@@ -81,17 +85,32 @@ const singleton = (function () {
  */
 const _request = (options = {}) => {
 	return new Promise((resolve, reject) => {
-		singleton.getInstance().request(options).then(info => {
-			const {data, code, msg} = info.data;
-			
-			if (ENV.apiSuccessCode === code) {
-				resolve({code, data, msg});
-			} else {
-				reject({code, data, msg});
-			}
-		}).catch(info => {
-			reject({code: info.code, data: info.data, msg: info.message});
-		});
+		singleton.getInstance()
+			.request(options)
+			.then(info => {
+				const { data, code, msg } = info.data;
+				
+				if (ENV.apiSuccessCode === code) {
+					resolve({
+						code,
+						data,
+						msg,
+					});
+				} else {
+					reject({
+						code,
+						data,
+						msg,
+					});
+				}
+			})
+			.catch(info => {
+				reject({
+					code: info.code,
+					data: info.data,
+					msg: info.message,
+				});
+			});
 	});
 };
 
@@ -99,7 +118,7 @@ const _request = (options = {}) => {
  * 取消请求
  * @param {string} reason
  */
-export function cancelAllRequest (reason = '') {
+export function cancelAllRequest(reason = '') {
 	source.cancel(reason);
 }
 
@@ -110,7 +129,7 @@ export function cancelAllRequest (reason = '') {
  * @param {Object} options
  * @returns {Promise}
  */
-export function get (url, params = {}, options = {}) {
+export function get(url, params = {}, options = {}) {
 	return _request(merge({
 		url,
 		method: 'get',
@@ -125,12 +144,12 @@ export function get (url, params = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function post (url, data = {}, options = {}) {
+export function post(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
 		method: 'post',
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
-		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 	}, options));
 }
 
@@ -141,12 +160,12 @@ export function post (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function postJSON (url, data = {}, options = {}) {
+export function postJSON(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
 		method: 'post',
 		data,
-		headers: {'Content-Type': 'application/json'},
+		headers: { 'Content-Type': 'application/json' },
 	}, options));
 }
 
@@ -158,13 +177,13 @@ export function postJSON (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function upload (url, data = {}, options = {}, onUploadProgress = noop) {
+export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 	return _request(merge({
 		url,
 		method: 'post',
 		data: objectToFormData(data),
 		onUploadProgress,
-		headers: {'Content-Type': 'multipart/form-data'},
+		headers: { 'Content-Type': 'multipart/form-data' },
 	}, options));
 }
 
@@ -175,12 +194,12 @@ export function upload (url, data = {}, options = {}, onUploadProgress = noop) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function del (url, data = {}, options = {}) {
+export function del(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
 		method: 'delete',
 		data,
-		headers: {'Content-Type': 'application/json'},
+		headers: { 'Content-Type': 'application/json' },
 	}, options));
 }
 
@@ -191,12 +210,12 @@ export function del (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function put (url, data = {}, options = {}) {
+export function put(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
 		method: 'put',
 		data,
-		headers: {'Content-Type': 'application/json'},
+		headers: { 'Content-Type': 'application/json' },
 	}, options));
 }
 
@@ -204,6 +223,6 @@ export function put (url, data = {}, options = {}) {
  * 并发执行多个请求
  * @returns {Promise.<*>}
  */
-export function all (args) {
+export function all(args) {
 	return Array.isArray(args) ? Promise.all(args) : Promise.all([...arguments]);
 }

@@ -7,7 +7,9 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import classnames from 'utils/core/classNames';
-import { assign, merge, debounce } from 'lodash';
+import assign from 'lodash/assign';
+import merge from 'lodash/merge';
+import debounce from 'lodash/debounce';
 
 export default class Chart extends React.PureComponent {
 	static propTypes = {
@@ -18,17 +20,17 @@ export default class Chart extends React.PureComponent {
 		options: PropTypes.object.isRequired,
 	};
 	
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.chart = null;
 		this.chartContainer = null;
 	}
 	
-	get echartsInstance () {
+	get echartsInstance() {
 		return this.chart;
 	}
 	
-	get defaultOptions () {
+	get defaultOptions() {
 		return {
 			backgroundColor: '#efefef',
 			color: ['#f00', '#ff0', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
@@ -182,7 +184,7 @@ export default class Chart extends React.PureComponent {
 		};
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		const self = this;
 		self.chart = echarts.init(self.chartContainer, self.props.theme || '', assign({
 			height: 300,
@@ -195,7 +197,7 @@ export default class Chart extends React.PureComponent {
 		}, 300));
 	}
 	
-	render () {
+	render() {
 		return (
 			<div
 				style={assign({}, this.props.style)}

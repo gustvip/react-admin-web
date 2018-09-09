@@ -4,7 +4,12 @@
 
 import T from 'utils/t';
 import EnumDefaultMenus from 'constants/enumDefaultMenus';
-import { assign, uniq, flowRight, find, identity, isPlainObject } from 'lodash';
+import assign from 'lodash/assign';
+import uniq from 'lodash/uniq';
+import flowRight from 'lodash/flowRight';
+import find from 'lodash/find';
+import identity from 'lodash/identity';
+import isPlainObject from 'lodash/isPlainObject';
 
 /**
  * location.pathname和分类值的对应关系
@@ -68,7 +73,10 @@ export const EnumMenus = (() => {
 				}
 			});
 		}
-		return {resultChildren, resultUrl};
+		return {
+			resultChildren,
+			resultUrl,
+		};
 	};
 	
 	const menuData = EnumDefaultMenus.map(item => {
@@ -77,7 +85,7 @@ export const EnumMenus = (() => {
 		 * url和category的映射
 		 */
 		result.resultUrl.forEach(locationPathname => {
-			mapUrlToCategory[locationPathname] = {category: item.value};
+			mapUrlToCategory[locationPathname] = { category: item.value };
 		});
 		
 		return assign(
@@ -160,7 +168,7 @@ export const getOpenKeys = locationPathname => {
 	const dataSource = getMenuData(locationPathname);
 	const data = [];
 	
-	(function fn (_dataSource) {
+	(function fn(_dataSource) {
 		/**
 		 * 从顶层开始判断当前的location.pathname是否在其中
 		 * 如果在将对应的url[0]添加到返回的data中

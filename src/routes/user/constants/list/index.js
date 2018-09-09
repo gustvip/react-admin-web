@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/2/18
  */
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 /**
  * 获得初始数据

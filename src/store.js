@@ -3,12 +3,16 @@
  */
 
 import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux';
-import { isPlainObject, isFunction, isEmpty, isArray, transform } from 'lodash';
+import isPlainObject from 'lodash/isPlainObject';
+import isFunction from 'lodash/isFunction';
+import isEmpty from 'lodash/isEmpty';
+import isArray from 'lodash/isArray';
+import transform from 'lodash/transform';
 
 export const STORE_INJECT = '@@STORE_INJECT';
 
 class Registry {
-	constructor () {
+	constructor() {
 		this.store = null;
 		this.initialReducer = {
 			initialReducer: () => ({}),
@@ -16,13 +20,13 @@ class Registry {
 		this.finallyReducer = {};
 	}
 	
-	injectReducers (reducers) {
+	injectReducers(reducers) {
 		this.store.replaceReducer(combineReducers(
-			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
+			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, { ...this.initialReducer }),
 		));
 	}
 	
-	get initialReducers () {
+	get initialReducers() {
 		return combineReducers(
 			isEmpty(this.finallyReducer)
 				? this.initialReducer
@@ -36,7 +40,7 @@ class Registry {
  * @param {Object} registry
  * @return {function(*): function(*): function(*=)}
  */
-function registryMiddleware (registry) {
+function registryMiddleware(registry) {
 	return () => next => action => {
 		if (isPlainObject(action) && action.hasOwnProperty(STORE_INJECT) && isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
 			return registry.injectReducers(action[STORE_INJECT]);
@@ -50,8 +54,8 @@ function registryMiddleware (registry) {
  * @param {*} [extraOptions]
  * @return {function(*=, *=): function(*): Function}
  */
-function thunkMiddleware (extraOptions) {
-	return ({dispatch, getState}) => next => action => {
+function thunkMiddleware(extraOptions) {
+	return ({ dispatch, getState }) => next => action => {
 		if (isFunction(action)) {
 			return action(dispatch, getState, extraOptions);
 		} else {
@@ -60,7 +64,7 @@ function thunkMiddleware (extraOptions) {
 	};
 }
 
-export default function createStore (initialState = {}) {
+export default function createStore(initialState = {}) {
 	const registry = new Registry();
 	let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunkMiddleware());
 	

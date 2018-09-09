@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import { Route } from 'react-router-dom';
-import { flattenDeep } from 'lodash';
+import flattenDeep from 'lodash/flattenDeep';
 import Exception from 'templates/toolComponents/exception';
 import lazyLoad from 'templates/lazyLoad';
 import MainLayoutComponent from 'templates/mainLayout';
@@ -14,7 +14,7 @@ import * as React from 'react';
  * @param {Array} rest
  * @param {Array} reducers
  */
-export const DefaultLayout = ({component: Component, reducers, ...rest}) => {
+export const DefaultLayout = ({ component: Component, reducers, ...rest }) => {
 	const LazyComponent = lazyLoad(Component);
 	return <Route
 		key={rest.path}
@@ -29,7 +29,7 @@ export const DefaultLayout = ({component: Component, reducers, ...rest}) => {
  * @param {Array} rest
  * @param {Array} reducers
  */
-export const MainLayout = ({component: Component, reducers, ...rest}) => {
+export const MainLayout = ({ component: Component, reducers, ...rest }) => {
 	const LazyComponent = lazyLoad(Component);
 	return (
 		<Route
@@ -49,9 +49,13 @@ export const MainLayout = ({component: Component, reducers, ...rest}) => {
  * @param {Array} routes
  * @returns {function()}
  */
-export const AssembleRoute = (...routes) => () => flattenDeep(routes).map(val => val.layout ? DefaultLayout(val) : MainLayout(val));
+export const AssembleRoute = (...routes) => () => flattenDeep(routes)
+	.map(val => val.layout ? DefaultLayout(val) : MainLayout(val));
 
 /**
  * 未匹配到的页面
  */
-export const NoMatch = () => <Exception style={{minHeight: 500, height: '100%'}}/>;
+export const NoMatch = () => <Exception style={{
+	minHeight: 500,
+	height: '100%',
+}}/>;

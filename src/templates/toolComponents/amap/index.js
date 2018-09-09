@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import mapUtils from 'utils/amap';
-import { noop, merge, isFunction } from 'lodash';
+import noop from 'lodash/noop';
+import merge from 'lodash/merge';
+import isFunction from 'lodash/isFunction';
 import classNames from 'utils/core/classNames';
 
 export default class AMap extends React.PureComponent {
@@ -15,25 +17,25 @@ export default class AMap extends React.PureComponent {
 		style: PropTypes.object,
 	};
 	
-	constructor () {
+	constructor() {
 		super();
 		this._mapContainer = null;
 		this.mapUtils = new mapUtils();
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		this.mapUtils.createMap(this._mapContainer, {});
-		const {mapLoadCallback} = this.props;
+		const { mapLoadCallback } = this.props;
 		this.mapUtils.mapInstance.on('complete', isFunction(mapLoadCallback) ? mapLoadCallback : noop);
 	}
 	
-	componentWillUnmount () {
+	componentWillUnmount() {
 		if (this.mapUtils.mapInstance) {
 			this.mapUtils.destroy();
 		}
 	}
 	
-	render () {
+	render() {
 		const baseStyle = {
 			position: 'absolute',
 			left: 0,
@@ -41,7 +43,7 @@ export default class AMap extends React.PureComponent {
 			top: 0,
 			bottom: 0,
 		};
-		const {className, style = {}} = this.props;
+		const { className, style = {} } = this.props;
 		return (
 			<div
 				ref={_mapContainer => this._mapContainer = _mapContainer}

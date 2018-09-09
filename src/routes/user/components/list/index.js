@@ -5,7 +5,7 @@
 import T from 'utils/t';
 import * as actionTypes from '../../actions/list/index';
 import style from '../../scss/list/index.scss';
-import { assign } from 'lodash';
+import assign from 'lodash/assign';
 import { Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { MainHeader, MainContent } from 'templates/mainLayout/index';
@@ -18,7 +18,7 @@ export default class Index extends React.PureComponent {
 	/**
 	 * 获取用户所有信息
 	 */
-	componentDidMount () {
+	componentDidMount() {
 		const _this = this;
 		_this.props.dispatch(actionTypes.getInitialDataAction({
 			currentPage: _this.props.mapProps.currentPage,
@@ -76,14 +76,14 @@ export default class Index extends React.PureComponent {
 	 * 获取表格配置
 	 * @returns {*[]}
 	 */
-	get columns () {
+	get columns() {
 		const _this = this;
 		
 		return [
 			{
 				title: 'id',
 				dataIndex: 'user_id',
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -94,7 +94,7 @@ export default class Index extends React.PureComponent {
 			{
 				title: '名称',
 				dataIndex: 'user_name',
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -105,7 +105,7 @@ export default class Index extends React.PureComponent {
 			{
 				title: '邮箱',
 				dataIndex: 'user_email',
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -116,7 +116,7 @@ export default class Index extends React.PureComponent {
 			{
 				title: '电话',
 				dataIndex: 'user_phone',
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -127,7 +127,7 @@ export default class Index extends React.PureComponent {
 			{
 				title: '状态',
 				dataIndex: 'delete_status',
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -138,7 +138,7 @@ export default class Index extends React.PureComponent {
 			{
 				title: '用户类型',
 				dataIndex: 'user_type',
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -150,7 +150,7 @@ export default class Index extends React.PureComponent {
 				title: '创建时间',
 				dataIndex: 'created_at',
 				render: val => new Date(val).toLocaleDateString(),
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -162,7 +162,7 @@ export default class Index extends React.PureComponent {
 				title: '更新时间',
 				dataIndex: 'updated_at',
 				render: val => new Date(val).toLocaleDateString(),
-				sorter (a, b) {
+				sorter(a, b) {
 					return T.helper.sort({
 						prev: a,
 						now: b,
@@ -220,15 +220,15 @@ export default class Index extends React.PureComponent {
 	/**
 	 * 获取表格数据
 	 */
-	get dataSource () {
-		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, {key: index}));
+	get dataSource() {
+		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, { key: index }));
 	}
 	
 	/**
 	 * 分页
 	 * @returns {{current: *, total: ((key?: (IDBKeyRange | IDBValidKey)) => IDBRequest) | ((countTitle?: string) => void), pageSize: *, showQuickJumper: boolean, onChange(*=, *=): void}}
 	 */
-	get pagination () {
+	get pagination() {
 		const _this = this;
 		
 		return {
@@ -236,8 +236,11 @@ export default class Index extends React.PureComponent {
 			total: _this.props.mapProps.count,
 			pageSize: _this.props.mapProps.pageSize,
 			showQuickJumper: true,
-			onChange (currentPage, pageSize) {
-				_this.props.dispatch(actionTypes.getUserListAction({currentPage, pageSize}));
+			onChange(currentPage, pageSize) {
+				_this.props.dispatch(actionTypes.getUserListAction({
+					currentPage,
+					pageSize,
+				}));
 			},
 		};
 	};
@@ -246,18 +249,18 @@ export default class Index extends React.PureComponent {
 	 * 行选中
 	 * @return {*}
 	 */
-	get rowSelection () {
+	get rowSelection() {
 		const _this = this;
 		
 		return {
 			selectedRowKeys: _this.props.mapProps.selectedRowKeys,
-			onChange (selectedRowKeys) {
+			onChange(selectedRowKeys) {
 				return _this.handleSelectedRowKeys(selectedRowKeys);
 			},
 		};
 	};
 	
-	render () {
+	render() {
 		const _this = this;
 		
 		return [

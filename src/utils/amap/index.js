@@ -3,10 +3,10 @@
  */
 
 import * as EnumMap from './constants/index';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 class mapBasisHelper {
-	constructor () {
+	constructor() {
 		this.map = null;
 		this.AMap = window.AMap;
 	}
@@ -15,7 +15,7 @@ class mapBasisHelper {
 	 * 获取map实例
 	 * @return {Object}
 	 */
-	get mapInstance () {
+	get mapInstance() {
 		return this.map;
 	}
 	
@@ -23,7 +23,7 @@ class mapBasisHelper {
 	 * 获取map实例
 	 * @return {Object}
 	 */
-	get AMapInstance () {
+	get AMapInstance() {
 		return this.AMap;
 	}
 	
@@ -31,7 +31,7 @@ class mapBasisHelper {
 	 * 基础数学库
 	 * @return {Object}
 	 */
-	get geometryUtil () {
+	get geometryUtil() {
 		return this.AMapInstance.GeometryUtil;
 	}
 	
@@ -39,7 +39,7 @@ class mapBasisHelper {
 	 * 设置map容器
 	 * @param {Object} map
 	 */
-	setMap (map) {
+	setMap(map) {
 		if (this.mapInstance !== map) {
 			this.map = map;
 		}
@@ -51,7 +51,7 @@ class mapBasisHelper {
 	 * 默认的options
 	 * @return {{zoom: number, center: (number|number)[], zooms: [null,null], mapStyle: string, features: [null,null,null], lang: string, viewMode: string, crs: string, dragEnable: boolean, zoomEnable: boolean, doubleClickZoom: boolean, keyboardEnable: boolean, jogEnable: boolean, scrollWheel: boolean, rotation: number, animateEnable: boolean, isHotspot: boolean, rotateEnable: boolean, resizeEnable: boolean, expandZoomRange: boolean, touchZoom: boolean, showBuildingBlock: boolean, showIndoorMap: boolean, buildingAnimation: boolean}}
 	 */
-	static setOptions () {
+	static setOptions() {
 		return {
 			zoom: EnumMap.ZOOM.normal,		// 缩放级别
 			center: EnumMap.CENTER.normal,		// 地图中心
@@ -70,7 +70,7 @@ class mapBasisHelper {
 	 * @param {Object} [options]
 	 * @return {mapBasisHelper}
 	 */
-	createMap (container, options = {}) {
+	createMap(container, options = {}) {
 		this.setMap(
 			new this.AMapInstance.Map(
 				container,
@@ -91,7 +91,7 @@ class mapBasisHelper {
 	 * @param {Number} y
 	 * @return {Object}
 	 */
-	pixel (x, y) {
+	pixel(x, y) {
 		return new this.AMapInstance.Pixel(x, y);
 	}
 	
@@ -101,7 +101,7 @@ class mapBasisHelper {
 	 * @param {Number} h
 	 * @return {Object}
 	 */
-	size (w, h) {
+	size(w, h) {
 		return new this.AMapInstance.Size(w, h);
 	}
 	
@@ -111,7 +111,7 @@ class mapBasisHelper {
 	 * @param {Number} lat
 	 * @return {Object}
 	 */
-	lngLat (lng, lat) {
+	lngLat(lng, lat) {
 		return new this.AMapInstance.LngLat(lng, lat);
 	}
 	
@@ -121,7 +121,7 @@ class mapBasisHelper {
 	 * @param {Number} northEast
 	 * @return {Object}
 	 */
-	bounds (southWest, northEast) {
+	bounds(southWest, northEast) {
 		return new this.AMapInstance.Bounds(southWest, northEast);
 	}
 	
@@ -129,7 +129,7 @@ class mapBasisHelper {
 	 * 获取当前地图缩放级别
 	 * @return {Number}
 	 */
-	getZoom () {
+	getZoom() {
 		return this.mapInstance.getZoom();
 	}
 	
@@ -137,7 +137,7 @@ class mapBasisHelper {
 	 * 获取地图图层数组
 	 * @return {Array}
 	 */
-	getLayers () {
+	getLayers() {
 		return this.mapInstance.getLayers();
 	}
 	
@@ -145,7 +145,7 @@ class mapBasisHelper {
 	 * 获取地图中心点经纬度坐标值
 	 * @return {Object} LngLat
 	 */
-	getCenter () {
+	getCenter() {
 		return this.mapInstance.getCenter();
 	}
 	
@@ -154,7 +154,7 @@ class mapBasisHelper {
 	 * @param {Function} cb
 	 * @return {Object}
 	 */
-	getCity (cb) {
+	getCity(cb) {
 		return this.mapInstance.getCity(cb);
 	}
 	
@@ -162,7 +162,7 @@ class mapBasisHelper {
 	 * 返回地图对象的容器
 	 * @return {Object} HTMLDivElement
 	 */
-	getContainer () {
+	getContainer() {
 		return this.mapInstance.getContainer();
 	}
 	
@@ -170,7 +170,7 @@ class mapBasisHelper {
 	 * 获取当前地图视图范围，获取当前可视区域
 	 * @return {Object} Bounds
 	 */
-	getBounds () {
+	getBounds() {
 		return this.mapInstance.getBounds();
 	}
 	
@@ -178,7 +178,7 @@ class mapBasisHelper {
 	 * 获取当前地图标注的显示顺序
 	 * @return {Number}
 	 */
-	getLabelzIndex () {
+	getLabelzIndex() {
 		return this.mapInstance.getLabelzIndex();
 	}
 	
@@ -186,7 +186,7 @@ class mapBasisHelper {
 	 * 获取Map的限制区域
 	 * @return {Object} Bounds
 	 */
-	getLimitBounds () {
+	getLimitBounds() {
 		return this.mapInstance.getLimitBounds();
 	}
 	
@@ -194,7 +194,7 @@ class mapBasisHelper {
 	 * 获取底图语言类型
 	 * @return {String}
 	 */
-	getLang () {
+	getLang() {
 		return this.mapInstance.getLang();
 	}
 	
@@ -202,7 +202,7 @@ class mapBasisHelper {
 	 * 获取地图容器像素大小
 	 * @return {Object} size
 	 */
-	getSize () {
+	getSize() {
 		return this.mapInstance.getSize();
 	}
 	
@@ -210,7 +210,7 @@ class mapBasisHelper {
 	 * 获取地图顺时针旋转角度
 	 * @return {Number}
 	 */
-	getRotation () {
+	getRotation() {
 		return this.mapInstance.getRotation();
 	}
 	
@@ -219,7 +219,7 @@ class mapBasisHelper {
 	 * 是否可双击放大地图、是否可以通过键盘控制地图旋转（keyboardEnable）等
 	 * @return {Object}
 	 */
-	getStatus () {
+	getStatus() {
 		return this.mapInstance.getStatus();
 	}
 	
@@ -227,7 +227,7 @@ class mapBasisHelper {
 	 * 获取地图默认鼠标指针样式
 	 * @return {String}
 	 */
-	getDefaultCursor () {
+	getDefaultCursor() {
 		return this.mapInstance.getDefaultCursor();
 	}
 	
@@ -236,7 +236,7 @@ class mapBasisHelper {
 	 * @param {Object} LngLat
 	 * @return {Number}
 	 */
-	getResolution (LngLat) {
+	getResolution(LngLat) {
 		return this.mapInstance.getResolution(LngLat);
 	}
 	
@@ -244,7 +244,7 @@ class mapBasisHelper {
 	 * 获取当前地图比例尺。其值为当前地图中心点处比例尺值的倒数
 	 * @return {Number}
 	 */
-	getScale () {
+	getScale() {
 		return this.mapInstance.getScale();
 	}
 	
@@ -253,7 +253,7 @@ class mapBasisHelper {
 	 * @param {*} type
 	 * @return {Array}
 	 */
-	getAllOverlays (type) {
+	getAllOverlays(type) {
 		return this.mapInstance.getAllOverlays(type);
 	}
 	
@@ -261,7 +261,7 @@ class mapBasisHelper {
 	 * 获取地图显示样式
 	 * @return {String}
 	 */
-	getMapStyle () {
+	getMapStyle() {
 		return this.mapInstance.getMapStyle();
 	}
 	
@@ -269,7 +269,7 @@ class mapBasisHelper {
 	 * 获取地图显示元素种类
 	 * @return {Array}
 	 */
-	getFeatures () {
+	getFeatures() {
 		return this.mapInstance.getFeatures();
 	}
 	
@@ -277,7 +277,7 @@ class mapBasisHelper {
 	 * 获取俯仰角
 	 * @return {Number}
 	 */
-	getPitch () {
+	getPitch() {
 		return this.mapInstance.getPitch();
 	}
 	
@@ -286,7 +286,7 @@ class mapBasisHelper {
 	 * @param {Number} level
 	 * @return {mapBasisHelper}
 	 */
-	setZoom (level) {
+	setZoom(level) {
 		this.mapInstance.setZoom(level);
 		
 		return this;
@@ -297,7 +297,7 @@ class mapBasisHelper {
 	 * @param {Number} index
 	 * @return {mapBasisHelper}
 	 */
-	setLabelzIndex (index) {
+	setLabelzIndex(index) {
 		this.mapInstance.setLabelzIndex(index);
 		
 		return this;
@@ -308,7 +308,7 @@ class mapBasisHelper {
 	 * @param {Array} layers
 	 * @return {mapBasisHelper}
 	 */
-	setLayers (layers) {
+	setLayers(layers) {
 		this.mapInstance.setLayers(layers);
 		
 		return this;
@@ -319,7 +319,7 @@ class mapBasisHelper {
 	 * @param {Array} layers
 	 * @return {mapBasisHelper}
 	 */
-	add (layers) {
+	add(layers) {
 		this.mapInstance.add(layers);
 		
 		return this;
@@ -330,7 +330,7 @@ class mapBasisHelper {
 	 * @param {Array} layers
 	 * @return {mapBasisHelper}
 	 */
-	remove (layers) {
+	remove(layers) {
 		this.mapInstance.remove(layers);
 		
 		return this;
@@ -341,7 +341,7 @@ class mapBasisHelper {
 	 * @param {Object} LngLat
 	 * @return {mapBasisHelper}
 	 */
-	setCenter (LngLat) {
+	setCenter(LngLat) {
 		this.mapInstance.setCenter(LngLat);
 		
 		return this;
@@ -353,7 +353,7 @@ class mapBasisHelper {
 	 * @param {Object} LngLat
 	 * @return {mapBasisHelper}
 	 */
-	setZoomAndCenter (zoomLevel, LngLat) {
+	setZoomAndCenter(zoomLevel, LngLat) {
 		this.mapInstance.setZoomAndCenter(zoomLevel, LngLat);
 		
 		return this;
@@ -365,7 +365,7 @@ class mapBasisHelper {
 	 * @param {Function} cb 地图中心坐标为第一个回掉参数，地图缩放比列为第二个蚕食
 	 * @return {mapBasisHelper}
 	 */
-	setCity (city, cb) {
+	setCity(city, cb) {
 		this.mapInstance.setCity(city, cb);
 		
 		return this;
@@ -376,7 +376,7 @@ class mapBasisHelper {
 	 * @param {Object} bounds
 	 * @return {mapBasisHelper}
 	 */
-	setBounds (bounds) {
+	setBounds(bounds) {
 		this.mapInstance.setBounds(bounds);
 		
 		return this;
@@ -387,7 +387,7 @@ class mapBasisHelper {
 	 * @param {Object} bounds
 	 * @return {mapBasisHelper}
 	 */
-	setLimitBounds (bounds) {
+	setLimitBounds(bounds) {
 		this.mapInstance.setLimitBounds(bounds);
 		
 		return this;
@@ -397,7 +397,7 @@ class mapBasisHelper {
 	 * 清除限制区域
 	 * @return {mapBasisHelper}
 	 */
-	clearLimitBounds () {
+	clearLimitBounds() {
 		this.mapInstance.clearLimitBounds();
 		
 		return this;
@@ -408,7 +408,7 @@ class mapBasisHelper {
 	 * @param {String} lang
 	 * @return {mapBasisHelper}
 	 */
-	setLang (lang) {
+	setLang(lang) {
 		this.mapInstance.setLang(lang);
 		
 		return this;
@@ -419,7 +419,7 @@ class mapBasisHelper {
 	 * @param {Number} rotation
 	 * @return {mapBasisHelper}
 	 */
-	setRotation (rotation) {
+	setRotation(rotation) {
 		this.mapInstance.setRotation(rotation);
 		
 		return this;
@@ -430,7 +430,7 @@ class mapBasisHelper {
 	 * @param {Object} status
 	 * @return {mapBasisHelper}
 	 */
-	setStatus (status) {
+	setStatus(status) {
 		this.mapInstance.setStatus(status);
 		
 		return this;
@@ -441,7 +441,7 @@ class mapBasisHelper {
 	 * @param {String} cursor
 	 * @return {mapBasisHelper}
 	 */
-	setDefaultCursor (cursor) {
+	setDefaultCursor(cursor) {
 		this.mapInstance.setDefaultCursor(cursor);
 		
 		return this;
@@ -451,7 +451,7 @@ class mapBasisHelper {
 	 * 地图放大一级显示
 	 * @return {mapBasisHelper}
 	 */
-	zoomIn () {
+	zoomIn() {
 		this.mapInstance.zoomIn();
 		
 		return this;
@@ -461,7 +461,7 @@ class mapBasisHelper {
 	 * 地图放缩小级显示
 	 * @return {mapBasisHelper}
 	 */
-	zoomOut () {
+	zoomOut() {
 		this.mapInstance.zoomOut();
 		
 		return this;
@@ -472,7 +472,7 @@ class mapBasisHelper {
 	 * @param {Object} position
 	 * @return {mapBasisHelper}
 	 */
-	panTo (position) {
+	panTo(position) {
 		this.mapInstance.panTo(position);
 		
 		return this;
@@ -484,7 +484,7 @@ class mapBasisHelper {
 	 * @param {Number} y
 	 * @return {mapBasisHelper}
 	 */
-	panBy (x, y) {
+	panBy(x, y) {
 		this.mapInstance.panBy(x, y);
 		
 		return this;
@@ -495,7 +495,7 @@ class mapBasisHelper {
 	 * @param {Array || Undefined} overlayList
 	 * @return {mapBasisHelper}
 	 */
-	setFitView (overlayList) {
+	setFitView(overlayList) {
 		this.mapInstance.setFitView(overlayList);
 		
 		return this;
@@ -505,7 +505,7 @@ class mapBasisHelper {
 	 * 删除地图上所有的覆盖物
 	 * @return {mapBasisHelper}
 	 */
-	clearMap () {
+	clearMap() {
 		this.mapInstance.clearMap();
 		
 		return this;
@@ -515,7 +515,7 @@ class mapBasisHelper {
 	 * 注销地图对象，并清空地图容器
 	 * @return {mapBasisHelper}
 	 */
-	destroy () {
+	destroy() {
 		this.mapInstance.destroy();
 		
 		return this;
@@ -525,7 +525,7 @@ class mapBasisHelper {
 	 * 插件加载方法
 	 * @return {mapBasisHelper}
 	 */
-	plugin (name, cb) {
+	plugin(name, cb) {
 		this.mapInstance.plugin(name, cb);
 		
 		return this;
@@ -535,7 +535,7 @@ class mapBasisHelper {
 	 * 添加控件
 	 * @return {mapBasisHelper}
 	 */
-	addControl (obj) {
+	addControl(obj) {
 		this.mapInstance.addControl(obj);
 		
 		return this;
@@ -545,7 +545,7 @@ class mapBasisHelper {
 	 * 移除地图上的指定控件
 	 * @return {mapBasisHelper}
 	 */
-	removeControl (obj) {
+	removeControl(obj) {
 		this.mapInstance.removeControl(obj);
 		
 		return this;
@@ -555,7 +555,7 @@ class mapBasisHelper {
 	 * 清除地图上的信息窗体
 	 * @return {mapBasisHelper}
 	 */
-	clearInfoWindow () {
+	clearInfoWindow() {
 		this.mapInstance.clearInfoWindow();
 		
 		return this;
@@ -567,7 +567,7 @@ class mapBasisHelper {
 	 * @param {Number || Undefined} level
 	 * @return {Object}
 	 */
-	pixelToLngLat (pixel, level) {
+	pixelToLngLat(pixel, level) {
 		return this.mapInstance.pixelToLngLat(pixel, level);
 	}
 	
@@ -577,7 +577,7 @@ class mapBasisHelper {
 	 * @param {Number || Undefined} level
 	 * @return {Object}
 	 */
-	lnglatToPixel (lngLat, level) {
+	lnglatToPixel(lngLat, level) {
 		return this.mapInstance.lnglatToPixel(lngLat, level);
 	}
 	
@@ -586,7 +586,7 @@ class mapBasisHelper {
 	 * @param {Object} pixel
 	 * @return {Object}
 	 */
-	containerToLngLat (pixel) {
+	containerToLngLat(pixel) {
 		return this.mapInstance.containerToLngLat(pixel);
 	}
 	
@@ -595,7 +595,7 @@ class mapBasisHelper {
 	 * @param {Object} LngLat
 	 * @return {Object}
 	 */
-	lngLatToContainer (LngLat) {
+	lngLatToContainer(LngLat) {
 		return this.mapInstance.lngLatToContainer(LngLat);
 	}
 	
@@ -604,7 +604,7 @@ class mapBasisHelper {
 	 * @param {String} style
 	 * @return {mapBasisHelper}
 	 */
-	setMapStyle (style) {
+	setMapStyle(style) {
 		this.mapInstance.setMapStyle(style);
 		
 		return this;
@@ -615,7 +615,7 @@ class mapBasisHelper {
 	 * @param {String} features
 	 * @return {mapBasisHelper}
 	 */
-	setFeatures (features) {
+	setFeatures(features) {
 		this.mapInstance.setFeatures(features);
 		
 		return this;
@@ -626,7 +626,7 @@ class mapBasisHelper {
 	 * @param {Number} pitch
 	 * @return {mapBasisHelper}
 	 */
-	setPitch (pitch) {
+	setPitch(pitch) {
 		this.mapInstance.setPitch(pitch);
 		
 		return this;
@@ -640,7 +640,7 @@ class mapBasisHelper {
 	 * @param {Object} context 事件回调中的上下文（可选，缺省时，handler中this为调用on方法的对象本身，否则this指向context引用的对象）
 	 * @return {mapBasisHelper}
 	 */
-	on (eventName, handler, context) {
+	on(eventName, handler, context) {
 		this.mapInstance.on(eventName, handler, context);
 		
 		return this;
@@ -654,7 +654,7 @@ class mapBasisHelper {
 	 * @param {Object} context 事件回调中的上下文（可选，缺省时，handler中this为调用on方法的对象本身，否则this指向context引用的对象）
 	 * @return {mapBasisHelper}
 	 */
-	off (eventName, handler, context) {
+	off(eventName, handler, context) {
 		this.mapInstance.off(eventName, handler, context);
 		
 		return this;
@@ -668,7 +668,7 @@ class mapBasisHelper {
 	 * @param {Object} context 事件回调中的上下文（可选，缺省时，handler中this为调用on方法的对象本身，否则this指向context引用的对象）
 	 * @return {Object}
 	 */
-	addDomListener (instance, eventName, handler, context) {
+	addDomListener(instance, eventName, handler, context) {
 		return this.AMapInstance.event.addDomListener(instance, eventName, handler, context);
 	}
 	
@@ -680,7 +680,7 @@ class mapBasisHelper {
 	 * @param {Object} context 事件回调中的上下文（可选，缺省时，handler中this为调用on方法的对象本身，否则this指向context引用的对象）
 	 * @return {Object}
 	 */
-	addListener (instance, eventName, handler, context) {
+	addListener(instance, eventName, handler, context) {
 		return this.AMapInstance.event.addListener(instance, eventName, handler, context);
 	}
 	
@@ -692,7 +692,7 @@ class mapBasisHelper {
 	 * @param {Object} context 事件回调中的上下文（可选，缺省时，handler中this为调用on方法的对象本身，否则this指向context引用的对象）
 	 * @return {Object}
 	 */
-	addListenerOnce (instance, eventName, handler, context) {
+	addListenerOnce(instance, eventName, handler, context) {
 		return this.AMapInstance.event.addListenerOnce(instance, eventName, handler, context);
 	}
 	
@@ -701,7 +701,7 @@ class mapBasisHelper {
 	 * @param {Object} listener 需要移除的事件listener
 	 * @return {mapBasisHelper}
 	 */
-	removeListener (listener) {
+	removeListener(listener) {
 		this.AMapInstance.event.removeListener(listener);
 		
 		return this;
@@ -714,7 +714,7 @@ class mapBasisHelper {
 	 * @param {*} extArgs
 	 * @return {mapBasisHelper}
 	 */
-	trigger (instance, eventName, extArgs) {
+	trigger(instance, eventName, extArgs) {
 		this.AMapInstance.event.trigger(instance, eventName, extArgs);
 		
 		return this;
@@ -724,7 +724,7 @@ class mapBasisHelper {
 	 * 创建MouseTool实列
 	 * @return {Object}
 	 */
-	mouseTool () {
+	mouseTool() {
 		if (!this.AMapInstance.MouseTool) {
 			this.mapInstance.plugin(['AMap.MouseTool']);
 		}
@@ -736,7 +736,7 @@ class mapBasisHelper {
 	 * 创建RangingTool实列
 	 * @return {Object}
 	 */
-	rangingTool (options) {
+	rangingTool(options) {
 		if (!this.AMapInstance.RangingTool) {
 			this.mapInstance.plugin(['AMap.RangingTool']);
 		}
@@ -749,7 +749,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	geocoder (options) {
+	geocoder(options) {
 		/**
 		 * 判读地图实列是否添加了插件
 		 */
@@ -772,21 +772,30 @@ class mapBasisHelper {
 							 * 没有查到数据---但是查询是成功的
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-								resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
+								resolve({
+									data: null,
+									msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
+								});
 							}
 							
 							/**
 							 * 查询成功
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-								resolve({msg: result.info, data: result.geocodes});
+								resolve({
+									msg: result.info,
+									data: result.geocodes,
+								});
 							}
 							
 							/**
 							 * 查询错误
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-								reject({msg: result, data: null});
+								reject({
+									msg: result,
+									data: null,
+								});
 							}
 						});
 					});
@@ -802,21 +811,30 @@ class mapBasisHelper {
 							 * 没有查到数据---但是查询是成功的
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-								resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
+								resolve({
+									data: null,
+									msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
+								});
 							}
 							
 							/**
 							 * 查询成功
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-								resolve({msg: result.info, data: result.regeocode});
+								resolve({
+									msg: result.info,
+									data: result.regeocode,
+								});
 							}
 							
 							/**
 							 * 查询错误
 							 */
 							if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-								reject({msg: result, data: null});
+								reject({
+									msg: result,
+									data: null,
+								});
 							}
 						});
 					});
@@ -833,7 +851,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	autocomplete (options) {
+	autocomplete(options) {
 		/**
 		 * 判读地图实列是否添加了插件
 		 */
@@ -854,21 +872,30 @@ class mapBasisHelper {
 						 * 没有查到数据---但是查询是成功的
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-							resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
+							resolve({
+								data: null,
+								msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
+							});
 						}
 						
 						/**
 						 * 查询成功
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-							resolve({msg: result.info, data: result.tips});
+							resolve({
+								msg: result.info,
+								data: result.tips,
+							});
 						}
 						
 						/**
 						 * 查询错误
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-							reject({msg: result, data: null});
+							reject({
+								msg: result,
+								data: null,
+							});
 						}
 					});
 				});
@@ -884,7 +911,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	districtSearch (options) {
+	districtSearch(options) {
 		/**
 		 * 判读地图实列是否添加了插件
 		 */
@@ -905,21 +932,30 @@ class mapBasisHelper {
 						 * 没有查到数据---但是查询是成功的
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.no_data) {
-							resolve({data: null, msg: EnumMap.REQUEST_STATUS_INFO.no_data_info});
+							resolve({
+								data: null,
+								msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
+							});
 						}
 						
 						/**
 						 * 查询成功
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.complete) {
-							resolve({msg: result.info, data: result.districtList});
+							resolve({
+								msg: result.info,
+								data: result.districtList,
+							});
 						}
 						
 						/**
 						 * 查询错误
 						 */
 						if (status === EnumMap.REQUEST_STATUS_INFO.error) {
-							reject({msg: result, data: null});
+							reject({
+								msg: result,
+								data: null,
+							});
 						}
 					});
 				});
@@ -936,8 +972,8 @@ class mapBasisHelper {
 	 * @param {Object} options 附加选项
 	 * @return {Object}
 	 */
-	normalLayer (name, options) {
-		options = merge({}, options, {map: this.mapInstance});
+	normalLayer(name, options) {
+		options = merge({}, options, { map: this.mapInstance });
 		switch (name) {
 			/**
 			 * 默认的切片图层
@@ -971,13 +1007,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	massMarksLayer (data, options) {
+	massMarksLayer(data, options) {
 		return new this.AMapInstance.MassMarks(
 			data,
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -987,12 +1023,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	flexibleLayer (options) {
+	flexibleLayer(options) {
 		return new this.AMapInstance.TileLayer.Flexible(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1002,12 +1038,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	imageLayer (options) {
+	imageLayer(options) {
 		return new this.AMapInstance.ImageLayer(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1017,12 +1053,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	canvasLayer (options) {
+	canvasLayer(options) {
 		return new this.AMapInstance.CanvasLayer(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1032,12 +1068,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	videoLayer (options) {
+	videoLayer(options) {
 		return new this.AMapInstance.VideoLayer(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1047,12 +1083,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	customLayer (options) {
+	customLayer(options) {
 		return new this.AMapInstance.CustomLayer(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1062,12 +1098,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	WMSLayer (options) {
+	WMSLayer(options) {
 		return new this.AMapInstance.TileLayer.WMS(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1077,12 +1113,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	WMTSLayer (options) {
+	WMTSLayer(options) {
 		return new this.AMapInstance.TileLayer.WMTS(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1091,7 +1127,7 @@ class mapBasisHelper {
 	 * 创建layer集合
 	 * @param layer
 	 */
-	layerGroup (layer) {
+	layerGroup(layer) {
 		return new this.AMapInstance.LayerGroup(
 			Array.isArray(layer) ? layer : arguments.slice(),
 		);
@@ -1102,13 +1138,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	marker (options) {
+	marker(options) {
 		return new this.AMapInstance.Marker(
 			merge(
 				{},
 				EnumMap.COVER_COMMON_STYLE,
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1118,12 +1154,12 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	icon (options) {
+	icon(options) {
 		return new this.AMapInstance.Icon(
 			merge(
 				{},
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			));
 	}
 	
@@ -1133,14 +1169,14 @@ class mapBasisHelper {
 	 * @param {Object} style
 	 * @return {Object}
 	 */
-	text (options, style) {
+	text(options, style) {
 		return new this.AMapInstance.Text(
 			merge(
 				{},
 				EnumMap.COVER_COMMON_STYLE,
 				options,
-				{style: merge({}, EnumMap.COVER_TEXT_STYLE, style)},
-				{map: this.mapInstance},
+				{ style: merge({}, EnumMap.COVER_TEXT_STYLE, style) },
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1150,13 +1186,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	polyline (options) {
+	polyline(options) {
 		return new this.AMapInstance.Polyline(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_POLYLINE_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1166,13 +1202,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	polygon (options) {
+	polygon(options) {
 		return new this.AMapInstance.Polygon(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_POLYGON_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1182,13 +1218,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	bezirCure (options) {
+	bezirCure(options) {
 		return new this.AMapInstance.BezierCurve(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_BEZIRCURE_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1198,13 +1234,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	circle (options) {
+	circle(options) {
 		return new this.AMapInstance.Circle(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_CIRCLE_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1214,13 +1250,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	circleMarker (options) {
+	circleMarker(options) {
 		return new this.AMapInstance.CircleMarker(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_CIRCLE_MARKER_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1230,13 +1266,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	ellipse (options) {
+	ellipse(options) {
 		return new this.AMapInstance.Ellipse(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_ELLIPSE_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1246,13 +1282,13 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	rectangle (options) {
+	rectangle(options) {
 		return new this.AMapInstance.Rectangle(
 			merge(
 				{},
 				merge({}, EnumMap.COVER_COMMON_STYLE, EnumMap.COVER_RECTANGLE_STYLE),
 				options,
-				{map: this.mapInstance},
+				{ map: this.mapInstance },
 			),
 		);
 	}
@@ -1262,7 +1298,7 @@ class mapBasisHelper {
 	 * @param {Array} options
 	 * @return {Object}
 	 */
-	overlayGroup (options) {
+	overlayGroup(options) {
 		return new this.AMapInstance.OverlayGroup(
 			Array.isArray(options) ? options : arguments.slice(),
 		);
@@ -1273,8 +1309,8 @@ class mapBasisHelper {
 	 * @param {Array} options
 	 * @return {Object}
 	 */
-	infoWindow (options) {
-		return new this.AMapInstance.InfoWindow(merge({}, options, {map: this.mapInstance}));
+	infoWindow(options) {
+		return new this.AMapInstance.InfoWindow(merge({}, options, { map: this.mapInstance }));
 	}
 }
 

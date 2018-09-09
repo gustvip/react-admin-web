@@ -3,11 +3,11 @@
  */
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 import * as EnumMap from './constants/index';
 
 class mapBasisHelper {
-	constructor () {
+	constructor() {
 		this.map = null;
 		this.L = L;
 		this.EnumMap = EnumMap;
@@ -17,7 +17,7 @@ class mapBasisHelper {
 	 * 获取map实例
 	 * @return {Object}
 	 */
-	get mapInstance () {
+	get mapInstance() {
 		return this.map;
 	}
 	
@@ -25,7 +25,7 @@ class mapBasisHelper {
 	 * 获取map实例
 	 * @return {Object}
 	 */
-	get LInstance () {
+	get LInstance() {
 		return this.L;
 	}
 	
@@ -33,7 +33,7 @@ class mapBasisHelper {
 	 * 设置map容器
 	 * @param {Object} map
 	 */
-	setMap (map) {
+	setMap(map) {
 		this.map = map;
 		
 		return this;
@@ -52,7 +52,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	setView (center, zoom, options) {
+	setView(center, zoom, options) {
 		this.mapInstance.setView(center, zoom, options);
 		
 		return this;
@@ -64,7 +64,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	setZoom (zoom, options) {
+	setZoom(zoom, options) {
 		this.mapInstance.setZoom(zoom, options);
 		
 		return this;
@@ -76,7 +76,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	zoomIn (delta, options) {
+	zoomIn(delta, options) {
 		this.mapInstance.zoomIn(delta, options);
 		
 		return this;
@@ -88,7 +88,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	zoomOut (delta, options) {
+	zoomOut(delta, options) {
 		this.mapInstance.zoomOut(delta, options);
 		
 		return this;
@@ -101,7 +101,7 @@ class mapBasisHelper {
 	 * @param {Number} zoom
 	 * @return {mapBasisHelper}
 	 */
-	setZoomAround (latLng, zoom) {
+	setZoomAround(latLng, zoom) {
 		this.mapInstance.setZoomAround(latLng, zoom);
 		
 		return this;
@@ -113,7 +113,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	fitBounds (latLngBounds, options) {
+	fitBounds(latLngBounds, options) {
 		this.mapInstance.fitBounds(latLngBounds, options);
 		
 		return this;
@@ -125,7 +125,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	panTo (latLng, options) {
+	panTo(latLng, options) {
 		this.mapInstance.panTo(latLng, options);
 		
 		return this;
@@ -137,7 +137,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	panBy (point, options) {
+	panBy(point, options) {
 		this.mapInstance.panBy(point, options);
 		
 		return this;
@@ -149,7 +149,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	flyTo (latLng, options) {
+	flyTo(latLng, options) {
 		this.mapInstance.flyTo(latLng, options);
 		
 		return this;
@@ -161,7 +161,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	flyToBounds (latLngBounds, options) {
+	flyToBounds(latLngBounds, options) {
 		this.mapInstance.flyToBounds(latLngBounds, options);
 		
 		return this;
@@ -173,7 +173,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	setMaxBounds (bounds, options) {
+	setMaxBounds(bounds, options) {
 		this.mapInstance.setMaxBounds(bounds, options);
 		
 		return this;
@@ -185,7 +185,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	setMinZoom (zoom, options) {
+	setMinZoom(zoom, options) {
 		this.mapInstance.setMinZoom(zoom, options);
 		
 		return this;
@@ -197,7 +197,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	setMaxZoom (zoom, options) {
+	setMaxZoom(zoom, options) {
 		this.mapInstance.setMaxZoom(zoom, options);
 		
 		return this;
@@ -209,7 +209,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	panInsideBounds (latLngBounds, options) {
+	panInsideBounds(latLngBounds, options) {
 		this.mapInstance.panInsideBounds(latLngBounds, options);
 		
 		return this;
@@ -219,7 +219,7 @@ class mapBasisHelper {
 	 * 检查地图容器大小是否更改，如果是则更新地图 - 在动态更改地图大小后调用它，默认情况下也动画平移。如果options.pan是false，平移不会发生。如果options.debounceMoveend是true，它会延迟moveend事件，以致它不会经常发生，即使连续多次调用该方法
 	 * @return {mapBasisHelper}
 	 */
-	invalidateSize (...rest) {
+	invalidateSize(...rest) {
 		this.mapInstance.invalidateSize(...rest);
 		
 		return this;
@@ -229,7 +229,7 @@ class mapBasisHelper {
 	 * 如果有的话，停止当前运行panTo或flyTo动画
 	 * @return {mapBasisHelper}
 	 */
-	stop () {
+	stop() {
 		this.mapInstance.stop();
 		
 		return this;
@@ -246,7 +246,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
 	 */
-	locate (options) {
+	locate(options) {
 		this.mapInstance.locate(options);
 		
 		return this;
@@ -256,7 +256,7 @@ class mapBasisHelper {
 	 * 尝试找到使用Geolocation API的用户
 	 * @return {mapBasisHelper}
 	 */
-	stopLocate () {
+	stopLocate() {
 		this.mapInstance.stopLocate();
 		
 		return this;
@@ -274,7 +274,7 @@ class mapBasisHelper {
 	 * @param {Function} handlerClass
 	 * @return {mapBasisHelper}
 	 */
-	addHandler (name, handlerClass) {
+	addHandler(name, handlerClass) {
 		this.mapInstance.addHandler(name, handlerClass);
 		
 		return this;
@@ -284,7 +284,7 @@ class mapBasisHelper {
 	 * 销毁地图并清除所有相关的事件侦听器
 	 * @return {mapBasisHelper}
 	 */
-	remove () {
+	remove() {
 		this.mapInstance.remove();
 		
 		return this;
@@ -296,7 +296,7 @@ class mapBasisHelper {
 	 * @param {*} context
 	 * @return {mapBasisHelper}
 	 */
-	whenReady (fn, context) {
+	whenReady(fn, context) {
 		this.mapInstance.whenReady(fn, context);
 		
 		return this;
@@ -313,7 +313,7 @@ class mapBasisHelper {
 	 * @param {Object} control Control
 	 * @return {mapBasisHelper}
 	 */
-	addControl (control) {
+	addControl(control) {
 		this.mapInstance.addControl(control);
 		
 		return this;
@@ -324,7 +324,7 @@ class mapBasisHelper {
 	 * @param {Object} control Control
 	 * @return {mapBasisHelper}
 	 */
-	removeControl (control) {
+	removeControl(control) {
 		this.mapInstance.removeControl(control);
 		
 		return this;
@@ -335,7 +335,7 @@ class mapBasisHelper {
 	 * @param {Object} layer Layer
 	 * @return {mapBasisHelper}
 	 */
-	addLayer (layer) {
+	addLayer(layer) {
 		this.mapInstance.addLayer(layer);
 		
 		return this;
@@ -346,7 +346,7 @@ class mapBasisHelper {
 	 * @param {Object} layer Layer
 	 * @return {mapBasisHelper}
 	 */
-	removeLayer (layer) {
+	removeLayer(layer) {
 		this.mapInstance.removeLayer(layer);
 		
 		return this;
@@ -357,7 +357,7 @@ class mapBasisHelper {
 	 * @param {Object} layer Layer
 	 * @return {Boolean}
 	 */
-	hasLayer (layer) {
+	hasLayer(layer) {
 		return this.mapInstance.hasLayer(layer);
 	}
 	
@@ -367,7 +367,7 @@ class mapBasisHelper {
 	 * @param {Object} context
 	 * @return {mapBasisHelper}
 	 */
-	eachLayer (fn, context) {
+	eachLayer(fn, context) {
 		this.mapInstance.eachLayer(fn, context);
 		
 		return this;
@@ -385,7 +385,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	marker (latLng, options) {
+	marker(latLng, options) {
 		return this.LInstance.marker(latLng, options);
 	}
 	
@@ -395,7 +395,7 @@ class mapBasisHelper {
 	 * @param {Object} sources
 	 * @return {Object}
 	 */
-	popup (options, sources) {
+	popup(options, sources) {
 		return this.LInstance.popup(options, sources);
 	}
 	
@@ -405,7 +405,7 @@ class mapBasisHelper {
 	 * @param {Object} sources
 	 * @return {Object}
 	 */
-	tooltip (options, sources) {
+	tooltip(options, sources) {
 		return this.LInstance.tooltip(options, sources);
 	}
 	
@@ -415,7 +415,7 @@ class mapBasisHelper {
 	 * @param {Object} sources
 	 * @return {Object}
 	 */
-	path (options, sources) {
+	path(options, sources) {
 		return this.LInstance.path(options, sources);
 	}
 	
@@ -425,7 +425,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	polyline (latLngs, options) {
+	polyline(latLngs, options) {
 		return this.LInstance.polyline(
 			latLngs,
 			merge({}, EnumMap.COVER_POLYLINE_STYLE, options),
@@ -438,7 +438,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	polygon (latLngs, options) {
+	polygon(latLngs, options) {
 		return this.LInstance.polygon(
 			latLngs,
 			merge({}, EnumMap.COVER_POLYGON_STYLE, options),
@@ -451,7 +451,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	rectangle (latLngs, options) {
+	rectangle(latLngs, options) {
 		return this.LInstance.rectangle(
 			latLngs,
 			merge({}, EnumMap.COVER_RECTANGLE_STYLE, options),
@@ -464,7 +464,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	circle (latLngs, options) {
+	circle(latLngs, options) {
 		return this.LInstance.circle(
 			latLngs,
 			merge({}, EnumMap.COVER_CIRCLE_STYLE, options),
@@ -477,7 +477,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	circleMarker (latLngs, options) {
+	circleMarker(latLngs, options) {
 		return this.LInstance.circleMarker(
 			latLngs,
 			merge({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options));
@@ -488,7 +488,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	svg (options) {
+	svg(options) {
 		return this.LInstance.svg(options);
 	}
 	
@@ -497,7 +497,7 @@ class mapBasisHelper {
 	 * @param {Object} options
 	 * @return {Object}
 	 */
-	canvas (options) {
+	canvas(options) {
 		return this.LInstance.canvas(options);
 	}
 }

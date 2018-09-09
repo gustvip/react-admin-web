@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import mapUtils from 'utils/leaflet';
-import { merge, isFunction } from 'lodash';
+import merge from 'lodash/merge';
+import isFunction from 'lodash/isFunction';
 import classNames from 'utils/core/classNames';
 import * as React from 'react';
 
@@ -16,7 +17,7 @@ export default class LeafletComponent extends React.PureComponent {
 		style: PropTypes.object,
 	};
 	
-	get defaultOptions () {
+	get defaultOptions() {
 		return {
 			/**
 			 * 交互选项
@@ -39,22 +40,24 @@ export default class LeafletComponent extends React.PureComponent {
 		};
 	}
 	
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this._mapContainer = null;
 		this.mapUtils = new mapUtils();
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		const map = this.mapUtils.L.map(this._mapContainer, this.defaultOptions);
 		this.mapUtils.setMap(map);
-		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Map.tile, {}).addTo(map);
-		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Annotion.tile, {}).addTo(map);
+		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Map.tile, {})
+			.addTo(map);
+		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Annotion.tile, {})
+			.addTo(map);
 		
 		isFunction(this.props.mapLoadCallback) && this.props.mapLoadCallback();
 	}
 	
-	render () {
+	render() {
 		const baseStyle = {
 			position: 'absolute',
 			left: 0,
@@ -62,7 +65,7 @@ export default class LeafletComponent extends React.PureComponent {
 			top: 0,
 			bottom: 0,
 		};
-		const {className, style = {}} = this.props;
+		const { className, style = {} } = this.props;
 		return (
 			<div
 				ref={_mapContainer => this._mapContainer = _mapContainer}

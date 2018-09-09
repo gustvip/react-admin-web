@@ -1,4 +1,8 @@
-import { get, identity, each, isString, isNumber } from 'lodash';
+import get from 'lodash/get';
+import identity from 'lodash/identity';
+import each from 'lodash/each';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
 import classNames from './classNames';
 
 class Helper {
@@ -9,7 +13,7 @@ class Helper {
 	 * @param {String} property
 	 * @return {number}
 	 */
-	sort ({prev, now, property} = {}) {
+	sort({ prev, now, property } = {}) {
 		const prevValue = get(prev, property);
 		const nowValue = get(now, property);
 		if (prevValue < nowValue) {
@@ -27,10 +31,10 @@ class Helper {
 	 * @param {Boolean} enumerable 属性是否可以枚举
 	 * @return {*}
 	 */
-	immutable (data, callback = identity, enumerable = true) {
+	immutable(data, callback = identity, enumerable = true) {
 		const _this = this;
 		
-		return (function fn (_data) {
+		return (function fn(_data) {
 			let result = _data;
 			
 			if (_this.isObject(_data) || Array.isArray(_data)) {
@@ -52,7 +56,7 @@ class Helper {
 	 * @param {*} basisClass 不是字符串，默认为iconfont,不想加传递''
 	 * @return {Function}
 	 */
-	classNames (basisClass) {
+	classNames(basisClass) {
 		return (...rest) => classNames(isString(basisClass) ? basisClass : 'iconfont', ...rest);
 	}
 	
@@ -62,7 +66,7 @@ class Helper {
 	 * @param {String}    defaultVal  不满足条件的默认值
 	 * @return {String}
 	 */
-	showValue (val, defaultVal = '-') {
+	showValue(val, defaultVal = '-') {
 		return (this.checkString(val) || this.isUsefulNumber(val)) ? val : defaultVal;
 	}
 	
@@ -71,7 +75,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	checkArray (x) {
+	checkArray(x) {
 		return Array.isArray(x) && x.length > 0;
 	}
 	
@@ -80,7 +84,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	checkString (x) {
+	checkString(x) {
 		return isString(x) && x.trim().length > 0;
 	}
 	
@@ -89,7 +93,7 @@ class Helper {
 	 * @param x
 	 * @return {boolean}
 	 */
-	isObject (x) {
+	isObject(x) {
 		return Object.prototype.toString.call(x) === '[object Object]';
 	}
 	
@@ -98,7 +102,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	isUsefulNumber (x) {
+	isUsefulNumber(x) {
 		return isNumber(x) && isFinite(x);
 	}
 	
@@ -106,7 +110,7 @@ class Helper {
 	 * 去除尾部下划线
 	 * @param {String} x
 	 */
-	removeTrailingSlash (x) {
+	removeTrailingSlash(x) {
 		return /\/$/.test(x) ? x.slice(0, x.length - 1) : x;
 	}
 	
@@ -115,7 +119,7 @@ class Helper {
 	 * @param {String} x
 	 * @return {* || String}
 	 */
-	removeBlank (x) {
+	removeBlank(x) {
 		return isString(x) ? x.replace(/\s/g, '') : x;
 	}
 	
@@ -128,7 +132,7 @@ class Helper {
 	 * @param {String} childrenProperty 递归的属性名称
 	 * @return {Array}
 	 */
-	findPath ({data, stopValue, stopCallback, resultCallback, childrenProperty = 'children'} = {}) {
+	findPath({ data, stopValue, stopCallback, resultCallback, childrenProperty = 'children' } = {}) {
 		resultCallback = resultCallback ? resultCallback : stopCallback;
 		
 		let tag = false;
@@ -137,7 +141,7 @@ class Helper {
 		const len = data.length;
 		
 		while (!tag && index < len) {
-			(function fn (_data, _array) {
+			(function fn(_data, _array) {
 				const val = stopCallback(_data);
 				_array.push(resultCallback(_data));
 				
@@ -165,10 +169,10 @@ class Helper {
 	 * @param {String} [childrenName] 递归的属性名称---默认"children"
 	 * @return {Array}
 	 */
-	formatTree ({data, resultCallback, childrenName = 'children'} = {}) {
+	formatTree({ data, resultCallback, childrenName = 'children' } = {}) {
 		const _this = this;
 		
-		return (function fn (_data) {
+		return (function fn(_data) {
 			return _data.map(item => {
 				const children = item[childrenName];
 				const info = resultCallback(item);
@@ -191,7 +195,7 @@ class Helper {
 	 * @param {String} defaultVal 格式化错误的默认值
 	 * @return {String}
 	 */
-	toFixed (num, fixNum = 2, defaultVal = '-') {
+	toFixed(num, fixNum = 2, defaultVal = '-') {
 		num = Number(num);
 		return !isFinite(num) ? defaultVal : num.toFixed(fixNum);
 	}

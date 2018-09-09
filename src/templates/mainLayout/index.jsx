@@ -7,7 +7,10 @@ import PropTypes from 'prop-types';
 import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil';
 import style from './index.scss';
 import { EnumIconTypes } from 'constants/enumDefaultMenus';
-import { merge, isEqual, find, flowRight } from 'lodash';
+import merge from 'lodash/merge';
+import isEqual from 'lodash/isEqual';
+import find from 'lodash/find';
+import flowRight from 'lodash/flowRight';
 import { Select, Menu, Icon, Layout } from 'antd';
 
 /**
@@ -32,7 +35,7 @@ const getIcon = icon => {
  * @param {Function} leftRender
  * @param {Function} rightRender
  */
-export const MainHeader = ({className = '', title = '', styles = {}, leftRender = null, rightRender = null}) => {
+export const MainHeader = ({ className = '', title = '', styles = {}, leftRender = null, rightRender = null }) => {
 	const defaultClassName = style['content-header-container'];
 	const defaultStyle = {};
 	
@@ -62,7 +65,7 @@ MainHeader.propTypes = {
  * @param {Object} style
  * @param {Array} children
  */
-export const MainContent = ({className = '', styles = {}, children = null}) => {
+export const MainContent = ({ className = '', styles = {}, children = null }) => {
 	const defaultClassName = style['content-body-container'];
 	const defaultStyle = {};
 	
@@ -87,7 +90,7 @@ MainContent.propTypes = {
 	isCollapsed: PropTypes.bool.isRequired,
 })
 class SiderMenu extends React.PureComponent {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			defaultOpenKeys: getOpenKeys(props.locationPathname),
@@ -165,15 +168,15 @@ class SiderMenu extends React.PureComponent {
 		 * 将打开的菜单关闭---菜单宽度减少到80px，但是subMenu离左侧还是200px
 		 */
 		if (collapsed) {
-			_this.setState({defaultOpenKeys: []});
+			_this.setState({ defaultOpenKeys: [] });
 		} else {
-			_this.setState({defaultOpenKeys: getOpenKeys(_this.props.locationPathname)});
+			_this.setState({ defaultOpenKeys: getOpenKeys(_this.props.locationPathname) });
 		}
 		
 		_this.props.handleCollapsed();
 	};
 	
-	render () {
+	render() {
 		const _this = this;
 		const locationPathname = _this.props.locationPathname;
 		const menuData = getMenuData(locationPathname);
@@ -200,7 +203,7 @@ class SiderMenu extends React.PureComponent {
 	}
 }
 
-@T.decorator.propTypes({locationPathname: PropTypes.string.isRequired})
+@T.decorator.propTypes({ locationPathname: PropTypes.string.isRequired })
 @T.decorator.contextTypes('router')
 class Header extends React.PureComponent {
 	logout = () => {
@@ -211,7 +214,7 @@ class Header extends React.PureComponent {
 		);
 	};
 	
-	getTopRoute () {
+	getTopRoute() {
 		const _this = this;
 		
 		return <div className={style['drop-down-menu-container']}>
@@ -230,26 +233,27 @@ class Header extends React.PureComponent {
 		</div>;
 	}
 	
-	getCategoryRoute () {
+	getCategoryRoute() {
 		const _this = this;
 		
 		return <div className={style['category-menu-container']}>
 			{
-				getCategoryRoute(_this.props.locationPathname).map((item, index) => {
-					return <a
-						className={T.helper.classNames('')({[style['active']]: item.url.indexOf(_this.props.locationPathname) !== -1})}
-						key={index}
-						href={item.url[0]}
-					>
-						{getIcon(item.icon)}
-						{item.label}
-					</a>;
-				})
+				getCategoryRoute(_this.props.locationPathname)
+					.map((item, index) => {
+						return <a
+							className={T.helper.classNames('')({ [style['active']]: item.url.indexOf(_this.props.locationPathname) !== -1 })}
+							key={index}
+							href={item.url[0]}
+						>
+							{getIcon(item.icon)}
+							{item.label}
+						</a>;
+					})
 			}
 		</div>;
 	}
 	
-	render () {
+	render() {
 		const _this = this;
 		
 		return (
@@ -277,7 +281,7 @@ class Header extends React.PureComponent {
 }
 
 export default class MainLayout extends React.PureComponent {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 		this.state = {
@@ -286,14 +290,14 @@ export default class MainLayout extends React.PureComponent {
 	}
 	
 	handleCollapsed = () => {
-		this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}));
+		this.setState(previousState => ({ isCollapsed: !previousState.isCollapsed }));
 	};
 	
-	render () {
+	render() {
 		const _this = this;
 		return <Layout
 			id={style['main-container']}
-			style={{paddingLeft: _this.state.isCollapsed ? 80 : 200}}
+			style={{ paddingLeft: _this.state.isCollapsed ? 80 : 200 }}
 		>
 			<SiderMenu
 				locationPathname={_this.locationPathname}

@@ -3,7 +3,7 @@
  */
 
 import helper from 'utils/core/helper';
-import { flowRight } from 'lodash';
+import flowRight from 'lodash/flowRight';
 
 /**
  * @type {{rootPath: string, login: string, userAdd: string, userEdit: string, userList: string}}
