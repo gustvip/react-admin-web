@@ -2,7 +2,8 @@
  * Created by joey on 2018/2/19
  */
 import { create, CancelToken } from 'axios';
-import _ from 'lodash';
+import { forOwn, isPlainObject, noop, merge, transform } from 'lodash';
+
 const source = CancelToken.source();
 
 /**
@@ -15,7 +16,7 @@ const source = CancelToken.source();
 function objectToFormData (obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
-	_.forOwn(obj, ((value, property) => {
+	forOwn(obj, ((value, property) => {
 		let key = Array.isArray(obj) ? '[]' : `[${property}]`;
 		if (namespace) {
 			formKey = namespace + key;
@@ -23,7 +24,7 @@ function objectToFormData (obj, form, namespace) {
 			formKey = property;
 		}
 		
-		if (_.isPlainObject(value) && !value instanceof File) {
+		if (isPlainObject(value) && !value instanceof File) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);
@@ -37,7 +38,7 @@ function objectToFormData (obj, form, namespace) {
  * 解决IE报warning Unhandled Rejections Error 参数书不正确的问题
  * @private
  */
-Promise._unhandledRejectionFn = _.noop;
+Promise._unhandledRejectionFn = noop;
 
 const singleton = (function () {
 	let instantiated;
@@ -110,7 +111,7 @@ export function cancelAllRequest (reason = '') {
  * @returns {Promise}
  */
 export function get (url, params = {}, options = {}) {
-	return _request(_.merge({
+	return _request(merge({
 		url,
 		method: 'get',
 		params,
@@ -125,10 +126,10 @@ export function get (url, params = {}, options = {}) {
  * @returns {Promise}
  */
 export function post (url, data = {}, options = {}) {
-	return _request(_.merge({
+	return _request(merge({
 		url,
 		method: 'post',
-		data: _.transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
+		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	}, options));
 }
@@ -141,7 +142,7 @@ export function post (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function postJSON (url, data = {}, options = {}) {
-	return _request(_.merge({
+	return _request(merge({
 		url,
 		method: 'post',
 		data,
@@ -157,8 +158,8 @@ export function postJSON (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function upload (url, data = {}, options = {}, onUploadProgress = _.noop) {
-	return _request(_.merge({
+export function upload (url, data = {}, options = {}, onUploadProgress = noop) {
+	return _request(merge({
 		url,
 		method: 'post',
 		data: objectToFormData(data),
@@ -175,7 +176,7 @@ export function upload (url, data = {}, options = {}, onUploadProgress = _.noop)
  * @returns {Promise}
  */
 export function del (url, data = {}, options = {}) {
-	return _request(_.merge({
+	return _request(merge({
 		url,
 		method: 'delete',
 		data,
@@ -191,7 +192,7 @@ export function del (url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function put (url, data = {}, options = {}) {
-	return _request(_.merge({
+	return _request(merge({
 		url,
 		method: 'put',
 		data,

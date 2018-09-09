@@ -9,6 +9,7 @@
 
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import * as React from 'react';
 
 /**
  * 加载基础样式

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil';
 import style from './index.scss';
 import { EnumIconTypes } from 'constants/enumDefaultMenus';
-
+import { merge, isEqual, find, flowRight } from 'lodash';
 import { Select, Menu, Icon, Layout } from 'antd';
 
 /**
@@ -37,7 +37,7 @@ export const MainHeader = ({className = '', title = '', styles = {}, leftRender 
 	const defaultStyle = {};
 	
 	return (
-		<header className={T.helper.classNames(defaultClassName)(className)} style={T.lodash.merge(defaultStyle, styles)}>
+		<header className={T.helper.classNames(defaultClassName)(className)} style={merge(defaultStyle, styles)}>
 			<section className={style['left-container']}>
 				<section className={style['title-container']}>{title}</section>
 				{leftRender}
@@ -68,7 +68,7 @@ export const MainContent = ({className = '', styles = {}, children = null}) => {
 	
 	return (
 		<section
-			style={T.lodash.merge(defaultStyle, styles)}
+			style={merge(defaultStyle, styles)}
 			className={T.helper.classNames(defaultClassName)(className)}
 		>
 			{children}
@@ -152,7 +152,7 @@ class SiderMenu extends React.PureComponent {
 		 */
 		const _this = this;
 		_this.setState({
-			defaultOpenKeys: T.lodash.isEqual(defaultOpenKeys, _this.state.defaultOpenKeys)
+			defaultOpenKeys: isEqual(defaultOpenKeys, _this.state.defaultOpenKeys)
 				? defaultOpenKeys.slice(0, defaultOpenKeys.length - 1)
 				: defaultOpenKeys,
 		});
@@ -217,7 +217,7 @@ class Header extends React.PureComponent {
 		return <div className={style['drop-down-menu-container']}>
 			<Select
 				onSelect={value => _this.context.router.history.push(value)}
-				value={T.lodash.find(EnumMenus, value => value.url.indexOf(_this.props.locationPathname) !== -1).url[0]}
+				value={find(EnumMenus, value => value.url.indexOf(_this.props.locationPathname) !== -1).url[0]}
 			>
 				{
 					EnumMenus.map((item, index) => {
@@ -279,7 +279,7 @@ class Header extends React.PureComponent {
 export default class MainLayout extends React.PureComponent {
 	constructor (props) {
 		super(props);
-		this.locationPathname = T.lodash.flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
+		this.locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 		this.state = {
 			isCollapsed: false,
 		};

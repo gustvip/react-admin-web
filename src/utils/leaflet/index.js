@@ -3,13 +3,14 @@
  */
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import _ from 'lodash';
+import { merge } from 'lodash';
 import * as EnumMap from './constants/index';
 
 class mapBasisHelper {
 	constructor () {
 		this.map = null;
 		this.L = L;
+		this.EnumMap = EnumMap;
 	}
 	
 	/**
@@ -34,54 +35,6 @@ class mapBasisHelper {
 	 */
 	setMap (map) {
 		this.map = map;
-		
-		return this;
-	}
-	
-	/**
-	 * 默认的options
-	 */
-	static setOptions () {
-		return {
-			/**
-			 * 交互选项
-			 */
-			preferCanvas: true, 	// 是否开启canvas渲染
-			attributionControl: false, 	// 是否开启(右侧底部的地图的来源)
-			zoomControl: false, 	// 是否开启(缩放按钮)
-			closePopupOnClick: true, 	// 是否开启当点击地图时关闭popup
-			trackResize: true, 	// 是否自动处理浏览器窗口大小以自行更新
-			boxZoom: true, 	// 是否可以通过按住Shift键的同时拖动鼠标来缩放地图到指定的矩形区域
-			boxZdoubleClickZoomoom: true, 	// 是否可以通过双击放大地图并在按住Shift键的同时双击缩小地图。如果通过  'center'，双击缩放将放大到视图的中心，而不管鼠标位于何处
-			dragging: true, 	// 是否可以用鼠标/触摸拖动地图
-			
-			/**
-			 * 地图状态
-			 */
-			center: EnumMap.CENTER.normal,		// 地图中心
-			zoom: EnumMap.ZOOM.normal,		// 默认缩放
-			minZoom: EnumMap.ZOOM.min,		// 最小默认缩放
-			maxZoom: EnumMap.ZOOM.max,		// 最大默认缩放
-		};
-	}
-	
-	/**
-	 * 创建地图实列
-	 * @param {String} container
-	 * @param {Object} options
-	 * @return {Object}
-	 */
-	map (container, options) {
-		this.setMap(
-			new this.LInstance.map(
-				container,
-				_.merge(
-					{},
-					mapBasisHelper.setOptions(),
-					options,
-				),
-			),
-		);
 		
 		return this;
 	}
@@ -475,7 +428,7 @@ class mapBasisHelper {
 	polyline (latLngs, options) {
 		return this.LInstance.polyline(
 			latLngs,
-			_.merge({}, EnumMap.COVER_POLYLINE_STYLE, options),
+			merge({}, EnumMap.COVER_POLYLINE_STYLE, options),
 		);
 	}
 	
@@ -488,7 +441,7 @@ class mapBasisHelper {
 	polygon (latLngs, options) {
 		return this.LInstance.polygon(
 			latLngs,
-			_.merge({}, EnumMap.COVER_POLYGON_STYLE, options),
+			merge({}, EnumMap.COVER_POLYGON_STYLE, options),
 		);
 	}
 	
@@ -501,7 +454,7 @@ class mapBasisHelper {
 	rectangle (latLngs, options) {
 		return this.LInstance.rectangle(
 			latLngs,
-			_.merge({}, EnumMap.COVER_RECTANGLE_STYLE, options),
+			merge({}, EnumMap.COVER_RECTANGLE_STYLE, options),
 		);
 	}
 	
@@ -514,7 +467,7 @@ class mapBasisHelper {
 	circle (latLngs, options) {
 		return this.LInstance.circle(
 			latLngs,
-			_.merge({}, EnumMap.COVER_CIRCLE_STYLE, options),
+			merge({}, EnumMap.COVER_CIRCLE_STYLE, options),
 		);
 	}
 	
@@ -527,7 +480,7 @@ class mapBasisHelper {
 	circleMarker (latLngs, options) {
 		return this.LInstance.circleMarker(
 			latLngs,
-			_.merge({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options));
+			merge({}, EnumMap.COVER_CIRCLE_MARKER_STYLE, options));
 	}
 	
 	/**
@@ -549,4 +502,4 @@ class mapBasisHelper {
 	}
 }
 
-export default new mapBasisHelper();
+export default mapBasisHelper;

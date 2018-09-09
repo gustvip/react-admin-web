@@ -5,7 +5,7 @@ import EnumAPI from 'constants/enumAPI';
 import helper from './helper';
 import queryString from 'query-string';
 import localStorage from './localStorage';
-import _ from 'lodash';
+import { flowRight, noop } from 'lodash';
 import * as request from './request';
 
 class Auth {
@@ -18,7 +18,7 @@ class Auth {
 	 * @returns {boolean}
 	 */
 	get isLogin () {
-		const locationPathname = _.flowRight(helper.removeTrailingSlash, helper.removeBlank)(window.location.pathname);
+		const locationPathname = flowRight(helper.removeTrailingSlash, helper.removeBlank)(window.location.pathname);
 		const isNeedGetLocalStorage = this.ENV.login.isCheckLogin && this.ENV.login.noCheckIsLoginRoutes.indexOf(locationPathname) === -1;
 		
 		return isNeedGetLocalStorage
@@ -104,7 +104,7 @@ class Auth {
 	 * @param {[Function]} successCallback
 	 * @param {[Function]} failCallback
 	 */
-	login ({user_name, user_password, successCallback = _.noop, failCallback = _.noop} = {}) {
+	login ({user_name, user_password, successCallback = noop, failCallback = noop} = {}) {
 		request.post(EnumAPI.user_login, {user_name, user_password}).then(info => successCallback(info)).catch(info => failCallback(info));
 	}
 	

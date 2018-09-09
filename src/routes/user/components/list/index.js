@@ -5,7 +5,7 @@
 import T from 'utils/t';
 import * as actionTypes from '../../actions/list/index';
 import style from '../../scss/list/index.scss';
-
+import { assign } from 'lodash';
 import { Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { MainHeader, MainContent } from 'templates/mainLayout/index';
@@ -221,7 +221,7 @@ export default class Index extends React.PureComponent {
 	 * 获取表格数据
 	 */
 	get dataSource () {
-		return this.props.mapProps.dataSource.map((item, index) => T.lodash.assign({}, item, {key: index}));
+		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, {key: index}));
 	}
 	
 	/**

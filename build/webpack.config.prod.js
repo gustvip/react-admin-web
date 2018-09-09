@@ -104,7 +104,6 @@ module.exports = merge(baseConfig, {
 							limit: 8192,	 // <= 8kb的图片base64内联
 						},
 					},
-					
 					// 压缩图片
 					{
 						loader: 'image-webpack-loader',
@@ -144,7 +143,7 @@ module.exports = merge(baseConfig, {
 	
 	plugins: [
 		new miniCssExtractPlugin({
-			filename: '[name].css',
+			filename: '[name].[contenthash].css',
 		}),
 	],
 });

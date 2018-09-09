@@ -4,7 +4,7 @@
 
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
-import _ from 'lodash';
+import { noop, merge } from 'lodash';
 
 class Prompt {
 	constructor () {
@@ -19,7 +19,7 @@ class Prompt {
 	 * @param {Number} duration
 	 * @param {Function} onClose
 	 */
-	success (msg, duration = 2, onClose = _.noop) {
+	success (msg, duration = 2, onClose = noop) {
 		message.success(msg, duration, onClose);
 	}
 	
@@ -29,7 +29,7 @@ class Prompt {
 	 * @param {Number} duration
 	 * @param {Function} onClose
 	 */
-	error (msg, duration = 2, onClose = _.noop) {
+	error (msg, duration = 2, onClose = noop) {
 		message.error(msg, duration, onClose);
 	}
 	
@@ -39,7 +39,7 @@ class Prompt {
 	 * @param {Number} duration
 	 * @param {Function} onClose
 	 */
-	warn (msg, duration = 2, onClose = _.noop) {
+	warn (msg, duration = 2, onClose = noop) {
 		message.warn(msg, duration, onClose);
 	}
 	
@@ -48,12 +48,12 @@ class Prompt {
 	 * @param {Object} options
 	 */
 	confirm (options = {}) {
-		options = _.merge({
+		options = merge({
 			title: '确定删除吗？',
 			content: '',    // content可以是react节点实例
 			okText: '确定',
 			cancelText: '取消',
-			onCancel: _.noop,
+			onCancel: noop,
 		}, options);
 		
 		return Modal.confirm(options);

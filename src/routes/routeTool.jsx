@@ -2,10 +2,11 @@
  * Created by joey on 2018/02/19
  */
 import { Route } from 'react-router-dom';
-import T from 'utils/t';
+import { flattenDeep } from 'lodash';
 import Exception from 'templates/toolComponents/exception';
 import lazyLoad from 'templates/lazyLoad';
 import MainLayoutComponent from 'templates/mainLayout';
+import * as React from 'react';
 
 /**
  * 默认布局方式
@@ -48,7 +49,7 @@ export const MainLayout = ({component: Component, reducers, ...rest}) => {
  * @param {Array} routes
  * @returns {function()}
  */
-export const AssembleRoute = (...routes) => () => T.lodash.flattenDeep(routes).map(val => val.layout ? DefaultLayout(val) : MainLayout(val));
+export const AssembleRoute = (...routes) => () => flattenDeep(routes).map(val => val.layout ? DefaultLayout(val) : MainLayout(val));
 
 /**
  * 未匹配到的页面

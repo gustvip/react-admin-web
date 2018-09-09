@@ -20,8 +20,7 @@ const conf = {
  */
 const webpackConfigProd = merge(require('./webpack.config.prod'), {
 	output: {
-		//filename: '[name].[chunkhash].js',
-		filename: '[name].js',
+		filename: '[name].[contenthash].js',
 		publicPath: path.join(conf.proxyPath, conf.appName, '/'),
 		path: path.join(conf.webPath, conf.appName),
 	},
@@ -79,14 +78,11 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 	],
 });
 
-/**
- * 开始打包
- */
 doCompilerPlatform();
 
 function doCompilerPlatform () {
 	/**
-	 * 删除文件
+	 * rm -rf
 	 */
 	rm(conf.webPath, err => {
 		if (err) {

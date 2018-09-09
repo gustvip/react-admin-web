@@ -13,7 +13,6 @@
 		"tslint": "tslint 'src/**/*.{ts,tsx}'"
 	},
 	"dependencies": {
-		"@types/echarts": "^4.1.1",
 		"antd": "3.8.4",
 		"axios": "^0.18.0",
 		"crypto-js": "^3.1.9-1",
@@ -30,11 +29,9 @@
 		"react-redux": "^5.0.6",
 		"react-router-dom": "^4.3.1",
 		"redux": "3.7.2",
-		"url-search-params-polyfill": "^4.0.0"
+		"url-search-params-polyfill": "^5.0.0"
 	},
 	"devDependencies": {
-		"@types/crypto-js": "^3.1.43",
-		"@types/leaflet": "^1.2.11",
 		"@types/lodash": "^4.14.116",
 		"@types/prop-types": "^15.5.5",
 		"@types/react": "^16.4.13",
@@ -66,7 +63,6 @@
 		"eslint-plugin-jsx-a11y": "^6.1.1",
 		"eslint-plugin-react": "^7.11.1",
 		"file-loader": "^2.0.0",
-		"happypack": "^5.0.0",
 		"html-webpack-plugin": "^3.2.0",
 		"image-webpack-loader": "^4.3.1",
 		"jest": "^23.5.0",

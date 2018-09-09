@@ -1,7 +1,8 @@
 /**
  * Created by joey on 2018/2/18
  */
-import T from 'utils/t';
+import * as React from 'react';
+import auth from 'utils/core/auth';
 import EnumRouter from 'constants/enumRouter';
 import {
 	BrowserRouter,
@@ -14,7 +15,7 @@ import CommonRoutes from './common';         // 公共模块--相关路由,如:�
 import UserRoutes from './user';         // 用户相关模块
 import TestRoutes from './test';	         // 测试相关模块
 
-const checkLoginRedirect = () => <Redirect to={T.auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>;
+const checkLoginRedirect = () => <Redirect to={auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>;
 
 import { hot } from 'react-hot-loader';
 

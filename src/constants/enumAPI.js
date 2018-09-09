@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import _ from 'lodash';
+import { identity, flowRight } from 'lodash';
 
 const _userAPI = api => window.ENV.apiDomain + api;
 
@@ -22,5 +22,5 @@ export default helper.immutable({
 	user_update: _userAPI('/user/update'),
 	user_search: _userAPI('/user/search'),
 	user_list: _userAPI('/user/list'),
-}, _.flowRight(helper.removeTrailingSlash, helper.removeBlank, _.identity));
+}, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
 

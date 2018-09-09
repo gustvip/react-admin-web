@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { get, identity, each, isString, isNumber } from 'lodash';
 import classNames from './classNames';
 
 class Helper {
@@ -10,8 +10,8 @@ class Helper {
 	 * @return {number}
 	 */
 	sort ({prev, now, property} = {}) {
-		const prevValue = _.get(prev, property);
-		const nowValue = _.get(now, property);
+		const prevValue = get(prev, property);
+		const nowValue = get(now, property);
 		if (prevValue < nowValue) {
 			return -1;
 		} else if (prevValue > nowValue) {
@@ -27,7 +27,7 @@ class Helper {
 	 * @param {Boolean} enumerable 属性是否可以枚举
 	 * @return {*}
 	 */
-	immutable (data, callback = _.identity, enumerable = true) {
+	immutable (data, callback = identity, enumerable = true) {
 		const _this = this;
 		
 		return (function fn (_data) {
@@ -35,7 +35,7 @@ class Helper {
 			
 			if (_this.isObject(_data) || Array.isArray(_data)) {
 				result = Array.isArray(_data) ? [] : {};
-				_.each(_data, (value, key) => {
+				each(_data, (value, key) => {
 					Object.defineProperty(result, key, {
 						value: fn(callback(value, key)),
 						enumerable,
@@ -53,7 +53,7 @@ class Helper {
 	 * @return {Function}
 	 */
 	classNames (basisClass) {
-		return (...rest) => classNames(_.isString(basisClass) ? basisClass : 'iconfont', ...rest);
+		return (...rest) => classNames(isString(basisClass) ? basisClass : 'iconfont', ...rest);
 	}
 	
 	/**
@@ -81,7 +81,7 @@ class Helper {
 	 * @return {Boolean}
 	 */
 	checkString (x) {
-		return _.isString(x) && x.trim().length > 0;
+		return isString(x) && x.trim().length > 0;
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class Helper {
 	 * @return {Boolean}
 	 */
 	isUsefulNumber (x) {
-		return _.isNumber(x) && isFinite(x);
+		return isNumber(x) && isFinite(x);
 	}
 	
 	/**
@@ -116,7 +116,7 @@ class Helper {
 	 * @return {* || String}
 	 */
 	removeBlank (x) {
-		return _.isString(x) ? x.replace(/\s/g, '') : x;
+		return isString(x) ? x.replace(/\s/g, '') : x;
 	}
 	
 	/**
@@ -145,7 +145,7 @@ class Helper {
 					array = _array;
 					tag = true;
 				} else {
-					const childData = _.get(_data, childrenProperty);
+					const childData = get(_data, childrenProperty);
 					const len = childData.length;
 					let index = 0;
 					while (index < len && !tag) {

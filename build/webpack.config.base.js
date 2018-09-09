@@ -2,7 +2,6 @@
  * @description webpack 打包基本配置
  */
 const webpack = require('webpack');
-const happyPack = require('happypack');
 // 处理vtk规则
 const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rules;
 
@@ -84,13 +83,12 @@ module.exports = {
 			'react-redux',
 			'redux',
 			'prop-types',
-			'lodash',
 			'immutability-helper',
 			'query-string',
 			'es6-promise',
 			'url-search-params-polyfill',
 			
-			'utils/core/decorator.js',
+			'utils/core/decorate.js',
 			'utils/core/crypto.js',
 			'utils/core/request.js',
 			'utils/core/classNames/index.js',
