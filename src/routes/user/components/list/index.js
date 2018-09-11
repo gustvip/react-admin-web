@@ -5,13 +5,14 @@
 import T from 'utils/t';
 import * as actionTypes from '../../actions/list/index';
 import style from '../../scss/list/index.scss';
-import assign from 'lodash/assign';
 import { Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { MainHeader, MainContent } from 'templates/mainLayout/index';
 import Table from 'templates/toolComponents/table/index';
-
 import EnumRouter from 'constants/enumRouter';
+
+import assign from 'lodash/assign';
+import debounce from 'lodash/debounce';
 
 @T.decorator.contextTypes('router')
 export default class Index extends React.PureComponent {
@@ -19,36 +20,30 @@ export default class Index extends React.PureComponent {
 	 * 获取用户所有信息
 	 */
 	componentDidMount() {
-		const _this = this;
-		_this.props.dispatch(actionTypes.getInitialDataAction({
-			currentPage: _this.props.mapProps.currentPage,
-			pageSize: _this.props.mapProps.pageSize,
+		const self = this;
+		self.props.dispatch(actionTypes.getInitialDataAction({
+			currentPage: self.props.mapProps.currentPage,
+			pageSize: self.props.mapProps.pageSize,
 		}));
 	}
 	
 	/**
 	 * 删除相关用户
-	 * @param {Number || Array} user_id
+	 * @param {Number || Array} userId
 	 */
-	handleDelete = user_id => {
-		const userId = [];
-		const _this = this;
-		/**
-		 * user_id是数字的逻辑处理
-		 * user_id是数组的逻辑处理
-		 */
-		if (T.helper.isUsefulNumber(user_id)) {
-			userId.push(user_id);
-		} else if (T.helper.checkArray(user_id)) {
-			user_id.forEach(item => {
-				userId.push(_this.props.mapProps.dataSource[item].user_id);
-			});
+	handleDelete = userId => {
+		const userIdCollection = [];
+		const self = this;
+		if (T.helper.isUsefulNumber(userId)) {
+			userIdCollection.push(userId);
+		} else if (T.helper.checkArray(userId)) {
+			userId.forEach(item => userIdCollection.push(self.props.mapProps.dataSource[item].userId));
 		}
 		
-		T.helper.checkArray(userId) && _this.props.dispatch(actionTypes.deleteUserAction({
-			user_id: userId,
-			currentPage: _this.props.mapProps.currentPage,
-			pageSize: _this.props.mapProps.pageSize,
+		T.helper.checkArray(userIdCollection) && self.props.dispatch(actionTypes.deleteUserAction({
+			userId: userIdCollection,
+			currentPage: self.props.mapProps.currentPage,
+			pageSize: self.props.mapProps.pageSize,
 		}));
 	};
 	
@@ -62,13 +57,13 @@ export default class Index extends React.PureComponent {
 	
 	/**
 	 * 搜索
-	 * @param {String} value
+	 * @param {string} value
 	 */
 	handleSearch = value => {
-		const _this = this;
-		_this.props.dispatch(actionTypes.setUserSearchAction({
+		const self = this;
+		self.props.dispatch(actionTypes.setUserSearchAction({
 			userInfo: value,
-			limitLength: _this.props.mapProps.pageSize,
+			limitLength: self.props.mapProps.pageSize,
 		}));
 	};
 	
@@ -77,98 +72,42 @@ export default class Index extends React.PureComponent {
 	 * @returns {*[]}
 	 */
 	get columns() {
-		const _this = this;
+		const self = this;
 		
 		return [
 			{
 				title: 'id',
-				dataIndex: 'user_id',
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'user_id',
-					});
-				},
+				dataIndex: 'userId',
 			},
 			{
 				title: '名称',
-				dataIndex: 'user_name',
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'user_name',
-					});
-				},
+				dataIndex: 'userName',
 			},
 			{
 				title: '邮箱',
-				dataIndex: 'user_email',
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'user_email',
-					});
-				},
+				dataIndex: 'userEmail',
 			},
 			{
 				title: '电话',
-				dataIndex: 'user_phone',
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'user_phone',
-					});
-				},
+				dataIndex: 'userPhone',
 			},
 			{
 				title: '状态',
-				dataIndex: 'delete_status',
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'user_status',
-					});
-				},
+				dataIndex: 'deleteStatus',
 			},
 			{
 				title: '用户类型',
-				dataIndex: 'user_type',
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'user_type',
-					});
-				},
+				dataIndex: 'userType',
 			},
 			{
 				title: '创建时间',
-				dataIndex: 'created_at',
+				dataIndex: 'createdAt',
 				render: val => new Date(val).toLocaleDateString(),
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'created_at',
-					});
-				},
 			},
 			{
 				title: '更新时间',
-				dataIndex: 'updated_at',
+				dataIndex: 'updatedAt',
 				render: val => new Date(val).toLocaleDateString(),
-				sorter(a, b) {
-					return T.helper.sort({
-						prev: a,
-						now: b,
-						property: 'updated_at',
-					});
-				},
 			},
 			{
 				title: '操作',
@@ -178,7 +117,7 @@ export default class Index extends React.PureComponent {
 						<div>
 							<Button
 								type="primary"
-								onClick={() => _this.handleDelete(row.user_id)}
+								onClick={() => self.handleDelete(row.userId)}
 							>
 								删除
 							</Button>
@@ -186,7 +125,7 @@ export default class Index extends React.PureComponent {
 								to={{
 									pathname: EnumRouter.userEdit,
 									state: {
-										user_id: row.user_id,
+										userId: row.userId,
 									},
 								}}
 							>
@@ -200,7 +139,7 @@ export default class Index extends React.PureComponent {
 								to={{
 									pathname: EnumRouter.orderAdd,
 									state: {
-										user_id: row.user_id,
+										userId: row.userId,
 									},
 								}}
 							>
@@ -229,15 +168,15 @@ export default class Index extends React.PureComponent {
 	 * @returns {{current: *, total: ((key?: (IDBKeyRange | IDBValidKey)) => IDBRequest) | ((countTitle?: string) => void), pageSize: *, showQuickJumper: boolean, onChange(*=, *=): void}}
 	 */
 	get pagination() {
-		const _this = this;
+		const self = this;
 		
 		return {
-			current: _this.props.mapProps.currentPage,
-			total: _this.props.mapProps.count,
-			pageSize: _this.props.mapProps.pageSize,
+			current: self.props.mapProps.currentPage,
+			total: self.props.mapProps.count,
+			pageSize: self.props.mapProps.pageSize,
 			showQuickJumper: true,
 			onChange(currentPage, pageSize) {
-				_this.props.dispatch(actionTypes.getUserListAction({
+				self.props.dispatch(actionTypes.getUserListAction({
 					currentPage,
 					pageSize,
 				}));
@@ -250,18 +189,18 @@ export default class Index extends React.PureComponent {
 	 * @return {*}
 	 */
 	get rowSelection() {
-		const _this = this;
+		const self = this;
 		
 		return {
-			selectedRowKeys: _this.props.mapProps.selectedRowKeys,
+			selectedRowKeys: self.props.mapProps.selectedRowKeys,
 			onChange(selectedRowKeys) {
-				return _this.handleSelectedRowKeys(selectedRowKeys);
+				return self.handleSelectedRowKeys(selectedRowKeys);
 			},
 		};
 	};
 	
 	render() {
-		const _this = this;
+		const self = this;
 		
 		return [
 			<MainHeader title="content-header" key="0"/>,
@@ -270,20 +209,20 @@ export default class Index extends React.PureComponent {
 					<div className={style['left-container']}>
 						<Button
 							type="primary"
-							onClick={() => _this.handleDelete(_this.props.mapProps.selectedRowKeys)}
+							onClick={debounce(() => self.handleDelete(self.props.mapProps.selectedRowKeys), 300)}
 						>
 							删除
 						</Button>
 					</div>
 					<div className={style['right-container']}>
-						<Input placeholder="请搜索" onChange={e => _this.handleSearch(e.target.value)}/>
+						<Input.Search placeholder="请搜索" onSearch={debounce(value => self.handleSearch(value), 300)}/>
 					</div>
 				</header>
 				<Table
-					dataSource={_this.dataSource}
-					columns={_this.columns}
-					pagination={_this.pagination}
-					rowSelection={_this.rowSelection}
+					dataSource={self.dataSource}
+					columns={self.columns}
+					pagination={self.pagination}
+					rowSelection={self.rowSelection}
 				/>
 			</MainContent>,
 		];

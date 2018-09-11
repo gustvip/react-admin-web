@@ -1,85 +1,86 @@
 /**
  * Created by joey on 17-8-30.
  */
+import enumRouter from 'constants/enumRouter';
+import regExp from 'utils/core/regExp';
+import auth from 'utils/core/auth';
+import crypto from 'utils/core/crypto';
+import prompt from 'utils/core/prompt';
+import * as decorate from 'utils/core/decorate';
 
 import styles from './index.scss';
-import T from 'utils/t';
 import { Button, Input, Checkbox } from 'antd';
-import enumRouter from 'constants/enumRouter';
+import bg from './img/bg.png';
 
-const bg = require('./img/bg.png');
-
-@T.decorator.contextTypes('router')
+@decorate.contextTypes('router')
 export default class Login extends React.PureComponent {
 	
-	static userNameStorageValue = T.auth.getUserNameStorageValue();
-	static userPasswordStorageValue = T.auth.getUserPasswordStorageValue();
+	static userNameStorageValue = auth.getUserNameStorageValue();
+	static userPasswordStorageValue = auth.getUserPasswordStorageValue();
 	
-	constructor () {
+	constructor() {
 		super();
 		this.state = {
 			isRemember: true,
-			user_name: Login.userNameStorageValue ? Login.userNameStorageValue : '',
-			user_password: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : '',
+			userName: Login.userNameStorageValue ? Login.userNameStorageValue : '',
+			userPassword: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : '',
 			loading: false,
 		};
 	}
 	
-	handleEnterDown = (e) => e.keyCode === 13 ? this.handleSubmit() : null;
-	
-	checkParam = (user_name, user_password) => {
-		if (!(T.regExp.name.test(user_name) || T.regExp.email.test(user_name) || T.regExp.telephone.test(user_name))) {
-			T.prompt.warn('账号格式不对');
+	checkParam = (userName, userPassword) => {
+		if (!(regExp.name.test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
+			prompt.warn('账号格式不对');
 			return false;
 		}
 		
-		if (!(user_password === Login.userPasswordStorageValue || T.regExp.password.test(user_password))) {
-			T.prompt.warn('密码格式不对');
+		if (!(userPassword === Login.userPasswordStorageValue || regExp.password.test(userPassword))) {
+			prompt.warn('密码格式不对');
 			return false;
 		}
 		return true;
 	};
 	
 	handleSubmit = () => {
-		const _this = this;
-		const user_name = _this.state.user_name.trim();
-		let user_password = _this.state.user_password.trim();
+		const self = this;
+		const userName = self.state.userName.trim();
+		let userPassword = self.state.userPassword.trim();
 		
-		if (_this.checkParam(user_name, user_password)) {
-			_this.setState({loading: true}, () => {
+		if (self.checkParam(userName, userPassword)) {
+			self.setState({ loading: true }, () => {
 				
-				user_password = user_password === Login.userPasswordStorageValue
+				userPassword = userPassword === Login.userPasswordStorageValue
 					? Login.userPasswordStorageValue
-					: T.crypto.hmacSHA512(user_password, user_password);
+					: crypto.hmacSHA512(userPassword, userPassword);
 				
-				T.auth.login({
-					user_name: user_name,
-					user_password: user_password,
-					successCallback () {
-						T.prompt.success('登陆成功,正在跳转');
+				auth.login(
+					userName,
+					userPassword,
+					() => {
+						prompt.success('登陆成功,正在跳转');
 						
-						if (_this.state.isRemember) {
-							T.auth.setUserNameStorageValue(user_name);
-							T.auth.setUserPasswordStorageValue(user_password);
+						if (self.state.isRemember) {
+							auth.setUserNameStorageValue(userName);
+							auth.setUserPasswordStorageValue(userPassword);
 						} else {
-							T.auth.removeUserNameStorageValue();
-							T.auth.removeUserPasswordStorageValue();
+							auth.removeUserNameStorageValue();
+							auth.removeUserPasswordStorageValue();
 						}
 						
-						T.auth.setLoginStorageValue();
-						T.auth.loginSuccessRedirect(_this.context.router.history, _this.context.router.route.location.state);
+						auth.setLoginStorageValue();
+						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
-					failCallback (info) {
-						_this.setState({loading: false});
-						T.prompt.error(info.msg);
+					(info) => {
+						self.setState({ loading: false });
+						prompt.error(info.msg);
 					},
-				});
+				);
 			});
 		}
 	};
 	
-	render () {
-		const _this = this;
+	render() {
+		const self = this;
 		
 		return (
 			<div id={styles['login-container']}>
@@ -87,33 +88,33 @@ export default class Login extends React.PureComponent {
 				<div className={styles['condition-container']}>
 					<Input
 						type="text"
-						value={_this.state.user_name}
+						value={self.state.userName}
 						className={styles['login_email']}
-						onChange={e => _this.setState({user_name: e.target.value.trim()})}
+						onChange={e => self.setState({ userName: e.target.value.trim() })}
 						placeholder="邮箱"
-						onKeyDown={e => _this.handleEnterDown(e)}
+						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
 					/>
 					<Input
 						type="password"
-						value={_this.state.user_password}
+						value={self.state.userPassword}
 						className={styles['login_password']}
-						onChange={e => _this.setState({user_password: e.target.value.trim()})}
+						onChange={e => self.setState({ userPassword: e.target.value.trim() })}
 						placeholder="密码"
-						onKeyDown={e => _this.handleEnterDown(e)}
+						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
 					/>
 					
 					<Button
 						type="primary"
-						disabled={_this.state.loading}
-						loading={_this.state.loading}
-						onClick={() => _this.handleSubmit()}
+						disabled={self.state.loading}
+						loading={self.state.loading}
+						onClick={() => self.handleSubmit()}
 					>
 						登&nbsp;&nbsp;录
 					</Button>
 					<footer>
 						<Checkbox
-							onChange={event => _this.setState({isRemember: event.target.checked})}
-							checked={_this.state.isRemember}
+							onChange={event => self.setState({ isRemember: event.target.checked })}
+							checked={self.state.isRemember}
 						>
 							记住我
 						</Checkbox>

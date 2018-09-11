@@ -4,6 +4,9 @@
 
 import Modal from 'antd/lib/modal';
 import message from 'antd/lib/message';
+import 'antd/lib/message/style';
+import 'antd/lib/modal/style';
+
 import noop from 'lodash/noop';
 import merge from 'lodash/merge';
 

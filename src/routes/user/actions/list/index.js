@@ -47,10 +47,10 @@ export const getUserListAction = condition => dispatch => {
 
 /**
  * 删除用户
- * @param {Object} condition {{user_id: Array, currentPage: Number, pageSize: Number}}
+ * @param {Object} condition {{userId: Array, currentPage: Number, pageSize: Number}}
  */
 export const deleteUserAction = condition => dispatch => {
-	webAPI.deleteUser(condition.user_id).then(() => {
+	webAPI.deleteUser(condition.userId).then(() => {
 		return webAPI.getUserList({currentPage: condition.currentPage, pageSize: condition.pageSize});
 	}).then(info => {
 		dispatch({

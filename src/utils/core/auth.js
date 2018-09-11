@@ -1,13 +1,14 @@
 /**
  * created by joey 2018/02/19
  */
-import EnumAPI from 'constants/enumAPI';
+import enumAPI from 'constants/enumAPI';
 import helper from './helper';
 import queryString from 'query-string';
 import localStorage from './localStorage';
-import flowRight from 'lodash/flowRight';
-import noop from 'lodash/noop';
 import * as request from './request';
+
+import flowRight from 'lodash/flowRight';
+import isFunction from 'lodash/isFunction';
 
 class Auth {
 	constructor() {
@@ -55,63 +56,63 @@ class Auth {
 	 * @returns {*}
 	 */
 	getUserNameStorageValue() {
-		return localStorage.getItem(this.ENV.localStorage.user_name.key);
+		return localStorage.getItem(this.ENV.localStorage.userName.key);
 	}
 	
 	/**
 	 * 设置登录的localStorage(自定义)的user_name值
-	 * @param {String} user_name_value 用户名
+	 * @param {string} userNameValue 用户名
 	 */
-	setUserNameStorageValue(user_name_value) {
-		const user_name = this.ENV.localStorage.user_name;
-		localStorage.setItem(user_name.key, user_name_value, user_name.expire);
+	setUserNameStorageValue(userNameValue) {
+		const userName = this.ENV.localStorage.userName;
+		localStorage.setItem(userName.key, userNameValue, userName.expire);
 	}
 	
 	/**
-	 * 移除登录的localStorage(自定义)的user_name值
+	 * 移除登录的localStorage(自定义)的userName值
 	 */
 	removeUserNameStorageValue() {
-		localStorage.removeItem(this.ENV.localStorage.user_name.key);
+		localStorage.removeItem(this.ENV.localStorage.userName.key);
 	}
 	
 	/**
-	 * 获取localStorage(自定义)的user_password值
+	 * 获取localStorage(自定义)的userPassword值
 	 * @returns {*}
 	 */
 	getUserPasswordStorageValue() {
-		return localStorage.getItem(this.ENV.localStorage.user_password.key);
+		return localStorage.getItem(this.ENV.localStorage.userPassword.key);
 	}
 	
 	/**
-	 * 设置登录的localStorage(自定义)的user_password值
-	 * @param {String} user_password_value 用户名
+	 * 设置登录的localStorage(自定义)的userPassword值
+	 * @param {string} userPasswordValue 用户名
 	 */
-	setUserPasswordStorageValue(user_password_value) {
-		const user_password = this.ENV.localStorage.user_password;
-		localStorage.setItem(user_password.key, user_password_value, user_password.expire);
+	setUserPasswordStorageValue(userPasswordValue) {
+		const userPassword = this.ENV.localStorage.userPassword;
+		localStorage.setItem(userPassword.key, userPasswordValue, userPassword.expire);
 	}
 	
 	/**
 	 * 移除登录的localStorage(自定义)的user_password值
 	 */
 	removeUserPasswordStorageValue() {
-		localStorage.removeItem(this.ENV.localStorage.user_password.key);
+		localStorage.removeItem(this.ENV.localStorage.userPassword.key);
 	}
 	
 	/**
 	 * 登录
-	 * @param {String} user_name
-	 * @param {String} user_password
-	 * @param {[Function]} successCallback
-	 * @param {[Function]} failCallback
+	 * @param {string} userName
+	 * @param {string} userPassword
+	 * @param {function} [successCallback]
+	 * @param {function} [failCallback]
 	 */
-	login({ user_name, user_password, successCallback = noop, failCallback = noop } = {}) {
-		request.post(EnumAPI.user_login, {
-			user_name,
-			user_password,
+	login(userName, userPassword, successCallback, failCallback) {
+		request.post(enumAPI.user_login, {
+			userName,
+			userPassword,
 		})
-			.then(info => successCallback(info))
-			.catch(info => failCallback(info));
+			.then(info => isFunction(successCallback) && successCallback(info))
+			.catch(info => isFunction(failCallback) && failCallback(info));
 	}
 	
 	/**

@@ -1,9 +1,11 @@
 (function () {
 	'use strict';
 	var rootPath = '/pw/';
+	var apiDomain = 'http://localhost:8081';
+	
 	Object.defineProperty(window, 'ENV', {
 		value: immutable({
-			apiDomain: 'http://localhost:8081',         // api请求接口
+			apiDomain: apiDomain,         // api请求接口
 			rootPath: rootPath,                       	// 路由的根路径
 			apiSuccessCode: 0,                          // api响应成功的code
 			apiFailCode: 900,                          // api响应失败的code
@@ -26,11 +28,11 @@
 					value: '__LOGIN_USER_INFO__',									// 私有localStorage的key下的登陆的value
 					expire: 24 * 60 * 60 * 1000,		// 私有localStorage的key下的登陆的expire
 				},
-				user_name: {
+				userName: {
 					key: '__user_name__',		// 私有localStorage的key下的用户名key
 					expire: 0,		// 私有localStorage的key下的登陆的expire
 				},
-				user_password: {
+				userPassword: {
 					key: '__user_password__',		// 私有localStorage的key下的用户密码key
 					expire: 0,		// 私有localStorage的key下的登陆的expire
 				},
@@ -40,16 +42,16 @@
 		configurable: false,
 	});
 	
-	function isObject (x) {
+	function isObject(x) {
 		return Object.prototype.toString.call(x) === '[object Object]';
 	}
 	
-	function immutable (data, callback) {
+	function immutable(data, callback) {
 		callback = callback ? callback : function (value, key) {
 			return value;
 		};
 		
-		return (function fn (_data) {
+		return (function fn(_data) {
 			var result = _data;
 			
 			if (Array.isArray(_data)) {

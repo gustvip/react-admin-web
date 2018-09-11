@@ -14,8 +14,6 @@ import * as React from 'react';
 /**
  * 加载基础样式
  */
-import 'antd/lib/message/style';
-import 'antd/lib/modal/style';
 import './base.scss';
 
 /**

@@ -2,10 +2,10 @@
  * Created by joey on 2018/2/18
  */
 
-import EnumRouter from 'constants/enumRouter'
-import { AssembleRoute, DefaultLayout } from 'routes/routeTool'
+import EnumRouter from 'constants/enumRouter';
+import { AssembleRoute, DefaultLayout } from 'routes/routeTool';
 
-import TestDemo from './routes/demo/index'
+import TestDemo from './routes/demo/index';
 
 export default AssembleRoute([
 	{
@@ -13,4 +13,4 @@ export default AssembleRoute([
 		path: EnumRouter.testDemo,
 		component: TestDemo,
 	},
-])
+]);
