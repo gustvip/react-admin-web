@@ -52,6 +52,7 @@
 		"csv-loader": "^3.0.2",
 		"eslint": "^5.4.0",
 		"eslint-config-airbnb": "^17.1.0",
+		"eslint-plugin-babel": "^5.2.0",
 		"eslint-plugin-import": "^2.14.0",
 		"eslint-plugin-jest": "^21.21.0",
 		"eslint-plugin-jsx-a11y": "^6.1.1",
