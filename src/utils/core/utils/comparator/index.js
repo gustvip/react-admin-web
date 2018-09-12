@@ -33,7 +33,7 @@ export default (function () {
 	}
 
 	function reverse() {
-		const compareOriginal = this.compare;
+		var compareOriginal = this.compare;
 		this.compare = function (a, b) {
 			return compareOriginal(b, a);
 		};

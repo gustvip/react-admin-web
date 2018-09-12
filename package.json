@@ -106,7 +106,7 @@
 		"Opera >= 30"
 	],
 	"pre-commit": [
-		"test"
+
 	],
 	"engines": {
 		"node": "8.11"

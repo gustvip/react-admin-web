@@ -19,6 +19,7 @@ export const contextTypes = (...params) => {
 					case 'router':
 						targetClass.contextTypes[type] = PropTypes.object.isRequired;
 						break;
+					default:
 				}
 			}
 		});

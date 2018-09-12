@@ -16,16 +16,16 @@ export default function isEmpty(x) {
 	if (isNil(x)) {
 		return true;
 	}
-
+	
 	if (isArrayLike(x) && (isArray(x) || isString(x) || isArguments(x))) {
 		return !x.length;
 	}
-
-	for (const key in x) {
-		if (Object.prototype.hasOwnProperty.call(x,key)) {
+	
+	for (var key in x) {
+		if (Object.prototype.hasOwnProperty.call(x, key)) {
 			return false;
 		}
 	}
-
+	
 	return true;
 }

@@ -10,7 +10,7 @@ import toInteger from '../toInteger';
  */
 export default function toLength(x) {
 	x = toInteger(x);
-	const MAX_ARRAY_INDEX = 4294967295;
+	var MAX_ARRAY_INDEX = 4294967295;
 	if (x < 0) {
 		return 0;
 	} if (x > MAX_ARRAY_INDEX) {

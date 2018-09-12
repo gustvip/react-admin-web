@@ -4,7 +4,7 @@
 import findIndex from '../utils/findIndex/index';
 import isFunction from '../utils/isFunction/index';
 
-export default (function () {
+export default (function() {
 	/**
 	 * 内部增加监听函数处理
 	 * @param {String} type 类型
@@ -16,15 +16,17 @@ export default (function () {
 		if (!isFunction(callback)) {
 			throw new TypeError('callback must be function');
 		}
-		const row = this.__selfListeners__[type];
-
-
-		const obj = { isOnce, callback };
+		var row = this.__selfListeners__[type];
+		
+		var obj = {
+			isOnce,
+			callback,
+		};
 		row ? row.push(obj)
 			: this.__selfListeners__[type] = [obj];
 		return this;
 	}
-
+	
 	/**
 	 * 增加监听函数(可多次调用)
 	 * @param {String} type 类型
@@ -34,7 +36,7 @@ export default (function () {
 	function addListener(type, callback) {
 		return _addListener.call(this, type, callback, false);
 	}
-
+	
 	/**
 	 * 增加监听函数(一次性)
 	 * @param {String} type 类型
@@ -44,7 +46,7 @@ export default (function () {
 	function addOnceListener(type, callback) {
 		return _addListener.call(this, type, callback, true);
 	}
-
+	
 	/**
 	 * 移除所有监听的函数
 	 * @returns {Object}
@@ -53,7 +55,7 @@ export default (function () {
 		this.__selfListeners__ = {};
 		return this;
 	}
-
+	
 	/**
 	 * 移除某一类的所有监听函数
 	 * @returns {Object}
@@ -62,7 +64,7 @@ export default (function () {
 		delete this.__selfListeners__[type];
 		return this;
 	}
-
+	
 	/**
 	 * 移除监听的函数
 	 * @param {String} type 类型
@@ -70,32 +72,32 @@ export default (function () {
 	 * @returns {Object}
 	 */
 	function removeListener(type, callback) {
-		const row = this.__selfListeners__[type];
-		let index;
+		var row = this.__selfListeners__[type];
+		var index;
 		if (row) {
 			index = findIndex(row, (value) => {
 				return value.callback === callback;
 			});
-
+			
 			if (index !== -1) {
 				row.splice(index, 1);
 			}
-
+			
 			if (!row.length) {
 				delete this.__selfListeners__[type];
 			}
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 促发监听的函数
 	 * @param {String} type 监听时的类型
 	 * @returns {Object}
 	 */
 	function trigger(type) {
-		const row = this.__selfListeners__[type];
-		const arg = arguments;
+		var row = this.__selfListeners__[type];
+		var arg = arguments;
 		if (row) {
 			this.__selfListeners__[type] = row.filter((value) => {
 				value.callback.apply(null, [].slice.call(arg, 1));
@@ -107,7 +109,7 @@ export default (function () {
 		}
 		return this;
 	}
-
+	
 	Object.defineProperties(Emitter.prototype, {
 		constructor: {
 			value: Emitter,
@@ -154,11 +156,11 @@ export default (function () {
 			configuarable: false,
 		},
 	});
-
+	
 	function Emitter() {
 		this.removeAllListener();
 	}
-
+	
 	return function emitter() {
 		return new Emitter();
 	};

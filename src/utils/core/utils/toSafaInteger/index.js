@@ -10,7 +10,7 @@ import toInteger from '../toInteger';
  */
 export default function toSafeInteger(x) {
 	x = toInteger(x);
-	const MAX_SAFE_INTEGER = 9007199254740991;
+	var MAX_SAFE_INTEGER = 9007199254740991;
 	if (x < -MAX_SAFE_INTEGER) {
 		return -MAX_SAFE_INTEGER;
 	} if (x > MAX_SAFE_INTEGER) {
