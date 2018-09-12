@@ -7,7 +7,6 @@
  * @param {*} x
  * @returns {number}
  */
-export default function toNumber (x) {
+export default function toNumber(x) {
 	return Number(x);
-};
-
+}

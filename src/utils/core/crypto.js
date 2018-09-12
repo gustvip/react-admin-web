@@ -8,26 +8,26 @@ class Crypto {
 	 * @param {*} info
 	 * @returns {String}
 	 */
-	md5 (info) {
+	md5(info) {
 		return md5(String(info)).toString();
 	}
-	
+
 	/**
 	 * sha512加密
 	 * @param {*} info
 	 * @returns {String}
 	 */
-	sha512 (info) {
+	sha512(info) {
 		return sha512(String(info)).toString();
 	}
-	
+
 	/**
 	 * hmac-sha512加密算法
 	 * @param {*} info
 	 * @param {*} key
 	 * @returns {String}
 	 */
-	hmacSHA512 (info, key) {
+	hmacSHA512(info, key) {
 		return hmacSHA512(String(info), String(key)).toString();
 	}
 }

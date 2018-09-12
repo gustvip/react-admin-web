@@ -8,6 +8,6 @@ import isNumber from '../isNumber';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isInteger (x) {
+export default function isInteger(x) {
 	return isNumber(x) && isFinite(x) && Math.floor(x) === x;
-};
+}

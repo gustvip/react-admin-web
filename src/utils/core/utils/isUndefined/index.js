@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isUndefined (x) {
+export default function isUndefined(x) {
 	return x === undefined;
-};
+}

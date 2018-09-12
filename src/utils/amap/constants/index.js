@@ -47,15 +47,15 @@ export const LANG = helper.immutable({
  * @type {{normal: {value: string, label: string}, whitesmoke: {value: string, label: string}, graffiti: {value: string, label: string}, darkblue: {value: string, label: string}, blue: {value: string, label: string}, fresh: {value: string, label: string}, dark: {value: string, label: string}, light: {value: string, label: string}, grey: {value: string, label: string}}}
  */
 export const MAP_STYLE = helper.immutable({
-	normal: {value: 'amap://styles/normal', label: '标准'},
-	whitesmoke: {value: 'amap://styles/whitesmoke', label: '远山黛'},
-	graffiti: {value: 'amap://styles/graffiti', label: '涂鸦'},
-	darkblue: {value: 'amap://styles/darkblue', label: '极夜蓝'},
-	blue: {value: 'amap://styles/blue', label: '靛青蓝'},
-	fresh: {value: 'amap://styles/fresh', label: '草色青'},
-	dark: {value: 'amap://styles/dark', label: '幻影黑'},
-	light: {value: 'amap://styles/light', label: '月光银'},
-	grey: {value: 'amap://styles/grey', label: '雅士灰'},
+	normal: { value: 'amap://styles/normal', label: '标准' },
+	whitesmoke: { value: 'amap://styles/whitesmoke', label: '远山黛' },
+	graffiti: { value: 'amap://styles/graffiti', label: '涂鸦' },
+	darkblue: { value: 'amap://styles/darkblue', label: '极夜蓝' },
+	blue: { value: 'amap://styles/blue', label: '靛青蓝' },
+	fresh: { value: 'amap://styles/fresh', label: '草色青' },
+	dark: { value: 'amap://styles/dark', label: '幻影黑' },
+	light: { value: 'amap://styles/light', label: '月光银' },
+	grey: { value: 'amap://styles/grey', label: '雅士灰' },
 });
 
 /**
@@ -107,11 +107,11 @@ export const MORE_DRAW_TYPE = helper.immutable({
  * @type {{TileLayer: {value: string, label: string, isBasis: boolean}, TileLayer_Satellite: {value: string, label: string, isBasis: boolean}, TileLayer_RoadNet: {value: string, label: string, isBasis: boolean}, TileLayer_Traffic: {value: string, label: string, isBasis: boolean}, MassMarks: {value: string, label: string, isBasis: boolean}}}
  */
 export const LAYER = helper.immutable({
-	TileLayer: {value: 'AMap.TileLayer', label: '切片', isBasis: true},
-	TileLayer_Satellite: {value: 'AMap.TileLayer.Satellite', label: '卫星', isBasis: true},
-	TileLayer_RoadNet: {value: 'AMap.TileLayer.RoadNet', label: '路网', isBasis: true},
-	TileLayer_Traffic: {value: 'AMap.TileLayer.Traffic', label: '实时交通', isBasis: true},
-	MassMarks: {value: 'AMap.MassMarks', label: '海量麻点', isBasis: false},
+	TileLayer: { value: 'AMap.TileLayer', label: '切片', isBasis: true },
+	TileLayer_Satellite: { value: 'AMap.TileLayer.Satellite', label: '卫星', isBasis: true },
+	TileLayer_RoadNet: { value: 'AMap.TileLayer.RoadNet', label: '路网', isBasis: true },
+	TileLayer_Traffic: { value: 'AMap.TileLayer.Traffic', label: '实时交通', isBasis: true },
+	MassMarks: { value: 'AMap.MassMarks', label: '海量麻点', isBasis: false },
 });
 
 /**
@@ -133,9 +133,9 @@ export const COVER_COMMON_STYLE = helper.immutable({
  */
 export const COVER_TEXT_STYLE = helper.immutable({
 	'background-color': 'rgba(0,0,0,.5)',
-	'padding': '10px 20px',
-	'border': 'none',
-	'color': '#fff',
+	padding: '10px 20px',
+	border: 'none',
+	color: '#fff',
 	'font-size': '12px',
 });
 
@@ -143,13 +143,13 @@ export const COVER_TEXT_STYLE = helper.immutable({
  * 覆盖物Polyline样式
  */
 export const COVER_POLYLINE_STYLE = helper.immutable({
-	geodesic: true,            // 是否绘制大地线
-	isOutline: false,   // 线条是否带描边
-	borderWeight: 1,   // 描边的宽度
-	strokeColor: '#006600',   // 线条颜色，
-	strokeOpacity: .9,         // 线透明度
-	strokeWeight: 2,          // 线宽
-	strokeStyle: 'solid',     // 线样式
+	geodesic: true, // 是否绘制大地线
+	isOutline: false, // 线条是否带描边
+	borderWeight: 1, // 描边的宽度
+	strokeColor: '#006600', // 线条颜色，
+	strokeOpacity: 0.9, // 线透明度
+	strokeWeight: 2, // 线宽
+	strokeStyle: 'solid', // 线样式
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 });
@@ -158,46 +158,46 @@ export const COVER_POLYLINE_STYLE = helper.immutable({
  * 覆盖物Polygon样式
  */
 export const COVER_POLYGON_STYLE = helper.immutable({
-	strokeColor: '#006600', 	//线颜色
-	strokeOpacity: 0.2, 	//线透明度
-	strokeWeight: 3,    //线宽
-	fillColor: '#FFAA00', 	//填充色
-	fillOpacity: 0.35,		//填充透明度
+	strokeColor: '#006600', 	// 线颜色
+	strokeOpacity: 0.2, 	// 线透明度
+	strokeWeight: 3, // 线宽
+	fillColor: '#FFAA00', 	// 填充色
+	fillOpacity: 0.35,		// 填充透明度
 });
 
 /**
  * 覆盖物Bezircure样式
  */
 export const COVER_BEZIRCURE_STYLE = helper.immutable({
-	strokeColor: '#006600', 	//线颜色
-	strokeOpacity: 0.2, 	//线透明度
-	strokeWeight: 3,    //线宽
-	fillColor: '#FFAA00', 	//填充色
-	fillOpacity: 0.35,		//填充透明度
+	strokeColor: '#006600', 	// 线颜色
+	strokeOpacity: 0.2, 	// 线透明度
+	strokeWeight: 3, // 线宽
+	fillColor: '#FFAA00', 	// 填充色
+	fillOpacity: 0.35,		// 填充透明度
 });
 
 /**
  * 覆盖物Circle样式
  */
 export const COVER_CIRCLE_STYLE = helper.immutable({
-	strokeColor: '#006600', 		//线颜色
-	strokeOpacity: 1, 	//线透明度
-	strokeWeight: 3, 	//线粗细度
-	fillColor: '#006600', //填充颜色
-	fillOpacity: .9,	//填充透明度
-	strokeStyle: 'solid',	//填充透明度
+	strokeColor: '#006600', 		// 线颜色
+	strokeOpacity: 1, 	// 线透明度
+	strokeWeight: 3, 	// 线粗细度
+	fillColor: '#006600', // 填充颜色
+	fillOpacity: 0.9,	// 填充透明度
+	strokeStyle: 'solid',	// 填充透明度
 });
 
 /**
  * 覆盖物CircleMarker样式
  */
 export const COVER_CIRCLE_MARKER_STYLE = helper.immutable({
-	strokeColor: '#006600', 		//线颜色
-	strokeOpacity: 1, 	//线透明度
-	strokeWeight: 3, 	//线粗细度
-	fillColor: '#006600', //填充颜色
-	fillOpacity: .9,	//填充透明度
-	strokeStyle: 'solid',	//填充透明度
+	strokeColor: '#006600', 		// 线颜色
+	strokeOpacity: 1, 	// 线透明度
+	strokeWeight: 3, 	// 线粗细度
+	fillColor: '#006600', // 填充颜色
+	fillOpacity: 0.9,	// 填充透明度
+	strokeStyle: 'solid',	// 填充透明度
 });
 
 /**

@@ -10,6 +10,6 @@ import isPlainObject from '../isPlainObject';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isElement (x) {
+export default function isElement(x) {
 	return isObjectLike(x) && x.nodeType === 1 && !isPlainObject(x);
-};
+}

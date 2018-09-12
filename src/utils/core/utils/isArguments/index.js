@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isArguments (x) {
+export default function isArguments(x) {
 	return Object.prototype.toString.call(x) === '[object Arguments]';
-};
+}

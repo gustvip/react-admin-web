@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isString (x) {
+export default function isString(x) {
 	return typeof x === 'string';
-};
+}

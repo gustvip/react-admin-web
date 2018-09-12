@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isObject (x) {
+export default function isObject(x) {
 	return Object.prototype.toString.call(x) === '[object Object]';
-};
+}

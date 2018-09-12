@@ -9,6 +9,6 @@ import isLength from '../isLength';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isArrayLike (x) {
+export default function isArrayLike(x) {
 	return !isNil(x) && !isFunction(x) && isLength(x.length);
-};
+}

@@ -1,6 +1,6 @@
 import isFunction from '../index';
 
 test('test isFunction', () => {
-	expect(isFunction(function () {})).toBeTruthy();
-	expect(isFunction('')).toBeFalsy();
+  expect(isFunction(() => {})).toBeTruthy();
+  expect(isFunction('')).toBeFalsy();
 });

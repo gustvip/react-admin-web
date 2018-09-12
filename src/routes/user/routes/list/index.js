@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/18
  */
 
-import Index from '../../components/list/index';
 import { connect } from 'react-redux';
+import Index from '../../components/list/index';
 
 /**
  * 映射props
@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
  * 映射所有的actions
  * @param dispatch
  */
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		dispatch,
 	};
@@ -32,5 +32,4 @@ const mapDispatchToProps = dispatch => {
  */
 const ListComponent = connect(mapStateToProps, mapDispatchToProps)(Index);
 
-export default () => <ListComponent/>
-
+export default () => <ListComponent />;

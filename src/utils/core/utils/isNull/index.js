@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isNull (x) {
+export default function isNull(x) {
 	return x === null;
-};
+}

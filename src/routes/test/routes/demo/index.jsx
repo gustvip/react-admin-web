@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/18
  */
 import * as React from 'react';
-import Demo from '../../components/demo/index';
 import { connect } from 'react-redux';
+import Demo from '../../components/demo/index';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -23,5 +23,4 @@ const mapDispatchToProps = (dispatch) => {
  * 连接组件
  */
 const DemoComponent = connect(mapStateToProps, mapDispatchToProps)(Demo);
-export default () => <DemoComponent/>
-
+export default () => <DemoComponent />;

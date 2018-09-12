@@ -8,6 +8,6 @@ import isNumber from '../isNumber';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isLength (x) {
+export default function isLength(x) {
 	return isNumber(x) && x > -1 && Math.floor(x) === x && x <= 9007199254740991;
-};
+}

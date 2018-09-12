@@ -1,61 +1,59 @@
 import DoubleLinkedList from '../doubleLinkedList';
 
 export default (function () {
-	'use strict';
-	
 	/**
 	 * @return {boolean}
 	 */
-	function isEmpty () {
+	function isEmpty() {
 		return this.doubleLinkedList.isEmpty();
 	}
-	
+
 	/**
 	 * @return {boolean}
 	 */
-	function has (value) {
+	function has(value) {
 		return this.doubleLinkedList.has(value);
 	}
-	
+
 	/**
 	 * 清空队列
 	 * @return {Queue}
 	 */
-	function clear () {
+	function clear() {
 		this.doubleLinkedList.clear();
 		return this;
 	}
-	
+
 	/**
 	 * @return {*}
 	 */
-	function peek () {
+	function peek() {
 		return this.isEmpty() ? undefined : this.doubleLinkedList.head.value;
 	}
-	
+
 	/**
 	 * @param {*} value
 	 */
-	function enqueue (value) {
+	function enqueue(value) {
 		this.doubleLinkedList.append(value);
 	}
-	
+
 	/**
 	 * @return {*}
 	 */
-	function dequeue () {
-		var removedHead = this.doubleLinkedList.deleteHead();
+	function dequeue() {
+		const removedHead = this.doubleLinkedList.deleteHead();
 		return removedHead ? removedHead.value : null;
 	}
-	
+
 	/**
 	 * @param [callback]
 	 * @return {string}
 	 */
-	function toString (callback) {
+	function toString(callback) {
 		return this.doubleLinkedList.toString(callback);
 	}
-	
+
 	Object.defineProperties(Queue.prototype, {
 		constructor: {
 			value: Queue,
@@ -90,12 +88,12 @@ export default (function () {
 			configuarable: false,
 		},
 	});
-	
-	function Queue () {
+
+	function Queue() {
 		this.doubleLinkedList = new DoubleLinkedList();
 	}
-	
-	return function queue () {
-		return new Queue;
+
+	return function queue() {
+		return new Queue();
 	};
-})();
+}());

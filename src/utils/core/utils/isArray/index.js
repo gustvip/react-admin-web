@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isArray (x) {
+export default function isArray(x) {
 	return Array.isArray(x);
-};
+}

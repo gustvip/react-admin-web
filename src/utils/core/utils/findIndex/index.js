@@ -8,14 +8,18 @@
  * @param {function} predicate
  * @returns {number}
  */
-export default function findIndex (x, predicate) {
-	var len = x.length,
-		k = -1,
-		kValue;
+export default function findIndex(x, predicate) {
+	const len = x.length;
+
+
+	let k = -1;
+
+
+	let kValue;
 	while (++k < len) {
 		if (predicate(kValue = x[k], k, x) === true) {
 			return k;
 		}
 	}
 	return -1;
-};
+}

@@ -11,17 +11,17 @@ import isNull from '../isNull';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isPlainObject (x) {
+export default function isPlainObject(x) {
 	if (!isObjectLike(x) || !isObject(x)) {
 		return false;
 	}
-	
+
 	if (isNull(Object.getPrototypeOf(x))) {
 		return true;
 	}
-	var proto = x;
+	let proto = x;
 	while (!isNull(Object.getPrototypeOf(proto))) {
 		proto = Object.getPrototypeOf(proto);
 	}
 	return Object.getPrototypeOf(x) === proto;
-};
+}

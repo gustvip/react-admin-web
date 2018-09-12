@@ -8,15 +8,13 @@ import toInteger from '../toInteger';
  * @param {*} x
  * @returns {number}
  */
-export default function toSafeInteger (x) {
+export default function toSafeInteger(x) {
 	x = toInteger(x);
-	var MAX_SAFE_INTEGER = 9007199254740991;
+	const MAX_SAFE_INTEGER = 9007199254740991;
 	if (x < -MAX_SAFE_INTEGER) {
 		return -MAX_SAFE_INTEGER;
-	} else if (x > MAX_SAFE_INTEGER) {
+	} if (x > MAX_SAFE_INTEGER) {
 		return MAX_SAFE_INTEGER;
-	} else {
-		return x;
 	}
+	return x;
 }
-

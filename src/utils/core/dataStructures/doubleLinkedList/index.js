@@ -7,76 +7,74 @@ import isObject from '../../utils/isObject';
 import isNull from '../../utils/isNull';
 
 export default (function () {
-	'use strict';
-	
 	/**
 	 * 是否为空
 	 * @return {boolean}
 	 */
-	function isEmpty () {
+	function isEmpty() {
 		return isNull(this.head) || isNull(this.tail);
 	}
-	
+
 	/**
 	 * 是否有此值
 	 * @return {boolean}
 	 */
-	function has (value) {
-		return !!this.find({value: value});
+	function has(value) {
+		return !!this.find({ value });
 	}
-	
+
 	/**
 	 * 清空链表
 	 * @return {DoubleLinkedList}
 	 */
-	function clear () {
+	function clear() {
 		this.head = this.tail = null;
 		return this;
 	}
-	
+
 	/**
 	 * 向前添加
 	 * @param {*} value
 	 * @return {DoubleLinkedList}
 	 */
-	function prepend (value) {
+	function prepend(value) {
 		// Make new node to be a head.
-		var newNode = new DoubleLinkedListNode(value, this.head);
+		const newNode = new DoubleLinkedListNode(value, this.head);
 		// If there is no head yet let's make new node a head.
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
 		} else {
 			this.head = this.head.previous = newNode;
 		}
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 向后添加
 	 * @param {*} value
 	 * @return {DoubleLinkedList}
 	 */
-	function append (value) {
-		var newNode = new DoubleLinkedListNode(value, null, this.tail);
-		
+	function append(value) {
+		const newNode = new DoubleLinkedListNode(value, null, this.tail);
+
 		// If there is no head yet let's make new node a head.
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
 		} else {
 			this.tail = this.tail.next = newNode;
 		}
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 删除值
 	 * @param {*} value
 	 * @return {DoubleLinkedListNode | null}
 	 */
-	function _delete (value) {
-		var deletedNode = null;
+	function _delete(value) {
+		let deletedNode = null;
 		while (this.head && this.compare.equal(this.head.value, value)) {
 			deletedNode = this.head;
 			this.head = this.head.next;
@@ -84,8 +82,8 @@ export default (function () {
 		if (this.head) {
 			this.head.previous = null;
 		}
-		
-		var currentNode = this.head;
+
+		let currentNode = this.head;
 		if (currentNode) {
 			while (currentNode.next) {
 				if (this.compare.equal(currentNode.next.value, value)) {
@@ -100,15 +98,15 @@ export default (function () {
 				}
 			}
 		}
-		
+
 		this.tail = currentNode;
 		if (this.tail) {
 			this.tail.next = null;
 		}
-		
+
 		return deletedNode;
 	}
-	
+
 	/**
 	 * 查找值
 	 * @param {Object} findParams
@@ -116,12 +114,12 @@ export default (function () {
 	 * @param {function} [findParams.callback]
 	 * @return {DoubleLinkedListNode | null}
 	 */
-	function find (findParams) {
+	function find(findParams) {
 		findParams = isObject(findParams) ? findParams : {};
-		var value = findParams.value;
-		var callback = findParams.callback;
-		var currentNode = this.head;
-		
+		const value = findParams.value;
+		const callback = findParams.callback;
+		let currentNode = this.head;
+
 		while (currentNode) {
 			// If callback is specified then try to find node by callback.
 			if (callback && isFunction(callback)) {
@@ -131,87 +129,87 @@ export default (function () {
 			} else if (!isUndefined(value) && this.compare.equal(currentNode.value, value)) {
 				break;
 			}
-			
+
 			currentNode = currentNode.next;
 		}
-		
+
 		return currentNode;
 	}
-	
+
 	/**
 	 * 删除尾巴
 	 * @return {DoubleLinkedListNode | null}
 	 */
-	function deleteTail () {
-		var deletedTail = this.tail;
+	function deleteTail() {
+		const deletedTail = this.tail;
 		if (this.head === this.tail) {
 			this.head = this.tail = null;
 		} else {
 			this.tail = this.tail.previous;
 			this.tail.next = null;
 		}
-		
+
 		return deletedTail;
 	}
-	
+
 	/**
 	 * 删除头部
 	 * @return {DoubleLinkedListNode | null}
 	 */
-	function deleteHead () {
-		var deletedHead = this.head;
+	function deleteHead() {
+		const deletedHead = this.head;
 		if (this.head === this.tail) {
 			this.head = this.tail = null;
 		} else {
 			this.head = this.head.next;
 			this.head.previous = null;
 		}
-		
+
 		return deletedHead;
 	}
-	
+
 	/**
 	 * 将node以数组返回
 	 * @return {DoubleLinkedListNode[]}
 	 */
-	function toArray () {
-		var nodes = [];
-		var currentNode = this.head;
+	function toArray() {
+		const nodes = [];
+		let currentNode = this.head;
 		while (currentNode) {
 			nodes.push(currentNode);
 			currentNode = currentNode.next;
 		}
-		
+
 		return nodes;
 	}
-	
+
 	/**
 	 * 从数组中添加
 	 * @param {*[]} values - Array of values that need to be converted to linked list.
 	 * @return {DoubleLinkedList}
 	 */
-	function fromArray (values) {
-		var self = this;
+	function fromArray(values) {
+		const self = this;
 		if (isArray(values)) {
-			values.forEach(function (value) {
+			values.forEach((value) => {
 				self.append(value);
 			});
 		}
-		
+
 		return self;
 	}
-	
+
 	/**
 	 * 转化为字符串
 	 * @param {function} [callback]
 	 * @return {string}
 	 */
-	function toString (callback) {
-		return this.toArray().map(function (node) {
+	function toString(callback) {
+		return this.toArray().map((node) => {
 			return node.toString(callback);
 		}).toString();
 	}
-	
+
 	Object.defineProperties(DoubleLinkedList.prototype, {
 		constructor: {
 			value: DoubleLinkedList,
@@ -266,21 +264,21 @@ export default (function () {
 			configuarable: false,
 		},
 	});
-	
+
 	/**
 	 * @param {Function} [comparatorFunction]
 	 */
-	function DoubleLinkedList (comparatorFunction) {
+	function DoubleLinkedList(comparatorFunction) {
 		/** @var LinkedListNode */
 		this.head = null;
-		
+
 		/** @var LinkedListNode */
 		this.tail = null;
-		
+
 		this.compare = new Comparator(comparatorFunction);
 	}
-	
-	return function doubleLinkedList (comparatorFunction) {
+
+	return function doubleLinkedList(comparatorFunction) {
 		return new DoubleLinkedList(comparatorFunction);
 	};
-})();
+}());

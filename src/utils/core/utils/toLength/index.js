@@ -8,14 +8,13 @@ import toInteger from '../toInteger';
  * @param {*} x
  * @returns {number}
  */
-export default function toLength (x) {
+export default function toLength(x) {
 	x = toInteger(x);
-	var MAX_ARRAY_INDEX = 4294967295;
+	const MAX_ARRAY_INDEX = 4294967295;
 	if (x < 0) {
 		return 0;
-	} else if (x > MAX_ARRAY_INDEX) {
+	} if (x > MAX_ARRAY_INDEX) {
 		return MAX_ARRAY_INDEX;
-	} else {
-		return x;
 	}
-};
+	return x;
+}

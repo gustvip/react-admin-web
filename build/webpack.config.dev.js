@@ -2,19 +2,19 @@
  * @description webpack 开发模式下的打包基本配置
  */
 const webpack = require('webpack');
-const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
 const host = 'localhost';
 // const host = require('./util').getLocalIp();
-const port = 8080;        // 端口号
+const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const baseConfig = require('./webpack.config.base');
 const resourceBaseName = require('./util').resourceBaseName;
 const excludeRegex = require('./util').excludeRegex;
 const customAntdStyle = require('./util').customAntdStyle;
 
 module.exports = merge(baseConfig, {
-	devtool: 'cheap-module-eval-source-map',	// cheap-module-source-map,cheap-module-eval-source-map
-	
+	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-module-eval-source-map
+
 	module: {
 		rules: [
 			{
@@ -68,7 +68,7 @@ module.exports = merge(baseConfig, {
 		port,
 		publicPath: '/public/',
 		contentBase: `${__dirname}/../public/`,
-		
+
 		watchContentBase: true,
 		watchOptions: {
 			ignored: /node_modules/,
@@ -83,18 +83,18 @@ module.exports = merge(baseConfig, {
 		},
 		open: true,
 	},
-	
+
 	output: {
 		publicPath: '/public/',
 		path: `${__dirname}/../public/`,
 		filename: '[name].js',
 	},
-	
+
 	plugins: [
 		new bundleAnalyzerPlugin({
-			openAnalyzer: false,            // 禁止自动弹出浏览器窗口
-			analyzerHost: host,      // 主机ip
-			analyzerPort: port + 100,             // 端口
+			openAnalyzer: false, // 禁止自动弹出浏览器窗口
+			analyzerHost: host, // 主机ip
+			analyzerPort: port + 100, // 端口
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 	],

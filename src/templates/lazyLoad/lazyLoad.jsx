@@ -3,9 +3,9 @@
  */
 
 import PropTypes from 'prop-types';
-import { STORE_INJECT } from 'store.js';
+import {STORE_INJECT} from 'store.js';
 import * as  decorate from 'utils/core/decorate';
-import { Spin } from 'antd';
+import {Spin} from 'antd';
 import auth from 'utils/core/auth';
 
 /**
@@ -24,13 +24,13 @@ const injectReducers = reducers => ({[STORE_INJECT]: reducers});
 		}).isRequired,
 	),
 })
-export default class LazyLoadTpl extends React.PureComponent {
+class LazyLoadTpl extends React.PureComponent {
 	
 	state = {
 		Component: null,
 	};
 	
-	componentDidMount () {
+	componentDidMount() {
 		const _this = this;
 		const {defaultQuery, login} = ENV;
 		if (!auth.isLogin) {
@@ -47,7 +47,7 @@ export default class LazyLoadTpl extends React.PureComponent {
 		}
 	}
 	
-	render () {
+	render() {
 		const _this = this;
 		const Component = _this.state.Component;
 		
@@ -61,3 +61,5 @@ export default class LazyLoadTpl extends React.PureComponent {
 		}
 	}
 }
+
+export default LazyLoadTpl;

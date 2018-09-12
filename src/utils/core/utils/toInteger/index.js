@@ -8,7 +8,7 @@ import toFinite from '../toFinite';
  * @param {*} x
  * @returns {number}
  */
-export default function toInteger (x) {
+export default function toInteger(x) {
 	x = toFinite(x);
 	return x ? Math.floor(x) : 0;
-};
+}

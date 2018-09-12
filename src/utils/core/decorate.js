@@ -13,7 +13,7 @@ export const contextTypes = (...params) => {
 	return (targetClass) => {
 		params.forEach((type) => {
 			targetClass.contextTypes = targetClass.contextTypes || {};
-			if (!targetClass.contextTypes.hasOwnProperty(type)) {
+			if (!Object.prototype.hasOwnProperty.call(targetClass.contextTypes, type)) {
 				switch (type) {
 					case 'store':
 					case 'router':

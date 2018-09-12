@@ -12,20 +12,20 @@ import isArguments from '../isArguments';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isEmpty (x) {
+export default function isEmpty(x) {
 	if (isNil(x)) {
 		return true;
 	}
-	
+
 	if (isArrayLike(x) && (isArray(x) || isString(x) || isArguments(x))) {
 		return !x.length;
 	}
-	
-	for (var key in x) {
-		if (x.hasOwnProperty(key)) {
+
+	for (const key in x) {
+		if (Object.prototype.hasOwnProperty.call(x,key)) {
 			return false;
 		}
 	}
-	
+
 	return true;
-};
+}

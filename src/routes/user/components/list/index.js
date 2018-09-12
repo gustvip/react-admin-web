@@ -3,19 +3,19 @@
  */
 
 import T from 'utils/t';
-import * as actionTypes from '../../actions/list/index';
-import style from '../../scss/list/index.scss';
-import { Button, Input } from 'antd';
-import { Link } from 'react-router-dom';
-import { MainHeader, MainContent } from 'templates/mainLayout/index';
+import {Button, Input} from 'antd';
+import {Link} from 'react-router-dom';
+import {MainHeader, MainContent} from 'templates/mainLayout/index';
 import Table from 'templates/toolComponents/table/index';
 import EnumRouter from 'constants/enumRouter';
 
 import assign from 'lodash/assign';
 import debounce from 'lodash/debounce';
+import style from '../../scss/list/index.scss';
+import * as actionTypes from '../../actions/list/index';
 
-@T.decorator.contextTypes('router')
-export default class Index extends React.PureComponent {
+@T.decorate.contextTypes('router')
+class List extends React.PureComponent {
 	/**
 	 * 获取用户所有信息
 	 */
@@ -31,7 +31,7 @@ export default class Index extends React.PureComponent {
 	 * 删除相关用户
 	 * @param {Number || Array} userId
 	 */
-	handleDelete = userId => {
+	handleDelete = (userId) => {
 		const userIdCollection = [];
 		const self = this;
 		if (T.helper.isUsefulNumber(userId)) {
@@ -51,7 +51,7 @@ export default class Index extends React.PureComponent {
 	 * 选中行
 	 * @param {Array} selectedRowKeys
 	 */
-	handleSelectedRowKeys = selectedRowKeys => {
+	handleSelectedRowKeys = (selectedRowKeys) => {
 		this.props.dispatch(actionTypes.setDeleteRowAction(selectedRowKeys));
 	};
 	
@@ -59,7 +59,7 @@ export default class Index extends React.PureComponent {
 	 * 搜索
 	 * @param {string} value
 	 */
-	handleSearch = value => {
+	handleSearch = (value) => {
 		const self = this;
 		self.props.dispatch(actionTypes.setUserSearchAction({
 			userInfo: value,
@@ -160,7 +160,7 @@ export default class Index extends React.PureComponent {
 	 * 获取表格数据
 	 */
 	get dataSource() {
-		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, { key: index }));
+		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, {key: index}));
 	}
 	
 	/**
@@ -182,7 +182,7 @@ export default class Index extends React.PureComponent {
 				}));
 			},
 		};
-	};
+	}
 	
 	/**
 	 * 行选中
@@ -197,7 +197,7 @@ export default class Index extends React.PureComponent {
 				return self.handleSelectedRowKeys(selectedRowKeys);
 			},
 		};
-	};
+	}
 	
 	render() {
 		const self = this;
@@ -228,3 +228,5 @@ export default class Index extends React.PureComponent {
 		];
 	}
 }
+
+export default List;

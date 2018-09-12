@@ -1,11 +1,11 @@
 /**
  * @description webpack 生产环境的打包基本配置
  */
-const baseConfig = require('./webpack.config.base');
 const merge = require('webpack-merge');
 const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const baseConfig = require('./webpack.config.base');
 
 const resourceBaseName = require('./util').resourceBaseName;
 const excludeRegex = require('./util').excludeRegex;
@@ -13,7 +13,7 @@ const customAntdStyle = require('./util').customAntdStyle;
 
 module.exports = merge(baseConfig, {
 	mode: 'production',
-	
+
 	optimization: {
 		minimizer: [
 			new uglifyJsPlugin({
@@ -30,15 +30,15 @@ module.exports = merge(baseConfig, {
 					compress: {
 						// 在UglifyJs删除没有用到的代码时不输出警告
 						warnings: false,
-						
+
 						drop_console: false,
-						
+
 						// 内嵌定义了但是只用到一次的变量
 						collapse_vars: true,
-						
+
 						// 提取出出现多次但是没有定义成变量去引用的静态值
 						reduce_vars: true,
-						
+
 						comparisons: true,
 					},
 				},
@@ -51,7 +51,7 @@ module.exports = merge(baseConfig, {
 			{
 				test: /\.css$/,
 				use: [
-					{loader: miniCssExtractPlugin.loader},
+					{ loader: miniCssExtractPlugin.loader },
 					'css-loader',
 					'postcss-loader',
 				],
@@ -60,7 +60,7 @@ module.exports = merge(baseConfig, {
 				test: /\.scss/,
 				exclude: excludeRegex,
 				use: [
-					{loader: miniCssExtractPlugin.loader},
+					{ loader: miniCssExtractPlugin.loader },
 					{
 						loader: 'css-loader',
 						options: {
@@ -81,7 +81,7 @@ module.exports = merge(baseConfig, {
 			{
 				test: /\.less/,
 				use: [
-					{loader: miniCssExtractPlugin.loader},
+					{ loader: miniCssExtractPlugin.loader },
 					'css-loader',
 					'postcss-loader',
 					{
@@ -133,14 +133,14 @@ module.exports = merge(baseConfig, {
                   progressive: true,
                   quality: 70,
                   speed: 4,
-                },*/
+                }, */
 						},
 					},
 				],
 			},
 		],
 	},
-	
+
 	plugins: [
 		new miniCssExtractPlugin({
 			filename: '[name].[contenthash].css',

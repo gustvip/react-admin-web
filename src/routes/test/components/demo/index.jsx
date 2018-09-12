@@ -1,9 +1,8 @@
-import T from '../../../../utils/t';
 import * as React from 'react';
-//import LeafletComponent from '../../../../templates/toolComponents/leaflet';
+import T from '../../../../utils/t';
+// import LeafletComponent from '../../../../templates/toolComponents/leaflet';
 
 export default class TestComponent extends React.PureComponent {
-	
 	constructor() {
 		super();
 		this.container = null;

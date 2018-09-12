@@ -9,11 +9,11 @@ import prompt from 'utils/core/prompt';
 import * as decorate from 'utils/core/decorate';
 
 import styles from './index.scss';
-import { Button, Input, Checkbox } from 'antd';
+import {Button, Input, Checkbox} from 'antd';
 import bg from './img/bg.png';
 
 @decorate.contextTypes('router')
-export default class Login extends React.PureComponent {
+class Login extends React.PureComponent {
 	
 	static userNameStorageValue = auth.getUserNameStorageValue();
 	static userPasswordStorageValue = auth.getUserPasswordStorageValue();
@@ -47,7 +47,7 @@ export default class Login extends React.PureComponent {
 		let userPassword = self.state.userPassword.trim();
 		
 		if (self.checkParam(userName, userPassword)) {
-			self.setState({ loading: true }, () => {
+			self.setState({loading: true}, () => {
 				
 				userPassword = userPassword === Login.userPasswordStorageValue
 					? Login.userPasswordStorageValue
@@ -71,7 +71,7 @@ export default class Login extends React.PureComponent {
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
 					(info) => {
-						self.setState({ loading: false });
+						self.setState({loading: false});
 						prompt.error(info.msg);
 					},
 				);
@@ -90,7 +90,7 @@ export default class Login extends React.PureComponent {
 						type="text"
 						value={self.state.userName}
 						className={styles['login_email']}
-						onChange={e => self.setState({ userName: e.target.value.trim() })}
+						onChange={e => self.setState({userName: e.target.value.trim()})}
 						placeholder="邮箱"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
 					/>
@@ -98,7 +98,7 @@ export default class Login extends React.PureComponent {
 						type="password"
 						value={self.state.userPassword}
 						className={styles['login_password']}
-						onChange={e => self.setState({ userPassword: e.target.value.trim() })}
+						onChange={e => self.setState({userPassword: e.target.value.trim()})}
 						placeholder="密码"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
 					/>
@@ -113,7 +113,7 @@ export default class Login extends React.PureComponent {
 					</Button>
 					<footer>
 						<Checkbox
-							onChange={event => self.setState({ isRemember: event.target.checked })}
+							onChange={event => self.setState({isRemember: event.target.checked})}
 							checked={self.state.isRemember}
 						>
 							记住我
@@ -126,3 +126,5 @@ export default class Login extends React.PureComponent {
 		);
 	}
 }
+
+export default Login;

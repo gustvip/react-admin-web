@@ -16,7 +16,7 @@ class Prompt {
 			duration: 2,
 		});
 	}
-	
+
 	/**
 	 * 提示成功
 	 * @param {String} msg
@@ -26,7 +26,7 @@ class Prompt {
 	success(msg, duration = 2, onClose = noop) {
 		message.success(msg, duration, onClose);
 	}
-	
+
 	/**
 	 * 提示错误
 	 * @param {String} msg
@@ -36,7 +36,7 @@ class Prompt {
 	error(msg, duration = 2, onClose = noop) {
 		message.error(msg, duration, onClose);
 	}
-	
+
 	/**
 	 * 提示警告
 	 * @param {String} msg
@@ -46,7 +46,7 @@ class Prompt {
 	warn(msg, duration = 2, onClose = noop) {
 		message.warn(msg, duration, onClose);
 	}
-	
+
 	/**
 	 * 确认提示框
 	 * @param {Object} options
@@ -54,12 +54,12 @@ class Prompt {
 	confirm(options = {}) {
 		options = merge({
 			title: '确定删除吗？',
-			content: '',    // content可以是react节点实例
+			content: '', // content可以是react节点实例
 			okText: '确定',
 			cancelText: '取消',
 			onCancel: noop,
 		}, options);
-		
+
 		return Modal.confirm(options);
 	}
 }

@@ -9,7 +9,7 @@ class MockUtil {
 	 * @param {string} type 请求类型 GET、POST、PUT、DELETE
 	 * @param template mockjs的模版
 	 */
-	request (url, type, template) {
+	request(url, type, template) {
 		return Mock.mock(new RegExp(url, 'i'), type, {
 			code: MockUtil.apiSuccessCode,
 			data: template,
@@ -22,7 +22,7 @@ class MockUtil {
 	 * @param {string} url
 	 * @param template mockjs的模版
 	 */
-	get (url, template) {
+	get(url, template) {
 		return this.request(url, 'get', template);
 	}
 	
@@ -31,7 +31,7 @@ class MockUtil {
 	 * @param {string} url
 	 * @param template mockjs的模版
 	 */
-	post (url, template) {
+	post(url, template) {
 		return this.request(url, 'POST', template);
 	}
 	
@@ -40,7 +40,7 @@ class MockUtil {
 	 * @param {string} url
 	 * @param template mockjs的模版
 	 */
-	put (url, template) {
+	put(url, template) {
 		return this.request(url, 'PUT', template);
 	}
 	
@@ -49,9 +49,9 @@ class MockUtil {
 	 * @param {string} url
 	 * @param template mockjs的模版
 	 */
-	delete (url, template) {
+	delete(url, template) {
 		return this.request(url, 'DELETE', template);
 	}
 }
 
-export default new MockUtil;
+export default new MockUtil();

@@ -8,6 +8,6 @@ import isNull from '../isNull';
  * @param {*} x
  * @returns {boolean}
  */
-export default function isObjectLike (x) {
+export default function isObjectLike(x) {
 	return typeof x === 'object' && !isNull(x);
-};
+}

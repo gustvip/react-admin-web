@@ -1,23 +1,23 @@
 /**
  * Created by joey on 18-9-4
  */
-import * as  React from 'react';
-import { Form, Input, Button } from 'antd';
+import * as React from 'react';
+import {Form, Input, Button} from 'antd';
 import regExpHelper from 'utils/core/regexp';
-import * as  webAPI from '../../webAPI';
 import crypto from 'utils/core/crypto';
 import PropTypes from 'prop-types';
 import enumRouter from 'constants/enumRouter';
 import prompt from 'utils/core/prompt';
+import * as webAPI from '../../webAPI';
 
 const formItemLayout = {
 	labelCol: {
-		xs: { span: 24 },
-		sm: { span: 4 },
+		xs: {span: 24},
+		sm: {span: 4},
 	},
 	wrapperCol: {
-		xs: { span: 24 },
-		sm: { span: 20 },
+		xs: {span: 24},
+		sm: {span: 20},
 	},
 };
 
@@ -35,28 +35,26 @@ class RegisterComponent extends React.PureComponent {
 		const self = this;
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
-				self.setState({ loading: true }, () => {
-					const { userName, userPassword, userEmail, userPhone } = values;
+				self.setState({loading: true}, () => {
+					const {userName, userPassword, userEmail, userPhone} = values;
 					webAPI.userAdd({
 						userName,
 						userPassword: crypto.hmacSHA512(userPassword, userPassword),
 						userEmail,
 						userPhone,
-					})
-						.then(() => {
-							prompt.success('注册成功,正在跳转至登陆页面');
-							setTimeout(() => {
-								self.context.router.history.push(enumRouter.login);
-							}, 1000);
-						})
-						.catch(info => prompt.error(info.msg));
+					}).then(() => {
+						prompt.success('注册成功,正在跳转至登陆页面');
+						setTimeout(() => {
+							self.context.router.history.push(enumRouter.login);
+						}, 1000);
+					}).catch(info => prompt.error(info.msg));
 				});
 			}
 		});
 	};
 	
 	render() {
-		const { getFieldDecorator } = this.props.form;
+		const {getFieldDecorator} = this.props.form;
 		
 		return (
 			<Form

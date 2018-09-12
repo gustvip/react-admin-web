@@ -9,14 +9,14 @@ import isObject from '../isObject/index';
  * @param {function} callback
  * @returns {undefined}
  */
-export default function forOwn (object, callback) {
+export default function forOwn(object, callback) {
 	if (isObject(object)) {
-		for (var key in object) {
-			if (object.hasOwnProperty(key)) {
+		for (const key in object) {
+			if (Object.prototype.hasOwnProperty.call(object, key)) {
 				if (callback(object[key], key, object) === false) {
 					return;
 				}
 			}
 		}
 	}
-};
+}

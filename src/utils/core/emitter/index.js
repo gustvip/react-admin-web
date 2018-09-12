@@ -5,8 +5,6 @@ import findIndex from '../utils/findIndex/index';
 import isFunction from '../utils/isFunction/index';
 
 export default (function () {
-	'use strict';
-	
 	/**
 	 * 内部增加监听函数处理
 	 * @param {String} type 类型
@@ -14,90 +12,92 @@ export default (function () {
 	 * @param {Boolean} isOnce 是否是一次性
 	 * @returns {Object}
 	 */
-	function _addListener (type, callback, isOnce) {
+	function _addListener(type, callback, isOnce) {
 		if (!isFunction(callback)) {
 			throw new TypeError('callback must be function');
 		}
-		var row = this.__selfListeners__[type],
-			obj = {isOnce: isOnce, callback: callback};
+		const row = this.__selfListeners__[type];
+
+
+		const obj = { isOnce, callback };
 		row ? row.push(obj)
 			: this.__selfListeners__[type] = [obj];
 		return this;
 	}
-	
+
 	/**
 	 * 增加监听函数(可多次调用)
 	 * @param {String} type 类型
 	 * @param {Function} callback 回掉函数
 	 * @returns {Object}
 	 */
-	function addListener (type, callback) {
+	function addListener(type, callback) {
 		return _addListener.call(this, type, callback, false);
 	}
-	
+
 	/**
 	 * 增加监听函数(一次性)
 	 * @param {String} type 类型
 	 * @param {Function} callback 回掉函数
 	 * @returns {Object}
 	 */
-	function addOnceListener (type, callback) {
+	function addOnceListener(type, callback) {
 		return _addListener.call(this, type, callback, true);
 	}
-	
+
 	/**
 	 * 移除所有监听的函数
 	 * @returns {Object}
 	 */
-	function removeAllListener () {
+	function removeAllListener() {
 		this.__selfListeners__ = {};
 		return this;
 	}
-	
+
 	/**
 	 * 移除某一类的所有监听函数
 	 * @returns {Object}
 	 */
-	function removeCategoryListener (type) {
+	function removeCategoryListener(type) {
 		delete this.__selfListeners__[type];
 		return this;
 	}
-	
+
 	/**
 	 * 移除监听的函数
 	 * @param {String} type 类型
 	 * @param {Function} callback 监听时的callback
 	 * @returns {Object}
 	 */
-	function removeListener (type, callback) {
-		var row = this.__selfListeners__[type],
-			index;
+	function removeListener(type, callback) {
+		const row = this.__selfListeners__[type];
+		let index;
 		if (row) {
-			index = findIndex(row, function (value) {
+			index = findIndex(row, (value) => {
 				return value.callback === callback;
 			});
-			
+
 			if (index !== -1) {
 				row.splice(index, 1);
 			}
-			
+
 			if (!row.length) {
 				delete this.__selfListeners__[type];
 			}
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 促发监听的函数
 	 * @param {String} type 监听时的类型
 	 * @returns {Object}
 	 */
-	function trigger (type) {
-		var row = this.__selfListeners__[type],
-			arg = arguments;
+	function trigger(type) {
+		const row = this.__selfListeners__[type];
+		const arg = arguments;
 		if (row) {
-			this.__selfListeners__[type] = row.filter(function (value) {
+			this.__selfListeners__[type] = row.filter((value) => {
 				value.callback.apply(null, [].slice.call(arg, 1));
 				return !value.isOnce;
 			});
@@ -107,7 +107,7 @@ export default (function () {
 		}
 		return this;
 	}
-	
+
 	Object.defineProperties(Emitter.prototype, {
 		constructor: {
 			value: Emitter,
@@ -154,12 +154,12 @@ export default (function () {
 			configuarable: false,
 		},
 	});
-	
-	function Emitter () {
+
+	function Emitter() {
 		this.removeAllListener();
 	}
-	
-	return function emitter () {
-		return new Emitter;
+
+	return function emitter() {
+		return new Emitter();
 	};
-})();
+}());

@@ -26,7 +26,7 @@ export const ZOOM = {
 export const COVER_POLYLINE_STYLE = {
 	stroke: true,
 	color: '#f00',	// 描边颜色
-	weight: 3,   // 描边宽度，
+	weight: 3, // 描边宽度，
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 };
@@ -37,7 +37,7 @@ export const COVER_POLYLINE_STYLE = {
 export const COVER_POLYGON_STYLE = {
 	stroke: true,
 	color: '#0f0',	// 描边颜色
-	weight: 3,   // 描边宽度，
+	weight: 3, // 描边宽度，
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	fillColor: '#0f0', // 填充颜色
@@ -49,7 +49,7 @@ export const COVER_POLYGON_STYLE = {
 export const COVER_RECTANGLE_STYLE = {
 	stroke: true,
 	color: '#00f',	// 描边颜色
-	weight: 3,   // 描边宽度，
+	weight: 3, // 描边宽度，
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	fillColor: '#00f', // 填充颜色
@@ -61,7 +61,7 @@ export const COVER_RECTANGLE_STYLE = {
 export const COVER_CIRCLE_STYLE = {
 	stroke: true,
 	color: '#ff0',	// 描边颜色
-	weight: 3,   // 描边宽度，
+	weight: 3, // 描边宽度，
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	radius: 100, // 圆半径
@@ -74,7 +74,7 @@ export const COVER_CIRCLE_STYLE = {
 export const COVER_CIRCLE_MARKER_STYLE = {
 	stroke: true,
 	color: '#fd56ff',	// 描边颜色
-	weight: 3,   // 描边宽度，
+	weight: 3, // 描边宽度，
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
 	radius: 100, // 圆半径
@@ -101,7 +101,7 @@ export const EnumTile = {
 			},
 		},
 	},
-	
+
 	TianDiTu: {
 		Normal: {
 			Map: {
@@ -128,7 +128,7 @@ export const EnumTile = {
 			},
 		},
 	},
-	
+
 	Google: {
 		Normal: {
 			Map: {
@@ -150,4 +150,3 @@ export const EnumTile = {
 		},
 	},
 };
-

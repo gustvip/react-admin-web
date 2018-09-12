@@ -60,7 +60,7 @@ export default class Chart extends React.PureComponent {
 				right: 10,
 				top: 'auto',
 				bottom: 'auto',
-				orient: 'horizontal', //vertical
+				orient: 'horizontal', // vertical
 				selectedMode: false,
 				itemGap: 10,
 				textStyle: {
@@ -192,7 +192,7 @@ export default class Chart extends React.PureComponent {
 		}, self.props.extraOptions));
 		self.chart.setOption(merge(self.defaultOptions, self.props.options));
 		self.chart.resize();
-		window.addEventListener('resize', debounce(function () {
+		window.addEventListener('resize', debounce(() => {
 			self.chart.resize();
 		}, 300));
 	}

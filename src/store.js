@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 
-import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux';
+import {createStore as _createStore, applyMiddleware, combineReducers} from 'redux';
 import isPlainObject from 'lodash/isPlainObject';
 import isFunction from 'lodash/isFunction';
 import isEmpty from 'lodash/isEmpty';
@@ -22,7 +22,7 @@ class Registry {
 	
 	injectReducers(reducers) {
 		this.store.replaceReducer(combineReducers(
-			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, { ...this.initialReducer }),
+			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
 		));
 	}
 	
@@ -41,8 +41,8 @@ class Registry {
  * @return {function(*): function(*): function(*=)}
  */
 function registryMiddleware(registry) {
-	return () => next => action => {
-		if (isPlainObject(action) && action.hasOwnProperty(STORE_INJECT) && isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
+	return () => next => (action) => {
+		if (isPlainObject(action) && Object.prototype.hasOwnProperty.call(action, STORE_INJECT) && isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
 			return registry.injectReducers(action[STORE_INJECT]);
 		}
 		return next(action);
@@ -55,12 +55,11 @@ function registryMiddleware(registry) {
  * @return {function(*=, *=): function(*): Function}
  */
 function thunkMiddleware(extraOptions) {
-	return ({ dispatch, getState }) => next => action => {
+	return ({dispatch, getState}) => next => (action) => {
 		if (isFunction(action)) {
 			return action(dispatch, getState, extraOptions);
-		} else {
-			return next(action);
 		}
+		return next(action);
 	};
 }
 
@@ -80,4 +79,3 @@ export default function createStore(initialState = {}) {
 	registry.store = store;
 	return store;
 }
-

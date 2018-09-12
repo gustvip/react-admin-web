@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isFunction (x) {
+export default function isFunction(x) {
 	return typeof x === 'function';
-};
+}

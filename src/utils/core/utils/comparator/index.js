@@ -5,40 +5,40 @@ import isFunction from '../isFunction';
 
 
 export default (function () {
-	function defaultCompareFunction (a, b) {
+	function defaultCompareFunction(a, b) {
 		if (a === b) {
 			return 0;
 		}
 		return a < b ? -1 : 1;
 	}
-	
-	function equal (a, b) {
+
+	function equal(a, b) {
 		return this.compare(a, b) === 0;
 	}
-	
-	function lessThan (a, b) {
+
+	function lessThan(a, b) {
 		return this.compare(a, b) < 0;
 	}
-	
-	function greaterThan (a, b) {
+
+	function greaterThan(a, b) {
 		return this.compare(a, b) > 0;
 	}
-	
-	function lessThanOrEqual (a, b) {
+
+	function lessThanOrEqual(a, b) {
 		return this.lessThan(a, b) || this.equal(a, b);
 	}
-	
-	function greaterThanOrEqual (a, b) {
+
+	function greaterThanOrEqual(a, b) {
 		return this.greaterThan(a, b) || this.equal(a, b);
 	}
-	
-	function reverse () {
-		var compareOriginal = this.compare;
+
+	function reverse() {
+		const compareOriginal = this.compare;
 		this.compare = function (a, b) {
 			return compareOriginal(b, a);
 		};
 	}
-	
+
 	Object.defineProperties(Comparator.prototype, {
 		constructor: {
 			value: Comparator,
@@ -69,13 +69,12 @@ export default (function () {
 			configuarable: false,
 		},
 	});
-	
-	function Comparator (compareFunction) {
+
+	function Comparator(compareFunction) {
 		this.compare = isFunction(compareFunction) ? compareFunction : defaultCompareFunction;
 	}
-	
-	return function comparator (compareFunction) {
+
+	return function comparator(compareFunction) {
 		return new Comparator(compareFunction);
 	};
-})();
-
+}());

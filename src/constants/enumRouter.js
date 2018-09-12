@@ -14,7 +14,7 @@ export default helper.immutable({
 	login: 'login',
 	register: 'register',
 	testDemo: 'test/demo',
-	
+
 	/*
 	 |-----------------------------------------------
 	 | 用户-相关的路由

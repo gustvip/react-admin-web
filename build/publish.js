@@ -10,9 +10,9 @@ console.log(clc.green('webpack打包开始'));
 
 const conf = {
 	indexHtmlName: 'index_index.html',		// 生成的html的名字
-	appName: 'platform',                                 // 项目名称
-	proxyPath: process.argv[3] ? process.argv[3] : '/',  // 代理的前缀 注意：后面必须带斜线
-	webPath: process.argv[2],    // web目录
+	appName: 'platform', // 项目名称
+	proxyPath: process.argv[3] ? process.argv[3] : '/', // 代理的前缀 注意：后面必须带斜线
+	webPath: process.argv[2], // web目录
 };
 
 /**
@@ -45,7 +45,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 			},
 			chunksSortMode: 'dependency',
 		}),
-		
+
 		/**
 		 * 复制config
 		 */
@@ -55,7 +55,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 				to: path.join(conf.webPath, 'config'),
 			},
 		]),
-		
+
 		/**
 		 * 复制asserts
 		 */
@@ -65,7 +65,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 				to: path.join(conf.webPath, 'asserts'),
 			},
 		]),
-		
+
 		/**
 		 * 复制favicon
 		 */
@@ -80,11 +80,11 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 
 doCompilerPlatform();
 
-function doCompilerPlatform () {
+function doCompilerPlatform() {
 	/**
 	 * rm -rf
 	 */
-	rm(conf.webPath, err => {
+	rm(conf.webPath, (err) => {
 		if (err) {
 			handleError(err);
 		} else {
@@ -102,10 +102,10 @@ function doCompilerPlatform () {
  * 错误处理方法
  * @param errorMsg
  */
-function handleError (errorMsg) {
+function handleError(errorMsg) {
 	console.log(clc.yellow('webpack打包出错:'));
 	console.log(clc.red(errorMsg));
-	
+
 	process.exit();
 }
 
@@ -113,8 +113,7 @@ function handleError (errorMsg) {
  * 告警处理方法
  * @param warnMsg
  */
-function handleWarn (warnMsg) {
+function handleWarn(warnMsg) {
 	console.log(clc.yellow('webpack打包警告:'));
 	console.log(clc.yellow(warnMsg));
 }
-

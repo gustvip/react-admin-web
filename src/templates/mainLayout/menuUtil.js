@@ -27,16 +27,16 @@ export const EnumMenus = (() => {
 	 * @param {Array} children
 	 * @return {{resultChildren: Array, resultUrl: Array}}
 	 */
-	const formatData = children => {
+	const formatData = (children) => {
 		let resultUrl = [];
 		let resultChildren = [];
-		
+
 		if (T.helper.checkArray(children)) {
-			resultChildren = children.map(item => {
+			resultChildren = children.map((item) => {
 				if (T.helper.checkArray(item.children)) {
 					const result = formatData(item.children);
 					resultUrl = resultUrl.concat(result.resultUrl);
-					
+
 					return assign(
 						{},
 						item,
@@ -44,33 +44,31 @@ export const EnumMenus = (() => {
 							children: result.resultChildren,
 							url: uniq(
 								(Array.isArray(item.url)
-										? item.url
-										: T.helper.checkString(item.url)
-											? [item.url]
-											: []
+									? item.url
+									: T.helper.checkString(item.url)
+										? [item.url]
+										: []
 								).concat(result.resultUrl),
 							),
 						},
 					);
-				} else {
-					
-					if (Array.isArray(item.url) || T.helper.checkString(item.url)) {
-						resultUrl = resultUrl.concat(item.url);
-					}
-					
-					return assign(
-						{},
-						item,
-						{
-							children: [],
-							url: Array.isArray(item.url)
-								? uniq(item.url)
-								: T.helper.checkString(item.url)
-									? [item.url]
-									: [],
-						},
-					);
 				}
+				if (Array.isArray(item.url) || T.helper.checkString(item.url)) {
+					resultUrl = resultUrl.concat(item.url);
+				}
+
+				return assign(
+					{},
+					item,
+					{
+						children: [],
+						url: Array.isArray(item.url)
+							? uniq(item.url)
+							: T.helper.checkString(item.url)
+								? [item.url]
+								: [],
+					},
+				);
 			});
 		}
 		return {
@@ -78,16 +76,16 @@ export const EnumMenus = (() => {
 			resultUrl,
 		};
 	};
-	
-	const menuData = EnumDefaultMenus.map(item => {
+
+	const menuData = EnumDefaultMenus.map((item) => {
 		const result = formatData(item.children);
 		/**
 		 * url和category的映射
 		 */
-		result.resultUrl.forEach(locationPathname => {
+		result.resultUrl.forEach((locationPathname) => {
 			mapUrlToCategory[locationPathname] = { category: item.value };
 		});
-		
+
 		return assign(
 			{},
 			item,
@@ -95,16 +93,16 @@ export const EnumMenus = (() => {
 				children: result.resultChildren,
 				url: uniq(
 					(Array.isArray(item.url)
-							? item.url
-							: T.helper.checkString(item.url)
-								? [item.url]
-								: []
+						? item.url
+						: T.helper.checkString(item.url)
+							? [item.url]
+							: []
 					).concat(result.resultUrl),
 				),
 			},
 		);
 	});
-	
+
 	mapUrlToCategory = T.helper.immutable(mapUrlToCategory);
 	return T.helper.immutable(menuData);
 })();
@@ -114,9 +112,9 @@ export const EnumMenus = (() => {
  * @param {String} locationPathname window.location.pathname
  * @return {String || null}
  */
-export const getCategoryData = locationPathname => {
+export const getCategoryData = (locationPathname) => {
 	const result = mapUrlToCategory[flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)];
-	
+
 	return isPlainObject(result) ? result.category : null;
 };
 
@@ -125,9 +123,9 @@ export const getCategoryData = locationPathname => {
  * @param {String} category
  * @return {Array}
  */
-export const getCategoryChildrenData = category => {
+export const getCategoryChildrenData = (category) => {
 	const result = find(EnumMenus, item => item.value === category);
-	
+
 	return isPlainObject(result)
 		? Array.isArray(result.children)
 			? result.children
@@ -147,10 +145,10 @@ export const getCategoryRoute = flowRight(getCategoryChildrenData, getCategoryDa
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
-export const getMenuData = locationPathname => {
+export const getMenuData = (locationPathname) => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const result = find(getCategoryRoute(locationPathname), item => item.url.indexOf(locationPathname) !== -1);
-	
+
 	return isPlainObject(result)
 		? Array.isArray(result.children)
 			? result.children
@@ -163,11 +161,11 @@ export const getMenuData = locationPathname => {
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
-export const getOpenKeys = locationPathname => {
+export const getOpenKeys = (locationPathname) => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const dataSource = getMenuData(locationPathname);
 	const data = [];
-	
+
 	(function fn(_dataSource) {
 		/**
 		 * 从顶层开始判断当前的location.pathname是否在其中
@@ -179,7 +177,7 @@ export const getOpenKeys = locationPathname => {
 			data.push(result.url[0]);
 			T.helper.checkArray(result.children) && fn(result.children);
 		}
-	})(dataSource);
-	
+	}(dataSource));
+
 	return data.slice(0, data.length - 1);
 };

@@ -6,4 +6,4 @@
  * 空函数
  * @returns {undefined}
  */
-export default function noop () {};
+export default function noop() {}

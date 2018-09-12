@@ -7,6 +7,6 @@
  * @param {*} x
  * @returns {boolean}
  */
-export default function isBoolean (x) {
+export default function isBoolean(x) {
 	return typeof x === 'boolean';
 }

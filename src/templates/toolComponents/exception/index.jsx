@@ -1,20 +1,19 @@
 /**
  * Created by joey on 2018/02/19
  */
+import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 import styles from './index.scss';
 import img_404 from './img/404.svg';
 
-import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 
-export default ({className = '', ...rest}) => {
-	
+export default ({ className = '', ...rest }) => {
 	return (
-		<div className={styles.exception + ' ' + className} {...rest}>
+		<div className={`${styles.exception} ${className}`} {...rest}>
 			<div className={styles.imgBlock}>
 				<div
 					className={styles.imgEle}
-					style={{backgroundImage: `url(${img_404})`}}
+					style={{ backgroundImage: `url(${img_404})` }}
 				/>
 			</div>
 			<div className={styles.content}>

@@ -24,4 +24,3 @@ export default helper.immutable({
 	userSearch: _userAPI('/user/search'),
 	userList: _userAPI('/user/list'),
 }, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
-

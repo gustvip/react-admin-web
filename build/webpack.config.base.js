@@ -53,13 +53,13 @@ module.exports = {
 				vendor: {
 					name: 'vendor',
 					test: /\.scss|css|less$/,
-					chunks: 'all',    // merge all the css chunk to one file
+					chunks: 'all', // merge all the css chunk to one file
 					minChunks: 1,
 					reuseExistingChunk: true,
 					enforce: true,
 					priority: 0,
 				},
-				
+
 				commons: { // key 为entry中定义的 入口名称
 					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
 					name: 'commons', // 要缓存的 分隔出来的 chunk 名称
@@ -69,12 +69,12 @@ module.exports = {
 				},
 			},
 		},
-		
+
 		runtimeChunk: {
 			name: 'runtime',
 		},
 	},
-	
+
 	entry: {
 		app: './src/index',
 		commons: [
@@ -87,7 +87,7 @@ module.exports = {
 			'query-string',
 			'es6-promise',
 			'url-search-params-polyfill',
-			
+
 			'utils/core/decorate.js',
 			'utils/core/crypto.js',
 			'utils/core/request.js',
@@ -96,29 +96,29 @@ module.exports = {
 			'utils/core/localStorage/index.js',
 		],
 	},
-	
+
 	/**
 	 * 排除打包的内容---走cdn
 	 */
-	/*externals: {
+	/* externals: {
     $: 'jQuery',
     jQuery: 'jQuery',
     lodash: '_',
     react: 'React',
     'react-dom': 'ReactDOM',
     leaflet: 'L',
-  },*/
-	
+  }, */
+
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
 		modules: ['node_modules', 'src/'],
 		mainFields: ['browser', 'main', 'module'],
 	},
-	
+
 	node: {
 		fs: 'empty',
 	},
-	
+
 	module: {
 		rules: [
 			...staticResource,
@@ -135,13 +135,13 @@ module.exports = {
 					},
 				],
 			},
-			
+
 			{
 				test: /\.jsx?$/,
 				use: ['babel-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
-			
+
 			{
 				test: /\.tsx?$/,
 				use: ['babel-loader', 'ts-loader'],
@@ -149,7 +149,7 @@ module.exports = {
 			},
 		],
 	},
-	
+
 	plugins: [
 		new webpack.ProvidePlugin({
 			React: 'react',

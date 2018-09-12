@@ -24,7 +24,7 @@ export const getUserList = condition => T.request.get(EnumAPI.userList, conditio
  * @param {Array} condition {{user_id: Array ,currentPage: Number, pageSize: Number}}
  * @return {Promise}
  */
-export const deleteUser = condition => T.request.del(EnumAPI.userDelete, {userId: condition});
+export const deleteUser = condition => T.request.del(EnumAPI.userDelete, { userId: condition });
 
 /**
  * 获得初始数据
@@ -32,4 +32,3 @@ export const deleteUser = condition => T.request.del(EnumAPI.userDelete, {userId
  * @return {Promise}
  */
 export const getInitialData = condition => T.request.all([getUserList(condition)]);
-

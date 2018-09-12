@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/2/19
  */
-import { create, CancelToken } from 'axios';
+import {create, CancelToken} from 'axios';
 import forOwn from 'lodash/forOwn';
 import isPlainObject from 'lodash/isPlainObject';
 import noop from 'lodash/noop';
@@ -28,7 +28,7 @@ function objectToFormData(obj, form, namespace) {
 			formKey = property;
 		}
 		
-		if (isPlainObject(value) && !value instanceof File) {
+		if (isPlainObject(value) && !(value instanceof File)) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);
@@ -44,12 +44,11 @@ function objectToFormData(obj, form, namespace) {
  */
 Promise._unhandledRejectionFn = noop;
 
-const singleton = (function () {
+const singleton = (function() {
 	let instantiated;
 	const baseURL = ENV.apiDomain;
 	
 	function init() {
-		
 		return create({
 			baseURL,
 			
@@ -65,7 +64,7 @@ const singleton = (function () {
 			cancelToken: source.token,
 			
 			headers: {
-				//'X-Requested-With': 'XMLHttpRequest',
+				// 'X-Requested-With': 'XMLHttpRequest',
 			},
 		});
 	}
@@ -75,7 +74,7 @@ const singleton = (function () {
 			return instantiated ? instantiated : instantiated = init();
 		},
 	};
-})();
+}());
 
 /**
  * 请求中转函数
@@ -85,32 +84,29 @@ const singleton = (function () {
  */
 const _request = (options = {}) => {
 	return new Promise((resolve, reject) => {
-		singleton.getInstance()
-			.request(options)
-			.then(info => {
-				const { data, code, msg } = info.data;
-				
-				if (ENV.apiSuccessCode === code) {
-					resolve({
-						code,
-						data,
-						msg,
-					});
-				} else {
-					reject({
-						code,
-						data,
-						msg,
-					});
-				}
-			})
-			.catch(info => {
-				reject({
-					code: info.code,
-					data: info.data,
-					msg: info.message,
+		singleton.getInstance().request(options).then((info) => {
+			const {data, code, msg} = info.data;
+			
+			if (ENV.apiSuccessCode === code) {
+				resolve({
+					code,
+					data,
+					msg,
 				});
+			} else {
+				reject({
+					code,
+					data,
+					msg,
+				});
+			}
+		}).catch((info) => {
+			reject({
+				code: info.code,
+				data: info.data,
+				msg: info.message,
 			});
+		});
 	});
 };
 
@@ -149,7 +145,7 @@ export function post(url, data = {}, options = {}) {
 		url,
 		method: 'post',
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	}, options));
 }
 
@@ -165,7 +161,7 @@ export function postJSON(url, data = {}, options = {}) {
 		url,
 		method: 'post',
 		data,
-		headers: { 'Content-Type': 'application/json' },
+		headers: {'Content-Type': 'application/json'},
 	}, options));
 }
 
@@ -183,7 +179,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 		method: 'post',
 		data: objectToFormData(data),
 		onUploadProgress,
-		headers: { 'Content-Type': 'multipart/form-data' },
+		headers: {'Content-Type': 'multipart/form-data'},
 	}, options));
 }
 
@@ -199,7 +195,7 @@ export function del(url, data = {}, options = {}) {
 		url,
 		method: 'delete',
 		data,
-		headers: { 'Content-Type': 'application/json' },
+		headers: {'Content-Type': 'application/json'},
 	}, options));
 }
 
@@ -215,7 +211,7 @@ export function put(url, data = {}, options = {}) {
 		url,
 		method: 'put',
 		data,
-		headers: { 'Content-Type': 'application/json' },
+		headers: {'Content-Type': 'application/json'},
 	}, options));
 }
 
