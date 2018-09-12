@@ -9,6 +9,8 @@
 		"build": "npm run test && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
 		"test": "jest",
 		"eslint": "eslint ./src/*",
+		"lint:es": "eslint build public src ./.*.js --ext '.js,.jsx'",
+		"lint-fix:es": "eslint --fix build public src ./.*.js --ext '.js,.jsx'",
 		"stylelint": "stylelint src/**/*.scss --syntax scss",
 		"tslint": "tslint 'src/**/*.{ts,tsx}'"
 	},
