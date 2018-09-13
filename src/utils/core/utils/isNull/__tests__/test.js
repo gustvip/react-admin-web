@@ -1,6 +1,6 @@
-import isNull from '../index';
+import isNull from "../index";
 
-test('test isNull', () => {
-  expect(isNull(null)).toBeTruthy();
-  expect(isNull('')).toBeFalsy();
+test("test isNull", () => {
+	expect(isNull(null)).toBeTruthy();
+	expect(isNull("")).toBeFalsy();
 });

@@ -34,11 +34,9 @@
 						"style": true
 					}
 				],
-				[
-					"transform-decorators-legacy",
-					"transform-decorators",
-					"react-hot-loader/babel"
-				],
+				"transform-decorators-legacy",
+				"transform-decorators",
+				"react-hot-loader/babel",
 				[
 					"transform-runtime",
 					{
