@@ -112,10 +112,8 @@ export default (function() {
 		
 		while (currentNode) {
 			// If callback is specified then try to find node by callback.
-			if (callback && isFunction(callback)) {
-				if (callback(currentNode.value)) {
-					break;
-				}
+			if (callback && isFunction(callback) && callback(currentNode.value)) {
+				break;
 			} else if (!isUndefined(value) && this.compare.equal(currentNode.value, value)) {
 				break;
 			}
