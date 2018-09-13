@@ -19,13 +19,13 @@ class Registry {
 		};
 		this.finallyReducer = {};
 	}
-	
+
 	injectReducers(reducers) {
 		this.store.replaceReducer(combineReducers(
 			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
 		));
 	}
-	
+
 	get initialReducers() {
 		return combineReducers(
 			isEmpty(this.finallyReducer)
@@ -66,16 +66,16 @@ function thunkMiddleware(extraOptions) {
 export default function createStore(initialState = {}) {
 	const registry = new Registry();
 	let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunkMiddleware());
-	
+
 	if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
 		finalCreateStore = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(finalCreateStore);
 	}
-	
+
 	const store = finalCreateStore(_createStore)(
 		registry.initialReducers,
 		initialState,
 	);
-	
+
 	registry.store = store;
 	return store;
 }

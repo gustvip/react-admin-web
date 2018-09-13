@@ -10,13 +10,13 @@ export default class LeafletComponent extends React.PureComponent {
 		className: "",
 		style: {},
 	};
-	
+
 	static propTypes = {
 		className: PropTypes.string,
 		mapLoadCallback: PropTypes.func,
 		style: PropTypes.object,
 	};
-	
+
 	get defaultOptions() {
 		return {
 			/**
@@ -39,22 +39,22 @@ export default class LeafletComponent extends React.PureComponent {
 			maxZoom: this.mapUtils.EnumMap.ZOOM.max,		// 最大默认缩放
 		};
 	}
-	
+
 	constructor(props) {
 		super(props);
 		this._mapContainer = null;
 		this.mapUtils = new mapUtils();
 	}
-	
+
 	componentDidMount() {
 		const map = this.mapUtils.L.map(this._mapContainer, this.defaultOptions);
 		this.mapUtils.setMap(map);
 		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Map.tile, {}).addTo(map);
 		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Annotion.tile, {}).addTo(map);
-		
+
 		isFunction(this.props.mapLoadCallback) && this.props.mapLoadCallback();
 	}
-	
+
 	render() {
 		const baseStyle = {
 			position: "absolute",

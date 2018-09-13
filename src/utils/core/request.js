@@ -27,14 +27,14 @@ function objectToFormData(obj, form, namespace) {
 		} else {
 			formKey = property;
 		}
-		
+
 		if (isPlainObject(value) && !(value instanceof File)) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);
 		}
 	}));
-	
+
 	return fd;
 }
 
@@ -47,28 +47,28 @@ Promise._unhandledRejectionFn = noop;
 const singleton = (function() {
 	let instantiated;
 	const baseURL = ENV.apiDomain;
-	
+
 	function init() {
 		return create({
 			baseURL,
-			
+
 			withCredentials: true,
-			
+
 			/**
 			 * 表示服务器将响应的数据类型
 			 * 包括 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 			 */
 			responseType: "json",
-			
+
 			// 取消请求的令牌
 			cancelToken: source.token,
-			
+
 			headers: {
 				// 'X-Requested-With': 'XMLHttpRequest',
 			},
 		});
 	}
-	
+
 	return {
 		getInstance() {
 			return instantiated ? instantiated : instantiated = init();
@@ -86,7 +86,7 @@ const _request = (options = {}) => {
 	return new Promise((resolve, reject) => {
 		singleton.getInstance().request(options).then((info) => {
 			const {data, code, msg} = info.data;
-			
+
 			if (ENV.apiSuccessCode === code) {
 				resolve({
 					code,

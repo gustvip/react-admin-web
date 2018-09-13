@@ -7,4 +7,6 @@
  * @param {*} x
  * @returns {*}
  */
-export default function identity(x) { return x; }
+export default function identity(x) {
+	return x;
+}

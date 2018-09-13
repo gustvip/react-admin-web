@@ -7,7 +7,7 @@ export default class TestComponent extends React.PureComponent {
 		super();
 		this.container = null;
 	}
-	
+
 	render() {
 		return (
 			<div

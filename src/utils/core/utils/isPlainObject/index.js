@@ -15,7 +15,7 @@ export default function isPlainObject(x) {
 	if (!isObjectLike(x) || !isObject(x)) {
 		return false;
 	}
-	
+
 	if (isNull(Object.getPrototypeOf(x))) {
 		return true;
 	}

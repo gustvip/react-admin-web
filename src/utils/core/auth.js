@@ -13,7 +13,7 @@ class Auth {
 	constructor() {
 		this.ENV = window.ENV;
 	}
-	
+
 	/**
 	 * 验证是否登录
 	 * @returns {boolean}
@@ -21,12 +21,12 @@ class Auth {
 	get isLogin() {
 		const locationPathname = flowRight(helper.removeTrailingSlash, helper.removeBlank)(window.location.pathname);
 		const isNeedGetLocalStorage = this.ENV.login.isCheckLogin && this.ENV.login.noCheckIsLoginRoutes.indexOf(locationPathname) === -1;
-		
+
 		return isNeedGetLocalStorage
 			? this.getLoginStorageValue() === this.ENV.localStorage.login.value
 			: true;
 	}
-	
+
 	/**
 	 * 获取localStorage(自定义)的login值
 	 * @returns {*}
@@ -34,7 +34,7 @@ class Auth {
 	getLoginStorageValue() {
 		return localStorage.getItem(this.ENV.localStorage.login.key);
 	}
-	
+
 	/**
 	 * 设置登录的localStorage(自定义)值
 	 */
@@ -42,14 +42,14 @@ class Auth {
 		const login = this.ENV.localStorage.login;
 		localStorage.setItem(login.key, login.value, login.expire);
 	}
-	
+
 	/**
 	 * 移除登录的localStorage(自定义)值
 	 */
 	removeLoginStorageValue() {
 		localStorage.removeItem(this.ENV.localStorage.login.key);
 	}
-	
+
 	/**
 	 * 获取localStorage(自定义)的user_name值
 	 * @returns {*}
@@ -57,7 +57,7 @@ class Auth {
 	getUserNameStorageValue() {
 		return localStorage.getItem(this.ENV.localStorage.userName.key);
 	}
-	
+
 	/**
 	 * 设置登录的localStorage(自定义)的user_name值
 	 * @param {string} userNameValue 用户名
@@ -66,14 +66,14 @@ class Auth {
 		const userName = this.ENV.localStorage.userName;
 		localStorage.setItem(userName.key, userNameValue, userName.expire);
 	}
-	
+
 	/**
 	 * 移除登录的localStorage(自定义)的userName值
 	 */
 	removeUserNameStorageValue() {
 		localStorage.removeItem(this.ENV.localStorage.userName.key);
 	}
-	
+
 	/**
 	 * 获取localStorage(自定义)的userPassword值
 	 * @returns {*}
@@ -81,7 +81,7 @@ class Auth {
 	getUserPasswordStorageValue() {
 		return localStorage.getItem(this.ENV.localStorage.userPassword.key);
 	}
-	
+
 	/**
 	 * 设置登录的localStorage(自定义)的userPassword值
 	 * @param {string} userPasswordValue 用户名
@@ -90,14 +90,14 @@ class Auth {
 		const userPassword = this.ENV.localStorage.userPassword;
 		localStorage.setItem(userPassword.key, userPasswordValue, userPassword.expire);
 	}
-	
+
 	/**
 	 * 移除登录的localStorage(自定义)的user_password值
 	 */
 	removeUserPasswordStorageValue() {
 		localStorage.removeItem(this.ENV.localStorage.userPassword.key);
 	}
-	
+
 	/**
 	 * 登录
 	 * @param {string} userName
@@ -111,7 +111,7 @@ class Auth {
 			userPassword,
 		}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
-	
+
 	/**
 	 * 登录成功重定向
 	 * @param {Object} history react-router的history
@@ -120,11 +120,11 @@ class Auth {
 	loginSuccessRedirect(history, state) {
 		const urlParams = queryString.parse(window.location.search);
 		let redirectUrl = this.ENV.login.defaultRedirectUrl;
-		
+
 		if (helper.isObject(urlParams) && this.ENV.defaultQuery in urlParams) {
 			redirectUrl = decodeURIComponent(urlParams[this.ENV.defaultQuery]);
 		}
-		
+
 		setTimeout(() => history.push(redirectUrl, state), 1000);
 	}
 }

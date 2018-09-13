@@ -10,7 +10,7 @@ class mapBasisHelper {
 		this.map = null;
 		this.AMap = window.AMap;
 	}
-	
+
 	/**
 	 * 获取map实例
 	 * @return {Object}
@@ -18,7 +18,7 @@ class mapBasisHelper {
 	get mapInstance() {
 		return this.map;
 	}
-	
+
 	/**
 	 * 获取map实例
 	 * @return {Object}
@@ -26,7 +26,7 @@ class mapBasisHelper {
 	get AMapInstance() {
 		return this.AMap;
 	}
-	
+
 	/**
 	 * 基础数学库
 	 * @return {Object}
@@ -34,7 +34,7 @@ class mapBasisHelper {
 	get geometryUtil() {
 		return this.AMapInstance.GeometryUtil;
 	}
-	
+
 	/**
 	 * 设置map容器
 	 * @param {Object} map
@@ -43,10 +43,10 @@ class mapBasisHelper {
 		if (this.mapInstance !== map) {
 			this.map = map;
 		}
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 默认的options
 	 * @return {{zoom: number, center: (number|number)[], zooms: [null,null], mapStyle: string, features: [null,null,null], lang: string, viewMode: string, crs: string, dragEnable: boolean, zoomEnable: boolean, doubleClickZoom: boolean, keyboardEnable: boolean, jogEnable: boolean, scrollWheel: boolean, rotation: number, animateEnable: boolean, isHotspot: boolean, rotateEnable: boolean, resizeEnable: boolean, expandZoomRange: boolean, touchZoom: boolean, showBuildingBlock: boolean, showIndoorMap: boolean, buildingAnimation: boolean}}
@@ -63,7 +63,7 @@ class mapBasisHelper {
 			crs: EnumMap.CRS.EPSG3857,		// 地图显示的参考坐标系
 		};
 	}
-	
+
 	/**
 	 * 创建地图实列
 	 * @param {String} container
@@ -81,10 +81,10 @@ class mapBasisHelper {
 				),
 			),
 		);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 像素坐标，确定地图上的一个像素点
 	 * @param {Number} x
@@ -94,7 +94,7 @@ class mapBasisHelper {
 	pixel(x, y) {
 		return new this.AMapInstance.Pixel(x, y);
 	}
-	
+
 	/**
 	 * 地物对象的像素尺寸
 	 * @param {Number} w
@@ -104,7 +104,7 @@ class mapBasisHelper {
 	size(w, h) {
 		return new this.AMapInstance.Size(w, h);
 	}
-	
+
 	/**
 	 * 经纬度坐标，确定地图上的一个点
 	 * @param {Number} lng
@@ -114,7 +114,7 @@ class mapBasisHelper {
 	lngLat(lng, lat) {
 		return new this.AMapInstance.LngLat(lng, lat);
 	}
-	
+
 	/**
 	 * 地物对象的经纬度矩形范围
 	 * @param {Number} southWest
@@ -124,7 +124,7 @@ class mapBasisHelper {
 	bounds(southWest, northEast) {
 		return new this.AMapInstance.Bounds(southWest, northEast);
 	}
-	
+
 	/**
 	 * 获取当前地图缩放级别
 	 * @return {Number}
@@ -132,7 +132,7 @@ class mapBasisHelper {
 	getZoom() {
 		return this.mapInstance.getZoom();
 	}
-	
+
 	/**
 	 * 获取地图图层数组
 	 * @return {Array}
@@ -140,7 +140,7 @@ class mapBasisHelper {
 	getLayers() {
 		return this.mapInstance.getLayers();
 	}
-	
+
 	/**
 	 * 获取地图中心点经纬度坐标值
 	 * @return {Object} LngLat
@@ -148,7 +148,7 @@ class mapBasisHelper {
 	getCenter() {
 		return this.mapInstance.getCenter();
 	}
-	
+
 	/**
 	 * 获取地图中心点所在区域，回调函数返回对象属性分别对应为{省，市，区/县}
 	 * @param {Function} cb
@@ -157,7 +157,7 @@ class mapBasisHelper {
 	getCity(cb) {
 		return this.mapInstance.getCity(cb);
 	}
-	
+
 	/**
 	 * 返回地图对象的容器
 	 * @return {Object} HTMLDivElement
@@ -165,7 +165,7 @@ class mapBasisHelper {
 	getContainer() {
 		return this.mapInstance.getContainer();
 	}
-	
+
 	/**
 	 * 获取当前地图视图范围，获取当前可视区域
 	 * @return {Object} Bounds
@@ -173,7 +173,7 @@ class mapBasisHelper {
 	getBounds() {
 		return this.mapInstance.getBounds();
 	}
-	
+
 	/**
 	 * 获取当前地图标注的显示顺序
 	 * @return {Number}
@@ -181,7 +181,7 @@ class mapBasisHelper {
 	getLabelzIndex() {
 		return this.mapInstance.getLabelzIndex();
 	}
-	
+
 	/**
 	 * 获取Map的限制区域
 	 * @return {Object} Bounds
@@ -189,7 +189,7 @@ class mapBasisHelper {
 	getLimitBounds() {
 		return this.mapInstance.getLimitBounds();
 	}
-	
+
 	/**
 	 * 获取底图语言类型
 	 * @return {String}
@@ -197,7 +197,7 @@ class mapBasisHelper {
 	getLang() {
 		return this.mapInstance.getLang();
 	}
-	
+
 	/**
 	 * 获取地图容器像素大小
 	 * @return {Object} size
@@ -205,7 +205,7 @@ class mapBasisHelper {
 	getSize() {
 		return this.mapInstance.getSize();
 	}
-	
+
 	/**
 	 * 获取地图顺时针旋转角度
 	 * @return {Number}
@@ -213,7 +213,7 @@ class mapBasisHelper {
 	getRotation() {
 		return this.mapInstance.getRotation();
 	}
-	
+
 	/**
 	 * 获取当前地图状态信息，包括是否可鼠标拖拽移动地图、地图是否可缩放、地图是否可旋转（rotateEnable）
 	 * 是否可双击放大地图、是否可以通过键盘控制地图旋转（keyboardEnable）等
@@ -222,7 +222,7 @@ class mapBasisHelper {
 	getStatus() {
 		return this.mapInstance.getStatus();
 	}
-	
+
 	/**
 	 * 获取地图默认鼠标指针样式
 	 * @return {String}
@@ -230,7 +230,7 @@ class mapBasisHelper {
 	getDefaultCursor() {
 		return this.mapInstance.getDefaultCursor();
 	}
-	
+
 	/**
 	 * 获取指定位置的地图分辨率，单位：米/像素
 	 * @param {Object} LngLat
@@ -239,7 +239,7 @@ class mapBasisHelper {
 	getResolution(LngLat) {
 		return this.mapInstance.getResolution(LngLat);
 	}
-	
+
 	/**
 	 * 获取当前地图比例尺。其值为当前地图中心点处比例尺值的倒数
 	 * @return {Number}
@@ -247,7 +247,7 @@ class mapBasisHelper {
 	getScale() {
 		return this.mapInstance.getScale();
 	}
-	
+
 	/**
 	 * 返回添加的覆盖物对象，可选类型包括marker、circle、polyline、polygon
 	 * @param {*} type
@@ -256,7 +256,7 @@ class mapBasisHelper {
 	getAllOverlays(type) {
 		return this.mapInstance.getAllOverlays(type);
 	}
-	
+
 	/**
 	 * 获取地图显示样式
 	 * @return {String}
@@ -264,7 +264,7 @@ class mapBasisHelper {
 	getMapStyle() {
 		return this.mapInstance.getMapStyle();
 	}
-	
+
 	/**
 	 * 获取地图显示元素种类
 	 * @return {Array}
@@ -272,7 +272,7 @@ class mapBasisHelper {
 	getFeatures() {
 		return this.mapInstance.getFeatures();
 	}
-	
+
 	/**
 	 * 获取俯仰角
 	 * @return {Number}
@@ -280,7 +280,7 @@ class mapBasisHelper {
 	getPitch() {
 		return this.mapInstance.getPitch();
 	}
-	
+
 	/**
 	 * 设置地图显示的缩放级别
 	 * @param {Number} level
@@ -288,10 +288,10 @@ class mapBasisHelper {
 	 */
 	setZoom(level) {
 		this.mapInstance.setZoom(level);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置地图显示的缩放级别
 	 * @param {Number} index
@@ -299,10 +299,10 @@ class mapBasisHelper {
 	 */
 	setLabelzIndex(index) {
 		this.mapInstance.setLabelzIndex(index);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置地图图层数组，数组为一个或多个图层
 	 * @param {Array} layers
@@ -310,10 +310,10 @@ class mapBasisHelper {
 	 */
 	setLayers(layers) {
 		this.mapInstance.setLayers(layers);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 添加地图覆盖物数组，数组为一个或多个覆盖物
 	 * @param {Array} layers
@@ -321,10 +321,10 @@ class mapBasisHelper {
 	 */
 	add(layers) {
 		this.mapInstance.add(layers);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 移除地图覆盖物数组，数组为一个或多个覆盖物
 	 * @param {Array} layers
@@ -332,10 +332,10 @@ class mapBasisHelper {
 	 */
 	remove(layers) {
 		this.mapInstance.remove(layers);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置地图显示的中心点
 	 * @param {Object} LngLat
@@ -343,10 +343,10 @@ class mapBasisHelper {
 	 */
 	setCenter(LngLat) {
 		this.mapInstance.setCenter(LngLat);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置地图显示的中心点
 	 * @param {Number} zoomLevel
@@ -355,10 +355,10 @@ class mapBasisHelper {
 	 */
 	setZoomAndCenter(zoomLevel, LngLat) {
 		this.mapInstance.setZoomAndCenter(zoomLevel, LngLat);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 按照行政区名称或adcode来设置地图显示的中心点
 	 * @param {String} city
@@ -367,10 +367,10 @@ class mapBasisHelper {
 	 */
 	setCity(city, cb) {
 		this.mapInstance.setCity(city, cb);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 指定当前地图显示范围，参数bounds为指定的范围
 	 * @param {Object} bounds
@@ -378,10 +378,10 @@ class mapBasisHelper {
 	 */
 	setBounds(bounds) {
 		this.mapInstance.setBounds(bounds);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置Map的限制区域，设定区域限制后，传入参数为限制的Bounds
 	 * @param {Object} bounds
@@ -389,20 +389,20 @@ class mapBasisHelper {
 	 */
 	setLimitBounds(bounds) {
 		this.mapInstance.setLimitBounds(bounds);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 清除限制区域
 	 * @return {mapBasisHelper}
 	 */
 	clearLimitBounds() {
 		this.mapInstance.clearLimitBounds();
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置语言
 	 * @param {String} lang
@@ -410,10 +410,10 @@ class mapBasisHelper {
 	 */
 	setLang(lang) {
 		this.mapInstance.setLang(lang);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置地图顺时针旋转角度，旋转原点为地图容器中心点，取值范围 [0-360]
 	 * @param {Number} rotation
@@ -421,10 +421,10 @@ class mapBasisHelper {
 	 */
 	setRotation(rotation) {
 		this.mapInstance.setRotation(rotation);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置当前地图显示状态，包括是否可鼠标拖拽移动地图、地图是否可缩放、地图是否可旋转（rotateEnable）、是否可双击放大地图、是否可以通过键盘控制地图旋转（keyboardEnable）
 	 * @param {Object} status
@@ -432,10 +432,10 @@ class mapBasisHelper {
 	 */
 	setStatus(status) {
 		this.mapInstance.setStatus(status);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置当前地图显示状态，包括是否可鼠标拖拽移动地图、地图是否可缩放、地图是否可旋转（rotateEnable）、是否可双击放大地图、是否可以通过键盘控制地图旋转（keyboardEnable）
 	 * @param {String} cursor
@@ -443,30 +443,30 @@ class mapBasisHelper {
 	 */
 	setDefaultCursor(cursor) {
 		this.mapInstance.setDefaultCursor(cursor);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 地图放大一级显示
 	 * @return {mapBasisHelper}
 	 */
 	zoomIn() {
 		this.mapInstance.zoomIn();
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 地图放缩小级显示
 	 * @return {mapBasisHelper}
 	 */
 	zoomOut() {
 		this.mapInstance.zoomOut();
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 地图中心点平移至指定点位置
 	 * @param {Object} position
@@ -474,10 +474,10 @@ class mapBasisHelper {
 	 */
 	panTo(position) {
 		this.mapInstance.panTo(position);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 以像素为单位，沿x方向和y方向移动地图，x向右为正，y向下为正
 	 * @param {Number} x
@@ -486,10 +486,10 @@ class mapBasisHelper {
 	 */
 	panBy(x, y) {
 		this.mapInstance.panBy(x, y);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 以像素为单位，沿x方向和y方向移动地图，x向右为正，y向下为正
 	 * @param {Array || Undefined} overlayList
@@ -497,70 +497,70 @@ class mapBasisHelper {
 	 */
 	setFitView(overlayList) {
 		this.mapInstance.setFitView(overlayList);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 删除地图上所有的覆盖物
 	 * @return {mapBasisHelper}
 	 */
 	clearMap() {
 		this.mapInstance.clearMap();
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 注销地图对象，并清空地图容器
 	 * @return {mapBasisHelper}
 	 */
 	destroy() {
 		this.mapInstance.destroy();
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 插件加载方法
 	 * @return {mapBasisHelper}
 	 */
 	plugin(name, cb) {
 		this.mapInstance.plugin(name, cb);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 添加控件
 	 * @return {mapBasisHelper}
 	 */
 	addControl(obj) {
 		this.mapInstance.addControl(obj);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 移除地图上的指定控件
 	 * @return {mapBasisHelper}
 	 */
 	removeControl(obj) {
 		this.mapInstance.removeControl(obj);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 清除地图上的信息窗体
 	 * @return {mapBasisHelper}
 	 */
 	clearInfoWindow() {
 		this.mapInstance.clearInfoWindow();
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 平面地图像素坐标转换为地图经纬度坐标
 	 * @param {Object} pixel
@@ -570,7 +570,7 @@ class mapBasisHelper {
 	pixelToLngLat(pixel, level) {
 		return this.mapInstance.pixelToLngLat(pixel, level);
 	}
-	
+
 	/**
 	 * 地图经纬度坐标转换为平面地图像素坐标
 	 * @param {Object} lngLat
@@ -580,7 +580,7 @@ class mapBasisHelper {
 	lnglatToPixel(lngLat, level) {
 		return this.mapInstance.lnglatToPixel(lngLat, level);
 	}
-	
+
 	/**
 	 * 地图容器像素坐标转为地图经纬度坐标
 	 * @param {Object} pixel
@@ -589,7 +589,7 @@ class mapBasisHelper {
 	containerToLngLat(pixel) {
 		return this.mapInstance.containerToLngLat(pixel);
 	}
-	
+
 	/**
 	 * 地图经纬度坐标转为地图容器像素坐标
 	 * @param {Object} LngLat
@@ -598,7 +598,7 @@ class mapBasisHelper {
 	lngLatToContainer(LngLat) {
 		return this.mapInstance.lngLatToContainer(LngLat);
 	}
-	
+
 	/**
 	 * 设置地图的显示样式
 	 * @param {String} style
@@ -606,10 +606,10 @@ class mapBasisHelper {
 	 */
 	setMapStyle(style) {
 		this.mapInstance.setMapStyle(style);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置地图上显示的元素种类，支持bg（地图背景）、point（兴趣点）、road（道路）、building（建筑物）
 	 * @param {String} features
@@ -617,10 +617,10 @@ class mapBasisHelper {
 	 */
 	setFeatures(features) {
 		this.mapInstance.setFeatures(features);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 设置俯仰角,3D视图有效
 	 * @param {Number} pitch
@@ -628,10 +628,10 @@ class mapBasisHelper {
 	 */
 	setPitch(pitch) {
 		this.mapInstance.setPitch(pitch);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 注册事件，给Map或者覆盖物对象注册事件
 	 * 注意：多次绑定时，当eventName、handler函数对象、context对象有任意一个不一样就会再次绑定
@@ -642,10 +642,10 @@ class mapBasisHelper {
 	 */
 	on(eventName, handler, context) {
 		this.mapInstance.on(eventName, handler, context);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 移除事件绑定
 	 * 注意：只有当off与on的eventName、handler函数对象、context对象完全一致时才能有效移除监听
@@ -656,10 +656,10 @@ class mapBasisHelper {
 	 */
 	off(eventName, handler, context) {
 		this.mapInstance.off(eventName, handler, context);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 给DOM对象注册事件，并返回eventListener
 	 * @param {DOMElement} instance 需注册事件的DOM对象---必填
@@ -671,7 +671,7 @@ class mapBasisHelper {
 	addDomListener(instance, eventName, handler, context) {
 		return this.AMapInstance.event.addDomListener(instance, eventName, handler, context);
 	}
-	
+
 	/**
 	 * 给对象注册事件，并返回eventListener
 	 * @param {DOMElement} instance 需注册事件的对象---必填
@@ -683,7 +683,7 @@ class mapBasisHelper {
 	addListener(instance, eventName, handler, context) {
 		return this.AMapInstance.event.addListener(instance, eventName, handler, context);
 	}
-	
+
 	/**
 	 * 类似于addListener，但事件只会被触发一次，之后将自动移除
 	 * @param {DOMElement} instance 需注册事件的DOM对象---必填
@@ -695,7 +695,7 @@ class mapBasisHelper {
 	addListenerOnce(instance, eventName, handler, context) {
 		return this.AMapInstance.event.addListenerOnce(instance, eventName, handler, context);
 	}
-	
+
 	/**
 	 * 删除由上述 event.addDomListener 和 event.addListener 传回的指定侦听器
 	 * @param {Object} listener 需要移除的事件listener
@@ -703,10 +703,10 @@ class mapBasisHelper {
 	 */
 	removeListener(listener) {
 		this.AMapInstance.event.removeListener(listener);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 触发非DOM事件触发非DOM事件eventName时，extArgs将扩展到事件监听函数（handler）接受到的event参数中
 	 * @param {DOMElement} instance
@@ -716,10 +716,10 @@ class mapBasisHelper {
 	 */
 	trigger(instance, eventName, extArgs) {
 		this.AMapInstance.event.trigger(instance, eventName, extArgs);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * 创建MouseTool实列
 	 * @return {Object}
@@ -728,10 +728,10 @@ class mapBasisHelper {
 		if (!this.AMapInstance.MouseTool) {
 			this.mapInstance.plugin(["AMap.MouseTool"]);
 		}
-		
+
 		return new this.AMapInstance.MouseTool(this.mapInstance);
 	}
-	
+
 	/**
 	 * 创建RangingTool实列
 	 * @return {Object}
@@ -740,10 +740,10 @@ class mapBasisHelper {
 		if (!this.AMapInstance.RangingTool) {
 			this.mapInstance.plugin(["AMap.RangingTool"]);
 		}
-		
+
 		return new this.AMapInstance.RangingTool(this.mapInstance, options);
 	}
-	
+
 	/**
 	 * 创建地址解析
 	 * @param {Object} options
@@ -756,7 +756,7 @@ class mapBasisHelper {
 		if (!this.AMapInstance.Geocoder) {
 			this.mapInstance.plugin(["AMap.Geocoder"]);
 		}
-		
+
 		/**
 		 * 修改实列的getLocation方法
 		 */
@@ -777,7 +777,7 @@ class mapBasisHelper {
 									msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
 								});
 							}
-							
+
 							/**
 							 * 查询成功
 							 */
@@ -787,7 +787,7 @@ class mapBasisHelper {
 									data: result.geocodes,
 								});
 							}
-							
+
 							/**
 							 * 查询错误
 							 */
@@ -802,7 +802,7 @@ class mapBasisHelper {
 				},
 				configurable: false,
 			},
-			
+
 			getAddress: {
 				value(LngLat) {
 					return new Promise((resolve, reject) => {
@@ -816,7 +816,7 @@ class mapBasisHelper {
 									msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
 								});
 							}
-							
+
 							/**
 							 * 查询成功
 							 */
@@ -826,7 +826,7 @@ class mapBasisHelper {
 									data: result.regeocode,
 								});
 							}
-							
+
 							/**
 							 * 查询错误
 							 */
@@ -842,10 +842,10 @@ class mapBasisHelper {
 				configurable: false,
 			},
 		});
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * 创建Autocomplete
 	 * @param {Object} options
@@ -858,7 +858,7 @@ class mapBasisHelper {
 		if (!this.AMapInstance.Autocomplete) {
 			this.mapInstance.plugin(["AMap.Autocomplete"]);
 		}
-		
+
 		/**
 		 * 修改实列的search方法
 		 */
@@ -877,7 +877,7 @@ class mapBasisHelper {
 								msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
 							});
 						}
-						
+
 						/**
 						 * 查询成功
 						 */
@@ -887,7 +887,7 @@ class mapBasisHelper {
 								data: result.tips,
 							});
 						}
-						
+
 						/**
 						 * 查询错误
 						 */
@@ -902,10 +902,10 @@ class mapBasisHelper {
 			},
 			configurable: false,
 		});
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * 创建DistrictSearch
 	 * @param {Object} options
@@ -918,7 +918,7 @@ class mapBasisHelper {
 		if (!this.AMapInstance.DistrictSearch) {
 			this.mapInstance.plugin(["AMap.DistrictSearch"]);
 		}
-		
+
 		/**
 		 * 修改实列的search方法
 		 */
@@ -937,7 +937,7 @@ class mapBasisHelper {
 								msg: EnumMap.REQUEST_STATUS_INFO.no_data_info,
 							});
 						}
-						
+
 						/**
 						 * 查询成功
 						 */
@@ -947,7 +947,7 @@ class mapBasisHelper {
 								data: result.districtList,
 							});
 						}
-						
+
 						/**
 						 * 查询错误
 						 */
@@ -962,10 +962,10 @@ class mapBasisHelper {
 			},
 			configurable: false,
 		});
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * 创建单个正常的layer
 	 * @param {String} name layer的名称
@@ -980,19 +980,19 @@ class mapBasisHelper {
 			 */
 			case EnumMap.LAYER.TileLayer.value:
 				return new this.AMapInstance.TileLayer(options);
-			
+
 			/**
 			 * 卫星图层
 			 */
 			case EnumMap.LAYER.TileLayer_Satellite.value:
 				return new this.AMapInstance.TileLayer.Satellite(options);
-			
+
 			/**
 			 * 路网图层
 			 */
 			case EnumMap.LAYER.TileLayer_RoadNet.value:
 				return new this.AMapInstance.TileLayer.RoadNet(options);
-			
+
 			/**
 			 * 实时交通图层
 			 */
@@ -1001,7 +1001,7 @@ class mapBasisHelper {
 			default:
 		}
 	}
-	
+
 	/**
 	 * 海量麻点图层
 	 * @param {Array} data
@@ -1018,7 +1018,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 灵活切片图层
 	 * @param {Object} options
@@ -1033,7 +1033,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 图片图层
 	 * @param {Object} options
@@ -1048,7 +1048,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * Canvas图层
 	 * @param {Object} options
@@ -1063,7 +1063,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * Video图层
 	 * @param {Object} options
@@ -1078,7 +1078,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 完全自定义图层
 	 * @param {Object} options
@@ -1093,7 +1093,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * WMS图层
 	 * @param {Object} options
@@ -1108,7 +1108,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * WMTS图层
 	 * @param {Object} options
@@ -1123,7 +1123,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建layer集合
 	 * @param layer
@@ -1133,7 +1133,7 @@ class mapBasisHelper {
 			Array.isArray(layer) ? layer : arguments.slice(),
 		);
 	}
-	
+
 	/**
 	 * 创建Marker
 	 * @param {Object} options
@@ -1149,7 +1149,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建Icon
 	 * @param {Object} options
@@ -1163,7 +1163,7 @@ class mapBasisHelper {
 				{map: this.mapInstance},
 			));
 	}
-	
+
 	/**
 	 * 创建Text
 	 * @param {Object} options
@@ -1181,7 +1181,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建Polyline
 	 * @param {Object} options
@@ -1197,7 +1197,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建Polygon
 	 * @param {Object} options
@@ -1213,7 +1213,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建BezierCurve
 	 * @param {Object} options
@@ -1229,7 +1229,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建Circle
 	 * @param {Object} options
@@ -1245,7 +1245,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建CircleMarker---不随着地图级别变化发生大小改变
 	 * @param {Object} options
@@ -1261,7 +1261,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建Ellipse
 	 * @param {Object} options
@@ -1277,7 +1277,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建Rectangle
 	 * @param {Object} options
@@ -1293,7 +1293,7 @@ class mapBasisHelper {
 			),
 		);
 	}
-	
+
 	/**
 	 * 创建OverlayGroup
 	 * @param {Array} options
@@ -1304,7 +1304,7 @@ class mapBasisHelper {
 			Array.isArray(options) ? options : arguments.slice(),
 		);
 	}
-	
+
 	/**
 	 * 创建InfoWindow
 	 * @param {Array} options

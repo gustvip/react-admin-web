@@ -40,7 +40,7 @@ const getIcon = (icon) => {
 export const MainHeader = ({className = "", title = "", styles = {}, leftRender = null, rightRender = null}) => {
 	const defaultClassName = style["content-header-container"];
 	const defaultStyle = {};
-	
+
 	return (
 		<header className={T.helper.classNames(defaultClassName)(className)} style={merge(defaultStyle, styles)}>
 			<section className={style["left-container"]}>
@@ -70,7 +70,7 @@ MainHeader.propTypes = {
 export const MainContent = ({className = "", styles = {}, children = null}) => {
 	const defaultClassName = style["content-body-container"];
 	const defaultStyle = {};
-	
+
 	return (
 		<section
 			style={merge(defaultStyle, styles)}
@@ -98,7 +98,7 @@ class SiderMenu extends React.PureComponent {
 			defaultOpenKeys: getOpenKeys(props.locationPathname),
 		};
 	}
-	
+
 	/**
 	 * 获取菜单
 	 * @param {Array} data
@@ -147,7 +147,7 @@ class SiderMenu extends React.PureComponent {
 			});
 		}
 	};
-	
+
 	/**
 	 * 设置openKeys
 	 * @param {Array} defaultOpenKeys
@@ -165,10 +165,10 @@ class SiderMenu extends React.PureComponent {
 				: defaultOpenKeys,
 		});
 	};
-	
+
 	handleCollapsed = (collapsed) => {
 		const _this = this;
-		
+
 		/**
 		 * 将打开的菜单关闭---菜单宽度减少到80px，但是subMenu离左侧还是200px
 		 */
@@ -177,16 +177,16 @@ class SiderMenu extends React.PureComponent {
 		} else {
 			_this.setState({defaultOpenKeys: getOpenKeys(_this.props.locationPathname)});
 		}
-		
+
 		_this.props.handleCollapsed();
 	};
-	
+
 	render() {
 		const _this = this;
 		const locationPathname = _this.props.locationPathname;
 		const menuData = getMenuData(locationPathname);
 		const defaultOpenKeys = _this.state.defaultOpenKeys;
-		
+
 		return (
 			<Layout.Sider
 				collapsible
@@ -218,10 +218,10 @@ class Header extends React.PureComponent {
 			this.context.router.route.location.state,
 		);
 	};
-	
+
 	getTopRoute() {
 		const _this = this;
-		
+
 		return (
 			<div className={style["drop-down-menu-container"]}>
 				<Select
@@ -241,10 +241,10 @@ class Header extends React.PureComponent {
 			</div>
 		);
 	}
-	
+
 	getCategoryRoute() {
 		const _this = this;
-		
+
 		return (
 			<div className={style["category-menu-container"]}>
 				{
@@ -264,22 +264,22 @@ class Header extends React.PureComponent {
 			</div>
 		);
 	}
-	
+
 	render() {
 		const _this = this;
-		
+
 		return (
 			<Layout.Header className={style["main-header-container"]}>
 				<section className={style["left-container"]}>
-					
+
 					<div className={style["logo-container"]}>logo</div>
-					
+
 					{/* 一级路由 */}
 					{_this.getTopRoute()}
-					
+
 					{/* 分类路由 */}
 					{_this.getCategoryRoute()}
-				
+
 				</section>
 				<section
 					onClick={() => _this.logout()}
@@ -300,11 +300,11 @@ export default class MainLayout extends React.PureComponent {
 			isCollapsed: false,
 		};
 	}
-	
+
 	handleCollapsed = () => {
 		this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}));
 	};
-	
+
 	render() {
 		const _this = this;
 		return (

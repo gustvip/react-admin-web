@@ -26,7 +26,7 @@ class List extends React.PureComponent {
 			pageSize: self.props.mapProps.pageSize,
 		}));
 	}
-	
+
 	/**
 	 * 删除相关用户
 	 * @param {Number || Array} userId
@@ -39,14 +39,14 @@ class List extends React.PureComponent {
 		} else if (T.helper.checkArray(userId)) {
 			userId.forEach(item => userIdCollection.push(self.props.mapProps.dataSource[item].userId));
 		}
-		
+
 		T.helper.checkArray(userIdCollection) && self.props.dispatch(actionTypes.deleteUserAction({
 			userId: userIdCollection,
 			currentPage: self.props.mapProps.currentPage,
 			pageSize: self.props.mapProps.pageSize,
 		}));
 	};
-	
+
 	/**
 	 * 选中行
 	 * @param {Array} selectedRowKeys
@@ -54,7 +54,7 @@ class List extends React.PureComponent {
 	handleSelectedRowKeys = (selectedRowKeys) => {
 		this.props.dispatch(actionTypes.setDeleteRowAction(selectedRowKeys));
 	};
-	
+
 	/**
 	 * 搜索
 	 * @param {string} value
@@ -66,14 +66,14 @@ class List extends React.PureComponent {
 			limitLength: self.props.mapProps.pageSize,
 		}));
 	};
-	
+
 	/**
 	 * 获取表格配置
 	 * @returns {*[]}
 	 */
 	get columns() {
 		const self = this;
-		
+
 		return [
 			{
 				title: "id",
@@ -155,21 +155,21 @@ class List extends React.PureComponent {
 			},
 		];
 	}
-	
+
 	/**
 	 * 获取表格数据
 	 */
 	get dataSource() {
 		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, {key: index}));
 	}
-	
+
 	/**
 	 * 分页
 	 * @returns {{current: *, total: ((key?: (IDBKeyRange | IDBValidKey)) => IDBRequest) | ((countTitle?: string) => void), pageSize: *, showQuickJumper: boolean, onChange(*=, *=): void}}
 	 */
 	get pagination() {
 		const self = this;
-		
+
 		return {
 			current: self.props.mapProps.currentPage,
 			total: self.props.mapProps.count,
@@ -183,14 +183,14 @@ class List extends React.PureComponent {
 			},
 		};
 	}
-	
+
 	/**
 	 * 行选中
 	 * @return {*}
 	 */
 	get rowSelection() {
 		const self = this;
-		
+
 		return {
 			selectedRowKeys: self.props.mapProps.selectedRowKeys,
 			onChange(selectedRowKeys) {
@@ -198,10 +198,10 @@ class List extends React.PureComponent {
 			},
 		};
 	}
-	
+
 	render() {
 		const self = this;
-		
+
 		return [
 			<MainHeader title="content-header" key="0"/>,
 			<MainContent className={style["main-content-container"]} key="1">

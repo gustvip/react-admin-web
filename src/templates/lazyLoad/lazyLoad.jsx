@@ -4,7 +4,7 @@
 
 import PropTypes from "prop-types";
 import {STORE_INJECT} from "store.js";
-import * as  decorate from "utils/core/decorate";
+import * as decorate from "utils/core/decorate";
 import {Spin} from "antd";
 import auth from "utils/core/auth";
 
@@ -25,11 +25,11 @@ const injectReducers = reducers => ({[STORE_INJECT]: reducers});
 	),
 })
 class LazyLoadTpl extends React.PureComponent {
-	
+
 	state = {
 		Component: null,
 	};
-	
+
 	componentDidMount() {
 		const _this = this;
 		const {defaultQuery, login} = ENV;
@@ -46,11 +46,11 @@ class LazyLoadTpl extends React.PureComponent {
 			});
 		}
 	}
-	
+
 	render() {
 		const _this = this;
 		const Component = _this.state.Component;
-		
+
 		if (Component) {
 			if (Array.isArray(_this.props.reducers) && _this.props.reducers.length > 0) {
 				_this.context.store.dispatch(injectReducers(_this.props.reducers));

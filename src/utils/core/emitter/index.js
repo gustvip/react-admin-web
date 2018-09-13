@@ -17,7 +17,7 @@ export default (function() {
 			throw new TypeError("callback must be function");
 		}
 		var row = this.__selfListeners__[type];
-		
+
 		var obj = {
 			isOnce,
 			callback,
@@ -26,7 +26,7 @@ export default (function() {
 			: this.__selfListeners__[type] = [obj];
 		return this;
 	}
-	
+
 	/**
 	 * 增加监听函数(可多次调用)
 	 * @param {String} type 类型
@@ -36,7 +36,7 @@ export default (function() {
 	function addListener(type, callback) {
 		return _addListener.call(this, type, callback, false);
 	}
-	
+
 	/**
 	 * 增加监听函数(一次性)
 	 * @param {String} type 类型
@@ -46,7 +46,7 @@ export default (function() {
 	function addOnceListener(type, callback) {
 		return _addListener.call(this, type, callback, true);
 	}
-	
+
 	/**
 	 * 移除所有监听的函数
 	 * @returns {Object}
@@ -55,7 +55,7 @@ export default (function() {
 		this.__selfListeners__ = {};
 		return this;
 	}
-	
+
 	/**
 	 * 移除某一类的所有监听函数
 	 * @returns {Object}
@@ -64,7 +64,7 @@ export default (function() {
 		delete this.__selfListeners__[type];
 		return this;
 	}
-	
+
 	/**
 	 * 移除监听的函数
 	 * @param {String} type 类型
@@ -78,18 +78,18 @@ export default (function() {
 			index = findIndex(row, (value) => {
 				return value.callback === callback;
 			});
-			
+
 			if (index !== -1) {
 				row.splice(index, 1);
 			}
-			
+
 			if (!row.length) {
 				delete this.__selfListeners__[type];
 			}
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 促发监听的函数
 	 * @param {String} type 监听时的类型
@@ -109,7 +109,7 @@ export default (function() {
 		}
 		return this;
 	}
-	
+
 	Object.defineProperties(Emitter.prototype, {
 		constructor: {
 			value: Emitter,
@@ -156,11 +156,11 @@ export default (function() {
 			configuarable: false,
 		},
 	});
-	
+
 	function Emitter() {
 		this.removeAllListener();
 	}
-	
+
 	return function emitter() {
 		return new Emitter();
 	};

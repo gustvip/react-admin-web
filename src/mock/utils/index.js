@@ -2,7 +2,7 @@ import Mock from "mockjs";
 
 class MockUtil {
 	static apiSuccessCode = 0;
-	
+
 	/**
 	 * 中转
 	 * @param {string} url
@@ -16,7 +16,7 @@ class MockUtil {
 			msg: "成功",
 		});
 	}
-	
+
 	/**
 	 * 模拟ajax的get请求
 	 * @param {string} url
@@ -25,7 +25,7 @@ class MockUtil {
 	get(url, template) {
 		return this.request(url, "get", template);
 	}
-	
+
 	/**
 	 * 模拟ajax的post请求
 	 * @param {string} url
@@ -34,7 +34,7 @@ class MockUtil {
 	post(url, template) {
 		return this.request(url, "POST", template);
 	}
-	
+
 	/**
 	 * 模拟ajax的put请求
 	 * @param {string} url
@@ -43,7 +43,7 @@ class MockUtil {
 	put(url, template) {
 		return this.request(url, "PUT", template);
 	}
-	
+
 	/**
 	 * 模拟ajax的delete请求
 	 * @param {string} url

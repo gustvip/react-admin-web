@@ -3,18 +3,18 @@ const eslintrc = {
 	env: {
 		browser: true,
 		node: true,
-		jest: true
+		jest: true,
 	},
 	globals: {
 		React: true,
 		ReactDOM: true,
 		mountNode: true,
-		ENV: false
+		ENV: false,
 	},
 	parser: "babel-eslint",
 	plugins: [
 		"react",
-		"babel"
+		"babel",
 	],
 	rules: {
 		"no-mixed-spaces-and-tabs": 2,
@@ -24,17 +24,17 @@ const eslintrc = {
 			2,
 			"tab",
 			{
-				"SwitchCase": 1
-			}
+				"SwitchCase": 1,
+			},
 		],
 		
 		"react/jsx-indent": [
 			2,
-			"tab"
+			"tab",
 		],
 		"react/jsx-indent-props": [
 			2,
-			"tab"
+			"tab",
 		],
 		
 		"import/no-named-as-default": 0,
@@ -43,6 +43,20 @@ const eslintrc = {
 		"import/no-unresolved": 0,
 		"import/no-extraneous-dependencies": 0,
 		
+		"operator-linebreak": 2,
+		"nonblock-statement-body-position": 2,
+		"no-whitespace-before-property": 2,
+		"new-parens": 2,
+		"linebreak-style": 2,
+		"key-spacing": 2,
+		"block-spacing": 2,
+		"brace-style": 2,
+		"no-useless-return": 2,
+		"no-multi-spaces": 2,
+		"no-extra-bind": 2,
+		"no-alert": 2,
+		"semi-style": [2, "last"],
+		"semi": 2,
 		"spaced-comment": 2,
 		"quotes": 2,
 		"no-multiple-empty-lines": 2,
@@ -87,7 +101,7 @@ const eslintrc = {
 		"react/jsx-first-prop-new-line": 0,
 		"react/jsx-one-expression-per-line": 0,
 		"react/forbid-prop-types": 0,
-		"react/jsx-filename-extension": [1, { extensions: [".js", ".jsx", ".md"] }],
+		"react/jsx-filename-extension": [1, {extensions: [".js", ".jsx", ".md"]}],
 		"react/no-danger": 0,
 		"react/no-access-state-in-setstate": 0,
 		"react/destructuring-assignment": 0,
@@ -97,8 +111,8 @@ const eslintrc = {
 		"jsx-a11y/no-static-element-interactions": 0,
 		"jsx-a11y/anchor-has-content": 0,
 		"jsx-a11y/click-events-have-key-events": 0,
-		"jsx-a11y/anchor-is-valid": 0
-	}
+		"jsx-a11y/anchor-is-valid": 0,
+	},
 };
 
 module.exports = eslintrc;

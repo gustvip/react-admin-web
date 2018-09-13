@@ -11,7 +11,7 @@ class Crypto {
 	md5(info) {
 		return md5(String(info)).toString();
 	}
-	
+
 	/**
 	 * Sha512加密
 	 * @param {*} info
@@ -20,7 +20,7 @@ class Crypto {
 	sha512(info) {
 		return sha512(String(info)).toString();
 	}
-	
+
 	/**
 	 * Hmac-sha512加密算法
 	 * @param {*} info

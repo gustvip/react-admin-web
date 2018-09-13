@@ -27,7 +27,7 @@ function classNames() {
 			});
 		}
 	}
-	
+
 	return classCollections.join(" ");
 }
 

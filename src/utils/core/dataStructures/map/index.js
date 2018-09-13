@@ -18,7 +18,7 @@ export default (function() {
 		}
 		return index;
 	}
-	
+
 	/**
 	 * 是否有此属性
 	 * @param {*} key
@@ -27,7 +27,7 @@ export default (function() {
 	function has(key) {
 		return !!this.doubleLinkedList.find({value: {key}});
 	}
-	
+
 	/**
 	 * 获取属性对应的值
 	 * @param {*} key
@@ -37,7 +37,7 @@ export default (function() {
 		var result = this.doubleLinkedList.find({value: {key}});
 		return result ? result.value.value : undefined;
 	}
-	
+
 	/**
 	 * 清除
 	 * @return {Map}
@@ -46,7 +46,7 @@ export default (function() {
 		this.doubleLinkedList.clear();
 		return this;
 	}
-	
+
 	/**
 	 * 获取key组成的数组
 	 * @return {*[]}
@@ -60,7 +60,7 @@ export default (function() {
 		}
 		return keys;
 	}
-	
+
 	/**
 	 * 获取value组成的数组
 	 * @return {*[]}
@@ -74,7 +74,7 @@ export default (function() {
 		}
 		return values;
 	}
-	
+
 	/**
 	 * 获取[key,value]组成的数组
 	 * @return {[][]}
@@ -88,7 +88,7 @@ export default (function() {
 		}
 		return entries;
 	}
-	
+
 	/**
 	 * 遍历
 	 * @param {function} callback
@@ -102,7 +102,7 @@ export default (function() {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置值
 	 * @param {*} key
@@ -121,7 +121,7 @@ export default (function() {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 清楚值
 	 * @param {*} key
@@ -131,7 +131,7 @@ export default (function() {
 		this.doubleLinkedList.delete({key});
 		return this;
 	}
-	
+
 	/**
 	 * 比较函数
 	 * @param {object} a
@@ -144,7 +144,7 @@ export default (function() {
 		}
 		return a.key < b.key ? -1 : 1;
 	}
-	
+
 	Object.defineProperties(Map.prototype, {
 		constructor: {
 			value: Map,
@@ -162,57 +162,57 @@ export default (function() {
 			value: get,
 			configuarable: false,
 		},
-		
+
 		set: {
 			value: setItem,
 			configuarable: false,
 		},
-		
+
 		add: {
 			value: setItem,
 			configuarable: false,
 		},
-		
+
 		remove: {
 			value: removeItem,
 			configuarable: false,
 		},
-		
+
 		delete: {
 			value: removeItem,
 			configuarable: false,
 		},
-		
+
 		clear: {
 			value: clear,
 			configuarable: false,
 		},
-		
+
 		keys: {
 			get: keys,
 			configuarable: false,
 		},
-		
+
 		values: {
 			get: values,
 			configuarable: false,
 		},
-		
+
 		entries: {
 			get: entries,
 			configuarable: false,
 		},
-		
+
 		forEach: {
 			value: forEach,
 			configuarable: false,
 		},
 	});
-	
+
 	function Map() {
 		this.doubleLinkedList = DoubleLinkedList(compareFunction);
 	}
-	
+
 	return function map(object) {
 		var _map = new Map();
 		if (object instanceof Map) {

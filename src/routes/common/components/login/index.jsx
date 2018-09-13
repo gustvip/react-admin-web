@@ -14,10 +14,10 @@ import bg from "./img/bg.png";
 
 @decorate.contextTypes("router")
 class Login extends React.PureComponent {
-	
+
 	static userNameStorageValue = auth.getUserNameStorageValue();
 	static userPasswordStorageValue = auth.getUserPasswordStorageValue();
-	
+
 	constructor() {
 		super();
 		this.state = {
@@ -27,38 +27,38 @@ class Login extends React.PureComponent {
 			loading: false,
 		};
 	}
-	
+
 	checkParam = (userName, userPassword) => {
 		if (!(regExp.name.test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
 			prompt.warn("账号格式不对");
 			return false;
 		}
-		
+
 		if (!(userPassword === Login.userPasswordStorageValue || regExp.password.test(userPassword))) {
 			prompt.warn("密码格式不对");
 			return false;
 		}
 		return true;
 	};
-	
+
 	handleSubmit = () => {
 		const self = this;
 		const userName = self.state.userName.trim();
 		let userPassword = self.state.userPassword.trim();
-		
+
 		if (self.checkParam(userName, userPassword)) {
 			self.setState({loading: true}, () => {
-				
+
 				userPassword = userPassword === Login.userPasswordStorageValue
 					? Login.userPasswordStorageValue
 					: crypto.hmacSHA512(userPassword, userPassword);
-				
+
 				auth.login(
 					userName,
 					userPassword,
 					() => {
 						prompt.success("登陆成功,正在跳转");
-						
+
 						if (self.state.isRemember) {
 							auth.setUserNameStorageValue(userName);
 							auth.setUserPasswordStorageValue(userPassword);
@@ -66,7 +66,7 @@ class Login extends React.PureComponent {
 							auth.removeUserNameStorageValue();
 							auth.removeUserPasswordStorageValue();
 						}
-						
+
 						auth.setLoginStorageValue();
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
@@ -78,10 +78,10 @@ class Login extends React.PureComponent {
 			});
 		}
 	};
-	
+
 	render() {
 		const self = this;
-		
+
 		return (
 			<div id={styles["login-container"]}>
 				<img src={bg} alt="背景图片"/>
@@ -102,7 +102,7 @@ class Login extends React.PureComponent {
 						placeholder="密码"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
 					/>
-					
+
 					<Button
 						type="primary"
 						disabled={self.state.loading}
@@ -120,7 +120,7 @@ class Login extends React.PureComponent {
 						</Checkbox>
 						<a href={enumRouter.register}>注册</a>
 					</footer>
-				
+
 				</div>
 			</div>
 		);

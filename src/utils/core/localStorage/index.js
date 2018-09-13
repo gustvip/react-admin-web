@@ -18,11 +18,11 @@ export default (function() {
 		var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
 		return isObject(result) ? result : {};
 	}());
-	
+
 	function canJSON(x) {
 		return isString(x) || isNumber(x) || isObject(x) || isArray(x) || isBoolean(x);
 	}
-	
+
 	/**
 	 * 判断是否新鲜
 	 * @param {Number} expTime
@@ -31,7 +31,7 @@ export default (function() {
 	function isFresh(expTime) {
 		return expTime === NO_EXPIRE || (isNumber(expTime) && isFinite(expTime) && expTime - Date.now() > 0);
 	}
-	
+
 	/**
 	 * 更新localStorage
 	 * @param {String} key
@@ -40,7 +40,7 @@ export default (function() {
 	function update(key, value) {
 		window.localStorage.setItem(key, JSON.stringify(value));
 	}
-	
+
 	/**
 	 * 获取长度
 	 * @return {Number}
@@ -49,7 +49,7 @@ export default (function() {
 		clearExpired();
 		return Object.keys(storageValue).length;
 	}
-	
+
 	/**
 	 * 清空过期的数据
 	 */
@@ -59,10 +59,10 @@ export default (function() {
 				delete storageValue[key];
 			}
 		});
-		
+
 		update(STORAGE_KEY, storageValue);
 	}
-	
+
 	/**
 	 * 返回localStorage的所有值
 	 * @return {Object}
@@ -71,7 +71,7 @@ export default (function() {
 		clearExpired();
 		return JSON.parse(JSON.stringify(storageValue));
 	}
-	
+
 	/**
 	 * 设置localStorage
 	 * @param {String} key 名称
@@ -94,7 +94,7 @@ export default (function() {
 			update(STORAGE_KEY, storageValue);
 		}
 	}
-	
+
 	/**
 	 * 获取localStorage某一项的值
 	 * @param {String} key 数据名
@@ -107,7 +107,7 @@ export default (function() {
 			return storage.value;
 		}
 	}
-	
+
 	/**
 	 * 续期localStorage的expire
 	 * @param {String} key 数据名
@@ -127,7 +127,7 @@ export default (function() {
 			}
 		}
 	}
-	
+
 	/**
 	 * 更新localStorage的expire
 	 * @param {String} key 数据名
@@ -137,17 +137,17 @@ export default (function() {
 		clearExpired();
 		var storage = storageValue[key];
 		expTime = parseInt(expTime, 10);
-		
+
 		if (!isFinite(expTime) || expTime < 0) {
 			expTime = NO_EXPIRE;
 		}
-		
+
 		if (storage) {
 			storage.expire = expTime === NO_EXPIRE ? NO_EXPIRE : Date.now() + expTime;
 			update(STORAGE_KEY, storageValue);
 		}
 	}
-	
+
 	/**
 	 * 删除localStorage的某一项数据
 	 * @param {string} key 数据名
@@ -157,14 +157,14 @@ export default (function() {
 		delete storageValue[key];
 		update(STORAGE_KEY, storageValue);
 	}
-	
+
 	/**
 	 * 清空本地数据
 	 */
 	function clear() {
 		update(STORAGE_KEY, storageValue = {});
 	}
-	
+
 	return Object.defineProperties({}, {
 		length: {
 			get() {

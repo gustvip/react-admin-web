@@ -19,17 +19,17 @@ export default class Chart extends React.PureComponent {
 		extraOptions: PropTypes.object,
 		options: PropTypes.object.isRequired,
 	};
-	
+
 	constructor(props) {
 		super(props);
 		this.chart = null;
 		this.chartContainer = null;
 	}
-	
+
 	get echartsInstance() {
 		return this.chart;
 	}
-	
+
 	get defaultOptions() {
 		return {
 			backgroundColor: "#efefef",
@@ -100,7 +100,7 @@ export default class Chart extends React.PureComponent {
 					fontSize: 14,
 				},
 			},
-			
+
 			xAxis: {
 				axisLine: {
 					show: true,
@@ -183,7 +183,7 @@ export default class Chart extends React.PureComponent {
 				}],
 		};
 	}
-	
+
 	componentDidMount() {
 		const self = this;
 		self.chart = echarts.init(self.chartContainer, self.props.theme || "", assign({
@@ -196,7 +196,7 @@ export default class Chart extends React.PureComponent {
 			self.chart.resize();
 		}, 300));
 	}
-	
+
 	render() {
 		return (
 			<div

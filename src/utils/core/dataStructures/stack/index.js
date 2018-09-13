@@ -7,14 +7,14 @@ export default (function() {
 	function isEmpty() {
 		return this.doubleLinkedList.isEmpty();
 	}
-	
+
 	/**
 	 * @return {boolean}
 	 */
 	function has(value) {
 		return this.doubleLinkedList.has(value);
 	}
-	
+
 	/**
 	 * 清空栈
 	 * @return {Stack}
@@ -23,21 +23,21 @@ export default (function() {
 		this.doubleLinkedList.clear();
 		return this;
 	}
-	
+
 	/**
 	 * @return {*}
 	 */
 	function peek() {
 		return this.isEmpty() ? undefined : this.doubleLinkedList.tail.value;
 	}
-	
+
 	/**
 	 * @param {*} value
 	 */
 	function push(value) {
 		this.doubleLinkedList.append(value);
 	}
-	
+
 	/**
 	 * @return {*}
 	 */
@@ -45,7 +45,7 @@ export default (function() {
 		var removedTail = this.doubleLinkedList.deleteTail();
 		return removedTail ? removedTail.value : null;
 	}
-	
+
 	/**
 	 * @return {*[]}
 	 */
@@ -58,7 +58,7 @@ export default (function() {
 		}
 		return nodes;
 	}
-	
+
 	/**
 	 * @param {function} [callback]
 	 * @return {string}
@@ -66,7 +66,7 @@ export default (function() {
 	function toString(callback) {
 		return this.doubleLinkedList.toString(callback);
 	}
-	
+
 	Object.defineProperties(Stack.prototype, {
 		constructor: {
 			value: Stack,
@@ -105,11 +105,11 @@ export default (function() {
 			configuarable: false,
 		},
 	});
-	
+
 	function Stack() {
 		this.doubleLinkedList = new DoubleLinkedList();
 	}
-	
+
 	return function stack() {
 		return new Stack();
 	};

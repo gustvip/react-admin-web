@@ -25,11 +25,11 @@ class RegisterComponent extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
-	
+
 	state = {
 		loading: false,
 	};
-	
+
 	handleSubmit = (e) => {
 		e.preventDefault();
 		const self = this;
@@ -52,10 +52,10 @@ class RegisterComponent extends React.PureComponent {
 			}
 		});
 	};
-	
+
 	render() {
 		const {getFieldDecorator} = this.props.form;
-		
+
 		return (
 			<Form
 				onSubmit={this.handleSubmit}

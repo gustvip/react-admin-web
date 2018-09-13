@@ -10,31 +10,31 @@ export default class AMap extends React.PureComponent {
 		className: "",
 		style: {},
 	};
-	
+
 	static propTypes = {
 		className: PropTypes.string,
 		mapLoadCallback: PropTypes.func,
 		style: PropTypes.object,
 	};
-	
+
 	constructor() {
 		super();
 		this._mapContainer = null;
 		this.mapUtils = new mapUtils();
 	}
-	
+
 	componentDidMount() {
 		this.mapUtils.createMap(this._mapContainer, {});
 		const {mapLoadCallback} = this.props;
 		this.mapUtils.mapInstance.on("complete", isFunction(mapLoadCallback) ? mapLoadCallback : noop);
 	}
-	
+
 	componentWillUnmount() {
 		if (this.mapUtils.mapInstance) {
 			this.mapUtils.destroy();
 		}
 	}
-	
+
 	render() {
 		const baseStyle = {
 			position: "absolute",
