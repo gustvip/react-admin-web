@@ -1,4 +1,5 @@
 @import "./baseStyleVarity";
+
 *,
 *::before,
 *::after {
@@ -12,13 +13,13 @@ canvas {
 	display: block;
 }
 
-/*h5tag*/
+/* h5tag */
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 	display: block;
 }
 
 :global {
-	/*三角*/
+	/* 三角 */
 	.caret {
 		display: inline-block;
 		width: 0;
@@ -36,7 +37,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 		content: "";
 	}
 
-	/*响应式工具*/
+	/* 响应式工具 */
 	.hide {
 		display: none !important;
 	}
@@ -144,5 +145,3 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 		}
 	}
 }
-
-
