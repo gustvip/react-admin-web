@@ -91,16 +91,16 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
 		"build": "npm run test && npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
-		"test": "jest --config .jest.js --color",
+		"test": "jest --config jest.js --color",
 		"lint": "npm run lint:es && npm run lint:style",
-		"lint:es": "eslint build src ./.*.js --ext '.js,.jsx'",
+		"lint:es": "eslint build src ./*.js --ext '.js,.jsx'",
 		"lint:style": "stylelint src/**/*.scss --syntax scss",
 		"lint-fix:es": "eslint --fix build src ./.*.js --ext '.js,.jsx'",
 		"lint-fix:style": "stylelint src/**/*.scss --fix --syntax scss",
 		"stylelint": "stylelint src/**/*.scss --syntax scss",
 		"tslint": "tslint 'src/**/*.{ts,tsx}'",
 		"lint-staged": "lint-staged",
-		"lint-staged:es": "eslint ./.*.js"
+		"lint-staged:es": "eslint ./*.js"
 	},
 	"browserslist": [
 		"Chrome >= 45",

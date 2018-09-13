@@ -1,6 +1,6 @@
 module.exports = {
 	// The bail config option can be used here to have Jest stop running tests after
-	// the first failure.
+	// The first failure.
 	bail: true,
 	
 	// Indicates whether each individual test should be reported during the run.

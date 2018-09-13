@@ -17,6 +17,12 @@ const eslintrc = {
 		"babel",
 	],
 	rules: {
+		"import/no-named-as-default": 0,
+		"import/no-named-as-default-member": 0,
+		"import/extensions": 0,
+		"import/no-unresolved": 0,
+		"import/no-extraneous-dependencies": 0,
+		
 		"no-mixed-spaces-and-tabs": 2,
 		"no-prototype-builtins": 2,
 		"camelcase": 1,
@@ -36,12 +42,6 @@ const eslintrc = {
 			2,
 			"tab",
 		],
-		"import/no-named-as-default": 0,
-		"import/no-named-as-default-member": 0,
-		"import/extensions": 0,
-		"import/no-unresolved": 0,
-		"import/no-extraneous-dependencies": 0,
-		
 		"space-in-parens": [2, "never"],
 		"space-before-blocks": 2,
 		"semi-spacing": 2,
