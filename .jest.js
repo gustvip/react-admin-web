@@ -4,7 +4,7 @@ module.exports = {
 	bail: true,
 	
 	// Indicates whether each individual test should be reported during the run.
-	verbose: true,
+	verbose: false,
 	
 	// Indicates whether the coverage information should be collected while executing the test
 	collectCoverage: true,
@@ -20,11 +20,23 @@ module.exports = {
 		"json",
 	],
 	
+	setupFiles: [
+		"./tests/setup.js",
+	],
+	
 	// If the test path matches any of the patterns, it will be skipped.
-	testPathIgnorePatterns: ["<rootDir>/node_modules/"],
+	testPathIgnorePatterns: [
+		"/node_modules/",
+	],
+	
+	snapshotSerializers: [
+		"enzyme-to-json/serializer",
+	],
 	
 	// If the file path matches any of the patterns, coverage information will be skipped.
-	coveragePathIgnorePatterns: ["<rootDir>/node_modules/"],
+	coveragePathIgnorePatterns: [
+		"/node_modules/",
+	],
 	
 	// The pattern Jest uses to detect test files.
 	testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
