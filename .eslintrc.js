@@ -43,6 +43,16 @@ const eslintrc = {
 		"import/no-unresolved": 0,
 		"import/no-extraneous-dependencies": 0,
 		
+		"space-in-parens": [2, "never"],
+		"space-before-blocks": 2,
+		"semi-spacing": 2,
+		"no-trailing-spaces": [
+			2,
+			{
+				skipBlankLines: true,
+				ignoreComments: false,
+			}],
+		"no-undef-init": 2,
 		"operator-linebreak": 2,
 		"nonblock-statement-body-position": 2,
 		"no-whitespace-before-property": 2,

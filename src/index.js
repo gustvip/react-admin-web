@@ -7,8 +7,8 @@
  */
 // Import './mock';
 
-import { render } from "react-dom";
-import { Provider } from "react-redux";
+import {render} from "react-dom";
+import {Provider} from "react-redux";
 import * as React from "react";
 import "./base.scss";
 import ErrorBoundary from "templates/toolComponents/errorBoundary";
@@ -21,10 +21,10 @@ const renderApp = Routes => {
 	return render(
 		<ErrorBoundary>
 			<Provider store={store()}>
-				<Routes />
+				<Routes/>
 			</Provider>
 		</ErrorBoundary>,
-		document.body.appendChild(wrapper)
+		document.body.appendChild(wrapper),
 	);
 };
 renderApp(Routes);
