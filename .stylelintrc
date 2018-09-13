@@ -1,6 +1,8 @@
 {
 	"extends": "stylelint-config-standard",
 	"rules": {
+		"indentation": "tab",
+		"string-quotes": "double",
 		"block-no-empty": null,
 		"selector-pseudo-class-no-unknown": null,
 		"comment-empty-line-before": null,
@@ -10,7 +12,6 @@
 		"function-parentheses-newline-inside": null,
 		"function-max-empty-lines": null,
 		"function-whitespace-after": null,
-		"indentation": null,
 		"number-leading-zero": null,
 		"number-no-trailing-zeros": null,
 		"rule-empty-line-before": null,
