@@ -11,7 +11,7 @@ import isObject from "../isObject/index";
  */
 export default function forOwn(object, callback) {
 	if (isObject(object)) {
-		for (const key in object) {
+		for (var key in object) {
 			if (Object.prototype.hasOwnProperty.call(object, key)) {
 				if (callback(object[key], key, object) === false) {
 					return;

@@ -75,7 +75,7 @@ export default (function() {
 		var row = this.__selfListeners__[type];
 		var index;
 		if (row) {
-			index = findIndex(row, (value) => {
+			index = findIndex(row, function(value) {
 				return value.callback === callback;
 			});
 
@@ -99,9 +99,10 @@ export default (function() {
 		var row = this.__selfListeners__[type];
 		var arg = arguments;
 		if (row) {
-			this.__selfListeners__[type] = row.filter((value) => {
+			this.__selfListeners__[type] = row.filter(function(value) {
 				value.callback.apply(null, [].slice.call(arg, 1));
 				return !value.isOnce;
+				
 			});
 			if (this.__selfListeners__[type].length === 0) {
 				delete this.__selfListeners__[type];

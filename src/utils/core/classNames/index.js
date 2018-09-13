@@ -15,19 +15,19 @@ function classNames() {
 		} else if (isString(value) || isNumber(value)) {
 			classCollections.push(value);
 		} else if (isArray(value)) {
-			var inner = classNames(...value);
+			var inner = classNames.apply(null, value);
 			if (inner) {
 				classCollections.push(inner);
 			}
 		} else if (isObject(value)) {
-			forOwn(value, (val, key) => {
+			forOwn(value, function(val, key) {
 				if (val === true) {
 					classCollections.push(key);
 				}
 			});
 		}
 	}
-
+	
 	return classCollections.join(" ");
 }
 

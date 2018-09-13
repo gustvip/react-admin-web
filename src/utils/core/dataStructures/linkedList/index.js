@@ -14,7 +14,7 @@ export default (function() {
 	function isEmpty() {
 		return isNull(this.head) || isNull(this.tail);
 	}
-
+	
 	/**
 	 * 是否有此值
 	 * @return {boolean}
@@ -22,7 +22,7 @@ export default (function() {
 	function has(value) {
 		return !!this.find({value});
 	}
-
+	
 	/**
 	 * 清空链表
 	 * @return {LinkedList}
@@ -31,7 +31,7 @@ export default (function() {
 		this.head = this.tail = null;
 		return this;
 	}
-
+	
 	/**
 	 * 向前添加
 	 * @param {*} value
@@ -45,10 +45,10 @@ export default (function() {
 		} else {
 			this.head = newNode;
 		}
-
+		
 		return this;
 	}
-
+	
 	/**
 	 * 向后添加
 	 * @param {*} value
@@ -56,16 +56,16 @@ export default (function() {
 	 */
 	function append(value) {
 		var newNode = new LinkedListNode(value);
-
+		
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
 		} else {
 			this.tail.next = this.tail = newNode;
 		}
-
+		
 		return this;
 	}
-
+	
 	/**
 	 * 删除值
 	 * @param {*} value
@@ -77,7 +77,7 @@ export default (function() {
 			deletedNode = this.head;
 			this.head = this.head.next;
 		}
-
+		
 		var currentNode = this.head;
 		if (currentNode) {
 			while (currentNode.next) {
@@ -89,14 +89,14 @@ export default (function() {
 				}
 			}
 		}
-
+		
 		this.tail = currentNode;
 		if (this.tail) {
 			this.tail.next = null;
 		}
 		return deletedNode;
 	}
-
+	
 	/**
 	 * 查找值
 	 * @param {Object} findParams
@@ -109,7 +109,7 @@ export default (function() {
 		var value = findParams.value;
 		var callback = findParams.callback;
 		var currentNode = this.head;
-
+		
 		while (currentNode) {
 			// If callback is specified then try to find node by callback.
 			if (callback && isFunction(callback)) {
@@ -119,13 +119,13 @@ export default (function() {
 			} else if (!isUndefined(value) && this.compare.equal(currentNode.value, value)) {
 				break;
 			}
-
+			
 			currentNode = currentNode.next;
 		}
-
+		
 		return currentNode;
 	}
-
+	
 	/**
 	 * 删除尾巴
 	 * @return {LinkedListNode | null}
@@ -133,7 +133,7 @@ export default (function() {
 	function deleteTail() {
 		var deletedTail = this.tail;
 		var currentNode = this.head;
-
+		
 		if (this.head === this.tail) {
 			// There is only one or zero node in linked list.
 			this.head = this.tail = null;
@@ -146,13 +146,13 @@ export default (function() {
 					currentNode = currentNode.next;
 				}
 			}
-
+			
 			this.tail = currentNode;
 		}
-
+		
 		return deletedTail;
 	}
-
+	
 	/**
 	 * 删除头部
 	 * @return {LinkedListNode | null}
@@ -165,10 +165,10 @@ export default (function() {
 		} else {
 			this.head = this.head.next;
 		}
-
+		
 		return deletedHead;
 	}
-
+	
 	/**
 	 * 从数组中添加
 	 * @param {*[]} values - Array of values that need to be converted to linked list.
@@ -177,14 +177,14 @@ export default (function() {
 	function fromArray(values) {
 		var self = this;
 		if (isArray(values)) {
-			values.forEach((value) => {
+			values.forEach(function(value) {
 				self.append(value);
 			});
 		}
-
+		
 		return self;
 	}
-
+	
 	/**
 	 * 将节点转化为数组形式
 	 * @return {LinkedListNode[]}
@@ -196,20 +196,20 @@ export default (function() {
 			nodes.push(currentNode);
 			currentNode = currentNode.next;
 		}
-
+		
 		return nodes;
 	}
-
+	
 	/**
 	 * @param {function} [callback]
 	 * @return {string}
 	 */
 	function toString(callback) {
-		return this.toArray().map((node) => {
+		return this.toArray().map(function(node) {
 			return node.toString(callback);
 		}).toString();
 	}
-
+	
 	Object.defineProperties(LinkedList.prototype, {
 		constructor: {
 			value: LinkedList,
@@ -264,20 +264,20 @@ export default (function() {
 			configuarable: false,
 		},
 	});
-
+	
 	/**
 	 * @param {Function} [comparatorFunction]
 	 */
 	function LinkedList(comparatorFunction) {
 		/** @var LinkedListNode */
 		this.head = null;
-
+		
 		/** @var LinkedListNode */
 		this.tail = null;
-
+		
 		this.compare = new Comparator(comparatorFunction);
 	}
-
+	
 	return function linkedList(comparatorFunction) {
 		return new LinkedList(comparatorFunction);
 	};

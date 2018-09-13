@@ -14,7 +14,7 @@ export default (function() {
 	function isEmpty() {
 		return isNull(this.head) || isNull(this.tail);
 	}
-
+	
 	/**
 	 * 是否有此值
 	 * @return {boolean}
@@ -22,7 +22,7 @@ export default (function() {
 	function has(value) {
 		return !!this.find({value});
 	}
-
+	
 	/**
 	 * 清空链表
 	 * @return {DoubleLinkedList}
@@ -31,7 +31,7 @@ export default (function() {
 		this.head = this.tail = null;
 		return this;
 	}
-
+	
 	/**
 	 * 向前添加
 	 * @param {*} value
@@ -46,10 +46,10 @@ export default (function() {
 		} else {
 			this.head = this.head.previous = newNode;
 		}
-
+		
 		return this;
 	}
-
+	
 	/**
 	 * 向后添加
 	 * @param {*} value
@@ -57,17 +57,17 @@ export default (function() {
 	 */
 	function append(value) {
 		var newNode = new DoubleLinkedListNode(value, null, this.tail);
-
+		
 		// If there is no head yet let's make new node a head.
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
 		} else {
 			this.tail = this.tail.next = newNode;
 		}
-
+		
 		return this;
 	}
-
+	
 	/**
 	 * 删除值
 	 * @param {*} value
@@ -82,7 +82,7 @@ export default (function() {
 		if (this.head) {
 			this.head.previous = null;
 		}
-
+		
 		var currentNode = this.head;
 		if (currentNode) {
 			while (currentNode.next) {
@@ -98,15 +98,15 @@ export default (function() {
 				}
 			}
 		}
-
+		
 		this.tail = currentNode;
 		if (this.tail) {
 			this.tail.next = null;
 		}
-
+		
 		return deletedNode;
 	}
-
+	
 	/**
 	 * 查找值
 	 * @param {Object} findParams
@@ -119,23 +119,21 @@ export default (function() {
 		var value = findParams.value;
 		var callback = findParams.callback;
 		var currentNode = this.head;
-
+		
 		while (currentNode) {
 			// If callback is specified then try to find node by callback.
-			if (callback && isFunction(callback)) {
-				if (callback(currentNode.value)) {
-					break;
-				}
+			if (callback && isFunction(callback) && callback(currentNode.value)) {
+				break;
 			} else if (!isUndefined(value) && this.compare.equal(currentNode.value, value)) {
 				break;
 			}
-
+			
 			currentNode = currentNode.next;
 		}
-
+		
 		return currentNode;
 	}
-
+	
 	/**
 	 * 删除尾巴
 	 * @return {DoubleLinkedListNode | null}
@@ -148,10 +146,10 @@ export default (function() {
 			this.tail = this.tail.previous;
 			this.tail.next = null;
 		}
-
+		
 		return deletedTail;
 	}
-
+	
 	/**
 	 * 删除头部
 	 * @return {DoubleLinkedListNode | null}
@@ -164,10 +162,10 @@ export default (function() {
 			this.head = this.head.next;
 			this.head.previous = null;
 		}
-
+		
 		return deletedHead;
 	}
-
+	
 	/**
 	 * 将node以数组返回
 	 * @return {DoubleLinkedListNode[]}
@@ -179,10 +177,10 @@ export default (function() {
 			nodes.push(currentNode);
 			currentNode = currentNode.next;
 		}
-
+		
 		return nodes;
 	}
-
+	
 	/**
 	 * 从数组中添加
 	 * @param {*[]} values - Array of values that need to be converted to linked list.
@@ -191,25 +189,25 @@ export default (function() {
 	function fromArray(values) {
 		var self = this;
 		if (isArray(values)) {
-			values.forEach((value) => {
+			values.forEach(function(value) {
 				self.append(value);
 			});
 		}
-
+		
 		return self;
 	}
-
+	
 	/**
 	 * 转化为字符串
 	 * @param {function} [callback]
 	 * @return {string}
 	 */
 	function toString(callback) {
-		return this.toArray().map((node) => {
+		return this.toArray().map(function(node) {
 			return node.toString(callback);
 		}).toString();
 	}
-
+	
 	Object.defineProperties(DoubleLinkedList.prototype, {
 		constructor: {
 			value: DoubleLinkedList,
@@ -264,20 +262,20 @@ export default (function() {
 			configuarable: false,
 		},
 	});
-
+	
 	/**
 	 * @param {Function} [comparatorFunction]
 	 */
 	function DoubleLinkedList(comparatorFunction) {
 		/** @var LinkedListNode */
 		this.head = null;
-
+		
 		/** @var LinkedListNode */
 		this.tail = null;
-
+		
 		this.compare = new Comparator(comparatorFunction);
 	}
-
+	
 	return function doubleLinkedList(comparatorFunction) {
 		return new DoubleLinkedList(comparatorFunction);
 	};
