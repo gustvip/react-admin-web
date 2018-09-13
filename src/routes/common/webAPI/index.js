@@ -1,5 +1,5 @@
-import enumAPI from 'constants/enumAPI';
-import * as request from 'utils/core/request';
+import enumAPI from "constants/enumAPI";
+import * as request from "utils/core/request";
 
 /**
  * 用户添加

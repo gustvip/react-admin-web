@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isString(x) {
-	return typeof x === 'string';
+	return typeof x === "string";
 }

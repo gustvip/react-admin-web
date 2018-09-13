@@ -1,14 +1,14 @@
 /**
  * Created by joey on 18-9-4
  */
-import * as React from 'react';
-import {Form, Input, Button} from 'antd';
-import regExpHelper from 'utils/core/regexp';
-import crypto from 'utils/core/crypto';
-import PropTypes from 'prop-types';
-import enumRouter from 'constants/enumRouter';
-import prompt from 'utils/core/prompt';
-import * as webAPI from '../../webAPI';
+import * as React from "react";
+import {Form, Input, Button} from "antd";
+import regExpHelper from "utils/core/regexp";
+import crypto from "utils/core/crypto";
+import PropTypes from "prop-types";
+import enumRouter from "constants/enumRouter";
+import prompt from "utils/core/prompt";
+import * as webAPI from "../../webAPI";
 
 const formItemLayout = {
 	labelCol: {
@@ -43,7 +43,7 @@ class RegisterComponent extends React.PureComponent {
 						userEmail,
 						userPhone,
 					}).then(() => {
-						prompt.success('注册成功,正在跳转至登陆页面');
+						prompt.success("注册成功,正在跳转至登陆页面");
 						setTimeout(() => {
 							self.context.router.history.push(enumRouter.login);
 						}, 1000);
@@ -64,15 +64,15 @@ class RegisterComponent extends React.PureComponent {
 					{...formItemLayout}
 					label="用户名"
 				>
-					{getFieldDecorator('userName', {
+					{getFieldDecorator("userName", {
 						rules: [
 							{
 								required: true,
-								message: '请填写名称',
+								message: "请填写名称",
 							},
 							{
 								pattern: regExpHelper.name,
-								message: '不能有空格。名称可以是数字、字母、中文、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)',
+								message: "不能有空格。名称可以是数字、字母、中文、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)",
 							},
 						],
 					})(
@@ -83,15 +83,15 @@ class RegisterComponent extends React.PureComponent {
 					{...formItemLayout}
 					label="密码"
 				>
-					{getFieldDecorator('userPassword', {
+					{getFieldDecorator("userPassword", {
 						rules: [
 							{
 								required: true,
-								message: '请填密码',
+								message: "请填密码",
 							},
 							{
 								pattern: regExpHelper.password,
-								message: '密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一',
+								message: "密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一",
 							},
 						],
 					})(
@@ -102,15 +102,15 @@ class RegisterComponent extends React.PureComponent {
 					{...formItemLayout}
 					label="邮箱"
 				>
-					{getFieldDecorator('userEmail', {
+					{getFieldDecorator("userEmail", {
 						rules: [
 							{
 								required: true,
-								message: '请填写邮箱',
+								message: "请填写邮箱",
 							},
 							{
 								pattern: regExpHelper.email,
-								message: '邮箱格式不对',
+								message: "邮箱格式不对",
 							},
 						],
 					})(
@@ -121,15 +121,15 @@ class RegisterComponent extends React.PureComponent {
 					{...formItemLayout}
 					label="手机"
 				>
-					{getFieldDecorator('userPhone', {
+					{getFieldDecorator("userPhone", {
 						rules: [
 							{
 								required: true,
-								message: '请填写手机',
+								message: "请填写手机",
 							},
 							{
 								pattern: regExpHelper.telephone,
-								message: '手机格式不对',
+								message: "手机格式不对",
 							},
 						],
 					})(

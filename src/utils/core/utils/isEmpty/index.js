@@ -1,11 +1,11 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isNil from '../isNil';
-import isArray from '../isArray';
-import isArrayLike from '../isArrayLike';
-import isString from '../isString';
-import isArguments from '../isArguments';
+import isNil from "../isNil";
+import isArray from "../isArray";
+import isArrayLike from "../isArrayLike";
+import isString from "../isString";
+import isArguments from "../isArguments";
 
 /**
  * 是否为空

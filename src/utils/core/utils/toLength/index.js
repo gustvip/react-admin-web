@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/28
  */
-import toInteger from '../toInteger';
+import toInteger from "../toInteger";
 
 /**
  * 转化为length

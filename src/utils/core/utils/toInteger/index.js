@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/28
  */
-import toFinite from '../toFinite';
+import toFinite from "../toFinite";
 
 /**
  * 转化为整数

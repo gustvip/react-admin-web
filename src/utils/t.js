@@ -1,18 +1,18 @@
 /**
  * Created by joey on 2018/2/18
  */
-import queryString from 'query-string';
+import queryString from "query-string";
 
-import helper from './core/helper';
-import prompt from './core/prompt';
-import auth from './core/auth';
-import regExp from './core/regexp';
-import localStorage from './core/localStorage/index';
-import emitter from './core/emitter/index';
-import * as decorate from './core/decorate';
-import * as request from './core/request';
-import crypto from './core/crypto';
-import classNames from './core/classNames';
+import helper from "./core/helper";
+import prompt from "./core/prompt";
+import auth from "./core/auth";
+import regExp from "./core/regexp";
+import localStorage from "./core/localStorage/index";
+import emitter from "./core/emitter/index";
+import * as decorate from "./core/decorate";
+import * as request from "./core/request";
+import crypto from "./core/crypto";
+import classNames from "./core/classNames";
 
 const T = {
 	classNames,
@@ -41,10 +41,10 @@ const T = {
 	// 装饰器
 	decorate,
 
-	// axios二次封装
+	// Axios二次封装
 	request,
 
-	// localStorage
+	// LocalStorage
 	localStorage,
 };
 export default T;

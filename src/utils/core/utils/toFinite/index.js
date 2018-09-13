@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/28
  */
-import toNumber from '../toNumber';
+import toNumber from "../toNumber";
 
 /**
  * 转化为有限数字

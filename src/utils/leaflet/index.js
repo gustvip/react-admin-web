@@ -1,10 +1,10 @@
 /**
  * Created by joey on 2018/2/27
  */
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import merge from 'lodash/merge';
-import * as EnumMap from './constants/index';
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import merge from "lodash/merge";
+import * as EnumMap from "./constants/index";
 
 class mapBasisHelper {
 	constructor() {
@@ -71,7 +71,7 @@ class mapBasisHelper {
 	}
 
 	/**
-	 * delta（zoomDelta默认）增加地图的缩放比例
+	 * Delta（zoomDelta默认）增加地图的缩放比例
 	 * @param {Number} delta
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
@@ -83,7 +83,7 @@ class mapBasisHelper {
 	}
 
 	/**
-	 * delta（zoomDelta默认）减小地图的缩放比例
+	 * Delta（zoomDelta默认）减小地图的缩放比例
 	 * @param {Number} delta
 	 * @param {Object} options
 	 * @return {mapBasisHelper}
@@ -291,7 +291,7 @@ class mapBasisHelper {
 	}
 
 	/**
-	 * fn使用视图（中心和缩放）和至少一个图层初始化映射时运行给定的函数，或者在已经初始化的情况下立即运行给定函数（可选地传递函数上下文）
+	 * Fn使用视图（中心和缩放）和至少一个图层初始化映射时运行给定的函数，或者在已经初始化的情况下立即运行给定函数（可选地传递函数上下文）
 	 * @param {Function} fn
 	 * @param {*} context
 	 * @return {mapBasisHelper}

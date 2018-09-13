@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isNull from '../isNull';
+import isNull from "../isNull";
 
 /**
  * 是否像对象
@@ -9,5 +9,5 @@ import isNull from '../isNull';
  * @returns {boolean}
  */
 export default function isObjectLike(x) {
-	return typeof x === 'object' && !isNull(x);
+	return typeof x === "object" && !isNull(x);
 }

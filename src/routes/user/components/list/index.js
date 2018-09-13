@@ -2,19 +2,19 @@
  * Created by joey on 2018/2/18
  */
 
-import T from 'utils/t';
-import {Button, Input} from 'antd';
-import {Link} from 'react-router-dom';
-import {MainHeader, MainContent} from 'templates/mainLayout/index';
-import Table from 'templates/toolComponents/table/index';
-import EnumRouter from 'constants/enumRouter';
+import T from "utils/t";
+import {Button, Input} from "antd";
+import {Link} from "react-router-dom";
+import {MainHeader, MainContent} from "templates/mainLayout/index";
+import Table from "templates/toolComponents/table/index";
+import EnumRouter from "constants/enumRouter";
 
-import assign from 'lodash/assign';
-import debounce from 'lodash/debounce';
-import style from '../../scss/list/index.scss';
-import * as actionTypes from '../../actions/list/index';
+import assign from "lodash/assign";
+import debounce from "lodash/debounce";
+import style from "../../scss/list/index.scss";
+import * as actionTypes from "../../actions/list/index";
 
-@T.decorate.contextTypes('router')
+@T.decorate.contextTypes("router")
 class List extends React.PureComponent {
 	/**
 	 * 获取用户所有信息
@@ -76,42 +76,42 @@ class List extends React.PureComponent {
 		
 		return [
 			{
-				title: 'id',
-				dataIndex: 'userId',
+				title: "id",
+				dataIndex: "userId",
 			},
 			{
-				title: '名称',
-				dataIndex: 'userName',
+				title: "名称",
+				dataIndex: "userName",
 			},
 			{
-				title: '邮箱',
-				dataIndex: 'userEmail',
+				title: "邮箱",
+				dataIndex: "userEmail",
 			},
 			{
-				title: '电话',
-				dataIndex: 'userPhone',
+				title: "电话",
+				dataIndex: "userPhone",
 			},
 			{
-				title: '状态',
-				dataIndex: 'deleteStatus',
+				title: "状态",
+				dataIndex: "deleteStatus",
 			},
 			{
-				title: '用户类型',
-				dataIndex: 'userType',
+				title: "用户类型",
+				dataIndex: "userType",
 			},
 			{
-				title: '创建时间',
-				dataIndex: 'createdAt',
+				title: "创建时间",
+				dataIndex: "createdAt",
 				render: val => new Date(val).toLocaleDateString(),
 			},
 			{
-				title: '更新时间',
-				dataIndex: 'updatedAt',
+				title: "更新时间",
+				dataIndex: "updatedAt",
 				render: val => new Date(val).toLocaleDateString(),
 			},
 			{
-				title: '操作',
-				dataIndex: '',
+				title: "操作",
+				dataIndex: "",
 				render: (val, row) => {
 					return (
 						<div>
@@ -204,9 +204,9 @@ class List extends React.PureComponent {
 		
 		return [
 			<MainHeader title="content-header" key="0"/>,
-			<MainContent className={style['main-content-container']} key="1">
-				<header className={style['table-header-container']}>
-					<div className={style['left-container']}>
+			<MainContent className={style["main-content-container"]} key="1">
+				<header className={style["table-header-container"]}>
+					<div className={style["left-container"]}>
 						<Button
 							type="primary"
 							onClick={debounce(() => self.handleDelete(self.props.mapProps.selectedRowKeys), 300)}
@@ -214,7 +214,7 @@ class List extends React.PureComponent {
 							删除
 						</Button>
 					</div>
-					<div className={style['right-container']}>
+					<div className={style["right-container"]}>
 						<Input.Search placeholder="请搜索" onSearch={debounce(value => self.handleSearch(value), 300)}/>
 					</div>
 				</header>

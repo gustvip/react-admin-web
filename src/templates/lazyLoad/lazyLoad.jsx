@@ -1,12 +1,12 @@
 /**
- * created by joey 2018/02/19
+ * Created by joey 2018/02/19
  */
 
-import PropTypes from 'prop-types';
-import {STORE_INJECT} from 'store.js';
-import * as  decorate from 'utils/core/decorate';
-import {Spin} from 'antd';
-import auth from 'utils/core/auth';
+import PropTypes from "prop-types";
+import {STORE_INJECT} from "store.js";
+import * as  decorate from "utils/core/decorate";
+import {Spin} from "antd";
+import auth from "utils/core/auth";
 
 /**
  * 定义注入的reducer
@@ -14,7 +14,7 @@ import auth from 'utils/core/auth';
  */
 const injectReducers = reducers => ({[STORE_INJECT]: reducers});
 
-@decorate.contextTypes('store', 'router')
+@decorate.contextTypes("store", "router")
 @decorate.propTypes({
 	lazyLoader: PropTypes.func.isRequired,
 	reducers: PropTypes.arrayOf(

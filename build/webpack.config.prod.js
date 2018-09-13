@@ -1,18 +1,18 @@
 /**
  * @description webpack 生产环境的打包基本配置
  */
-const merge = require('webpack-merge');
-const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const miniCssExtractPlugin = require('mini-css-extract-plugin');
-const baseConfig = require('./webpack.config.base');
+const merge = require("webpack-merge");
+const optimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const uglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const baseConfig = require("./webpack.config.base");
 
-const resourceBaseName = require('./util').resourceBaseName;
-const excludeRegex = require('./util').excludeRegex;
-const customAntdStyle = require('./util').customAntdStyle;
+const resourceBaseName = require("./util").resourceBaseName;
+const excludeRegex = require("./util").excludeRegex;
+const customAntdStyle = require("./util").customAntdStyle;
 
 module.exports = merge(baseConfig, {
-	mode: 'production',
+	mode: "production",
 
 	optimization: {
 		minimizer: [
@@ -52,8 +52,8 @@ module.exports = merge(baseConfig, {
 				test: /\.css$/,
 				use: [
 					{ loader: miniCssExtractPlugin.loader },
-					'css-loader',
-					'postcss-loader',
+					"css-loader",
+					"postcss-loader",
 				],
 			},
 			{
@@ -62,16 +62,16 @@ module.exports = merge(baseConfig, {
 				use: [
 					{ loader: miniCssExtractPlugin.loader },
 					{
-						loader: 'css-loader',
+						loader: "css-loader",
 						options: {
 							sourceMap: true,
 							modules: true,
-							localIdentName: '[name]__[local]__[hash:base64:5]',
+							localIdentName: "[name]__[local]__[hash:base64:5]",
 						},
 					},
-					'postcss-loader',
+					"postcss-loader",
 					{
-						loader: 'sass-loader',
+						loader: "sass-loader",
 						options: {
 							sourceMap: true,
 						},
@@ -82,10 +82,10 @@ module.exports = merge(baseConfig, {
 				test: /\.less/,
 				use: [
 					{ loader: miniCssExtractPlugin.loader },
-					'css-loader',
-					'postcss-loader',
+					"css-loader",
+					"postcss-loader",
 					{
-						loader: 'less-loader',
+						loader: "less-loader",
 						options: {
 							sourceMap: true,
 							javascriptEnabled: true,
@@ -98,7 +98,7 @@ module.exports = merge(baseConfig, {
 				test: /\.(png|jpg|gif|jpeg|svg)$/,
 				use: [
 					{
-						loader: 'url-loader',
+						loader: "url-loader",
 						options: {
 							name: `${resourceBaseName}/[name].[hash].[ext]`,
 							limit: 8192,	 // <= 8kb的图片base64内联
@@ -106,7 +106,7 @@ module.exports = merge(baseConfig, {
 					},
 					// 压缩图片
 					{
-						loader: 'image-webpack-loader',
+						loader: "image-webpack-loader",
 						options: {
 							mozjpeg: {
 								progressive: true,
@@ -129,7 +129,7 @@ module.exports = merge(baseConfig, {
 								quality: 70,
 								speed: 4,
 							},
-							/*	webp: {
+							/*	Webp: {
                   progressive: true,
                   quality: 70,
                   speed: 4,
@@ -143,7 +143,7 @@ module.exports = merge(baseConfig, {
 
 	plugins: [
 		new miniCssExtractPlugin({
-			filename: '[name].[contenthash].css',
+			filename: "[name].[contenthash].css",
 		}),
 	],
 });

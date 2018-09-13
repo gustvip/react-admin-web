@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/8/20
  */
-import DoubleLinkedList from '../doubleLinkedList';
-import isArray from '../../utils/isArray/index';
+import DoubleLinkedList from "../doubleLinkedList";
+import isArray from "../../utils/isArray/index";
 
 export default (function() {
 	/**

@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isDate(x) {
-	return Object.prototype.toString.call(x) === '[object Date]';
+	return Object.prototype.toString.call(x) === "[object Date]";
 }

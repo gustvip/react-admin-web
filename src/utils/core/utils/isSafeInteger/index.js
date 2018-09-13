@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isInteger from '../isInteger';
+import isInteger from "../isInteger";
 
 /**
  * Checks if `value` is a valid array-like length

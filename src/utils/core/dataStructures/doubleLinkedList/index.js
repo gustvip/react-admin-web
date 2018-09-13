@@ -1,10 +1,10 @@
-import DoubleLinkedListNode from './doubleLinkedListNode';
-import Comparator from '../../utils/comparator';
-import isFunction from '../../utils/isFunction';
-import isUndefined from '../../utils/isUndefined';
-import isArray from '../../utils/isArray';
-import isObject from '../../utils/isObject';
-import isNull from '../../utils/isNull';
+import DoubleLinkedListNode from "./doubleLinkedListNode";
+import Comparator from "../../utils/comparator";
+import isFunction from "../../utils/isFunction";
+import isUndefined from "../../utils/isUndefined";
+import isArray from "../../utils/isArray";
+import isObject from "../../utils/isObject";
+import isNull from "../../utils/isNull";
 
 export default (function() {
 	/**

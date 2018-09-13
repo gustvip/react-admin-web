@@ -2,17 +2,17 @@
  * Created by joey on 18-2-7
  */
 
-import T from 'utils/t';
-import EnumDefaultMenus from 'constants/enumDefaultMenus';
-import assign from 'lodash/assign';
-import uniq from 'lodash/uniq';
-import flowRight from 'lodash/flowRight';
-import find from 'lodash/find';
-import identity from 'lodash/identity';
-import isPlainObject from 'lodash/isPlainObject';
+import T from "utils/t";
+import EnumDefaultMenus from "constants/enumDefaultMenus";
+import assign from "lodash/assign";
+import uniq from "lodash/uniq";
+import flowRight from "lodash/flowRight";
+import find from "lodash/find";
+import identity from "lodash/identity";
+import isPlainObject from "lodash/isPlainObject";
 
 /**
- * location.pathname和分类值的对应关系
+ * Location.pathname和分类值的对应关系
  * @type {{[location.pathname]:{category:String}}}
  */
 let mapUrlToCategory = {};
@@ -30,13 +30,13 @@ export const EnumMenus = (() => {
 	const formatData = (children) => {
 		let resultUrl = [];
 		let resultChildren = [];
-
+		
 		if (T.helper.checkArray(children)) {
 			resultChildren = children.map((item) => {
 				if (T.helper.checkArray(item.children)) {
 					const result = formatData(item.children);
 					resultUrl = resultUrl.concat(result.resultUrl);
-
+					
 					return assign(
 						{},
 						item,
@@ -56,7 +56,7 @@ export const EnumMenus = (() => {
 				if (Array.isArray(item.url) || T.helper.checkString(item.url)) {
 					resultUrl = resultUrl.concat(item.url);
 				}
-
+				
 				return assign(
 					{},
 					item,
@@ -76,16 +76,16 @@ export const EnumMenus = (() => {
 			resultUrl,
 		};
 	};
-
+	
 	const menuData = EnumDefaultMenus.map((item) => {
 		const result = formatData(item.children);
 		/**
-		 * url和category的映射
+		 * Url和category的映射
 		 */
 		result.resultUrl.forEach((locationPathname) => {
-			mapUrlToCategory[locationPathname] = { category: item.value };
+			mapUrlToCategory[locationPathname] = {category: item.value};
 		});
-
+		
 		return assign(
 			{},
 			item,
@@ -102,7 +102,7 @@ export const EnumMenus = (() => {
 			},
 		);
 	});
-
+	
 	mapUrlToCategory = T.helper.immutable(mapUrlToCategory);
 	return T.helper.immutable(menuData);
 })();
@@ -114,7 +114,7 @@ export const EnumMenus = (() => {
  */
 export const getCategoryData = (locationPathname) => {
 	const result = mapUrlToCategory[flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)];
-
+	
 	return isPlainObject(result) ? result.category : null;
 };
 
@@ -125,7 +125,7 @@ export const getCategoryData = (locationPathname) => {
  */
 export const getCategoryChildrenData = (category) => {
 	const result = find(EnumMenus, item => item.value === category);
-
+	
 	return isPlainObject(result)
 		? Array.isArray(result.children)
 			? result.children
@@ -148,7 +148,7 @@ export const getCategoryRoute = flowRight(getCategoryChildrenData, getCategoryDa
 export const getMenuData = (locationPathname) => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const result = find(getCategoryRoute(locationPathname), item => item.url.indexOf(locationPathname) !== -1);
-
+	
 	return isPlainObject(result)
 		? Array.isArray(result.children)
 			? result.children
@@ -165,7 +165,7 @@ export const getOpenKeys = (locationPathname) => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const dataSource = getMenuData(locationPathname);
 	const data = [];
-
+	
 	(function fn(_dataSource) {
 		/**
 		 * 从顶层开始判断当前的location.pathname是否在其中
@@ -178,6 +178,6 @@ export const getOpenKeys = (locationPathname) => {
 			T.helper.checkArray(result.children) && fn(result.children);
 		}
 	}(dataSource));
-
+	
 	return data.slice(0, data.length - 1);
 };

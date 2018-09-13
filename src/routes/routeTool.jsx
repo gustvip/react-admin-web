@@ -1,12 +1,12 @@
 /**
  * Created by joey on 2018/02/19
  */
-import {Route} from 'react-router-dom';
-import flattenDeep from 'lodash/flattenDeep';
-import Exception from 'templates/toolComponents/exception';
-import lazyLoad from 'templates/lazyLoad';
-import MainLayoutComponent from 'templates/mainLayout';
-import * as React from 'react';
+import {Route} from "react-router-dom";
+import flattenDeep from "lodash/flattenDeep";
+import Exception from "templates/toolComponents/exception";
+import lazyLoad from "templates/lazyLoad";
+import MainLayoutComponent from "templates/mainLayout";
+import * as React from "react";
 
 /**
  * 默认布局方式
@@ -60,5 +60,5 @@ export const AssembleRoute = (...routes) => () => flattenDeep(routes).map(val =>
  */
 export const NoMatch = () => (<Exception style={{
 	minHeight: 500,
-	height: '100%',
+	height: "100%",
 }}/>);

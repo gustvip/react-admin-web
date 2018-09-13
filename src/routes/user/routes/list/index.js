@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/18
  */
 
-import { connect } from 'react-redux';
-import Index from '../../components/list/index';
+import { connect } from "react-redux";
+import Index from "../../components/list/index";
 
 /**
  * 映射props

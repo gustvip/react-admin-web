@@ -1,18 +1,18 @@
 /**
- * created by joey 2018/02/20
+ * Created by joey 2018/02/20
  */
-import isObject from '../utils/isObject';
-import isString from '../utils/isString';
-import isNumber from '../utils/isNumber';
-import isBoolean from '../utils/isBoolean';
-import isArray from '../utils/isArray';
-import forOwn from '../utils/forOwn';
+import isObject from "../utils/isObject";
+import isString from "../utils/isString";
+import isNumber from "../utils/isNumber";
+import isBoolean from "../utils/isBoolean";
+import isArray from "../utils/isArray";
+import forOwn from "../utils/forOwn";
 
 export default (function() {
 	// 无限期
 	var NO_EXPIRE = 0;
-	// localStorage的key
-	var STORAGE_KEY = '__STORAGE__';
+	// LocalStorage的key
+	var STORAGE_KEY = "__STORAGE__";
 	// 临时存储的变量
 	var storageValue = (function() {
 		var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
@@ -81,7 +81,7 @@ export default (function() {
 	function setItem(key, value, expTime) {
 		clearExpired();
 		if (!canJSON(value)) {
-			console.warn('设置的值不可序列化，请重新设置');
+			console.warn("设置的值不可序列化，请重新设置");
 		} else {
 			expTime = parseInt(expTime, 10);
 			if (!isFinite(expTime) || expTime < 0) {

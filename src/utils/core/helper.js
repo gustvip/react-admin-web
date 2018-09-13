@@ -1,13 +1,13 @@
-import get from 'lodash/get';
-import identity from 'lodash/identity';
-import each from 'lodash/each';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
-import classNames from './classNames';
+import get from "lodash/get";
+import identity from "lodash/identity";
+import each from "lodash/each";
+import isString from "lodash/isString";
+import isNumber from "lodash/isNumber";
+import classNames from "./classNames";
 
 class Helper {
 	/**
-	 * ant-design排序
+	 * Ant-design排序
 	 * @param {Object} prev
 	 * @param {Object} now
 	 * @param {String} property
@@ -56,7 +56,7 @@ class Helper {
 	 * @return {Function}
 	 */
 	classNames(basisClass) {
-		return (...rest) => classNames(isString(basisClass) ? basisClass : 'iconfont', ...rest);
+		return (...rest) => classNames(isString(basisClass) ? basisClass : "iconfont", ...rest);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Helper {
 	 * @param {String}    defaultVal  不满足条件的默认值
 	 * @return {String}
 	 */
-	showValue(val, defaultVal = '-') {
+	showValue(val, defaultVal = "-") {
 		return (this.checkString(val) || this.isUsefulNumber(val)) ? val : defaultVal;
 	}
 
@@ -93,7 +93,7 @@ class Helper {
 	 * @return {boolean}
 	 */
 	isObject(x) {
-		return Object.prototype.toString.call(x) === '[object Object]';
+		return Object.prototype.toString.call(x) === "[object Object]";
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Helper {
 	 * @return {* || String}
 	 */
 	removeBlank(x) {
-		return isString(x) ? x.replace(/\s/g, '') : x;
+		return isString(x) ? x.replace(/\s/g, "") : x;
 	}
 
 	/**
@@ -131,7 +131,7 @@ class Helper {
 	 * @param {String} childrenProperty 递归的属性名称
 	 * @return {Array}
 	 */
-	findPath({ data, stopValue, stopCallback, resultCallback, childrenProperty = 'children' } = {}) {
+	findPath({ data, stopValue, stopCallback, resultCallback, childrenProperty = "children" } = {}) {
 		resultCallback = resultCallback || stopCallback;
 
 		let tag = false;
@@ -167,7 +167,7 @@ class Helper {
 	 * @param {String} [childrenName] 递归的属性名称---默认"children"
 	 * @return {Array}
 	 */
-	formatTree({ data, resultCallback, childrenName = 'children' } = {}) {
+	formatTree({ data, resultCallback, childrenName = "children" } = {}) {
 		const _this = this;
 
 		return (function fn(_data) {
@@ -193,7 +193,7 @@ class Helper {
 	 * @param {String} defaultVal 格式化错误的默认值
 	 * @return {String}
 	 */
-	toFixed(num, fixNum = 2, defaultVal = '-') {
+	toFixed(num, fixNum = 2, defaultVal = "-") {
 		num = Number(num);
 		return !isFinite(num) ? defaultVal : num.toFixed(fixNum);
 	}

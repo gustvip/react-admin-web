@@ -1,17 +1,17 @@
 /**
  * @description webpack 打包基本配置
  */
-const webpack = require('webpack');
+const webpack = require("webpack");
 // 处理vtk规则
-const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rules;
+const vtkRules = require("vtk.js/Utilities/config/dependency.js").webpack.v2.rules;
 
 /**
  * 页面入口文件,使用异步加载方式
  * @type {RegExp}
  */
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig;
-const excludeRegex = require('./util').excludeRegex;
-const resourceBaseName = require('./util').resourceBaseName;
+const excludeRegex = require("./util").excludeRegex;
+const resourceBaseName = require("./util").resourceBaseName;
 
 const staticResource = [
 	{
@@ -36,33 +36,33 @@ const staticResource = [
 	},
 	{
 		test: /\.(csv|tsv)$/,
-		use: 'csv-loader',
+		use: "csv-loader",
 	},
 ];
 
 module.exports = {
-	mode: 'development',
+	mode: "development",
 	optimization: {
 		splitChunks: {
-			chunks: 'all',
+			chunks: "all",
 			minSize: 30000,
 			minChunks: 1,
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
 				vendor: {
-					name: 'vendor',
+					name: "vendor",
 					test: /\.scss|css|less$/,
-					chunks: 'all', // merge all the css chunk to one file
+					chunks: "all", // Merge all the css chunk to one file
 					minChunks: 1,
 					reuseExistingChunk: true,
 					enforce: true,
 					priority: 0,
 				},
 
-				commons: { // key 为entry中定义的 入口名称
-					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
-					name: 'commons', // 要缓存的 分隔出来的 chunk 名称
+				commons: { // Key 为entry中定义的 入口名称
+					chunks: "initial", // 必须三选一： "initial" | "all" | "async"(默认就是异步)
+					name: "commons", // 要缓存的 分隔出来的 chunk 名称
 					minChunks: 2,
 					minSize: 0,
 					priority: 2,
@@ -71,36 +71,36 @@ module.exports = {
 		},
 
 		runtimeChunk: {
-			name: 'runtime',
+			name: "runtime",
 		},
 	},
 
 	entry: {
-		app: './src/index',
+		app: "./src/index",
 		commons: [
-			'react',
-			'react-dom',
-			'react-redux',
-			'redux',
-			'prop-types',
-			'immutability-helper',
-			'query-string',
-			'es6-promise',
-			'url-search-params-polyfill',
+			"react",
+			"react-dom",
+			"react-redux",
+			"redux",
+			"prop-types",
+			"immutability-helper",
+			"query-string",
+			"es6-promise",
+			"url-search-params-polyfill",
 
-			'utils/core/decorate.js',
-			'utils/core/crypto.js',
-			'utils/core/request.js',
-			'utils/core/classNames/index.js',
-			'utils/core/emitter/index.js',
-			'utils/core/localStorage/index.js',
+			"utils/core/decorate.js",
+			"utils/core/crypto.js",
+			"utils/core/request.js",
+			"utils/core/classNames/index.js",
+			"utils/core/emitter/index.js",
+			"utils/core/localStorage/index.js",
 		],
 	},
 
 	/**
 	 * 排除打包的内容---走cdn
 	 */
-	/* externals: {
+	/* Externals: {
     $: 'jQuery',
     jQuery: 'jQuery',
     lodash: '_',
@@ -110,13 +110,13 @@ module.exports = {
   }, */
 
 	resolve: {
-		extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
-		modules: ['node_modules', 'src/'],
-		mainFields: ['browser', 'main', 'module'],
+		extensions: [".js", ".jsx", ".ts", ".tsx", ".scss"],
+		modules: ["node_modules", "src/"],
+		mainFields: ["browser", "main", "module"],
 	},
 
 	node: {
-		fs: 'empty',
+		fs: "empty",
 	},
 
 	module: {
@@ -128,7 +128,7 @@ module.exports = {
 				exclude: excludeRegex,
 				use: [
 					{
-						loader: 'bundle-loader',
+						loader: "bundle-loader",
 						options: {
 							lazy: true,
 						},
@@ -138,13 +138,13 @@ module.exports = {
 
 			{
 				test: /\.jsx?$/,
-				use: ['babel-loader'],
+				use: ["babel-loader"],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 
 			{
 				test: /\.tsx?$/,
-				use: ['babel-loader', 'ts-loader'],
+				use: ["babel-loader", "ts-loader"],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 		],
@@ -152,7 +152,7 @@ module.exports = {
 
 	plugins: [
 		new webpack.ProvidePlugin({
-			React: 'react',
+			React: "react",
 		}),
 	],
 };

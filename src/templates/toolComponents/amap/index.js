@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import mapUtils from 'utils/amap';
-import noop from 'lodash/noop';
-import merge from 'lodash/merge';
-import isFunction from 'lodash/isFunction';
-import classNames from 'utils/core/classNames';
+import PropTypes from "prop-types";
+import mapUtils from "utils/amap";
+import noop from "lodash/noop";
+import merge from "lodash/merge";
+import isFunction from "lodash/isFunction";
+import classNames from "utils/core/classNames";
 
 export default class AMap extends React.PureComponent {
 	static defaultProps = {
-		className: '',
+		className: "",
 		style: {},
 	};
 	
@@ -26,7 +26,7 @@ export default class AMap extends React.PureComponent {
 	componentDidMount() {
 		this.mapUtils.createMap(this._mapContainer, {});
 		const {mapLoadCallback} = this.props;
-		this.mapUtils.mapInstance.on('complete', isFunction(mapLoadCallback) ? mapLoadCallback : noop);
+		this.mapUtils.mapInstance.on("complete", isFunction(mapLoadCallback) ? mapLoadCallback : noop);
 	}
 	
 	componentWillUnmount() {
@@ -37,7 +37,7 @@ export default class AMap extends React.PureComponent {
 	
 	render() {
 		const baseStyle = {
-			position: 'absolute',
+			position: "absolute",
 			left: 0,
 			right: 0,
 			top: 0,

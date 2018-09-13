@@ -1,6 +1,6 @@
-import * as React from 'react';
-import T from '../../../../utils/t';
-// import LeafletComponent from '../../../../templates/toolComponents/leaflet';
+import * as React from "react";
+import T from "../../../../utils/t";
+// Import LeafletComponent from '../../../../templates/toolComponents/leaflet';
 
 export default class TestComponent extends React.PureComponent {
 	constructor() {
@@ -13,7 +13,7 @@ export default class TestComponent extends React.PureComponent {
 			<div
 				ref={container => this.container = container}
 				style={{
-					position: 'absolute',
+					position: "absolute",
 					left: 0,
 					right: 0,
 					top: 0,

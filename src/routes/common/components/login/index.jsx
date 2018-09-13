@@ -1,18 +1,18 @@
 /**
  * Created by joey on 17-8-30.
  */
-import enumRouter from 'constants/enumRouter';
-import regExp from 'utils/core/regExp';
-import auth from 'utils/core/auth';
-import crypto from 'utils/core/crypto';
-import prompt from 'utils/core/prompt';
-import * as decorate from 'utils/core/decorate';
+import enumRouter from "constants/enumRouter";
+import regExp from "utils/core/regExp";
+import auth from "utils/core/auth";
+import crypto from "utils/core/crypto";
+import prompt from "utils/core/prompt";
+import * as decorate from "utils/core/decorate";
 
-import styles from './index.scss';
-import {Button, Input, Checkbox} from 'antd';
-import bg from './img/bg.png';
+import styles from "./index.scss";
+import {Button, Input, Checkbox} from "antd";
+import bg from "./img/bg.png";
 
-@decorate.contextTypes('router')
+@decorate.contextTypes("router")
 class Login extends React.PureComponent {
 	
 	static userNameStorageValue = auth.getUserNameStorageValue();
@@ -22,20 +22,20 @@ class Login extends React.PureComponent {
 		super();
 		this.state = {
 			isRemember: true,
-			userName: Login.userNameStorageValue ? Login.userNameStorageValue : '',
-			userPassword: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : '',
+			userName: Login.userNameStorageValue ? Login.userNameStorageValue : "",
+			userPassword: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : "",
 			loading: false,
 		};
 	}
 	
 	checkParam = (userName, userPassword) => {
 		if (!(regExp.name.test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
-			prompt.warn('账号格式不对');
+			prompt.warn("账号格式不对");
 			return false;
 		}
 		
 		if (!(userPassword === Login.userPasswordStorageValue || regExp.password.test(userPassword))) {
-			prompt.warn('密码格式不对');
+			prompt.warn("密码格式不对");
 			return false;
 		}
 		return true;
@@ -57,7 +57,7 @@ class Login extends React.PureComponent {
 					userName,
 					userPassword,
 					() => {
-						prompt.success('登陆成功,正在跳转');
+						prompt.success("登陆成功,正在跳转");
 						
 						if (self.state.isRemember) {
 							auth.setUserNameStorageValue(userName);
@@ -83,13 +83,13 @@ class Login extends React.PureComponent {
 		const self = this;
 		
 		return (
-			<div id={styles['login-container']}>
+			<div id={styles["login-container"]}>
 				<img src={bg} alt="背景图片"/>
-				<div className={styles['condition-container']}>
+				<div className={styles["condition-container"]}>
 					<Input
 						type="text"
 						value={self.state.userName}
-						className={styles['login_email']}
+						className={styles["login_email"]}
 						onChange={e => self.setState({userName: e.target.value.trim()})}
 						placeholder="邮箱"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
@@ -97,7 +97,7 @@ class Login extends React.PureComponent {
 					<Input
 						type="password"
 						value={self.state.userPassword}
-						className={styles['login_password']}
+						className={styles["login_password"]}
 						onChange={e => self.setState({userPassword: e.target.value.trim()})}
 						placeholder="密码"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}

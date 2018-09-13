@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isObject(x) {
-	return Object.prototype.toString.call(x) === '[object Object]';
+	return Object.prototype.toString.call(x) === "[object Object]";
 }

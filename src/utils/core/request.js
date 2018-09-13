@@ -1,12 +1,12 @@
 /**
  * Created by joey on 2018/2/19
  */
-import {create, CancelToken} from 'axios';
-import forOwn from 'lodash/forOwn';
-import isPlainObject from 'lodash/isPlainObject';
-import noop from 'lodash/noop';
-import merge from 'lodash/merge';
-import transform from 'lodash/transform';
+import {create, CancelToken} from "axios";
+import forOwn from "lodash/forOwn";
+import isPlainObject from "lodash/isPlainObject";
+import noop from "lodash/noop";
+import merge from "lodash/merge";
+import transform from "lodash/transform";
 
 const source = CancelToken.source();
 
@@ -21,7 +21,7 @@ function objectToFormData(obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
 	forOwn(obj, ((value, property) => {
-		let key = Array.isArray(obj) ? '[]' : `[${property}]`;
+		let key = Array.isArray(obj) ? "[]" : `[${property}]`;
 		if (namespace) {
 			formKey = namespace + key;
 		} else {
@@ -58,7 +58,7 @@ const singleton = (function() {
 			 * 表示服务器将响应的数据类型
 			 * 包括 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 			 */
-			responseType: 'json',
+			responseType: "json",
 			
 			// 取消请求的令牌
 			cancelToken: source.token,
@@ -114,12 +114,12 @@ const _request = (options = {}) => {
  * 取消请求
  * @param {string} reason
  */
-export function cancelAllRequest(reason = '') {
+export function cancelAllRequest(reason = "") {
 	source.cancel(reason);
 }
 
 /**
- * get请求
+ * Get请求
  * @param {String} url
  * @param {Object} params
  * @param {Object} options
@@ -128,13 +128,13 @@ export function cancelAllRequest(reason = '') {
 export function get(url, params = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: 'get',
+		method: "get",
 		params,
 	}, options));
 }
 
 /**
- * post请求
+ * Post请求
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -143,14 +143,14 @@ export function get(url, params = {}, options = {}) {
 export function post(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: 'post',
+		method: "post",
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
-		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+		headers: {"Content-Type": "application/x-www-form-urlencoded"},
 	}, options));
 }
 
 /**
- * post json请求
+ * Post json请求
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -159,9 +159,9 @@ export function post(url, data = {}, options = {}) {
 export function postJSON(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: 'post',
+		method: "post",
 		data,
-		headers: {'Content-Type': 'application/json'},
+		headers: {"Content-Type": "application/json"},
 	}, options));
 }
 
@@ -176,15 +176,15 @@ export function postJSON(url, data = {}, options = {}) {
 export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 	return _request(merge({
 		url,
-		method: 'post',
+		method: "post",
 		data: objectToFormData(data),
 		onUploadProgress,
-		headers: {'Content-Type': 'multipart/form-data'},
+		headers: {"Content-Type": "multipart/form-data"},
 	}, options));
 }
 
 /**
- * restful delete
+ * Restful delete
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -193,14 +193,14 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 export function del(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: 'delete',
+		method: "delete",
 		data,
-		headers: {'Content-Type': 'application/json'},
+		headers: {"Content-Type": "application/json"},
 	}, options));
 }
 
 /**
- * restful put
+ * Restful put
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -209,9 +209,9 @@ export function del(url, data = {}, options = {}) {
 export function put(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: 'put',
+		method: "put",
 		data,
-		headers: {'Content-Type': 'application/json'},
+		headers: {"Content-Type": "application/json"},
 	}, options));
 }
 

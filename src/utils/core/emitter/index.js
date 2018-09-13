@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import findIndex from '../utils/findIndex/index';
-import isFunction from '../utils/isFunction/index';
+import findIndex from "../utils/findIndex/index";
+import isFunction from "../utils/isFunction/index";
 
 export default (function() {
 	/**
@@ -14,7 +14,7 @@ export default (function() {
 	 */
 	function _addListener(type, callback, isOnce) {
 		if (!isFunction(callback)) {
-			throw new TypeError('callback must be function');
+			throw new TypeError("callback must be function");
 		}
 		var row = this.__selfListeners__[type];
 		

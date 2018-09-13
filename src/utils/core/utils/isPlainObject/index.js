@@ -1,9 +1,9 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isObjectLike from '../isObjectLike';
-import isObject from '../isObject';
-import isNull from '../isNull';
+import isObjectLike from "../isObjectLike";
+import isObject from "../isObject";
+import isNull from "../isNull";
 
 /**
  * Checks if `value` is a plain object, that is, an object created by the

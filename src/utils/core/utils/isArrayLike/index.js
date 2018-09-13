@@ -1,9 +1,9 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isNil from '../isNil';
-import isFunction from '../isFunction';
-import isLength from '../isLength';
+import isNil from "../isNil";
+import isFunction from "../isFunction";
+import isLength from "../isLength";
 
 /**
  * @param {*} x

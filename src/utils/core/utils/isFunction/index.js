@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isFunction(x) {
-	return typeof x === 'function';
+	return typeof x === "function";
 }

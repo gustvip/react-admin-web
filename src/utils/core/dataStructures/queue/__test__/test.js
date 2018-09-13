@@ -1,7 +1,7 @@
-import Index from '../index';
+import Index from "../index";
 
-describe('Index', () => {
-	it('should create empty queue', () => {
+describe("Index", () => {
+	it("should create empty queue", () => {
 		const queue = new Index();
 		expect(queue).not.toBeUndefined();
 		expect(queue.linkedList).not.toBeNull();
@@ -12,29 +12,29 @@ describe('Index', () => {
 		expect(queue.has(1)).toBeFalsy();
 	});
 
-	it('should enqueue data to queue', () => {
+	it("should enqueue data to queue", () => {
 		const queue = new Index();
 
 		queue.enqueue(1);
 		queue.enqueue(2);
 
-		expect(queue.toString()).toBe('1,2');
+		expect(queue.toString()).toBe("1,2");
 	});
 
-	it('should be possible to enqueue/dequeue objects', () => {
+	it("should be possible to enqueue/dequeue objects", () => {
 		const queue = new Index();
 
-		queue.enqueue({ value: 'test1', key: 'key1' });
-		queue.enqueue({ value: 'test2', key: 'key2' });
+		queue.enqueue({ value: "test1", key: "key1" });
+		queue.enqueue({ value: "test2", key: "key2" });
 
 		const stringifier = value => `${value.key}:${value.value}`;
 
-		expect(queue.toString(stringifier)).toBe('key1:test1,key2:test2');
-		expect(queue.dequeue().value).toBe('test1');
-		expect(queue.dequeue().value).toBe('test2');
+		expect(queue.toString(stringifier)).toBe("key1:test1,key2:test2");
+		expect(queue.dequeue().value).toBe("test1");
+		expect(queue.dequeue().value).toBe("test2");
 	});
 
-	it('should peek data from queue', () => {
+	it("should peek data from queue", () => {
 		const queue = new Index();
 
 		expect(queue.peek()).toBeUndefined();
@@ -46,7 +46,7 @@ describe('Index', () => {
 		expect(queue.peek()).toBe(1);
 	});
 
-	it('should check if queue is empty', () => {
+	it("should check if queue is empty", () => {
 		const queue = new Index();
 
 		expect(queue.isEmpty()).toBe(true);
@@ -56,7 +56,7 @@ describe('Index', () => {
 		expect(queue.isEmpty()).toBe(false);
 	});
 
-	it('should dequeue from queue in FIFO order', () => {
+	it("should dequeue from queue in FIFO order", () => {
 		const queue = new Index();
 
 		queue.enqueue(1);

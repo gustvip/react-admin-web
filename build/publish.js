@@ -1,27 +1,27 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const clc = require('cli-color');
-const webpack = require('webpack');
-const copyWebpackPlugin = require('copy-webpack-plugin');
-const rm = require('rimraf');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const merge = require("webpack-merge");
+const clc = require("cli-color");
+const webpack = require("webpack");
+const copyWebpackPlugin = require("copy-webpack-plugin");
+const rm = require("rimraf");
+const htmlWebpackPlugin = require("html-webpack-plugin");
 
-console.log(clc.green('webpack打包开始'));
+console.log(clc.green("webpack打包开始"));
 
 const conf = {
-	indexHtmlName: 'index_index.html',		// 生成的html的名字
-	appName: 'platform', // 项目名称
-	proxyPath: process.argv[3] ? process.argv[3] : '/', // 代理的前缀 注意：后面必须带斜线
-	webPath: process.argv[2], // web目录
+	indexHtmlName: "index_index.html",		// 生成的html的名字
+	appName: "platform", // 项目名称
+	proxyPath: process.argv[3] ? process.argv[3] : "/", // 代理的前缀 注意：后面必须带斜线
+	webPath: process.argv[2], // Web目录
 };
 
 /**
  * 更新webpack配置
  */
-const webpackConfigProd = merge(require('./webpack.config.prod'), {
+const webpackConfigProd = merge(require("./webpack.config.prod"), {
 	output: {
-		filename: '[name].[contenthash].js',
-		publicPath: path.join(conf.proxyPath, conf.appName, '/'),
+		filename: "[name].[contenthash].js",
+		publicPath: path.join(conf.proxyPath, conf.appName, "/"),
 		path: path.join(conf.webPath, conf.appName),
 	},
 	plugins: [
@@ -29,7 +29,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 		 * 生成html文件
 		 */
 		new htmlWebpackPlugin({
-			template: path.join(__dirname, '../public/template.html'),
+			template: path.join(__dirname, "../public/template.html"),
 			filename: path.join(conf.webPath, conf.indexHtmlName),
 			minify: {
 				removeComments: true,
@@ -43,7 +43,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 				minifyCSS: true,
 				minifyURLs: true,
 			},
-			chunksSortMode: 'dependency',
+			chunksSortMode: "dependency",
 		}),
 
 		/**
@@ -51,8 +51,8 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 		 */
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, '../public/config/env.js'),
-				to: path.join(conf.webPath, 'config'),
+				from: path.join(__dirname, "../public/config/env.js"),
+				to: path.join(conf.webPath, "config"),
 			},
 		]),
 
@@ -61,8 +61,8 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 		 */
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, '../public/asserts/'),
-				to: path.join(conf.webPath, 'asserts'),
+				from: path.join(__dirname, "../public/asserts/"),
+				to: path.join(conf.webPath, "asserts"),
 			},
 		]),
 
@@ -71,7 +71,7 @@ const webpackConfigProd = merge(require('./webpack.config.prod'), {
 		 */
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, '../public/favicon.ico'),
+				from: path.join(__dirname, "../public/favicon.ico"),
 				to: conf.webPath,
 			},
 		]),
@@ -82,7 +82,7 @@ doCompilerPlatform();
 
 function doCompilerPlatform() {
 	/**
-	 * rm -rf
+	 * Rm -rf
 	 */
 	rm(conf.webPath, (err) => {
 		if (err) {
@@ -92,7 +92,7 @@ function doCompilerPlatform() {
 				const jsonStats = stats.toJson();
 				jsonStats.errors.length && handleError(jsonStats.errors);
 				jsonStats.warnings.length && handleWarn(jsonStats.warnings);
-				console.log(clc.green('webpack打包结束'));
+				console.log(clc.green("webpack打包结束"));
 			});
 		}
 	});
@@ -103,7 +103,7 @@ function doCompilerPlatform() {
  * @param errorMsg
  */
 function handleError(errorMsg) {
-	console.log(clc.yellow('webpack打包出错:'));
+	console.log(clc.yellow("webpack打包出错:"));
 	console.log(clc.red(errorMsg));
 
 	process.exit();
@@ -114,6 +114,6 @@ function handleError(errorMsg) {
  * @param warnMsg
  */
 function handleWarn(warnMsg) {
-	console.log(clc.yellow('webpack打包警告:'));
+	console.log(clc.yellow("webpack打包警告:"));
 	console.log(clc.yellow(warnMsg));
 }

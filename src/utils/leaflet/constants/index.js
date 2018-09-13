@@ -25,10 +25,10 @@ export const ZOOM = {
  */
 export const COVER_POLYLINE_STYLE = {
 	stroke: true,
-	color: '#f00',	// 描边颜色
+	color: "#f00",	// 描边颜色
 	weight: 3, // 描边宽度，
-	lineJoin: 'round', // 折线拐点的绘制样式
-	lineCap: 'round', // 折线两端线帽的绘制样式
+	lineJoin: "round", // 折线拐点的绘制样式
+	lineCap: "round", // 折线两端线帽的绘制样式
 };
 
 /**
@@ -36,11 +36,11 @@ export const COVER_POLYLINE_STYLE = {
  */
 export const COVER_POLYGON_STYLE = {
 	stroke: true,
-	color: '#0f0',	// 描边颜色
+	color: "#0f0",	// 描边颜色
 	weight: 3, // 描边宽度，
-	lineJoin: 'round', // 折线拐点的绘制样式
-	lineCap: 'round', // 折线两端线帽的绘制样式
-	fillColor: '#0f0', // 填充颜色
+	lineJoin: "round", // 折线拐点的绘制样式
+	lineCap: "round", // 折线两端线帽的绘制样式
+	fillColor: "#0f0", // 填充颜色
 };
 
 /**
@@ -48,11 +48,11 @@ export const COVER_POLYGON_STYLE = {
  */
 export const COVER_RECTANGLE_STYLE = {
 	stroke: true,
-	color: '#00f',	// 描边颜色
+	color: "#00f",	// 描边颜色
 	weight: 3, // 描边宽度，
-	lineJoin: 'round', // 折线拐点的绘制样式
-	lineCap: 'round', // 折线两端线帽的绘制样式
-	fillColor: '#00f', // 填充颜色
+	lineJoin: "round", // 折线拐点的绘制样式
+	lineCap: "round", // 折线两端线帽的绘制样式
+	fillColor: "#00f", // 填充颜色
 };
 
 /**
@@ -60,12 +60,12 @@ export const COVER_RECTANGLE_STYLE = {
  */
 export const COVER_CIRCLE_STYLE = {
 	stroke: true,
-	color: '#ff0',	// 描边颜色
+	color: "#ff0",	// 描边颜色
 	weight: 3, // 描边宽度，
-	lineJoin: 'round', // 折线拐点的绘制样式
-	lineCap: 'round', // 折线两端线帽的绘制样式
+	lineJoin: "round", // 折线拐点的绘制样式
+	lineCap: "round", // 折线两端线帽的绘制样式
 	radius: 100, // 圆半径
-	fillColor: '#ff0', // 填充颜色
+	fillColor: "#ff0", // 填充颜色
 };
 
 /**
@@ -73,12 +73,12 @@ export const COVER_CIRCLE_STYLE = {
  */
 export const COVER_CIRCLE_MARKER_STYLE = {
 	stroke: true,
-	color: '#fd56ff',	// 描边颜色
+	color: "#fd56ff",	// 描边颜色
 	weight: 3, // 描边宽度，
-	lineJoin: 'round', // 折线拐点的绘制样式
-	lineCap: 'round', // 折线两端线帽的绘制样式
+	lineJoin: "round", // 折线拐点的绘制样式
+	lineCap: "round", // 折线两端线帽的绘制样式
 	radius: 100, // 圆半径
-	fillColor: '#fd56ff', // 填充颜色
+	fillColor: "#fd56ff", // 填充颜色
 };
 
 /**
@@ -89,15 +89,15 @@ export const EnumTile = {
 	GaoDe: {
 		Normal: {
 			Map: {
-				tile: 'http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+				tile: "http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
 			},
 		},
 		Satellite: {
 			Map: {
-				tile: 'http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
+				tile: "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}",
 			},
 			Annotion: {
-				tile: 'http://webst01.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}',
+				tile: "http://webst01.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}",
 			},
 		},
 	},
@@ -105,26 +105,26 @@ export const EnumTile = {
 	TianDiTu: {
 		Normal: {
 			Map: {
-				tile: 'http://t0.tianditu.cn/DataServer?T=vec_w&X={x}&Y={y}&L={z}',
+				tile: "http://t0.tianditu.cn/DataServer?T=vec_w&X={x}&Y={y}&L={z}",
 			},
 			Annotion: {
-				tile: 'http://t0.tianditu.cn/DataServer?T=cva_w&X={x}&Y={y}&L={z}',
+				tile: "http://t0.tianditu.cn/DataServer?T=cva_w&X={x}&Y={y}&L={z}",
 			},
 		},
 		Satellite: {
 			Map: {
-				tile: 'http://t0.tianditu.cn/DataServer?T=img_w&X={x}&Y={y}&L={z}',
+				tile: "http://t0.tianditu.cn/DataServer?T=img_w&X={x}&Y={y}&L={z}",
 			},
 			Annotion: {
-				tile: 'http://t0.tianditu.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}',
+				tile: "http://t0.tianditu.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}",
 			},
 		},
 		Terrain: {
 			Map: {
-				tile: 'http://t0.tianditu.cn/DataServer?T=ter_w&X={x}&Y={y}&L={z}',
+				tile: "http://t0.tianditu.cn/DataServer?T=ter_w&X={x}&Y={y}&L={z}",
 			},
 			Annotion: {
-				tile: 'http://t0.tianditu.cn/DataServer?T=cta_w&X={x}&Y={y}&L={z}',
+				tile: "http://t0.tianditu.cn/DataServer?T=cta_w&X={x}&Y={y}&L={z}",
 			},
 		},
 	},
@@ -132,20 +132,20 @@ export const EnumTile = {
 	Google: {
 		Normal: {
 			Map: {
-				sourceID: 'Google.Normal.Map',
-				tile: 'http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}',
+				sourceID: "Google.Normal.Map",
+				tile: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}",
 			},
 		},
 		Satellite: {
 			Map: {
-				sourceID: 'Google.Satellite.Map',
-				tile: 'http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',
+				sourceID: "Google.Satellite.Map",
+				tile: "http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}",
 			},
 		},
 		Terrain: {
 			Map: {
-				sourceID: 'Google.Terrain.Map',
-				tile: 'http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}&s=Galil',
+				sourceID: "Google.Terrain.Map",
+				tile: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}&s=Galil",
 			},
 		},
 	},

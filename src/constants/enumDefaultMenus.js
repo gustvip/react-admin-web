@@ -2,42 +2,42 @@
  * Created by joey on 2018/02/19
  */
 
-import helper from 'utils/core/helper';
-import EnumRouter from './enumRouter';
+import helper from "utils/core/helper";
+import EnumRouter from "./enumRouter";
 
 /**
- * icon 类型
+ * Icon 类型
  * @type {{antd: string, custom: string}}
  */
 export const EnumIconTypes = helper.immutable({
-	antd: 'antd',
-	custom: 'custom',
+	antd: "antd",
+	custom: "custom",
 });
 
 export default helper.immutable([
 	{
-		label: '大栏目',
-		value: 'data_platform',
+		label: "大栏目",
+		value: "data_platform",
 		url: EnumRouter.userList,
 		children: [
 			{
-				label: '小栏目',
+				label: "小栏目",
 				url: EnumRouter.userList,
 				children: [
 					{
-						label: '用户管理',
+						label: "用户管理",
 						url: EnumRouter.userList,
 						icon: {
 							type: EnumIconTypes.antd,
-							value: 'up-square-o',
+							value: "up-square-o",
 						},
 						children: [
 							{
-								label: 'list',
+								label: "list",
 								url: EnumRouter.userList,
 								icon: {
 									type: EnumIconTypes.antd,
-									value: 'up-square-o',
+									value: "up-square-o",
 								},
 								children: [],
 							},
@@ -46,23 +46,23 @@ export default helper.immutable([
 				],
 			},
 			{
-				label: 'test',
+				label: "test",
 				url: EnumRouter.testDemo,
 				children: [
 					{
-						label: '地图',
+						label: "地图",
 						url: EnumRouter.testDemo,
 						icon: {
 							type: EnumIconTypes.antd,
-							value: 'up-square-o',
+							value: "up-square-o",
 						},
 						children: [
 							{
-								label: 'cesium',
+								label: "cesium",
 								url: EnumRouter.testDemo,
 								icon: {
 									type: EnumIconTypes.antd,
-									value: 'up-square-o',
+									value: "up-square-o",
 								},
 								children: [],
 							},

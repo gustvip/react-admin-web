@@ -2,29 +2,29 @@
  * Created by joey on 2018/2/18
  */
 
-import EnumAPI from 'constants/enumAPI';
-import T from 'utils/t';
+import enumAPI from "constants/enumAPI";
+import T from "utils/t";
 
 /**
  * 获取用户列表
  * @param {Object} condition {{userInfo: String, limitLength: Number}}
  * @return {Promise}
  */
-export const searchUser = condition => T.request.get(EnumAPI.userSearch, condition);
+export const searchUser = condition => T.request.get(enumAPI.userSearch, condition);
 
 /**
  * 获取用户列表
  * @param {Object} condition {{currentPage: Number, pageSize: Number}}
  * @return {Promise}
  */
-export const getUserList = condition => T.request.get(EnumAPI.userList, condition);
+export const getUserList = condition => T.request.get(enumAPI.userList, condition);
 
 /**
  * 删除用户
  * @param {Array} condition {{user_id: Array ,currentPage: Number, pageSize: Number}}
  * @return {Promise}
  */
-export const deleteUser = condition => T.request.del(EnumAPI.userDelete, { userId: condition });
+export const deleteUser = condition => T.request.del(enumAPI.userDelete, { userId: condition });
 
 /**
  * 获得初始数据

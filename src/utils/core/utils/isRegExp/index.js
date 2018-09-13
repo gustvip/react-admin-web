@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isRegExp(x) {
-	return Object.prototype.toString.call(x) === '[object RegExp]';
+	return Object.prototype.toString.call(x) === "[object RegExp]";
 }

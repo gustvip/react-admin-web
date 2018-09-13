@@ -1,8 +1,8 @@
-import isNumber from '../utils/isNumber';
-import isString from '../utils/isString';
-import isArray from '../utils/isArray';
-import isObject from '../utils/isObject';
-import forOwn from '../utils/forOwn';
+import isNumber from "../utils/isNumber";
+import isString from "../utils/isString";
+import isArray from "../utils/isArray";
+import isObject from "../utils/isObject";
+import forOwn from "../utils/forOwn";
 
 function classNames() {
 	var classCollections = [];
@@ -28,7 +28,7 @@ function classNames() {
 		}
 	}
 	
-	return classCollections.join(' ');
+	return classCollections.join(" ");
 }
 
 export default classNames;

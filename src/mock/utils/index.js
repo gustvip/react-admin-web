@@ -1,4 +1,4 @@
-import Mock from 'mockjs';
+import Mock from "mockjs";
 
 class MockUtil {
 	static apiSuccessCode = 0;
@@ -10,10 +10,10 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	request(url, type, template) {
-		return Mock.mock(new RegExp(url, 'i'), type, {
+		return Mock.mock(new RegExp(url, "i"), type, {
 			code: MockUtil.apiSuccessCode,
 			data: template,
-			msg: '成功',
+			msg: "成功",
 		});
 	}
 	
@@ -23,7 +23,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	get(url, template) {
-		return this.request(url, 'get', template);
+		return this.request(url, "get", template);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	post(url, template) {
-		return this.request(url, 'POST', template);
+		return this.request(url, "POST", template);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	put(url, template) {
-		return this.request(url, 'PUT', template);
+		return this.request(url, "PUT", template);
 	}
 	
 	/**
@@ -50,7 +50,7 @@ class MockUtil {
 	 * @param template mockjs的模版
 	 */
 	delete(url, template) {
-		return this.request(url, 'DELETE', template);
+		return this.request(url, "DELETE", template);
 	}
 }
 

@@ -2,9 +2,9 @@
  * Created by joey on 2018/2/18
  */
 
-import T from 'utils/t';
-import * as webAPI from '../../webAPI/list/index';
-import * as actionTypes from '../../constants/list/index';
+import T from "utils/t";
+import * as webAPI from "../../webAPI/list/index";
+import * as actionTypes from "../../constants/list/index";
 
 /**
  * 获取初始化数据

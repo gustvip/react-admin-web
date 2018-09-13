@@ -2,16 +2,17 @@
  * Created by joey on 18-2-7
  */
 
-import T from 'utils/t';
-import PropTypes from 'prop-types';
-import {EnumIconTypes} from 'constants/enumDefaultMenus';
-import merge from 'lodash/merge';
-import isEqual from 'lodash/isEqual';
-import find from 'lodash/find';
-import flowRight from 'lodash/flowRight';
-import {Select, Menu, Icon, Layout} from 'antd';
-import style from './index.scss';
-import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from './menuUtil';
+import T from "utils/t";
+import PropTypes from "prop-types";
+import {EnumIconTypes} from "constants/enumDefaultMenus";
+import merge from "lodash/merge";
+import isEqual from "lodash/isEqual";
+import find from "lodash/find";
+import flowRight from "lodash/flowRight";
+import {Select, Menu, Icon, Layout} from "antd";
+import style from "./index.scss";
+import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil";
+import * as React from "react";
 
 /**
  * 获取图标字体
@@ -36,17 +37,17 @@ const getIcon = (icon) => {
  * @param {Function} leftRender
  * @param {Function} rightRender
  */
-export const MainHeader = ({className = '', title = '', styles = {}, leftRender = null, rightRender = null}) => {
-	const defaultClassName = style['content-header-container'];
+export const MainHeader = ({className = "", title = "", styles = {}, leftRender = null, rightRender = null}) => {
+	const defaultClassName = style["content-header-container"];
 	const defaultStyle = {};
 	
 	return (
 		<header className={T.helper.classNames(defaultClassName)(className)} style={merge(defaultStyle, styles)}>
-			<section className={style['left-container']}>
-				<section className={style['title-container']}>{title}</section>
+			<section className={style["left-container"]}>
+				<section className={style["title-container"]}>{title}</section>
 				{leftRender}
 			</section>
-			<section className={style['right-container']}>
+			<section className={style["right-container"]}>
 				{rightRender}
 			</section>
 		</header>
@@ -66,8 +67,8 @@ MainHeader.propTypes = {
  * @param {Object} style
  * @param {Array} children
  */
-export const MainContent = ({className = '', styles = {}, children = null}) => {
-	const defaultClassName = style['content-body-container'];
+export const MainContent = ({className = "", styles = {}, children = null}) => {
+	const defaultClassName = style["content-body-container"];
 	const defaultStyle = {};
 	
 	return (
@@ -191,10 +192,10 @@ class SiderMenu extends React.PureComponent {
 				collapsible
 				collapsed={_this.props.isCollapsed}
 				onCollapse={_this.handleCollapsed}
-				className={style['sider-container']}
+				className={style["sider-container"]}
 			>
 				<Menu
-					className={style['sider-menu']}
+					className={style["sider-menu"]}
 					mode="inline"
 					theme="dark"
 					selectedKeys={[locationPathname]}
@@ -208,7 +209,7 @@ class SiderMenu extends React.PureComponent {
 }
 
 @T.decorate.propTypes({locationPathname: PropTypes.string.isRequired})
-@T.decorate.contextTypes('router')
+@T.decorate.contextTypes("router")
 class Header extends React.PureComponent {
 	logout = () => {
 		T.auth.removeLoginStorageValue();
@@ -222,7 +223,7 @@ class Header extends React.PureComponent {
 		const _this = this;
 		
 		return (
-			<div className={style['drop-down-menu-container']}>
+			<div className={style["drop-down-menu-container"]}>
 				<Select
 					onSelect={value => _this.context.router.history.push(value)}
 					value={find(EnumMenus, value => value.url.indexOf(_this.props.locationPathname) !== -1).url[0]}
@@ -245,12 +246,12 @@ class Header extends React.PureComponent {
 		const _this = this;
 		
 		return (
-			<div className={style['category-menu-container']}>
+			<div className={style["category-menu-container"]}>
 				{
 					getCategoryRoute(_this.props.locationPathname).map((item, index) => {
 						return (
 							<a
-								className={T.helper.classNames('')({[style.active]: item.url.indexOf(_this.props.locationPathname) !== -1})}
+								className={T.helper.classNames("")({[style.active]: item.url.indexOf(_this.props.locationPathname) !== -1})}
 								key={index}
 								href={item.url[0]}
 							>
@@ -268,10 +269,10 @@ class Header extends React.PureComponent {
 		const _this = this;
 		
 		return (
-			<Layout.Header className={style['main-header-container']}>
-				<section className={style['left-container']}>
+			<Layout.Header className={style["main-header-container"]}>
+				<section className={style["left-container"]}>
 					
-					<div className={style['logo-container']}>logo</div>
+					<div className={style["logo-container"]}>logo</div>
 					
 					{/* 一级路由 */}
 					{_this.getTopRoute()}
@@ -282,7 +283,7 @@ class Header extends React.PureComponent {
 				</section>
 				<section
 					onClick={() => _this.logout()}
-					className={style['right-container']}
+					className={style["right-container"]}
 				>
 					退出登录
 				</section>
@@ -308,7 +309,7 @@ export default class MainLayout extends React.PureComponent {
 		const _this = this;
 		return (
 			<Layout
-				id={style['main-container']}
+				id={style["main-container"]}
 				style={{paddingLeft: _this.state.isCollapsed ? 80 : 200}}
 			>
 				<SiderMenu
@@ -317,12 +318,12 @@ export default class MainLayout extends React.PureComponent {
 					handleCollapsed={_this.handleCollapsed.bind(_this)}
 				/>
 				<Layout.Content
-					className={style['content-container']}
+					className={style["content-container"]}
 				>
 					<Header
 						locationPathname={_this.locationPathname}
 					/>
-					<Layout.Content className={style['main-content-container']}>
+					<Layout.Content className={style["main-content-container"]}>
 						{_this.props.children}
 					</Layout.Content>
 				</Layout.Content>
