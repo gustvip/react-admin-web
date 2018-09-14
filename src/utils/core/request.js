@@ -1,14 +1,14 @@
 /**
  * Created by joey on 2018/2/19
  */
-import {create, CancelToken} from "axios";
+import Axios from "axios";
 import forOwn from "lodash/forOwn";
 import isPlainObject from "lodash/isPlainObject";
 import noop from "lodash/noop";
 import merge from "lodash/merge";
 import transform from "lodash/transform";
 
-const source = CancelToken.source();
+const source = Axios.CancelToken.source();
 
 /**
  * 将对象转化为FormDate数据格式
@@ -27,14 +27,14 @@ function objectToFormData(obj, form, namespace) {
 		} else {
 			formKey = property;
 		}
-
+		
 		if (isPlainObject(value) && !(value instanceof File)) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);
 		}
 	}));
-
+	
 	return fd;
 }
 
@@ -47,28 +47,48 @@ Promise._unhandledRejectionFn = noop;
 const singleton = (function() {
 	let instantiated;
 	const baseURL = ENV.apiDomain;
-
+	
 	function init() {
-		return create({
+		const instance = Axios.create({
 			baseURL,
-
+			
 			withCredentials: true,
-
+			
 			/**
 			 * 表示服务器将响应的数据类型
 			 * 包括 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 			 */
 			responseType: "json",
-
+			
 			// 取消请求的令牌
 			cancelToken: source.token,
-
+			
 			headers: {
-				// 'X-Requested-With': 'XMLHttpRequest',
+				// "X-Requested-With": "XMLHttpRequest",
 			},
 		});
+		
+		/**
+		 * 请求的拦截
+		 */
+		instance.interceptors.request.use(function(config) {
+			return config;
+		}, function(error) {
+			return Promise.reject({msg: error});
+		});
+		
+		/**
+		 * 响应的拦截
+		 */
+		instance.interceptors.response.use(function(response) {
+			return response;
+		}, function(error) {
+			return Promise.reject({msg: error});
+		});
+		
+		return instance;
 	}
-
+	
 	return {
 		getInstance() {
 			return instantiated ? instantiated : instantiated = init();
@@ -86,7 +106,7 @@ const _request = (options = {}) => {
 	return new Promise((resolve, reject) => {
 		singleton.getInstance().request(options).then((info) => {
 			const {data, code, msg} = info.data;
-
+			
 			if (ENV.apiSuccessCode === code) {
 				resolve({
 					code,
