@@ -5,7 +5,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 import Demo from "../../components/demo/index";
 
-
 const mapStateToProps = (state, ownProps) => {
 	return {
 		mapProps: state.userListReducer,
@@ -23,4 +22,4 @@ const mapDispatchToProps = (dispatch) => {
  * 连接组件
  */
 const DemoComponent = connect(mapStateToProps, mapDispatchToProps)(Demo);
-export default () => <DemoComponent />;
+export default () => <DemoComponent/>;

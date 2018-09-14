@@ -155,7 +155,7 @@ export default class Component extends React.PureComponent {
 					id="cesiumContainer"
 					style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
 				/>
-				<div id="toolbar" style={{ position: "absolute", left: 0, right: 0, top: 0, height: "20px" }} />
+				<div id="toolbar" style={{ position: "absolute", left: 0, right: 0, top: 0, height: "20px" }}/>
 			</div>
 		);
 	}

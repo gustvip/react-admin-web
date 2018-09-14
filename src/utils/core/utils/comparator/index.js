@@ -3,7 +3,6 @@
  */
 import isFunction from "../isFunction";
 
-
 export default (function () {
 	function defaultCompareFunction(a, b) {
 		if (a === b) {

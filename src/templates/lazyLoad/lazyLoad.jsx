@@ -55,7 +55,7 @@ class LazyLoadTpl extends React.PureComponent {
 			if (Array.isArray(_this.props.reducers) && _this.props.reducers.length > 0) {
 				_this.context.store.dispatch(injectReducers(_this.props.reducers));
 			}
-			return <Component {..._this.props} />;
+			return <Component {..._this.props}/>;
 		} else {
 			return <Spin size="large"/>;
 		}
