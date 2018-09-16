@@ -2,6 +2,7 @@
  * @description webpack 打包基本配置
  */
 const webpack = require("webpack");
+const webpackBar = require("webpackbar");
 // 处理vtk规则
 const vtkRules = require("vtk.js/Utilities/config/dependency.js").webpack.v2.rules;
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -208,5 +209,8 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			React: "react",
 		}),
+		new webpackBar({
+			profile: true
+		})
 	],
 };
