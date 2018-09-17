@@ -121,7 +121,7 @@
 			"npm run lint-staged:es"
 		],
 		"src/**/*.scss": [
-			"npm run lint:style"
+			"stylelint --syntax scss"
 		]
 	},
 	"engines": {
