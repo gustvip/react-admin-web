@@ -47,15 +47,42 @@ export const LANG = helper.immutable({
  * @type {{normal: {value: string, label: string}, whitesmoke: {value: string, label: string}, graffiti: {value: string, label: string}, darkblue: {value: string, label: string}, blue: {value: string, label: string}, fresh: {value: string, label: string}, dark: {value: string, label: string}, light: {value: string, label: string}, grey: {value: string, label: string}}}
  */
 export const MAP_STYLE = helper.immutable({
-	normal: { value: "amap://styles/normal", label: "标准" },
-	whitesmoke: { value: "amap://styles/whitesmoke", label: "远山黛" },
-	graffiti: { value: "amap://styles/graffiti", label: "涂鸦" },
-	darkblue: { value: "amap://styles/darkblue", label: "极夜蓝" },
-	blue: { value: "amap://styles/blue", label: "靛青蓝" },
-	fresh: { value: "amap://styles/fresh", label: "草色青" },
-	dark: { value: "amap://styles/dark", label: "幻影黑" },
-	light: { value: "amap://styles/light", label: "月光银" },
-	grey: { value: "amap://styles/grey", label: "雅士灰" },
+	normal: {
+		value: "amap://styles/normal",
+		label: "标准",
+	},
+	whitesmoke: {
+		value: "amap://styles/whitesmoke",
+		label: "远山黛",
+	},
+	graffiti: {
+		value: "amap://styles/graffiti",
+		label: "涂鸦",
+	},
+	darkblue: {
+		value: "amap://styles/darkblue",
+		label: "极夜蓝",
+	},
+	blue: {
+		value: "amap://styles/blue",
+		label: "靛青蓝",
+	},
+	fresh: {
+		value: "amap://styles/fresh",
+		label: "草色青",
+	},
+	dark: {
+		value: "amap://styles/dark",
+		label: "幻影黑",
+	},
+	light: {
+		value: "amap://styles/light",
+		label: "月光银",
+	},
+	grey: {
+		value: "amap://styles/grey",
+		label: "雅士灰",
+	},
 });
 
 /**
@@ -107,11 +134,31 @@ export const MORE_DRAW_TYPE = helper.immutable({
  * @type {{TileLayer: {value: string, label: string, isBasis: boolean}, TileLayer_Satellite: {value: string, label: string, isBasis: boolean}, TileLayer_RoadNet: {value: string, label: string, isBasis: boolean}, TileLayer_Traffic: {value: string, label: string, isBasis: boolean}, MassMarks: {value: string, label: string, isBasis: boolean}}}
  */
 export const LAYER = helper.immutable({
-	TileLayer: { value: "AMap.TileLayer", label: "切片", isBasis: true },
-	TileLayer_Satellite: { value: "AMap.TileLayer.Satellite", label: "卫星", isBasis: true },
-	TileLayer_RoadNet: { value: "AMap.TileLayer.RoadNet", label: "路网", isBasis: true },
-	TileLayer_Traffic: { value: "AMap.TileLayer.Traffic", label: "实时交通", isBasis: true },
-	MassMarks: { value: "AMap.MassMarks", label: "海量麻点", isBasis: false },
+	TileLayer: {
+		value: "AMap.TileLayer",
+		label: "切片",
+		isBasis: true,
+	},
+	TileLayer_Satellite: {
+		value: "AMap.TileLayer.Satellite",
+		label: "卫星",
+		isBasis: true,
+	},
+	TileLayer_RoadNet: {
+		value: "AMap.TileLayer.RoadNet",
+		label: "路网",
+		isBasis: true,
+	},
+	TileLayer_Traffic: {
+		value: "AMap.TileLayer.Traffic",
+		label: "实时交通",
+		isBasis: true,
+	},
+	MassMarks: {
+		value: "AMap.MassMarks",
+		label: "海量麻点",
+		isBasis: false,
+	},
 });
 
 /**
@@ -223,3 +270,73 @@ export const COVER_RECTANGLE_STYLE = helper.immutable({
 	fillColor: "#006600",		// 椭圆填充颜色
 	fillOpacity: 0.9,	// 椭圆填充透明度
 });
+
+/**
+ * 地图url
+ * @type {{GaoDe: {Normal: {Map: {tile: string}}, Satellite: {Map: {tile: string}, Annotion: {tile: string}}}, TianDiTu: {Normal: {Map: {tile: string}, Annotion: {tile: string}}, Satellite: {Map: {tile: string}, Annotion: {tile: string}}, Terrain: {Map: {tile: string}, Annotion: {tile: string}}}, Google: {Normal: {Map: {sourceID: string, tile: string}}, Satellite: {Map: {sourceID: string, tile: string}}, Terrain: {Map: {sourceID: string, tile: string}}}}}
+ */
+export const EnumTile = {
+	GaoDe: {
+		Normal: {
+			Map: {
+				tile: "http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+			},
+		},
+		Satellite: {
+			Map: {
+				tile: "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}",
+			},
+			Annotion: {
+				tile: "http://webst01.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}",
+			},
+		},
+	},
+	
+	TianDiTu: {
+		Normal: {
+			Map: {
+				tile: "http://t0.tianditu.cn/DataServer?T=vec_w&X={x}&Y={y}&L={z}",
+			},
+			Annotion: {
+				tile: "http://t0.tianditu.cn/DataServer?T=cva_w&X={x}&Y={y}&L={z}",
+			},
+		},
+		Satellite: {
+			Map: {
+				tile: "http://t0.tianditu.cn/DataServer?T=img_w&X={x}&Y={y}&L={z}",
+			},
+			Annotion: {
+				tile: "http://t0.tianditu.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}",
+			},
+		},
+		Terrain: {
+			Map: {
+				tile: "http://t0.tianditu.cn/DataServer?T=ter_w&X={x}&Y={y}&L={z}",
+			},
+			Annotion: {
+				tile: "http://t0.tianditu.cn/DataServer?T=cta_w&X={x}&Y={y}&L={z}",
+			},
+		},
+	},
+	
+	Google: {
+		Normal: {
+			Map: {
+				sourceID: "Google.Normal.Map",
+				tile: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}",
+			},
+		},
+		Satellite: {
+			Map: {
+				sourceID: "Google.Satellite.Map",
+				tile: "http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}",
+			},
+		},
+		Terrain: {
+			Map: {
+				sourceID: "Google.Terrain.Map",
+				tile: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}&s=Galil",
+			},
+		},
+	},
+};

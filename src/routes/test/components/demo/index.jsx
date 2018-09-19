@@ -1,13 +1,12 @@
 import * as React from "react";
 import T from "../../../../utils/t";
-// Import LeafletComponent from '../../../../templates/toolComponents/leaflet';
 
 export default class TestComponent extends React.PureComponent {
 	constructor() {
 		super();
 		this.container = null;
 	}
-
+	
 	render() {
 		return (
 			<div

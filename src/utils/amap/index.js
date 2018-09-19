@@ -56,7 +56,7 @@ class mapBasisHelper {
 			zoom: EnumMap.ZOOM.normal,		// 缩放级别
 			center: EnumMap.CENTER.normal,		// 地图中心
 			zooms: [EnumMap.ZOOM.min, EnumMap.ZOOM.max],		// 缩放范围
-			mapStyle: EnumMap.MAP_STYLE.dark.value,		// 地图的显示样式
+			mapStyle: EnumMap.MAP_STYLE.normal.value,		// 地图的显示样式
 			features: [EnumMap.FEATURES.point, EnumMap.FEATURES.bg, EnumMap.FEATURES.road],		// 地图上显示的元素种类---地图背景,道路，POI点
 			lang: EnumMap.LANG.zh_cn,		// 中文简体语言
 			viewMode: EnumMap.VIEW_MODE.two,		// 二维地图
