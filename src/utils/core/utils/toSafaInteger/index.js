@@ -2,6 +2,7 @@
  * Created by joey on 2018/8/28
  */
 import toInteger from "../toInteger";
+import {MAX_SAFE_INTEGER} from "../constant/index";
 
 /**
  * 转化为安全数字
@@ -10,10 +11,10 @@ import toInteger from "../toInteger";
  */
 export default function toSafeInteger(x) {
 	x = toInteger(x);
-	var MAX_SAFE_INTEGER = 9007199254740991;
 	if (x < -MAX_SAFE_INTEGER) {
 		return -MAX_SAFE_INTEGER;
-	} if (x > MAX_SAFE_INTEGER) {
+	}
+	if (x > MAX_SAFE_INTEGER) {
 		return MAX_SAFE_INTEGER;
 	}
 	return x;

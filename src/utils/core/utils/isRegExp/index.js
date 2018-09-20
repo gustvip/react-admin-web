@@ -1,6 +1,7 @@
 /**
  * Created by joey on 2018/8/25
  */
+import getClassName from "../getClassName/index";
 
 /**
  * 是否为正则
@@ -8,5 +9,5 @@
  * @returns {boolean}
  */
 export default function isRegExp(x) {
-	return Object.prototype.toString.call(x) === "[object RegExp]";
+	return getClassName(x) === "[object RegExp]";
 }

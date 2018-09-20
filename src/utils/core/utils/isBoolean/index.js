@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isBoolean(x) {
-	return typeof x === "boolean";
+	return x === true || x === false;
 }

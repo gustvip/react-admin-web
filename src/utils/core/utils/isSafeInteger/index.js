@@ -2,6 +2,7 @@
  * Created by joey on 2018/6/20
  */
 import isInteger from "../isInteger";
+import {MAX_SAFE_INTEGER} from "../constant/index";
 
 /**
  * Checks if `value` is a valid array-like length
@@ -9,5 +10,5 @@ import isInteger from "../isInteger";
  * @returns {boolean}
  */
 export default function isSafeInteger(x) {
-	return isInteger(x) && Math.abs(x) <= 9007199254740991;
+	return isInteger(x) && Math.abs(x) <= MAX_SAFE_INTEGER;
 }
