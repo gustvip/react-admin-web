@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/25
  */
-import getClassName from "../getClassName/index";
+import _getClassName from "../aaa/_getClassName/index";
 
 /**
  * 是否为date
@@ -9,5 +9,5 @@ import getClassName from "../getClassName/index";
  * @returns {boolean}
  */
 export default function isError(x) {
-	return getClassName(x) === "[object Error]";
+	return _getClassName(x) === "[object Error]";
 }

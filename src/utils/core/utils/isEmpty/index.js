@@ -6,7 +6,7 @@ import isArray from "../isArray";
 import isArrayLike from "../isArrayLike";
 import isString from "../isString";
 import isArguments from "../isArguments";
-import {HasOwnProperty} from "../constant";
+import {_hasOwnProperty} from "../aaa/_constant/index";
 
 /**
  * 是否为空
@@ -23,7 +23,7 @@ export default function isEmpty(x) {
 	}
 	
 	for (var key in x) {
-		if (HasOwnProperty.call(x, key)) {
+		if (_hasOwnProperty.call(x, key)) {
 			return false;
 		}
 	}

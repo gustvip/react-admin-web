@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/25
  */
-import getClassName from "../getClassName/index";
+import _getClassName from "../aaa/_getClassName/index";
 
 /**
  * 是否为正则
@@ -9,5 +9,5 @@ import getClassName from "../getClassName/index";
  * @returns {boolean}
  */
 export default function isRegExp(x) {
-	return getClassName(x) === "[object RegExp]";
+	return _getClassName(x) === "[object RegExp]";
 }

@@ -4,6 +4,8 @@
 import isArrayLike from "../isArrayLike";
 import isMap from "../isMap";
 import isSet from "../isSet";
+import _arrayLikeToArray from "../aaa/_arrayLikeToArray";
+import _mapAndSetToArray from "../aaa/_mapAndSetToArray";
 
 /**
  * 转化为数组
@@ -11,27 +13,11 @@ import isSet from "../isSet";
  * @returns {array}
  */
 export default function toArray(x) {
-	var index = -1;
-	var result = [];
-	var len = 0;
-	
 	if (isArrayLike(x)) {
-		len = x.length;
-		result = new Array(len);
-		while (++index < len) {
-			result[index] = x[index];
-		}
-		return result;
+		return _arrayLikeToArray(x);
+	} else if (isMap(x) || isSet(x)) {
+		return _mapAndSetToArray(x);
+	} else {
+		return [];
 	}
-	
-	if (isMap(x) || isSet(x)) {
-		len = x.size;
-		result = new Array(len);
-		x.forEach(function(value) {
-			result[++index] = value;
-		});
-		return result;
-	}
-	
-	return [];
 }

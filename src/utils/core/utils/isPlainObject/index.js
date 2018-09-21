@@ -1,10 +1,12 @@
+import {GetPrototypeOf} from "../aaa/_constant";
+
 /**
  * Created by joey on 2018/6/20
  */
 import isObjectLike from "../isObjectLike";
 import isObject from "../isObject";
 import isNull from "../isNull";
-import {GetPrototypeOf} from "../constant/index";
+import {_getPrototypeOf} from "../aaa/_constant/index";
 
 /**
  * Checks if `value` is a plain object, that is, an object created by the
@@ -17,12 +19,12 @@ export default function isPlainObject(x) {
 		return false;
 	}
 	
-	if (isNull(GetPrototypeOf(x))) {
+	if (isNull(_getPrototypeOf(x))) {
 		return true;
 	}
 	var proto = x;
-	while (!isNull(GetPrototypeOf(proto))) {
-		proto = GetPrototypeOf(proto);
+	while (!isNull(_getPrototypeOf(proto))) {
+		proto = _getPrototypeOf(proto);
 	}
-	return GetPrototypeOf(x) === proto;
+	return _getPrototypeOf(x) === proto;
 }

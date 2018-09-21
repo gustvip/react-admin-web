@@ -2,7 +2,7 @@
  * Created by joey on 2018/8/28
  */
 import toInteger from "../toInteger";
-import {MAX_ARRAY_INDEX} from "../constant/index";
+import {MAX_ARRAY_INDEX} from "../aaa/_constant/index";
 
 /**
  * 转化为length

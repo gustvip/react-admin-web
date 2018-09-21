@@ -1,10 +1,10 @@
 var object = Object;
 
-export var HasOwnProperty = object.prototype.hasOwnProperty;
+export var _hasOwnProperty = object.prototype.hasOwnProperty;
 
-export var ToString = object.prototype.toString;
+export var _toString = object.prototype.toString;
 
-export var GetPrototypeOf = object.getPrototypeOf;
+export var _getPrototypeOf = object.getPrototypeOf;
 
 export var MAX_SAFE_INTEGER = 9007199254740991;
 

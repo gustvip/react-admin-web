@@ -2,7 +2,7 @@
  * Created by joey on 2018/8/28
  */
 import toInteger from "../toInteger";
-import {MAX_SAFE_INTEGER} from "../constant/index";
+import {MAX_SAFE_INTEGER} from "../aaa/_constant/index";
 
 /**
  * 转化为安全数字
