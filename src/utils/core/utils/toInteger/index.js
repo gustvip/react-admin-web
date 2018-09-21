@@ -10,5 +10,5 @@ import toFinite from "../toFinite";
  */
 export default function toInteger(x) {
 	x = toFinite(x);
-	return x ? Math.floor(x) : 0;
+	return x ? Math.floor(x) : x;
 }
