@@ -1,15 +1,16 @@
 import toNumber from "../index";
 
 test("test toNumber", () => {
-	expect(toNumber({ a: 1 })).toBe(NaN);
-	expect(toNumber(() => {
-
-	})).toBe(NaN);
+	expect(toNumber({a: 1})).toBe(NaN);
+	expect(toNumber(() => {})).toBe(NaN);
+	expect(toNumber(Object.create(null))).toBe(NaN);
 	expect(toNumber([])).toBe(0);
 	expect(toNumber([1, 2])).toBe(NaN);
-	expect(toNumber({ valueOf() {
-		return 10;
-	} })).toBe(10);
+	expect(toNumber({
+		valueOf() {
+			return 10;
+		},
+	})).toBe(10);
 	expect(toNumber(1)).toBe(1);
 	expect(toNumber("-111")).toBe(-111);
 	expect(toNumber(false)).toBe(0);

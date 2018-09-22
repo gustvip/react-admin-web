@@ -5,9 +5,17 @@ import isNil from "../isNil";
 
 /**
  * 转化为字符串
+ * 防止基础类型无法转化问题---Object.create(null)
  * @param {*} x
  * @returns {string}
  */
 export default function toString(x) {
-	return isNil(x) ? "" : x.toString();
+	if (isNil(x)) {
+		return "";
+	}
+	try {
+		return x + "";
+	} catch (e) {
+		return "";
+	}
 }
