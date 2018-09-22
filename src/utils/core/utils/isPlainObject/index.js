@@ -1,10 +1,7 @@
-import {GetPrototypeOf} from "../aaa/_constant";
-
 /**
  * Created by joey on 2018/6/20
  */
 import isObjectLike from "../isObjectLike";
-import isObject from "../isObject";
 import isNull from "../isNull";
 import {_getPrototypeOf} from "../aaa/_constant/index";
 
@@ -15,7 +12,7 @@ import {_getPrototypeOf} from "../aaa/_constant/index";
  * @returns {boolean}
  */
 export default function isPlainObject(x) {
-	if (!isObjectLike(x) || !isObject(x)) {
+	if (!isObjectLike(x)) {
 		return false;
 	}
 	

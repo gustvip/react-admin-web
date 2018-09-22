@@ -25,11 +25,12 @@ export default function isEmpty(x) {
 				return false;
 			}
 		}
+		return true;
 	} else if (isArray(x) || isString(x) || isTypedArray(x) || isArguments(x)) {
 		return x.length === 0 || x.byteLength === 0;
 	} else if (isMap(x) || isSet(x)) {
-		return !x.size;
+		return x.size === 0;
+	} else {
+		return true;
 	}
-	
-	return true;
 }

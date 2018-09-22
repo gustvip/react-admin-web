@@ -1,6 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
+import _MathMax from "../aaa/_MathMax";
 import isArrayLike from "../isArrayLike";
 import isFunction from "../isFunction";
 import toInteger from "../toInteger";
@@ -16,8 +17,8 @@ export default function findIndex(x, predicate, fromIndex) {
 	if (isArrayLike(x) && isFunction(predicate)) {
 		var len = x.length;
 		var kValue;
-		fromIndex = toInteger(x);
-		fromIndex = fromIndex >= len ? 0 : fromIndex;
+		fromIndex = toInteger(fromIndex);
+		fromIndex = fromIndex < 0 ? _MathMax(0, fromIndex + len) : fromIndex >= len ? 0 : fromIndex;
 		var k = fromIndex - 1;
 		while (++k < len) {
 			if (predicate(kValue = x[k], k, x) === true) {

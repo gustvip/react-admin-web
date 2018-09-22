@@ -2,7 +2,6 @@
  * Created by joey on 2018/6/20
  */
 
-import isObjectLike from "../isObjectLike";
 import isPlainObject from "../isPlainObject";
 
 /**
@@ -11,5 +10,5 @@ import isPlainObject from "../isPlainObject";
  * @returns {boolean}
  */
 export default function isElement(x) {
-	return isObjectLike(x) && x.nodeType === 1 && !isPlainObject(x);
+	return x && x.nodeType === 1 && !isPlainObject(x);
 }

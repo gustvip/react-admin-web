@@ -106,7 +106,6 @@ const eslintrc = {
 				maxBOF: 1,
 			}],
 		"jsx-quotes": 2,
-		"capitalized-comments": 2,
 		"no-caller": 2,
 		"no-useless-escape": 0,
 		"default-case": 2,
@@ -136,6 +135,7 @@ const eslintrc = {
 		"no-with": 2,
 		"radix": 2,
 		"no-var": 0,
+		"no-self-assign": 0,
 	},
 };
 

@@ -1,6 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
+import _MathFloor from "../aaa/_MathFloor";
 import isFinite from "../isFinite";
 
 /**
@@ -9,5 +10,5 @@ import isFinite from "../isFinite";
  * @returns {boolean}
  */
 export default function isInteger(x) {
-	return isFinite(x) && Math.floor(x) === x;
+	return isFinite(x) && _MathFloor(x) === x;
 }
