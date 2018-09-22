@@ -14,7 +14,7 @@ export default function toString(x) {
 		return "";
 	}
 	try {
-		return x + "";
+		return String(x);
 	} catch (e) {
 		return "";
 	}

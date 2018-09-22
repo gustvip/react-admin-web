@@ -6,6 +6,7 @@ import isFunction from "../isFunction";
 import isLength from "../isLength";
 
 /**
+ * 是否像数组
  * @param {*} x
  * @returns {boolean}
  */

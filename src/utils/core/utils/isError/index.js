@@ -4,7 +4,7 @@
 import _getClassName from "../aaa/_getClassName/index";
 
 /**
- * 是否为date
+ * 是否为Error
  * @param {*} x
  * @returns {boolean}
  */

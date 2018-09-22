@@ -9,6 +9,5 @@ import toFinite from "../toFinite";
  * @returns {number}
  */
 export default function toInteger(x) {
-	x = toFinite(x);
-	return x ? Math.floor(x) : x;
+	return Math.floor(toFinite(x));
 }

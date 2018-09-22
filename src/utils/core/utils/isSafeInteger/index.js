@@ -5,7 +5,7 @@ import isInteger from "../isInteger";
 import {MAX_SAFE_INTEGER} from "../aaa/_constant/index";
 
 /**
- * Checks if `value` is a valid array-like length
+ * 是否为符合条件的整数
  * @param {*} x
  * @returns {boolean}
  */

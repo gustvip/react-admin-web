@@ -4,7 +4,7 @@
 import isFinite from "../isFinite";
 
 /**
- * Checks if `value` is a valid array-like length
+ * 是否为整数
  * @param {*} x
  * @returns {boolean}
  */

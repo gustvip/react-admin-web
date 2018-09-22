@@ -5,6 +5,7 @@ import isArrayLike from "../isArrayLike";
 import isObjectLike from "../isObjectLike";
 
 /**
+ * 是否像数组的对象
  * @param {*} x
  * @returns {boolean}
  */
