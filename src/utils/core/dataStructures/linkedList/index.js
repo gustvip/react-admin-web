@@ -4,14 +4,13 @@ import isFunction from "../../utils/isFunction";
 import isUndefined from "../../utils/isUndefined";
 import isArray from "../../utils/isArray";
 import isObject from "../../utils/isObject";
-import isNull from "../../utils/isNull";
 
 /**
  * 是否为空
  * @return {boolean}
  */
 function isEmpty() {
-	return isNull(this.head) || isNull(this.tail);
+	return this.size === 0;
 }
 
 /**
@@ -28,6 +27,7 @@ function has(value) {
  */
 function clear() {
 	this.head = this.tail = null;
+	this.size = 0;
 	return this;
 }
 
@@ -44,6 +44,7 @@ function prepend(value) {
 	} else {
 		this.head = newNode;
 	}
+	++this.size;
 	
 	return this;
 }
@@ -61,6 +62,7 @@ function append(value) {
 	} else {
 		this.tail.next = this.tail = newNode;
 	}
+	++this.size;
 	
 	return this;
 }
@@ -75,6 +77,7 @@ function _delete(value) {
 	while (this.head && this.compare.equal(this.head.value, value)) {
 		deletedNode = this.head;
 		this.head = this.head.next;
+		--this.size;
 	}
 	
 	var currentNode = this.head;
@@ -83,6 +86,7 @@ function _delete(value) {
 			if (this.compare.equal(currentNode.next.value, value)) {
 				deletedNode = currentNode.next;
 				currentNode.next = currentNode.next.next;
+				--this.size;
 			} else {
 				currentNode = currentNode.next;
 			}
@@ -132,8 +136,7 @@ function deleteTail() {
 	var currentNode = this.head;
 	
 	if (this.head === this.tail) {
-		// There is only one or zero node in linked list.
-		this.head = this.tail = null;
+		this.clear();
 	} else {
 		while (currentNode.next) {
 			if (!currentNode.next.next) {
@@ -143,8 +146,8 @@ function deleteTail() {
 				currentNode = currentNode.next;
 			}
 		}
-		
 		this.tail = currentNode;
+		--this.size;
 	}
 	
 	return deletedTail;
@@ -157,10 +160,10 @@ function deleteTail() {
 function deleteHead() {
 	var deletedHead = this.head;
 	if (this.head === this.tail) {
-		// There is only one or zero node in linked list.
-		this.head = this.tail = null;
+		this.clear();
 	} else {
 		this.head = this.head.next;
+		--this.size;
 	}
 	
 	return deletedHead;
@@ -187,10 +190,11 @@ function fromArray(values) {
  * @return {LinkedListNode[]}
  */
 function toArray() {
-	var nodes = [];
+	var index = -1;
+	var nodes = new Array(this.size);
 	var currentNode = this.head;
 	while (currentNode) {
-		nodes.push(currentNode);
+		nodes[++index] = currentNode;
 		currentNode = currentNode.next;
 	}
 	
@@ -266,12 +270,7 @@ Object.defineProperties(LinkedList.prototype, {
  * @param {Function} [comparatorFunction]
  */
 function LinkedList(comparatorFunction) {
-	/** @var LinkedListNode */
-	this.head = null;
-	
-	/** @var LinkedListNode */
-	this.tail = null;
-	
+	this.clear();
 	this.compare = new Comparator(comparatorFunction);
 }
 

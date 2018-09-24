@@ -9,13 +9,7 @@ import isArray from "../../utils/isArray/index";
  * @return  {number}
  */
 function size() {
-	var index = 0;
-	var head = this.doubleLinkedList.head;
-	while (head) {
-		++index;
-		head = head.next;
-	}
-	return index;
+	return this.doubleLinkedList.size;
 }
 
 /**

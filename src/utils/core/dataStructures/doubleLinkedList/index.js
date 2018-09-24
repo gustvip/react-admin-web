@@ -4,14 +4,13 @@ import isFunction from "../../utils/isFunction";
 import isUndefined from "../../utils/isUndefined";
 import isArray from "../../utils/isArray";
 import isObject from "../../utils/isObject";
-import isNull from "../../utils/isNull";
 
 /**
  * 是否为空
  * @return {boolean}
  */
 function isEmpty() {
-	return isNull(this.head) || isNull(this.tail);
+	return this.size === 0;
 }
 
 /**
@@ -28,6 +27,7 @@ function has(value) {
  */
 function clear() {
 	this.head = this.tail = null;
+	this.size = 0;
 	return this;
 }
 
@@ -45,6 +45,7 @@ function prepend(value) {
 	} else {
 		this.head = this.head.previous = newNode;
 	}
+	++this.size;
 	
 	return this;
 }
@@ -63,6 +64,7 @@ function append(value) {
 	} else {
 		this.tail = this.tail.next = newNode;
 	}
+	++this.size;
 	
 	return this;
 }
@@ -77,6 +79,7 @@ function _delete(value) {
 	while (this.head && this.compare.equal(this.head.value, value)) {
 		deletedNode = this.head;
 		this.head = this.head.next;
+		--this.size;
 	}
 	if (this.head) {
 		this.head.previous = null;
@@ -91,6 +94,7 @@ function _delete(value) {
 					currentNode.next.next.previous = currentNode;
 				}
 				currentNode.next = currentNode.next.next;
+				--this.size;
 			} else {
 				currentNode.next.previous = currentNode;
 				currentNode = currentNode.next;
@@ -140,10 +144,11 @@ function find(findParams) {
 function deleteTail() {
 	var deletedTail = this.tail;
 	if (this.head === this.tail) {
-		this.head = this.tail = null;
+		this.clear();
 	} else {
 		this.tail = this.tail.previous;
 		this.tail.next = null;
+		--this.size;
 	}
 	
 	return deletedTail;
@@ -156,10 +161,11 @@ function deleteTail() {
 function deleteHead() {
 	var deletedHead = this.head;
 	if (this.head === this.tail) {
-		this.head = this.tail = null;
+		this.clear();
 	} else {
 		this.head = this.head.next;
 		this.head.previous = null;
+		--this.size;
 	}
 	
 	return deletedHead;
@@ -170,10 +176,11 @@ function deleteHead() {
  * @return {DoubleLinkedListNode[]}
  */
 function toArray() {
-	var nodes = [];
+	var index = -1;
+	var nodes = new Array(this.size);
 	var currentNode = this.head;
 	while (currentNode) {
-		nodes.push(currentNode);
+		nodes[++index] = currentNode;
 		currentNode = currentNode.next;
 	}
 	
@@ -266,16 +273,10 @@ Object.defineProperties(DoubleLinkedList.prototype, {
  * @param {Function} [comparatorFunction]
  */
 function DoubleLinkedList(comparatorFunction) {
-	/** @var LinkedListNode */
-	this.head = null;
-	
-	/** @var LinkedListNode */
-	this.tail = null;
-	
+	this.clear();
 	this.compare = new Comparator(comparatorFunction);
 }
 
 export default function doubleLinkedList(comparatorFunction) {
 	return new DoubleLinkedList(comparatorFunction);
 }
-
