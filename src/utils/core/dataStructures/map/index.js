@@ -18,7 +18,7 @@ function size() {
  * @return {boolean}
  */
 function has(key) {
-	return !!this.doubleLinkedList.find({value: {key}});
+	return !!this.doubleLinkedList.find({value: {key: key}});
 }
 
 /**
@@ -27,7 +27,7 @@ function has(key) {
  * @return {undefined || *}
  */
 function get(key) {
-	var result = this.doubleLinkedList.find({value: {key}});
+	var result = this.doubleLinkedList.find({value: {key: key}});
 	return result ? result.value.value : undefined;
 }
 
@@ -45,10 +45,11 @@ function clear() {
  * @return {*[]}
  */
 function keys() {
-	var keys = [];
+	var index = -1;
+	var keys = new Array(this.size);
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		keys.push(head.value.key);
+		keys[++index] = head.value.key;
 		head = head.next;
 	}
 	return keys;
@@ -59,10 +60,11 @@ function keys() {
  * @return {*[]}
  */
 function values() {
-	var values = [];
+	var index = -1;
+	var values = new Array(this.size);
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		values.push(head.value.value);
+		values[++index] = head.value.value;
 		head = head.next;
 	}
 	return values;
@@ -73,10 +75,11 @@ function values() {
  * @return {[][]}
  */
 function entries() {
-	var entries = [];
+	var index = -1;
+	var entries = new Array(this.size);
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		entries.push([head.value.key, head.value.value]);
+		entries[++index] = [head.value.key, head.value.value];
 		head = head.next;
 	}
 	return entries;
@@ -103,13 +106,13 @@ function forEach(callback) {
  * @return {Map}
  */
 function setItem(key, value) {
-	var oldNode = this.doubleLinkedList.find({value: {key}});
+	var oldNode = this.doubleLinkedList.find({value: {key: key}});
 	if (oldNode) {
 		oldNode.value.value = value;
 	} else {
 		this.doubleLinkedList.append({
-			key,
-			value,
+			key: key,
+			value: value,
 		});
 	}
 	return this;
@@ -121,7 +124,7 @@ function setItem(key, value) {
  * @return {Map}
  */
 function removeItem(key) {
-	this.doubleLinkedList.delete({key});
+	this.doubleLinkedList.delete({key: key});
 	return this;
 }
 
@@ -209,7 +212,7 @@ function Map() {
 export default function map(object) {
 	var _map = new Map();
 	if (object instanceof Map) {
-		object.forEach((value, key) => {
+		object.forEach(function(value, key) {
 			_map.set(key, value);
 		});
 	} else if (isArray(object)) {

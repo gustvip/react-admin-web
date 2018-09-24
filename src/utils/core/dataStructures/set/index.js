@@ -18,7 +18,7 @@ function size() {
  * @return {boolean}
  */
 function has(value) {
-	return !!this.doubleLinkedList.find({value});
+	return !!this.doubleLinkedList.find({value: value});
 }
 
 /**
@@ -35,10 +35,11 @@ function clear() {
  * @return {*[]}
  */
 function values() {
-	var values = [];
+	var index = -1;
+	var values = new Array(this.size);
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		values.push(head.value);
+		values[++index] = head.value;
 		head = head.next;
 	}
 	return values;
@@ -49,10 +50,11 @@ function values() {
  * @return {[][]}
  */
 function entries() {
-	var entries = [];
+	var index = -1;
+	var entries = new Array(this.size);
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		entries.push([head.value, head.value]);
+		entries[++index] = [head.value, head.value];
 		head = head.next;
 	}
 	return entries;
@@ -78,7 +80,7 @@ function forEach(callback) {
  * @return {Set}
  */
 function setItem(value) {
-	var oldNode = this.doubleLinkedList.find({value});
+	var oldNode = this.doubleLinkedList.find({value: value});
 	if (oldNode) {
 		oldNode.value = value;
 	} else {
