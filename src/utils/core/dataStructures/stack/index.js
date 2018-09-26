@@ -41,7 +41,7 @@ function push(value) {
  * @return {*}
  */
 function pop() {
-	var removedTail = this.doubleLinkedList.deleteTail();
+	let removedTail = this.doubleLinkedList.deleteTail();
 	return removedTail ? removedTail.value : null;
 }
 
@@ -49,8 +49,8 @@ function pop() {
  * @return {*[]}
  */
 function toArray() {
-	var nodes = [];
-	var tail = this.doubleLinkedList.tail;
+	let nodes = [];
+	let tail = this.doubleLinkedList.tail;
 	while (tail) {
 		nodes.push(tail.value);
 		tail = tail.previous;

@@ -15,9 +15,9 @@ function _addListener(type, callback, isOnce) {
 	if (!isFunction(callback)) {
 		throw new TypeError("callback must be function");
 	}
-	var row = this.__selfListeners__[type];
+	let row = this.__selfListeners__[type];
 	
-	var obj = {
+	let obj = {
 		isOnce,
 		callback,
 	};
@@ -71,8 +71,8 @@ function removeCategoryListener(type) {
  * @returns {Object}
  */
 function removeListener(type, callback) {
-	var row = this.__selfListeners__[type];
-	var index;
+	let row = this.__selfListeners__[type];
+	let index;
 	if (row) {
 		index = findIndex(row, function(value) {
 			return value.callback === callback;
@@ -95,8 +95,8 @@ function removeListener(type, callback) {
  * @returns {Object}
  */
 function trigger(type) {
-	var row = this.__selfListeners__[type];
-	var arg = arguments;
+	let row = this.__selfListeners__[type];
+	let arg = arguments;
 	if (row) {
 		this.__selfListeners__[type] = row.filter(function(value) {
 			value.callback.apply(null, [].slice.call(arg, 1));

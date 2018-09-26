@@ -38,7 +38,7 @@ function clear() {
  */
 function prepend(value) {
 	// Make new node to be a head.
-	var newNode = new DoubleLinkedListNode(value, this.head);
+	let newNode = new DoubleLinkedListNode(value, this.head);
 	// If there is no head yet let's make new node a head.
 	if (this.isEmpty()) {
 		this.head = this.tail = newNode;
@@ -56,7 +56,7 @@ function prepend(value) {
  * @return {DoubleLinkedList}
  */
 function append(value) {
-	var newNode = new DoubleLinkedListNode(value, null, this.tail);
+	let newNode = new DoubleLinkedListNode(value, null, this.tail);
 	
 	// If there is no head yet let's make new node a head.
 	if (this.isEmpty()) {
@@ -75,7 +75,7 @@ function append(value) {
  * @return {DoubleLinkedListNode | null}
  */
 function _delete(value) {
-	var deletedNode = null;
+	let deletedNode = null;
 	while (this.head && this.compare.equal(this.head.value, value)) {
 		deletedNode = this.head;
 		this.head = this.head.next;
@@ -85,7 +85,7 @@ function _delete(value) {
 		this.head.previous = null;
 	}
 	
-	var currentNode = this.head;
+	let currentNode = this.head;
 	if (currentNode) {
 		while (currentNode.next) {
 			if (this.compare.equal(currentNode.next.value, value)) {
@@ -119,9 +119,9 @@ function _delete(value) {
  */
 function find(findParams) {
 	findParams = isObject(findParams) ? findParams : {};
-	var value = findParams.value;
-	var callback = findParams.callback;
-	var currentNode = this.head;
+	let value = findParams.value;
+	let callback = findParams.callback;
+	let currentNode = this.head;
 	
 	while (currentNode) {
 		// If callback is specified then try to find node by callback.
@@ -142,7 +142,7 @@ function find(findParams) {
  * @return {DoubleLinkedListNode | null}
  */
 function deleteTail() {
-	var deletedTail = this.tail;
+	let deletedTail = this.tail;
 	if (this.head === this.tail) {
 		this.clear();
 	} else {
@@ -159,7 +159,7 @@ function deleteTail() {
  * @return {DoubleLinkedListNode | null}
  */
 function deleteHead() {
-	var deletedHead = this.head;
+	let deletedHead = this.head;
 	if (this.head === this.tail) {
 		this.clear();
 	} else {
@@ -176,9 +176,9 @@ function deleteHead() {
  * @return {DoubleLinkedListNode[]}
  */
 function toArray() {
-	var index = -1;
-	var nodes = new Array(this.size);
-	var currentNode = this.head;
+	let index = -1;
+	let nodes = new Array(this.size);
+	let currentNode = this.head;
 	while (currentNode) {
 		nodes[++index] = currentNode;
 		currentNode = currentNode.next;
@@ -193,7 +193,7 @@ function toArray() {
  * @return {DoubleLinkedList}
  */
 function fromArray(values) {
-	var self = this;
+	let self = this;
 	if (isArray(values)) {
 		values.forEach(function(value) {
 			self.append(value);

@@ -5,12 +5,13 @@
 /**
  * parseInt重新封装
  * @private
+ * @param {*} num
+ * @param {number} radix
  * @returns {number}
  */
-export default function _parseInt() {
+export default function _parseInt(num, radix) {
 	try {
-		/* eslint-disable radix */
-		return parseInt([].slice.call(arguments));
+		return parseInt(num, radix);
 	} catch (e) {
 		return NaN;
 	}

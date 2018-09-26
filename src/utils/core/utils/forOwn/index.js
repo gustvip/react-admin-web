@@ -13,7 +13,7 @@ import {_hasOwnProperty} from "../aaa/_constant/index";
  */
 export default function forOwn(object, callback) {
 	if (isObject(object) && isFunction(callback)) {
-		for (var key in object) {
+		for (let key in object) {
 			if (_hasOwnProperty.call(object, key)) {
 				if (callback(object[key], key, object) === false) {
 					return;

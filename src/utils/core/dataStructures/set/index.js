@@ -35,9 +35,9 @@ function clear() {
  * @return {*[]}
  */
 function values() {
-	var index = -1;
-	var values = new Array(this.size);
-	var head = this.doubleLinkedList.head;
+	let index = -1;
+	let values = new Array(this.size);
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		values[++index] = head.value;
 		head = head.next;
@@ -50,9 +50,9 @@ function values() {
  * @return {[][]}
  */
 function entries() {
-	var index = -1;
-	var entries = new Array(this.size);
-	var head = this.doubleLinkedList.head;
+	let index = -1;
+	let entries = new Array(this.size);
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		entries[++index] = [head.value, head.value];
 		head = head.next;
@@ -66,7 +66,7 @@ function entries() {
  * @return {Set}
  */
 function forEach(callback) {
-	var head = this.doubleLinkedList.head;
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		callback(head.value, head.value);
 		head = head.next;
@@ -80,7 +80,7 @@ function forEach(callback) {
  * @return {Set}
  */
 function setItem(value) {
-	var oldNode = this.doubleLinkedList.find({value: value});
+	let oldNode = this.doubleLinkedList.find({value: value});
 	if (oldNode) {
 		oldNode.value = value;
 	} else {
@@ -158,7 +158,7 @@ function Set() {
 }
 
 export default function set(object) {
-	var _set = new Set();
+	let _set = new Set();
 	if (object instanceof Set) {
 		object.forEach(function(value) {
 			_set.set(value);

@@ -9,9 +9,9 @@
  * @returns {array}
  */
 export default function _arrayLikeToArray(x) {
-	var len = x.length;
-	var result = new Array(len);
-	var index = -1;
+	let len = x.length;
+	let result = new Array(len);
+	let index = -1;
 	while (++index < len) {
 		result[index] = x[index];
 	}

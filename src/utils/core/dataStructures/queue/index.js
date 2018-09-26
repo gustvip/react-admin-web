@@ -41,7 +41,7 @@ function enqueue(value) {
  * @return {*}
  */
 function dequeue() {
-	var removedHead = this.doubleLinkedList.deleteHead();
+	let removedHead = this.doubleLinkedList.deleteHead();
 	return removedHead ? removedHead.value : null;
 }
 

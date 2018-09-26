@@ -9,12 +9,12 @@ import isArray from "../utils/isArray";
 import forOwn from "../utils/forOwn";
 
 // 无限期
-var NO_EXPIRE = 0;
+let NO_EXPIRE = 0;
 // LocalStorage的key
-var STORAGE_KEY = "__STORAGE__";
+let STORAGE_KEY = "__STORAGE__";
 // 临时存储的变量
-var storageValue = (function() {
-	var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+let storageValue = (function() {
+	let result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
 	return isObject(result) ? result : {};
 }());
 
@@ -101,7 +101,7 @@ function setItem(key, value, expTime) {
  */
 function getItem(key) {
 	clearExpired();
-	var storage = storageValue[key];
+	let storage = storageValue[key];
 	if (storage) {
 		return storage.value;
 	}
@@ -115,7 +115,7 @@ function getItem(key) {
  */
 function keepItem(key, expTime) {
 	clearExpired();
-	var storage = storageValue[key];
+	let storage = storageValue[key];
 	expTime = parseInt(expTime, 10);
 	if (storage && isFinite(expTime)) {
 		storage.expire += expTime;
@@ -134,7 +134,7 @@ function keepItem(key, expTime) {
  */
 function updateItem(key, expTime) {
 	clearExpired();
-	var storage = storageValue[key];
+	let storage = storageValue[key];
 	expTime = parseInt(expTime, 10);
 	
 	if (!isFinite(expTime) || expTime < 0) {

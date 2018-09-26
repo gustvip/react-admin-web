@@ -38,7 +38,7 @@ function clear() {
  */
 function prepend(value) {
 	// Make new node to be a head.
-	var newNode = new LinkedListNode(value, this.head);
+	let newNode = new LinkedListNode(value, this.head);
 	if (this.isEmpty()) {
 		this.head = this.tail = newNode;
 	} else {
@@ -55,7 +55,7 @@ function prepend(value) {
  * @return {LinkedList}
  */
 function append(value) {
-	var newNode = new LinkedListNode(value);
+	let newNode = new LinkedListNode(value);
 	
 	if (this.isEmpty()) {
 		this.head = this.tail = newNode;
@@ -73,14 +73,14 @@ function append(value) {
  * @return {LinkedListNode | null}
  */
 function _delete(value) {
-	var deletedNode = null;
+	let deletedNode = null;
 	while (this.head && this.compare.equal(this.head.value, value)) {
 		deletedNode = this.head;
 		this.head = this.head.next;
 		--this.size;
 	}
 	
-	var currentNode = this.head;
+	let currentNode = this.head;
 	if (currentNode) {
 		while (currentNode.next) {
 			if (this.compare.equal(currentNode.next.value, value)) {
@@ -109,9 +109,9 @@ function _delete(value) {
  */
 function find(findParams) {
 	findParams = isObject(findParams) ? findParams : {};
-	var value = findParams.value;
-	var callback = findParams.callback;
-	var currentNode = this.head;
+	let value = findParams.value;
+	let callback = findParams.callback;
+	let currentNode = this.head;
 	
 	while (currentNode) {
 		// If callback is specified then try to find node by callback.
@@ -132,8 +132,8 @@ function find(findParams) {
  * @return {LinkedListNode | null}
  */
 function deleteTail() {
-	var deletedTail = this.tail;
-	var currentNode = this.head;
+	let deletedTail = this.tail;
+	let currentNode = this.head;
 	
 	if (this.head === this.tail) {
 		this.clear();
@@ -158,7 +158,7 @@ function deleteTail() {
  * @return {LinkedListNode | null}
  */
 function deleteHead() {
-	var deletedHead = this.head;
+	let deletedHead = this.head;
 	if (this.head === this.tail) {
 		this.clear();
 	} else {
@@ -175,7 +175,7 @@ function deleteHead() {
  * @return {LinkedList}
  */
 function fromArray(values) {
-	var self = this;
+	let self = this;
 	if (isArray(values)) {
 		values.forEach(function(value) {
 			self.append(value);
@@ -190,9 +190,9 @@ function fromArray(values) {
  * @return {LinkedListNode[]}
  */
 function toArray() {
-	var index = -1;
-	var nodes = new Array(this.size);
-	var currentNode = this.head;
+	let index = -1;
+	let nodes = new Array(this.size);
+	let currentNode = this.head;
 	while (currentNode) {
 		nodes[++index] = currentNode;
 		currentNode = currentNode.next;

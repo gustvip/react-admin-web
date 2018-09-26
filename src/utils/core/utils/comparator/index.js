@@ -31,7 +31,7 @@ function greaterThanOrEqual(a, b) {
 }
 
 function reverse() {
-	var compareOriginal = this.compare;
+	let compareOriginal = this.compare;
 	this.compare = function(a, b) {
 		return compareOriginal(b, a);
 	};

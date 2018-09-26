@@ -20,7 +20,7 @@ export default function isEmpty(x) {
 	if (isNil(x)) {
 		return true;
 	} else if (isObject(x)) {
-		for (var key in x) {
+		for (let key in x) {
 			if (_hasOwnProperty.call(x, key)) {
 				return false;
 			}

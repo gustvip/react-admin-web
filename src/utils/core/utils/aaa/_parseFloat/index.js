@@ -5,11 +5,12 @@
 /**
  * parseFloat重新封装
  * @private
+ * @param {*} num
  * @returns {number}
  */
-export default function _parseFloat() {
+export default function _parseFloat(num) {
 	try {
-		return parseFloat([].slice.call(arguments));
+		return parseFloat(num);
 	} catch (e) {
 		return NaN;
 	}

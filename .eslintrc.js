@@ -134,7 +134,7 @@ const eslintrc = {
 		"no-sequences": 2,
 		"no-with": 2,
 		"radix": 2,
-		"no-var": 0,
+		"no-var": 2,
 		"no-self-assign": 0,
 	},
 };

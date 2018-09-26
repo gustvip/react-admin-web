@@ -27,7 +27,7 @@ function has(key) {
  * @return {undefined || *}
  */
 function get(key) {
-	var result = this.doubleLinkedList.find({value: {key: key}});
+	let result = this.doubleLinkedList.find({value: {key: key}});
 	return result ? result.value.value : undefined;
 }
 
@@ -45,9 +45,9 @@ function clear() {
  * @return {*[]}
  */
 function keys() {
-	var index = -1;
-	var keys = new Array(this.size);
-	var head = this.doubleLinkedList.head;
+	let index = -1;
+	let keys = new Array(this.size);
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		keys[++index] = head.value.key;
 		head = head.next;
@@ -60,9 +60,9 @@ function keys() {
  * @return {*[]}
  */
 function values() {
-	var index = -1;
-	var values = new Array(this.size);
-	var head = this.doubleLinkedList.head;
+	let index = -1;
+	let values = new Array(this.size);
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		values[++index] = head.value.value;
 		head = head.next;
@@ -75,9 +75,9 @@ function values() {
  * @return {[][]}
  */
 function entries() {
-	var index = -1;
-	var entries = new Array(this.size);
-	var head = this.doubleLinkedList.head;
+	let index = -1;
+	let entries = new Array(this.size);
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		entries[++index] = [head.value.key, head.value.value];
 		head = head.next;
@@ -91,7 +91,7 @@ function entries() {
  * @return {Map}
  */
 function forEach(callback) {
-	var head = this.doubleLinkedList.head;
+	let head = this.doubleLinkedList.head;
 	while (head) {
 		callback(head.value.value, head.value.key);
 		head = head.next;
@@ -106,7 +106,7 @@ function forEach(callback) {
  * @return {Map}
  */
 function setItem(key, value) {
-	var oldNode = this.doubleLinkedList.find({value: {key: key}});
+	let oldNode = this.doubleLinkedList.find({value: {key: key}});
 	if (oldNode) {
 		oldNode.value.value = value;
 	} else {
@@ -210,15 +210,15 @@ function Map() {
 }
 
 export default function map(object) {
-	var _map = new Map();
+	let _map = new Map();
 	if (object instanceof Map) {
 		object.forEach(function(value, key) {
 			_map.set(key, value);
 		});
 	} else if (isArray(object)) {
-		var i = -1;
-		var n = object.length;
-		var o;
+		let i = -1;
+		let n = object.length;
+		let o;
 		while (++i < n && isArray(o = object[i])) {
 			_map.set(o[0], o[1]);
 		}

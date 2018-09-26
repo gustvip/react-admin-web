@@ -19,7 +19,7 @@ export default function isPlainObject(x) {
 	if (isNull(_getPrototypeOf(x))) {
 		return true;
 	}
-	var proto = x;
+	let proto = x;
 	while (!isNull(_getPrototypeOf(proto))) {
 		proto = _getPrototypeOf(proto);
 	}

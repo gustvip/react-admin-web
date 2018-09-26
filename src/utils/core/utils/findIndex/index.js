@@ -15,11 +15,11 @@ import toInteger from "../toInteger";
  */
 export default function findIndex(x, predicate, fromIndex) {
 	if (isArrayLike(x) && isFunction(predicate)) {
-		var len = x.length;
-		var kValue;
+		let len = x.length;
+		let kValue;
 		fromIndex = toInteger(fromIndex);
 		fromIndex = fromIndex < 0 ? _MathMax(0, fromIndex + len) : fromIndex >= len ? 0 : fromIndex;
-		var k = fromIndex - 1;
+		let k = fromIndex - 1;
 		while (++k < len) {
 			if (predicate(kValue = x[k], k, x) === true) {
 				return k;
