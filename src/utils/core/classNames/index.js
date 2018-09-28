@@ -21,7 +21,7 @@ function classNames() {
 			}
 		} else if (isObject(value)) {
 			forOwn(value, function(val, key) {
-				if (val === true) {
+				if (val) {
 					classCollections.push(key);
 				}
 			});

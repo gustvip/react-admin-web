@@ -3,25 +3,31 @@
 $right-main-content-header-height: 40px;
 $right-main-content-basis-padding: 20px;
 
-body {
+html, body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
-	:global {
-		.ant-menu-dark .ant-menu-sub {
-			background-color: $base-sider-background-color;
-		}
+	:global(.ant-menu-dark .ant-menu-sub) {
+		background-color: $base-sider-background-color;
+	}
+	:global(#wrapper) {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		padding-top: $header-height;
 	}
 }
 
 #main-container {
-	flex-direction: column;
 	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	position: relative;
 	/* sider */
 	.sider-container {
 		position: fixed;
 		left: 0;
-		top: 0;
+		top: $header-height;
 		bottom: 0;
 		background-color: $base-sider-background-color;
 		.sider-menu {
@@ -61,85 +67,19 @@ body {
 	.content-container {
 		display: flex;
 		flex-direction: column;
-		/* header */
-		.main-header-container {
-			z-index: 1;
-			background-color: $base-body-header-background-color;
-			box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			height: $header-height;
-			padding: 0 $right-main-content-basis-padding;
-			.left-container {
-				display: flex;
-				/* logo */
-				.logo-container {
-				}
-
-				/* 一级路由 */
-				.drop-down-menu-container {
-					margin-left: 24px;
-				}
-
-				/* 分类路由 */
-				.category-menu-container {
-					margin-left: 24px;
-					a {
-						i {
-							margin-right: 8px;
-							vertical-align: middle;
-						}
-						text-decoration: none;
-						display: inline-block;
-						vertical-align: middle;
-						height: $header-height;
-						position: relative;
-						padding: 0 24px;
-						&.active {
-							&::after {
-								background-color: $base-primary-color;
-								content: "";
-								position: absolute;
-								left: 12px;
-								right: 12px;
-								bottom: 0;
-								height: 2px;
-								z-index: 1;
-							}
-						}
-						&::before {
-							content: "";
-							position: absolute;
-							left: 0;
-							margin: auto;
-							top: 16px;
-							bottom: 16px;
-							width: 1px;
-							background-color: #ddd;
-						}
-					}
-				}
-			}
-			.right-container {
-				:global {
-					.iconfont {
-						margin-right: 8px;
-					}
-				}
-			}
-		}
-
+		flex-grow: 1;
+		position: relative;
 		/* content */
 		.main-content-container {
-			background-color: $base-body-background-color;
-			padding: $right-main-content-basis-padding;
 			display: flex;
 			flex-direction: column;
+			flex-grow: 1;
+			position: relative;
+			padding: $right-main-content-basis-padding;
+
 			/* 主内容---header */
 			.content-header-container {
-				display: flex;
-				height: $right-main-content-header-height;
+				padding: 8px 0;
 				.left-container {
 					.title-container {
 						font-size: 20px;
@@ -149,9 +89,76 @@ body {
 				.right-container {
 				}
 			}
-			/* 主内容---content */
 			.content-body-container {
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+				position: relative;
 			}
 		}
 	}
+}
+
+/* header */
+.main-header-container {
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: $base-body-header-background-color;
+	box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: $header-height;
+	padding: 0 $right-main-content-basis-padding;
+	.left-container {
+		display: flex;
+		/* logo */
+		.logo-container {
+		}
+
+		/* 一级路由 */
+		.drop-down-menu-container {
+			margin-left: 24px;
+		}
+
+		/* 分类路由 */
+		.category-menu-container {
+			margin-left: 24px;
+			a {
+				i {
+					margin-right: 8px;
+					vertical-align: middle;
+				}
+				text-decoration: none;
+				display: inline-block;
+				vertical-align: middle;
+				height: $header-height;
+				position: relative;
+				margin: 0 8px;
+				padding: 0 24px;
+				transition: all .3s linear;
+				&.active, &:hover {
+					color: #fff;
+					background-color: $base-primary-color;
+				}
+			}
+		}
+	}
+	.right-container {
+		:global {
+			.iconfont {
+				margin-right: 8px;
+			}
+		}
+	}
+}
+
+.header-children {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	position: relative;
 }

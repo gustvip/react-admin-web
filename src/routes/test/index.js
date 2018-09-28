@@ -3,13 +3,13 @@
  */
 
 import EnumRouter from "constants/enumRouter";
-import { AssembleRoute, DefaultLayout } from "routes/routeTool";
-
+import {AssembleRoute} from "routes/routeTool";
+import {HeaderLayout} from "templates/mainLayout";
 import TestDemo from "./routes/demo/index";
 
 export default AssembleRoute([
 	{
-		layout: DefaultLayout,
+		layout: HeaderLayout,
 		path: EnumRouter.testDemo,
 		component: TestDemo,
 	},

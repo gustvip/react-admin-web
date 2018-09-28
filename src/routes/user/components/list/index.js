@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {MainHeader, MainContent} from "templates/mainLayout/index";
 import Table from "templates/toolComponents/table/index";
 import EnumRouter from "constants/enumRouter";
+import React from "react";
 
 import assign from "lodash/assign";
 import debounce from "lodash/debounce";
@@ -201,31 +202,32 @@ class List extends React.PureComponent {
 	
 	render() {
 		const self = this;
-		
-		return [
-			<MainHeader title="content-header" key="0"/>,
-			<MainContent className={style["main-content-container"]} key="1">
-				<header className={style["table-header-container"]}>
-					<div className={style["left-container"]}>
-						<Button
-							type="primary"
-							onClick={debounce(() => self.handleDelete(self.props.mapProps.selectedRowKeys), 300)}
-						>
-							删除
-						</Button>
-					</div>
-					<div className={style["right-container"]}>
-						<Input.Search placeholder="请搜索" onSearch={debounce(value => self.handleSearch(value), 300)}/>
-					</div>
-				</header>
-				<Table
-					dataSource={self.dataSource}
-					columns={self.columns}
-					pagination={self.pagination}
-					rowSelection={self.rowSelection}
-				/>
-			</MainContent>,
-		];
+		return (
+			<React.Fragment>
+				<MainHeader title="content-header"/>
+				<MainContent>
+					<header className={style["table-header-container"]}>
+						<div className={style["left-container"]}>
+							<Button
+								type="primary"
+								onClick={debounce(() => self.handleDelete(self.props.mapProps.selectedRowKeys), 300)}
+							>
+								删除
+							</Button>
+						</div>
+						<div className={style["right-container"]}>
+							<Input.Search placeholder="请搜索" onSearch={debounce(value => self.handleSearch(value), 300)}/>
+						</div>
+					</header>
+					<Table
+						dataSource={self.dataSource}
+						columns={self.columns}
+						pagination={self.pagination}
+						rowSelection={self.rowSelection}
+					/>
+				</MainContent>
+			</React.Fragment>
+		);
 	}
 }
 

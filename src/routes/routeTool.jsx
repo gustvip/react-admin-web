@@ -5,44 +5,28 @@ import {Route} from "react-router-dom";
 import flattenDeep from "lodash/flattenDeep";
 import Exception from "templates/toolComponents/exception";
 import lazyLoad from "templates/lazyLoad";
-import MainLayoutComponent from "templates/mainLayout";
 import * as React from "react";
+import {DefaultLayout as DefaultLayoutComponent} from "templates/mainLayout";
 
 /**
- * 默认布局方式
+ * 布局方式
  * @param {Object}  Component
+ * @param {Object || null}  LayoutComponent
  * @param {Array} rest
  * @param {Array} reducers
  */
-export const DefaultLayout = ({component: Component, reducers, ...rest}) => {
+export const DefaultLayout = ({component: Component, layout: LayoutComponent, reducers, ...rest}) => {
 	const LazyComponent = lazyLoad(Component);
-	return (
-		<Route
-			key={rest.path}
-			{...rest}
-			exact
-			render={() => <LazyComponent reducers={reducers}/>}
-		/>
-	);
-};
-
-/**
- * 主要页面布局
- * @param {Object} Component
- * @param {Array} rest
- * @param {Array} reducers
- */
-export const MainLayout = ({component: Component, reducers, ...rest}) => {
-	const LazyComponent = lazyLoad(Component);
+	LayoutComponent = LayoutComponent ? LayoutComponent : DefaultLayoutComponent;
 	return (
 		<Route
 			key={rest.path}
 			{...rest}
 			exact
 			render={() => (
-				<MainLayoutComponent>
+				<LayoutComponent>
 					<LazyComponent reducers={reducers}/>
-				</MainLayoutComponent>
+				</LayoutComponent>
 			)}
 		/>
 	);
@@ -53,7 +37,7 @@ export const MainLayout = ({component: Component, reducers, ...rest}) => {
  * @param {Array} routes
  * @returns {function()}
  */
-export const AssembleRoute = (...routes) => () => flattenDeep(routes).map(val => (val.layout ? DefaultLayout(val) : MainLayout(val)));
+export const AssembleRoute = (...routes) => () => flattenDeep(routes).map(val => DefaultLayout(val));
 
 /**
  * 未匹配到的页面
