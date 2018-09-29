@@ -25,20 +25,3 @@ exports.customAntdStyle = {
 exports.excludeRegex = /node_modules/;
 
 exports.resourceBaseName = "resources";
-
-const fontColor = {
-	black: "\033[30m",
-	red: "\033[31m",
-	green: "\033[32m",
-	yellow: "\033[33m",
-	blue: "\033[34m",
-	purple: "\033[35m",
-	darkGreen: "\033[36m",
-	white: "\033[37m",
-};
-
-let colorFn = {};
-Object.keys(fontColor).forEach(colorKey => {
-	colorFn[colorKey] = (str) => console.log(`${fontColor[colorKey]}${str}` + "\033[0m");
-});
-exports.clc = colorFn;
