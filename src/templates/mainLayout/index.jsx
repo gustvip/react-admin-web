@@ -135,7 +135,7 @@ class SiderMenu extends React.PureComponent {
 					<Menu.SubMenu
 						key={item.id}
 						title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
-						onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice())}
+						onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
 					>
 						{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
 					</Menu.SubMenu>
@@ -147,13 +147,17 @@ class SiderMenu extends React.PureComponent {
 	/**
 	 * 设置openKeys
 	 * @param {Array} defaultOpenKeys
+	 * @param {Array} url
 	 */
-	handleDefaultOpenKeys = (defaultOpenKeys) => {
-		this.setState({
-			defaultOpenKeys: isEqual(defaultOpenKeys, this.state.defaultOpenKeys)
-				? defaultOpenKeys.slice(0, defaultOpenKeys.length - 1)
-				: defaultOpenKeys,
-		});
+	handleDefaultOpenKeys = (defaultOpenKeys, url) => {
+		if (isEqual(defaultOpenKeys, this.state.defaultOpenKeys)) {
+			defaultOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
+		} else {
+			if (url.indexOf(this.locationPathname) !== -1 && defaultOpenKeys.length < this.state.defaultOpenKeys.length) {
+				defaultOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
+			}
+		}
+		this.setState({defaultOpenKeys});
 	};
 	
 	handleCollapsed = (collapsed) => {
