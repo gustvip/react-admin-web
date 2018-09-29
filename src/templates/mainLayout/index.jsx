@@ -117,7 +117,7 @@ class SiderMenu extends React.PureComponent {
 					 * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
 					 */
 					return (
-						<Menu.Item key={item.url[0]}>
+						<Menu.Item key={item.id} className={T.classNames({active: item.url[0] === locationPathname})}>
 							<Link to={item.url[0]}>
 								<span>{getIcon(item.icon)}<span>{item.label}</span></span>
 							</Link>
@@ -130,10 +130,10 @@ class SiderMenu extends React.PureComponent {
 				 * 将子defaultOpenKeys传下去
 				 * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
 				 */
-				defaultOpenKeys.push(item.url[0]);
+				defaultOpenKeys.push(item.id);
 				return (
 					<Menu.SubMenu
-						key={item.url[0]}
+						key={item.id}
 						title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
 						onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice())}
 					>
@@ -149,11 +149,6 @@ class SiderMenu extends React.PureComponent {
 	 * @param {Array} defaultOpenKeys
 	 */
 	handleDefaultOpenKeys = (defaultOpenKeys) => {
-		/**
-		 * 判断defaultOpenKeys和原来的openKeys的每一项是否都相等
-		 * 如果相等则截取defaultOpenKeys的0到length-1
-		 * 否则就将defaultOpenKeys设置为新的openKeys
-		 */
 		this.setState({
 			defaultOpenKeys: isEqual(defaultOpenKeys, this.state.defaultOpenKeys)
 				? defaultOpenKeys.slice(0, defaultOpenKeys.length - 1)
@@ -168,7 +163,7 @@ class SiderMenu extends React.PureComponent {
 		if (collapsed) {
 			this.setState({defaultOpenKeys: []});
 		} else {
-			this.setState({defaultOpenKeys: getOpenKeys(this.props.locationPathname)});
+			this.setState({defaultOpenKeys: getOpenKeys(this.locationPathname)});
 		}
 		
 		this.props.handleCollapsed();
@@ -187,8 +182,8 @@ class SiderMenu extends React.PureComponent {
 				className={style["sider-container"]}
 			>
 				<Menu
-					className={style["sider-menu"]}
 					mode="inline"
+					className={style["sider-menu"]}
 					theme="dark"
 					selectedKeys={[locationPathname]}
 					openKeys={defaultOpenKeys}
@@ -287,13 +282,9 @@ export class HeaderLayout extends React.PureComponent {
 }
 
 export class MenuAndHeaderLayout extends React.PureComponent {
-	constructor() {
-		super();
-		this.locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
-		this.state = {
-			isCollapsed: false,
-		};
-	}
+	state = {
+		isCollapsed: false,
+	};
 	
 	handleCollapsed = () => {
 		this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}));

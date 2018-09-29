@@ -14,11 +14,15 @@ export default helper.immutable({
 	login: "login",
 	register: "register",
 	testDemo: "test/demo",
-
+	
 	/*
 	 |-----------------------------------------------
 	 | 用户-相关的路由
 	 |-----------------------------------------------
 	 */
 	userList: "user/list",
+	
+	test1: "test1",
+	test2: "test2",
+	test3: "test3",
 }, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

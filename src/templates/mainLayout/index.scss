@@ -7,8 +7,23 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
-	:global(.ant-menu-dark .ant-menu-sub) {
-		background-color: $base-sider-background-color;
+	:global {
+		.ant-menu-dark {
+			.ant-menu-item {
+				&.active, &:hover {
+					background-color: $base-primary-color;
+					a {
+						color: #fff;
+					}
+				}
+				margin-bottom: 0;
+				height: 32px;
+				line-height: 32px;
+			}
+			.ant-menu-sub {
+				background-color: $base-sider-background-color;
+			}
+		}
 	}
 	:global(#wrapper) {
 		display: flex;
@@ -36,14 +51,19 @@ html, body {
 			background-color: $base-sider-background-color;
 			overflow-y: auto;
 			:global {
+				.ant-menu-inline.ant-menu-sub {
+					background-color: $base-sider-background-color;
+				}
 				.ant-menu-item {
+					&.active, &:hover {
+						background-color: $base-primary-color;
+						a {
+							color: #fff;
+						}
+					}
 					margin-bottom: 0;
 					height: 32px;
 					line-height: 32px;
-					&.ant-menu-item-selected {
-						a {
-						}
-					}
 				}
 				.ant-menu-submenu-title {
 					height: 32px;

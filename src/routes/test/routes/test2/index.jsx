@@ -3,7 +3,7 @@
  */
 import * as React from "react";
 import { connect } from "react-redux";
-import Demo from "../../components/demo/index";
+import Demo from "../../components/test2/index";
 
 const mapStateToProps = (state, ownProps) => {
 	return {
