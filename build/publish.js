@@ -1,12 +1,12 @@
 const path = require("path");
+const os = require("os");
 const merge = require("webpack-merge");
-const clc = require("cli-color");
 const webpack = require("webpack");
 const copyWebpackPlugin = require("copy-webpack-plugin");
 const rm = require("rimraf");
 const htmlWebpackPlugin = require("html-webpack-plugin");
-
-console.log(clc.green("webpack打包开始"));
+const clc = require("./util").clc;
+const dateFormat = require("./util").dateFormat;
 
 const conf = {
 	indexHtmlName: "index_index.html",		// 生成的html的名字
@@ -45,7 +45,7 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 			},
 			chunksSortMode: "dependency",
 		}),
-
+		
 		/**
 		 * 复制config
 		 */
@@ -55,7 +55,7 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 				to: path.join(conf.webPath, "config"),
 			},
 		]),
-
+		
 		/**
 		 * 复制asserts
 		 */
@@ -65,7 +65,7 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 				to: path.join(conf.webPath, "asserts"),
 			},
 		]),
-
+		
 		/**
 		 * 复制favicon
 		 */
@@ -78,24 +78,52 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 	],
 });
 
-doCompilerPlatform();
-
 function doCompilerPlatform() {
-	/**
-	 * Rm -rf
-	 */
-	rm(conf.webPath, (err) => {
-		if (err) {
-			handleError(err);
-		} else {
-			webpack(webpackConfigProd, (err, stats) => {
-				const jsonStats = stats.toJson();
-				jsonStats.errors.length && handleError(jsonStats.errors);
-				jsonStats.warnings.length && handleWarn(jsonStats.warnings);
-				console.log(clc.green("webpack打包结束"));
-			});
-		}
+	return new Promise((resolve, reject) => {
+		webpack(webpackConfigProd, (err, stats) => {
+			const jsonStats = stats.toJson();
+			jsonStats.warnings.length && handleWarn(jsonStats.warnings);
+			if (jsonStats.errors.length) {
+				reject(jsonStats.errors);
+			} else {
+				resolve();
+			}
+		});
 	});
+}
+
+function deleteFile() {
+	return new Promise((resolve, reject) => {
+		rm(conf.webPath, (err) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve();
+			}
+		});
+	});
+}
+
+/**
+ * 编译结束后统计
+ * @param startTime
+ */
+function toEnd(startTime) {
+	const endTime = Date.now();
+	clc.green("  ↓");
+	clc.green(`编译完成: ${dateFormat(endTime)}`);
+	clc.green("  ↓");
+	clc.green("总计耗时:" + ((endTime - startTime) / 1000).toFixed(2) + "s");
+	clc.green("  ↓");
+	clc.green(`附属信息:
+        PID: ${process.pid}
+        CPU数量: ${os.cpus().length}
+        CPU架构: ${os.arch()}
+        计算机名称: ${os.hostname()}
+        系统类型: ${os.type()}
+        系统版本号: ${os.release()}
+        系统总内存量: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(1) + "G"}
+`);
 }
 
 /**
@@ -103,9 +131,7 @@ function doCompilerPlatform() {
  * @param errorMsg
  */
 function handleError(errorMsg) {
-	console.log(clc.yellow("webpack打包出错:"));
 	console.log(clc.red(errorMsg));
-
 	process.exit();
 }
 
@@ -114,6 +140,20 @@ function handleError(errorMsg) {
  * @param warnMsg
  */
 function handleWarn(warnMsg) {
-	console.log(clc.yellow("webpack打包警告:"));
 	console.log(clc.yellow(warnMsg));
 }
+
+async function buildApp() {
+	const startTime = Date.now();
+	clc.green(`编译开始: ${dateFormat(startTime)}`);
+	
+	// 删除文件
+	await deleteFile();
+	
+	// webpack编译
+	await doCompilerPlatform();
+	
+	return startTime;
+}
+
+buildApp().then(info => toEnd(info)).catch(info => handleError(info));
