@@ -6,7 +6,6 @@ const copyWebpackPlugin = require("copy-webpack-plugin");
 const rm = require("rimraf");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const clc = require("./util").clc;
-const dateFormat = require("./util").dateFormat;
 
 const conf = {
 	indexHtmlName: "index_index.html",		// 生成的html的名字
@@ -106,12 +105,10 @@ function deleteFile() {
 
 /**
  * 编译结束后统计
- * @param startTime
+ * @param {Date} startTime
  */
 function toEnd(startTime) {
 	const endTime = Date.now();
-	clc.green("  ↓");
-	clc.green(`编译完成: ${dateFormat(endTime)}`);
 	clc.green("  ↓");
 	clc.green("总计耗时:" + ((endTime - startTime) / 1000).toFixed(2) + "s");
 	clc.green("  ↓");
@@ -145,7 +142,6 @@ function handleWarn(warnMsg) {
 
 async function buildApp() {
 	const startTime = Date.now();
-	clc.green(`编译开始: ${dateFormat(startTime)}`);
 	
 	// 删除文件
 	await deleteFile();
