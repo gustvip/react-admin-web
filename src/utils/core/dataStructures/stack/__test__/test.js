@@ -6,6 +6,7 @@ describe("Stack", () => {
 		expect(stack).not.toBeNull();
 		expect(stack.linkedList).not.toBeNull();
 		stack.push(1);
+		expect(stack.size).toBe(1);
 		expect(stack.has(2)).toBeFalsy();
 		expect(stack.has(1)).toBeTruthy();
 		expect(stack.clear()).toEqual(stack);
@@ -17,7 +18,8 @@ describe("Stack", () => {
 
 		stack.push(1);
 		stack.push(2);
-
+		
+		expect(stack.size).toBe(2);
 		expect(stack.toString()).toBe("1,2");
 	});
 
@@ -48,9 +50,12 @@ describe("Stack", () => {
 
 		stack.push(1);
 		stack.push(2);
-
+		
+		expect(stack.size).toBe(2);
 		expect(stack.pop()).toBe(2);
+		expect(stack.size).toBe(1);
 		expect(stack.pop()).toBe(1);
+		expect(stack.size).toBe(0);
 		expect(stack.pop()).toBeNull();
 		expect(stack.isEmpty()).toBe(true);
 	});

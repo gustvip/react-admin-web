@@ -1,6 +1,14 @@
 import DoubleLinkedList from "../doubleLinkedList";
 
 /**
+ * 长度
+ * @return  {number}
+ */
+function size() {
+	return this.doubleLinkedList.size;
+}
+
+/**
  * @return {boolean}
  */
 function isEmpty() {
@@ -49,10 +57,11 @@ function pop() {
  * @return {*[]}
  */
 function toArray() {
-	let nodes = [];
+	let index = -1;
+	let nodes = new Array(this.size);
 	let tail = this.doubleLinkedList.tail;
 	while (tail) {
-		nodes.push(tail.value);
+		nodes[++index] = tail.value;
 		tail = tail.previous;
 	}
 	return nodes;
@@ -69,6 +78,10 @@ function toString(callback) {
 Object.defineProperties(Stack.prototype, {
 	constructor: {
 		value: Stack,
+		configuarable: false,
+	},
+	size: {
+		get: size,
 		configuarable: false,
 	},
 	isEmpty: {
