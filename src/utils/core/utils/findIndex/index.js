@@ -21,7 +21,7 @@ export default function findIndex(x, predicate, fromIndex) {
 		fromIndex = fromIndex < 0 ? _MathMax(0, fromIndex + len) : fromIndex >= len ? 0 : fromIndex;
 		let k = fromIndex - 1;
 		while (++k < len) {
-			if (predicate(kValue = x[k], k, x) === true) {
+			if (predicate(kValue = x[k], k, x)) {
 				return k;
 			}
 		}
