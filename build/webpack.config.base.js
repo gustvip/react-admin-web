@@ -19,23 +19,23 @@ const customAntdStyle = require("./util").customAntdStyle;
 const staticResource = [
 	{
 		test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10000&minetype=application/font-woff`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000&minetype=application/font-woff`,
 	},
 	{
 		test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/font-woff`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10&minetype=application/font-woff`,
 	},
 	{
 		test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]&limit=10&minetype=application/octet-stream`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10&minetype=application/octet-stream`,
 	},
 	{
 		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]`,
 	},
 	{
 		test: /\.(txt|doc|docx|swf)$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash:8].[ext]`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]`,
 	},
 	{
 		test: /\.(csv|tsv)$/,

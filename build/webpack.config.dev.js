@@ -39,7 +39,7 @@ module.exports = merge(baseConfig, {
 		stats: {
 			colors: true,
 		},
-		open: true,
+		open: false,
 	},
 
 	output: {
