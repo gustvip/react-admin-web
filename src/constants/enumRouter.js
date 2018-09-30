@@ -21,8 +21,4 @@ export default helper.immutable({
 	 |-----------------------------------------------
 	 */
 	userList: "user/list",
-	
-	test1: "test1",
-	test2: "test2",
-	test3: "test3",
 }, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

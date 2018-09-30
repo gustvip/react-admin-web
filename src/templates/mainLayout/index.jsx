@@ -35,10 +35,8 @@ const getIcon = (icon) => {
  * @param {String} className
  * @param {String} title
  * @param {Object} style
- * @param {Function} leftRender
- * @param {Function} rightRender
  */
-export const MainHeader = ({className = "", title = "", styles = {}, leftRender = null, rightRender = null}) => {
+export const MainHeader = ({className = "", title = "", styles = {}}) => {
 	const defaultClassName = style["content-header-container"];
 	const defaultStyle = {};
 	

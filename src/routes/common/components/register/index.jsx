@@ -1,7 +1,8 @@
 /**
  * Created by joey on 18-9-4
  */
-import * as React from "react";
+import React from "react";
+import "./register.scss";
 import {Form, Input, Button} from "antd";
 import regExpHelper from "utils/core/regexp";
 import crypto from "utils/core/crypto";
@@ -25,11 +26,11 @@ class RegisterComponent extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
-
+	
 	state = {
 		loading: false,
 	};
-
+	
 	handleSubmit = (e) => {
 		e.preventDefault();
 		const self = this;
@@ -52,10 +53,10 @@ class RegisterComponent extends React.PureComponent {
 			}
 		});
 	};
-
+	
 	render() {
 		const {getFieldDecorator} = this.props.form;
-
+		
 		return (
 			<Form
 				onSubmit={this.handleSubmit}
