@@ -22,6 +22,7 @@
 						"debug": false
 					}
 				],
+				"babel-polyfill",
 				"react",
 				"stage-0"
 			],
@@ -68,6 +69,7 @@
 						"debug": false
 					}
 				],
+				"babel-polyfill",
 				"react",
 				"stage-0"
 			],

@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/2/18
  */
-import queryString from "query-string";
+import * as queryString from "./core/queryString";
 
 import helper from "./core/helper";
 import prompt from "./core/prompt";
@@ -16,34 +16,34 @@ import classNames from "./core/classNames";
 
 const T = {
 	classNames,
-
+	
 	// 说明文档: https://github.com/sindresorhus/query-string
 	queryString,
-
+	
 	// 加密算法
 	crypto,
-
+	
 	// 事件监听
 	emitter,
-
+	
 	// 确认弹窗
 	prompt,
-
+	
 	// 常用正则
 	regExp,
-
+	
 	// 常用自己封装的方法
 	helper,
-
+	
 	// 权限
 	auth,
-
+	
 	// 装饰器
 	decorate,
-
+	
 	// Axios二次封装
 	request,
-
+	
 	// LocalStorage
 	localStorage,
 };

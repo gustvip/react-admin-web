@@ -165,7 +165,7 @@ export function post(url, data = {}, options = {}) {
 		url,
 		method: "post",
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
-		headers: {"Content-Type": "application/x-www-form-urlencoded"},
+		headers: {"Content-Type": "application/x-www-form-urlencoded;charset=utf-8"},
 	}, options));
 }
 
@@ -181,7 +181,7 @@ export function postJSON(url, data = {}, options = {}) {
 		url,
 		method: "post",
 		data,
-		headers: {"Content-Type": "application/json"},
+		headers: {"Content-Type": "application/json;charset=utf-8"},
 	}, options));
 }
 
@@ -199,7 +199,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 		method: "post",
 		data: objectToFormData(data),
 		onUploadProgress,
-		headers: {"Content-Type": "multipart/form-data"},
+		headers: {"Content-Type": "multipart/form-data;charset=utf-8"},
 	}, options));
 }
 
@@ -215,7 +215,7 @@ export function del(url, data = {}, options = {}) {
 		url,
 		method: "delete",
 		data,
-		headers: {"Content-Type": "application/json"},
+		headers: {"Content-Type": "application/json;charset=utf-8"},
 	}, options));
 }
 
@@ -231,7 +231,7 @@ export function put(url, data = {}, options = {}) {
 		url,
 		method: "put",
 		data,
-		headers: {"Content-Type": "application/json"},
+		headers: {"Content-Type": "application/json;charset=utf-8"},
 	}, options));
 }
 

@@ -5,8 +5,8 @@
 /**
  * Mock数据---接入真实数据不要引入
  */
-// Import './mock';
-
+import "url-search-params-polyfill";
+// import './mock';
 import {render} from "react-dom";
 import {Provider} from "react-redux";
 import * as React from "react";

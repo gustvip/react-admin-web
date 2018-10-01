@@ -80,18 +80,13 @@ module.exports = {
 	},
 	
 	entry: {
-		app: "./src/index",
+		app: ["babel-polyfill", "./src/index"],
 		commons: [
+			"axios",
+			"immutability-helper",
+			"prop-types",
 			"react",
 			"react-dom",
-			"react-redux",
-			"redux",
-			"axios",
-			"prop-types",
-			"immutability-helper",
-			"query-string",
-			"es6-promise",
-			"url-search-params-polyfill",
 			
 			"utils/core/decorate.js",
 			"utils/core/crypto.js",
@@ -210,7 +205,7 @@ module.exports = {
 			React: "react",
 		}),
 		new webpackBar({
-			profile: true
-		})
+			profile: true,
+		}),
 	],
 };

@@ -3,8 +3,8 @@
  */
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-const host = "localhost";
-// Const host = require('./util').getLocalIp();
+// const host = "localhost";
+const host = require("./util").getLocalIp();
 const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const baseConfig = require("./webpack.config.base");
@@ -12,7 +12,7 @@ const resourceBaseName = require("./util").resourceBaseName;
 
 module.exports = merge(baseConfig, {
 	devtool: "cheap-module-source-map",	// Cheap-module-source-map,cheap-module-eval-source-map
-
+	
 	module: {
 		rules: [
 			{
@@ -26,7 +26,7 @@ module.exports = merge(baseConfig, {
 		port,
 		publicPath: "/public/",
 		contentBase: `${__dirname}/../public/`,
-
+		
 		watchContentBase: true,
 		watchOptions: {
 			ignored: /node_modules/,
@@ -41,13 +41,13 @@ module.exports = merge(baseConfig, {
 		},
 		open: false,
 	},
-
+	
 	output: {
 		publicPath: "/public/",
 		path: `${__dirname}/../public/`,
 		filename: "[name].js",
 	},
-
+	
 	plugins: [
 		new bundleAnalyzerPlugin({
 			openAnalyzer: false, // 禁止自动弹出浏览器窗口
