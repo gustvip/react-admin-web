@@ -6,27 +6,24 @@ const copyWebpackPlugin = require("copy-webpack-plugin");
 const rm = require("rimraf");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const clc = require("cli-color");
+const prodConfig = require("./webpack.config.prod");
 
 const conf = {
-	indexHtmlName: "index_index.html",		// 生成的html的名字
+	indexHtmlName: "demo_project.html",		// 生成的html的名字
 	appName: "platform", // 项目名称
 	proxyPath: process.argv[3] ? process.argv[3] : "/", // 代理的前缀 注意：后面必须带斜线
 	webPath: process.argv[2], // Web目录
 };
 
-/**
- * 更新webpack配置
- */
-const webpackConfigProd = merge(require("./webpack.config.prod"), {
+// 更新webpack配置
+const webpackConfigProd = merge(prodConfig, {
 	output: {
 		filename: "[name].[contenthash].js",
 		publicPath: path.join(conf.proxyPath, conf.appName, "/"),
 		path: path.join(conf.webPath, conf.appName),
 	},
 	plugins: [
-		/**
-		 * 生成html文件
-		 */
+		// 生成html文件
 		new htmlWebpackPlugin({
 			template: path.join(__dirname, "../public/template.html"),
 			filename: path.join(conf.webPath, conf.indexHtmlName),
@@ -45,9 +42,7 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 			chunksSortMode: "dependency",
 		}),
 		
-		/**
-		 * 复制config
-		 */
+		// 复制config
 		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, "../public/config/env.js"),
@@ -55,9 +50,7 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 			},
 		]),
 		
-		/**
-		 * 复制asserts
-		 */
+		// 复制asserts
 		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, "../public/asserts/"),
@@ -65,9 +58,7 @@ const webpackConfigProd = merge(require("./webpack.config.prod"), {
 			},
 		]),
 		
-		/**
-		 * 复制favicon
-		 */
+		// 复制favicon
 		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, "../public/favicon.ico"),
@@ -105,7 +96,7 @@ function deleteFile() {
 
 /**
  * 编译结束后统计
- * @param {Date} startTime
+ * @param {number} startTime
  */
 function toEnd(startTime) {
 	const endTime = Date.now();
