@@ -80,7 +80,7 @@ module.exports = {
 	},
 	
 	entry: {
-		app: ["babel-polyfill", "./src/index"],
+		app: ["babel-polyfill", "url-search-params-polyfill", "./src/index"],
 		commons: [
 			"axios",
 			"immutability-helper",
