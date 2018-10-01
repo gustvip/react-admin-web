@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	var rootPath = '/pw/';
-	var apiDomain = 'http://192.168.0.102:8081';
+	var apiDomain = 'http://localhost:8081';
 	
 	Object.defineProperty(window, 'ENV', {
 		value: immutable({

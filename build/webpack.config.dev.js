@@ -3,8 +3,8 @@
  */
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-// const host = "localhost";
-const host = require("./util").getLocalIp();
+const host = "localhost";
+// const host = require("./util").getLocalIp();
 const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const baseConfig = require("./webpack.config.base");

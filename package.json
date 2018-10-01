@@ -90,7 +90,7 @@
 	},
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
-		"build": "npm run test && npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
+		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
 		"test": "cross-env BABEL_ENV=test jest --config jest.js --color",
 		"lint": "npm run lint:es && npm run lint:style",
 		"lint:es": "eslint build src ./*.js --ext '.js,.jsx'",

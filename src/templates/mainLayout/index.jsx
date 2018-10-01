@@ -198,7 +198,12 @@ class SiderMenu extends React.PureComponent {
 }
 
 export class HeaderLayout extends React.PureComponent {
+	static contextTypes = {
+		router: PropTypes.object.isRequired,
+	};
+	
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
+	
 	logout = () => {
 		T.auth.removeLoginStorageValue();
 		this.context.router.history.push(
@@ -207,7 +212,7 @@ export class HeaderLayout extends React.PureComponent {
 		);
 	};
 	
-	getTopRoute() {
+	getTopRoute = () => {
 		const self = this;
 		return (
 			<div className={style["drop-down-menu-container"]}>
@@ -227,9 +232,9 @@ export class HeaderLayout extends React.PureComponent {
 				</Select>
 			</div>
 		);
-	}
+	};
 	
-	getCategoryRoute() {
+	getCategoryRoute = () => {
 		const self = this;
 		return (
 			<div className={style["category-menu-container"]}>
@@ -249,7 +254,7 @@ export class HeaderLayout extends React.PureComponent {
 				}
 			</div>
 		);
-	}
+	};
 	
 	render() {
 		return (
