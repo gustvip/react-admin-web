@@ -31,16 +31,16 @@ class LazyLoadTpl extends React.PureComponent {
 	};
 
 	componentDidMount() {
-		const _this = this;
+		const self = this;
 		const {defaultQuery, login} = ENV;
 		if (!auth.isLogin) {
-			_this.context.router.history.push(
+			self.context.router.history.push(
 				`${login.loginUrl}?${defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
-				_this.context.router.route.location.state,
+				self.context.router.route.location.state,
 			);
-		} else if (!_this.state.Component) {
-			_this.props.lazyLoader(Component => {
-				_this.setState({
+		} else if (!self.state.Component) {
+			self.props.lazyLoader(Component => {
+				self.setState({
 					Component: Component.default,
 				});
 			});
@@ -48,14 +48,14 @@ class LazyLoadTpl extends React.PureComponent {
 	}
 
 	render() {
-		const _this = this;
-		const Component = _this.state.Component;
+		const self = this;
+		const Component = self.state.Component;
 
 		if (Component) {
-			if (Array.isArray(_this.props.reducers) && _this.props.reducers.length > 0) {
-				_this.context.store.dispatch(injectReducers(_this.props.reducers));
+			if (Array.isArray(self.props.reducers) && self.props.reducers.length > 0) {
+				self.context.store.dispatch(injectReducers(self.props.reducers));
 			}
-			return <Component {..._this.props}/>;
+			return <Component {...self.props}/>;
 		} else {
 			return <Spin size="large"/>;
 		}

@@ -32,22 +32,22 @@ export default function userListReducer(state = initState, action) {
 						? action.data.data
 						: x),
 				},
-				pageSize: { $set: action.data.pageSize },
-				currentPage: { $set: action.data.currentPage },
-				count: { $set: action.data.count },
-				totalPages: { $set: action.data.totalPages },
+				pageSize: {$set: action.data.pageSize},
+				currentPage: {$set: action.data.currentPage},
+				count: {$set: action.data.count},
+				totalPages: {$set: action.data.totalPages},
 			});
-
-			/**
+		
+		/**
 		 * 用户搜索
 		 */
 		case actionTypes.SET_USER_SEARCH:
 			return update(state, {
-				dataSource: { $set: action.data },
-				currentPage: { $set: 1 },
+				dataSource: {$set: action.data},
+				currentPage: {$set: 1},
 			});
-
-			/**
+		
+		/**
 		 * 获得用户列表数据
 		 */
 		case actionTypes.GET_USER_LIST:
@@ -57,21 +57,21 @@ export default function userListReducer(state = initState, action) {
 						? action.data.data
 						: x),
 				},
-				pageSize: { $set: action.data.pageSize },
-				currentPage: { $set: action.data.currentPage },
-				count: { $set: action.data.count },
-				totalPages: { $set: action.data.totalPages },
-				selectedRowKeys: { $set: [] },
+				pageSize: {$set: action.data.pageSize},
+				currentPage: {$set: action.data.currentPage},
+				count: {$set: action.data.count},
+				totalPages: {$set: action.data.totalPages},
+				selectedRowKeys: {$set: []},
 			});
-
-			/**
+		
+		/**
 		 * 设置删除的行
 		 */
 		case actionTypes.SET_DELETE_ROW:
 			return update(state, {
-				selectedRowKeys: { $set: action.data },
+				selectedRowKeys: {$set: action.data},
 			});
-
+		
 		default:
 			return state;
 	}

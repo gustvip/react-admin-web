@@ -432,10 +432,6 @@ ansistyles@~0.1.3:
   version "0.1.3"
   resolved "http://registry.npm.taobao.org/ansistyles/download/ansistyles-0.1.3.tgz#5de60415bda071bb37127854c864f41b23254539"
 
-antd-iconfont@^3.0.3:
-  version "3.0.3"
-  resolved "http://registry.npm.taobao.org/antd-iconfont/download/antd-iconfont-3.0.3.tgz#4a10a07bfc6cb58f1ad66e7066b5d51541172676"
-
 antd@3.8.4:
   version "3.8.4"
   resolved "http://registry.npm.taobao.org/antd/download/antd-3.8.4.tgz#fa2b0fb09627a1774277a551efbae715455fde74"

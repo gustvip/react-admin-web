@@ -1,3 +1,6 @@
+process.env.NODE_ENV = "production";
+process.env.BABEL_ENV = "production";
+
 const path = require("path");
 const os = require("os");
 const merge = require("webpack-merge");
@@ -15,7 +18,7 @@ const conf = {
 	webPath: process.argv[2], // Web目录
 };
 
-// 解决ant font本地化问题
+// 解决antd-design 字体本地化问题
 prodConfig.module.rules.forEach((item) => {
 	if (item.use && Array.isArray(item.use)) {
 		item.use.forEach((item2) => {
@@ -76,6 +79,14 @@ const webpackConfigProd = merge(prodConfig, {
 		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, "../public/favicon.ico"),
+				to: conf.webPath,
+			},
+		]),
+		
+		// 复制nginx配置
+		new copyWebpackPlugin([
+			{
+				from: path.join(__dirname, "../public/nginx.conf"),
 				to: conf.webPath,
 			},
 		]),

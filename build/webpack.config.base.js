@@ -7,10 +7,7 @@ const webpackBar = require("webpackbar");
 const vtkRules = require("vtk.js/Utilities/config/dependency.js").webpack.v2.rules;
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
-/**
- * 页面入口文件,使用异步加载方式
- * @type {RegExp}
- */
+// 页面入口文件,使用异步加载方式
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig;
 const excludeRegex = require("./util").excludeRegex;
 const resourceBaseName = require("./util").resourceBaseName;
@@ -42,10 +39,11 @@ const staticResource = [
 		use: "csv-loader",
 	},
 ];
+
+// miniCssExtractPlugin不能和react的hot一起用，scss会慢一步更新，在dev时采用style-loader
 const styleLoader = {loader: process.env.NODE_ENV === "development" ? "style-loader" : miniCssExtractPlugin.loader};
 
 module.exports = {
-	mode: "development",
 	optimization: {
 		splitChunks: {
 			chunks: "all",
@@ -97,9 +95,7 @@ module.exports = {
 		],
 	},
 	
-	/**
-	 * 排除打包的内容---走cdn
-	 */
+	// 排除打包的内容---走cdn
 	/* Externals: {
     $: 'jQuery',
     jQuery: 'jQuery',
@@ -138,6 +134,8 @@ module.exports = {
 				exclude: excludeRegex,
 				use: [
 					styleLoader,
+					
+					// scss开启css的命名空间
 					{
 						loader: "css-loader",
 						options: {
@@ -146,6 +144,7 @@ module.exports = {
 							localIdentName: "[name][hash:base64]",
 						},
 					},
+					
 					"postcss-loader",
 					{
 						loader: "sass-loader",

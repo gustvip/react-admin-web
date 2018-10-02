@@ -6,7 +6,6 @@
 	"main": "src/index.js",
 	"dependencies": {
 		"antd": "3.8.4",
-		"antd-iconfont": "^3.0.3",
 		"axios": "^0.18.0",
 		"crypto-js": "^3.1.9-1",
 		"echarts": "^4.1.0",

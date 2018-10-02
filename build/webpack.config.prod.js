@@ -1,8 +1,6 @@
 /**
  * @description webpack 生产环境的打包基本配置
  */
-process.env.NODE_ENV = "production";
-process.env.BABEL_ENV = "production";
 
 const merge = require("webpack-merge");
 const optimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
