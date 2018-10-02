@@ -5,7 +5,8 @@
 	"description": "react-demo",
 	"main": "src/index.js",
 	"dependencies": {
-		"antd": "3.9.3",
+		"antd": "3.8.4",
+		"antd-iconfont": "^3.0.3",
 		"axios": "^0.18.0",
 		"crypto-js": "^3.1.9-1",
 		"echarts": "^4.1.0",
@@ -90,7 +91,7 @@
 	},
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
-		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project",
+		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
 		"test": "cross-env BABEL_ENV=test jest --config jest.js --color",
 		"lint": "npm run lint:es && npm run lint:style",
 		"lint:es": "eslint build src ./*.js --ext '.js,.jsx'",

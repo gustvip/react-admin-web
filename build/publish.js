@@ -15,6 +15,20 @@ const conf = {
 	webPath: process.argv[2], // Web目录
 };
 
+// 解决ant font本地化问题
+prodConfig.module.rules.forEach((item) => {
+	if (item.use && Array.isArray(item.use)) {
+		item.use.forEach((item2) => {
+			if (item2.loader === "less-loader") {
+				const oldIconUrl = item2.options.modifyVars ? item2.options.modifyVars["@icon-url"] : null;
+				if (oldIconUrl) {
+					item2.options.modifyVars["@icon-url"] = path.join(conf.proxyPath, oldIconUrl);
+				}
+			}
+		});
+	}
+});
+
 // 更新webpack配置
 const webpackConfigProd = merge(prodConfig, {
 	output: {
