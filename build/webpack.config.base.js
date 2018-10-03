@@ -85,6 +85,7 @@ module.exports = {
 			"prop-types",
 			"react",
 			"react-dom",
+			"classnames",
 			
 			"utils/core/decorate.js",
 			"utils/core/crypto.js",

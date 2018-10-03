@@ -7,11 +7,12 @@ import isPlainObject from "lodash/isPlainObject";
 import noop from "lodash/noop";
 import merge from "lodash/merge";
 import transform from "lodash/transform";
+import isFile from "utils/core/utils/isFile";
 
 const source = Axios.CancelToken.source();
 
 /**
- * 将对象转化为FormDate数据格式
+ * 将对象转化为FormData数据格式
  * @param {Object} obj
  * @param {Object} [form]
  * @param {String} [namespace]
@@ -28,7 +29,7 @@ function objectToFormData(obj, form, namespace) {
 			formKey = property;
 		}
 		
-		if (isPlainObject(value) && !(value instanceof File)) {
+		if (isPlainObject(value) && !isFile(value)) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);

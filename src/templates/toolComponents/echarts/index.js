@@ -6,7 +6,7 @@ import echarts from "echarts/lib/echarts";
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
-import classNames from "utils/core/classNames";
+import classNames from "classnames";
 import assign from "lodash/assign";
 import merge from "lodash/merge";
 import debounce from "lodash/debounce";

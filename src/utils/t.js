@@ -12,12 +12,11 @@ import emitter from "./core/emitter/index";
 import * as decorate from "./core/decorate";
 import * as request from "./core/request";
 import crypto from "./core/crypto";
-import classNames from "./core/classNames";
+import classNames from "classnames";
 
 const T = {
 	classNames,
 	
-	// 说明文档: https://github.com/sindresorhus/query-string
 	queryString,
 	
 	// 加密算法
@@ -41,7 +40,7 @@ const T = {
 	// 装饰器
 	decorate,
 	
-	// Axios二次封装
+	// axios二次封装
 	request,
 	
 	// LocalStorage

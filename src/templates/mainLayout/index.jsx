@@ -88,6 +88,7 @@ class SiderMenu extends React.PureComponent {
 		super();
 		const locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 		this.locationPathname = locationPathname;
+		this.menuData = getMenuData(locationPathname);
 		this.state = {
 			defaultOpenKeys: getOpenKeys(locationPathname),
 		};
@@ -173,7 +174,6 @@ class SiderMenu extends React.PureComponent {
 	
 	render() {
 		const locationPathname = this.locationPathname;
-		const menuData = getMenuData(locationPathname);
 		const defaultOpenKeys = this.state.defaultOpenKeys;
 		
 		return (
@@ -190,7 +190,7 @@ class SiderMenu extends React.PureComponent {
 					selectedKeys={[locationPathname]}
 					openKeys={defaultOpenKeys}
 				>
-					{this.getMenu(menuData, locationPathname, [])}
+					{this.getMenu(this.menuData, locationPathname, [])}
 				</Menu>
 			</Layout.Sider>
 		);

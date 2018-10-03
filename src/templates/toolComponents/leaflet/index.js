@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import mapUtils from "utils/leaflet";
 import merge from "lodash/merge";
 import isFunction from "lodash/isFunction";
-import classNames from "utils/core/classNames";
+import classNames from "classnames";
 import * as React from "react";
 
 export default class LeafletComponent extends React.PureComponent {

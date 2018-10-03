@@ -22,7 +22,6 @@
 			},
 			
 			localStorage: {
-				mainKeyName: '__STORAGE__', 			// 私有localStorage的key
 				login: {
 					key: '__LOGIN_USER_INFO__',		// 私有localStorage的key下的登陆的key
 					value: '__LOGIN_USER_INFO__',									// 私有localStorage的key下的登陆的value

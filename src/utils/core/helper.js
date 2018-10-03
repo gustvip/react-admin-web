@@ -3,7 +3,7 @@ import identity from "lodash/identity";
 import each from "lodash/each";
 import isString from "lodash/isString";
 import isNumber from "lodash/isNumber";
-import classNames from "./classNames";
+import classNames from "classnames";
 
 class Helper {
 	/**
