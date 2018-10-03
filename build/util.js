@@ -19,7 +19,7 @@ exports.getLocalIp = function() {
 };
 
 exports.customAntdStyle = {
-	"@icon-url": "/asserts/antd-iconfont/iconfont",
+	"@icon-url": "/assets/antd-iconfont/iconfont",
 	"@text-color": "#333", // 修改字体基本颜色
 	"@font-size-base": "12px", // 修改基础字体大小
 };

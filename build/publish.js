@@ -67,11 +67,11 @@ const webpackConfigProd = merge(prodConfig, {
 			},
 		]),
 		
-		// 复制asserts
+		// 复制assets
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, "../public/asserts/"),
-				to: path.join(conf.webPath, "asserts"),
+				from: path.join(__dirname, "../public/assets/"),
+				to: path.join(conf.webPath, "assets"),
 			},
 		]),
 		
