@@ -25,10 +25,10 @@ export default class TestComponent extends React.PureComponent {
 		};
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
 		xhr.send(
-			`userName=abcdefgha
+			`userName=abcdefgha22
 			&userPassword=4899f48b7873797086fc392ed8074b34306f79145cf0f9d1757e806da2d43f3876b3c762f38015f2d3593a595ae607a6e0aa103a2a5fe502cf95051c9cd62ee1
-			&userEmail=${encodeURIComponent("421576612@qq.com")}
-			&userPhone=18628905520
+			&userEmail=${encodeURIComponent("421576615@qq.com")}
+			&userPhone=18628905530
 			`,
 		);
 	}

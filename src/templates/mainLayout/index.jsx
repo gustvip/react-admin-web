@@ -10,7 +10,7 @@ import isEqual from "lodash/isEqual";
 import find from "lodash/find";
 import flowRight from "lodash/flowRight";
 import {Select, Menu, Icon, Layout} from "antd";
-import style from "./index.scss";
+import style from "./mainLayout.scss";
 import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil";
 import * as React from "react";
 import {Link} from "react-router-dom";
@@ -217,7 +217,7 @@ export class HeaderLayout extends React.PureComponent {
 		return (
 			<div className={style["drop-down-menu-container"]}>
 				<Select
-					onSelect={value => self.context.router.history.push(value)}
+					onChange={value => self.context.router.history.push(value)}
 					value={find(EnumMenus, value => value.url.indexOf(self.locationPathname) !== -1).url[0]}
 				>
 					{

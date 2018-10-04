@@ -2,14 +2,14 @@
  * Created by joey on 18-9-4
  */
 import React from "react";
-import "./register.scss";
+import "../../scss/register/index.scss";
 import {Form, Input, Button} from "antd";
 import regExpHelper from "utils/core/regexp";
 import crypto from "utils/core/crypto";
 import PropTypes from "prop-types";
 import enumRouter from "constants/enumRouter";
 import prompt from "utils/core/prompt";
-import * as webAPI from "../../webAPI";
+import * as webAPI from "../../webAPI/register/index";
 
 const formItemLayout = {
 	labelCol: {

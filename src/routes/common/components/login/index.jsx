@@ -8,9 +8,9 @@ import crypto from "utils/core/crypto";
 import prompt from "utils/core/prompt";
 import * as decorate from "utils/core/decorate";
 
-import styles from "./index.scss";
+import styles from "../../scss/login/index.scss";
 import {Button, Input, Checkbox} from "antd";
-import bg from "./img/bg.png";
+import bg from "./img/bg.jpeg";
 
 @decorate.contextTypes("router")
 class Login extends React.PureComponent {

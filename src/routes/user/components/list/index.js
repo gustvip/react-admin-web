@@ -3,10 +3,9 @@
  */
 
 import T from "utils/t";
-import {Button, Input} from "antd";
+import {Button, Input,Table} from "antd";
 import {Link} from "react-router-dom";
 import {MainHeader, MainContent} from "templates/mainLayout/index";
-import Table from "templates/toolComponents/table/index";
 import EnumRouter from "constants/enumRouter";
 import React from "react";
 
