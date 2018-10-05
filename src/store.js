@@ -5,7 +5,6 @@
 import {createStore as _createStore, applyMiddleware, combineReducers} from "redux";
 import isPlainObject from "lodash/isPlainObject";
 import isFunction from "lodash/isFunction";
-import isEmpty from "lodash/isEmpty";
 import isArray from "lodash/isArray";
 import transform from "lodash/transform";
 
@@ -15,23 +14,20 @@ class Registry {
 	constructor() {
 		this.store = null;
 		this.initialReducer = {
-			initialReducer: () => ({}),
+			initialReducer() {
+				return {};
+			},
 		};
-		this.finallyReducer = {};
 	}
-
+	
 	injectReducers(reducers) {
 		this.store.replaceReducer(combineReducers(
-			this.finallyReducer = transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
+			transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
 		));
 	}
-
+	
 	get initialReducers() {
-		return combineReducers(
-			isEmpty(this.finallyReducer)
-				? this.initialReducer
-				: this.finallyReducer,
-		);
+		return combineReducers(this.initialReducer);
 	}
 }
 
@@ -66,16 +62,16 @@ function thunkMiddleware(extraOptions) {
 export default function createStore(initialState = {}) {
 	const registry = new Registry();
 	let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunkMiddleware());
-
+	
 	if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
 		finalCreateStore = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(finalCreateStore);
 	}
-
+	
 	const store = finalCreateStore(_createStore)(
 		registry.initialReducers,
 		initialState,
 	);
-
+	
 	registry.store = store;
 	return store;
 }
