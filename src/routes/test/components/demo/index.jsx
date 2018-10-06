@@ -16,7 +16,7 @@ export default class TestComponent extends React.PureComponent {
 				const responseText = xhr.responseText;
 				const allResponseHeaders = xhr.getAllResponseHeaders();
 				const header = xhr.getResponseHeader("Content-Type");
-				console.log(JSON.parse(responseText));
+				// console.log(JSON.parse(responseText));
 			}
 		};
 		xhr.timeout = 999999999;

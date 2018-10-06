@@ -1,15 +1,17 @@
 /**
  * Created by joey on 2018/2/19
  */
-import Axios from "axios";
+import axios from "axios";
 import forOwn from "lodash/forOwn";
 import isPlainObject from "lodash/isPlainObject";
 import noop from "lodash/noop";
 import merge from "lodash/merge";
 import transform from "lodash/transform";
-import isFile from "utils/core/utils/isFile";
+import isArray from "lodash/isArray";
 
-const source = Axios.CancelToken.source();
+function isFile(x) {
+	return Object.prototype.toString.call(x) === "[object File]";
+}
 
 /**
  * 将对象转化为FormData数据格式
@@ -21,8 +23,8 @@ const source = Axios.CancelToken.source();
 function objectToFormData(obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
-	forOwn(obj, ((value, property) => {
-		let key = Array.isArray(obj) ? "[]" : `[${property}]`;
+	forOwn(obj, (value, property) => {
+		let key = isArray(obj) ? "[]" : `[${property}]`;
 		if (namespace) {
 			formKey = namespace + key;
 		} else {
@@ -34,10 +36,12 @@ function objectToFormData(obj, form, namespace) {
 		} else {
 			fd.append(formKey, obj[property]);
 		}
-	}));
+	});
 	
 	return fd;
 }
+
+const source = axios.CancelToken.source();
 
 /**
  * 解决IE报warning Unhandled Rejections Error 参数书不正确的问题
@@ -50,7 +54,7 @@ const singleton = (function() {
 	const baseURL = ENV.apiDomain;
 	
 	function init() {
-		const instance = Axios.create({
+		const instance = axios.create({
 			baseURL,
 			
 			withCredentials: true,
@@ -166,7 +170,7 @@ export function post(url, data = {}, options = {}) {
 		url,
 		method: "post",
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
-		headers: {"Content-Type": "application/x-www-form-urlencoded;charset=utf-8"},
+		headers: {"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"},
 	}, options));
 }
 
@@ -182,7 +186,7 @@ export function postJSON(url, data = {}, options = {}) {
 		url,
 		method: "post",
 		data,
-		headers: {"Content-Type": "application/json;charset=utf-8"},
+		headers: {"Content-Type": "application/json; charset=utf-8"},
 	}, options));
 }
 
@@ -200,7 +204,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 		method: "post",
 		data: objectToFormData(data),
 		onUploadProgress,
-		headers: {"Content-Type": "multipart/form-data;charset=utf-8"},
+		headers: {"Content-Type": "multipart/form-data; charset=utf-8"},
 	}, options));
 }
 
@@ -216,7 +220,7 @@ export function del(url, data = {}, options = {}) {
 		url,
 		method: "delete",
 		data,
-		headers: {"Content-Type": "application/json;charset=utf-8"},
+		headers: {"Content-Type": "application/json; charset=utf-8"},
 	}, options));
 }
 
@@ -232,8 +236,46 @@ export function put(url, data = {}, options = {}) {
 		url,
 		method: "put",
 		data,
-		headers: {"Content-Type": "application/json;charset=utf-8"},
+		headers: {"Content-Type": "application/json; charset=utf-8"},
 	}, options));
+}
+
+/**
+ * 发送一个form请求
+ * @param {String} url
+ * @param {Object} property 表单属性
+ * @param {Object} params 请求参数
+ * @return {HTMLElement}
+ */
+export function form(url, property = {}, params = {}) {
+	property = merge({
+		method: "POST",
+		target: "_blank",
+		submit: true,
+	}, property);
+	
+	const formElement = document.createElement("form");
+	formElement.style.display = "none";
+	formElement.setAttribute("action", url);
+	formElement.setAttribute("method", property.method);
+	formElement.setAttribute("target", property.target);
+	
+	forOwn(params, (value, key) => {
+		if (isArray(value) || isPlainObject(value)) {
+			value = JSON.stringify(value);
+		}
+		const hideElement = document.createElement("input");
+		hideElement.setAttribute("type", "hidden");
+		hideElement.setAttribute("name", key);
+		hideElement.setAttribute("value", encodeURIComponent(value));
+		formElement.appendChild(hideElement);
+	});
+	
+	document.body.appendChild(formElement);
+	if (property.submit) {
+		formElement.submit();
+	}
+	return formElement;
 }
 
 /**
