@@ -6,12 +6,7 @@ import identity from "lodash/identity";
 import flowRight from "lodash/flowRight";
 
 const _userAPI = api => window.ENV.apiDomain + api;
-
-/**
- *
- * @type {{userLogin: *, userAdd: *, userDelete: *, userDetail: *, userUpdate: *, userSearch: *, userList: *}}
- */
-export default helper.immutable({
+const API = {
 	/*
    |----------------------------------------------------------------
    | 用户相关API地址
@@ -24,4 +19,7 @@ export default helper.immutable({
 	userUpdate: _userAPI("/user/update"),
 	userSearch: _userAPI("/user/search"),
 	userList: _userAPI("/user/list"),
-}, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
+	userParse: _userAPI("/user/parse"),
+	userDownJson: _userAPI("/user/downJson"),
+};
+export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
