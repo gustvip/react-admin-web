@@ -56,7 +56,7 @@ export default helper.immutable([
 				id: uniqueId(),
 				children: [
 					{
-						label: "地图",
+						label: "test",
 						url: EnumRouter.testDemo,
 						icon: {
 							type: EnumIconTypes.antd,
@@ -65,8 +65,18 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
-								label: "cesium",
+								label: "练习",
 								url: EnumRouter.testDemo,
+								icon: {
+									type: EnumIconTypes.antd,
+									value: "up-square-o",
+								},
+								id: uniqueId(),
+								children: [],
+							},
+							{
+								label: "解析文件",
+								url: EnumRouter.testParseFile,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: "up-square-o",

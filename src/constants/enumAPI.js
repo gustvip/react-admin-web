@@ -6,6 +6,10 @@ import identity from "lodash/identity";
 import flowRight from "lodash/flowRight";
 
 const _userAPI = api => window.ENV.apiDomain + api;
+
+/**
+ * @type {{userLogin: *, userAdd: *, userDelete: *, userDetail: *, userUpdate: *, userSearch: *, userList: *, userParseXlsx: *, userParseCsv: *, userDownJson: *}}
+ */
 const API = {
 	/*
    |----------------------------------------------------------------
@@ -19,7 +23,8 @@ const API = {
 	userUpdate: _userAPI("/user/update"),
 	userSearch: _userAPI("/user/search"),
 	userList: _userAPI("/user/list"),
-	userParse: _userAPI("/user/parse"),
+	userParseXlsx: _userAPI("/user/parseXlsx"),
+	userParseCsv: _userAPI("/user/parseCsv"),
 	userDownJson: _userAPI("/user/downJson"),
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));

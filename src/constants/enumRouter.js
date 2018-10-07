@@ -6,14 +6,14 @@ import helper from "utils/core/helper";
 import flowRight from "lodash/flowRight";
 
 /**
- * @type {{rootPath: string, login: string, userAdd: string, userEdit: string, userList: string}}
+ * @type {{rootPath: string, login: string, register: string, testDemo: string, parseFile: string, userList: string}}
  */
-
-export default helper.immutable({
+const enumRouter = {
 	rootPath: "",
 	login: "login",
 	register: "register",
 	testDemo: "test/demo",
+	testParseFile: "test/parseFile",
 	
 	/*
 	 |-----------------------------------------------
@@ -21,4 +21,5 @@ export default helper.immutable({
 	 |-----------------------------------------------
 	 */
 	userList: "user/list",
-}, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));
+};
+export default helper.immutable(enumRouter, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));
