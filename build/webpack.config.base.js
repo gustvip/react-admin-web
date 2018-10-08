@@ -41,8 +41,6 @@ const staticResource = [
 ];
 
 module.exports = {
-	devtool: "cheap-module-eval-source-map",	// cheap-module-source-map,cheap-module-eval-source-map
-	
 	optimization: {
 		splitChunks: {
 			chunks: "all",
@@ -92,10 +90,10 @@ module.exports = {
 			"utils/core/decorate.js",
 			"utils/core/crypto.js",
 			"utils/core/request.js",
-			"utils/core/classNames/index.js",
 			"utils/core/emitter/index.js",
 			"utils/core/localStorage/index.js",
 			"utils/core/queryString/index.js",
+			"utils/core/helper.js",
 		],
 	},
 	
