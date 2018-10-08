@@ -23,7 +23,7 @@ export default helper.immutable([
 		id: uniqueId(),
 		children: [
 			{
-				label: "小栏目",
+				label: "用户管理",
 				url: EnumRouter.userList,
 				id: uniqueId(),
 				children: [
@@ -37,7 +37,7 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
-								label: "list",
+								label: "用户列表",
 								url: EnumRouter.userList,
 								icon: {
 									type: EnumIconTypes.antd,
@@ -51,12 +51,12 @@ export default helper.immutable([
 				],
 			},
 			{
-				label: "test",
+				label: "API测试",
 				url: EnumRouter.testDemo,
 				id: uniqueId(),
 				children: [
 					{
-						label: "test",
+						label: "API测试",
 						url: EnumRouter.testDemo,
 						icon: {
 							type: EnumIconTypes.antd,
@@ -65,7 +65,7 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
-								label: "练习",
+								label: "练习API",
 								url: EnumRouter.testDemo,
 								icon: {
 									type: EnumIconTypes.antd,

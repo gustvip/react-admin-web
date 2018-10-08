@@ -262,7 +262,7 @@ export class HeaderLayout extends React.PureComponent {
 				<Layout.Header className={style["main-header-container"]}>
 					<section className={style["left-container"]}>
 						
-						<div className={style["logo-container"]}>logo</div>
+						{/* <div className={style["logo-container"]}>logo</div>*/}
 						
 						{/* 一级路由 */}
 						{this.getTopRoute()}

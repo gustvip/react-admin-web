@@ -10,7 +10,6 @@ import {
 	Switch,
 	Redirect,
 } from "react-router-dom";
-import {hot} from "react-hot-loader";
 import {NoMatch} from "./routeTool";
 import CommonRoutes from "./common"; // 公共模块--相关路由,如:登录,注册...
 import UserRoutes from "./user"; // 用户相关模块
@@ -48,4 +47,4 @@ const Routes = () => (
 	</BrowserRouter>
 );
 
-export default hot(module)(Routes);
+export default Routes;

@@ -32,7 +32,7 @@ module.exports = merge(baseConfig, {
 		watchOptions: {
 			ignored: /node_modules/,
 		},
-		hot: true,
+		hot: false,
 		historyApiFallback: {
 			index: "/",
 			disableDotRule: true,
@@ -55,6 +55,5 @@ module.exports = merge(baseConfig, {
 			analyzerHost: host, // 主机ip
 			analyzerPort: port + 100, // 端口
 		}),
-		new webpack.HotModuleReplacementPlugin(),
 	],
 });

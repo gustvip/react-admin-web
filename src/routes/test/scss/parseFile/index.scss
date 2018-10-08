@@ -1,0 +1,15 @@
+.main-container {
+	:global {
+		.xlsx-container,
+		.csv-container {
+			margin-bottom: 12px;
+			> input {
+				display: none;
+			}
+			.ant-btn {
+				width: 100%;
+				display: block;
+			}
+		}
+	}
+}

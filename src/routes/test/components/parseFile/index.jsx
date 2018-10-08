@@ -1,10 +1,14 @@
-import * as React from "react";
+import React from "react";
 import T from "utils/t";
 import enumAPI from "constants/enumAPI";
+import {Button} from "antd";
+import styles from "../../scss/parseFile/index.scss";
 
 export default class TestComponent extends React.PureComponent {
 	constructor() {
 		super();
+		this.xlsxContainer = null;
+		this.csvContainer = null;
 		this.container = null;
 	}
 	
@@ -23,22 +27,39 @@ export default class TestComponent extends React.PureComponent {
 	render() {
 		return (
 			<div
+				className={styles["main-container"]}
 				ref={container => this.container = container}
 			>
-				<h1>解析xlsx</h1>
-				<input
-					multiple={false}
-					accept=".xlsx"
-					type="file"
-					onChange={(e) => e.target.files && this.handleParseXlsx(e.target.files[0])}
-				/>
-				<h1>解析csv</h1>
-				<input
-					multiple={false}
-					accept=".csv"
-					type="file"
-					onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
-				/>
+				<div className="xlsx-container">
+					<Button
+						onClick={() => this.xlsxContainer.click()}
+						type="primary"
+					>
+						解析xlsx
+					</Button>
+					<input
+						ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
+						multiple={false}
+						accept=".xlsx"
+						type="file"
+						onChange={(e) => e.target.files && this.handleParseXlsx(e.target.files[0])}
+					/>
+				</div>
+				<div className="csv-container">
+					<Button
+						onClick={() => this.csvContainer.click()}
+						type="primary"
+					>
+						解析csv
+					</Button>
+					<input
+						ref={csvContainer => this.csvContainer = csvContainer}
+						multiple={false}
+						accept=".csv"
+						type="file"
+						onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
+					/>
+				</div>
 			</div>
 		);
 	}

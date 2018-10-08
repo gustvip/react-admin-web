@@ -40,9 +40,6 @@ const staticResource = [
 	},
 ];
 
-// miniCssExtractPlugin不能和react的hot一起用，scss会慢一步更新，在dev时采用style-loader
-const styleLoader = {loader: process.env.NODE_ENV === "development" ? "style-loader" : miniCssExtractPlugin.loader};
-
 module.exports = {
 	optimization: {
 		splitChunks: {
@@ -85,6 +82,9 @@ module.exports = {
 			"prop-types",
 			"react",
 			"react-dom",
+			"react-redux",
+			"react-router-dom",
+			"redux",
 			"classnames",
 			
 			"utils/core/decorate.js",
@@ -93,6 +93,7 @@ module.exports = {
 			"utils/core/classNames/index.js",
 			"utils/core/emitter/index.js",
 			"utils/core/localStorage/index.js",
+			"utils/core/queryString/index.js",
 		],
 	},
 	
@@ -124,7 +125,7 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					styleLoader,
+					miniCssExtractPlugin.loader,
 					"css-loader",
 					"postcss-loader",
 				],
@@ -134,7 +135,7 @@ module.exports = {
 				test: /\.scss/,
 				exclude: excludeRegex,
 				use: [
-					styleLoader,
+					miniCssExtractPlugin.loader,
 					
 					// scss开启css的命名空间
 					{
@@ -159,7 +160,7 @@ module.exports = {
 			{
 				test: /\.less/,
 				use: [
-					styleLoader,
+					miniCssExtractPlugin.loader,
 					"css-loader",
 					"postcss-loader",
 					{
@@ -206,6 +207,9 @@ module.exports = {
 		}),
 		new webpackBar({
 			profile: true,
+		}),
+		new miniCssExtractPlugin({
+			filename: process.env.NODE_ENV === "development" ? "[name].css" : "[name].[contenthash].css",
 		}),
 	],
 };
