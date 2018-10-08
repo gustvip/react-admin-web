@@ -11,7 +11,7 @@ import * as decorate from "utils/core/decorate";
 import styles from "../../scss/login/index.scss";
 import {Button, Input, Checkbox} from "antd";
 import {Link} from "react-router-dom";
-import bg from "./img/bg.jpeg";
+import bg from "../../img/bg.jpeg";
 
 @decorate.contextTypes("router")
 class Login extends React.PureComponent {

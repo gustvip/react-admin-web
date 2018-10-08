@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import enumRouter from "constants/enumRouter";
 import prompt from "utils/core/prompt";
 import * as webAPI from "../../webAPI/register/index";
-import bg from "../login/img/bg.jpeg";
+import bg from "../../img/bg.jpeg";
 
 const formItemLayout = {
 	labelCol: {

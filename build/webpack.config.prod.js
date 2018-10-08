@@ -81,7 +81,7 @@ module.exports = merge(baseConfig, {
 								quality: 70,
 								speed: 4,
 							},
-							/*	Webp: {
+							/*	webp: {
                   progressive: true,
                   quality: 70,
                   speed: 4,

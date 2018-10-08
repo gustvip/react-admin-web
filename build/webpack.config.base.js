@@ -8,7 +8,7 @@ const vtkRules = require("vtk.js/Utilities/config/dependency.js").webpack.v2.rul
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // 页面入口文件,使用异步加载方式
-const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.(jsx?|tsx?))$/ig;
+const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.([jt]sx?))$/ig;
 const excludeRegex = require("./util").excludeRegex;
 const resourceBaseName = require("./util").resourceBaseName;
 const customAntdStyle = require("./util").customAntdStyle;
@@ -41,6 +41,8 @@ const staticResource = [
 ];
 
 module.exports = {
+	devtool: "cheap-module-eval-source-map",	// cheap-module-source-map,cheap-module-eval-source-map
+	
 	optimization: {
 		splitChunks: {
 			chunks: "all",
@@ -98,7 +100,7 @@ module.exports = {
 	},
 	
 	// 排除打包的内容---走cdn
-	/* Externals: {
+	/* externals: {
     $: 'jQuery',
     jQuery: 'jQuery',
     lodash: '_',
