@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/02/19
  */
-
 import {createStore as _createStore, applyMiddleware, combineReducers} from "redux";
 import isPlainObject from "lodash/isPlainObject";
 import isFunction from "lodash/isFunction";

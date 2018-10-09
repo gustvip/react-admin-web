@@ -7,14 +7,7 @@
 					{
 						"targets": {
 							"browsers": [
-								"Chrome >= 45",
-								"Firefox >= 38",
-								"Edge >= 12",
-								"Explorer >= 10",
-								"iOS >= 9",
-								"Safari >= 9",
-								"Android >= 4.4",
-								"Opera >= 30"
+								"Chrome >= 65"
 							],
 							"node": "8.11"
 						},
@@ -22,7 +15,6 @@
 						"debug": false
 					}
 				],
-				"babel-polyfill",
 				"react",
 				"stage-0"
 			],

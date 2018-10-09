@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/02/19
  */
-import {Route} from "react-router-dom";
+import Route from "react-router-dom/Route";
 import flattenDeep from "lodash/flattenDeep";
 import Exception from "templates/toolComponents/exception";
 import lazyLoad from "templates/lazyLoad";

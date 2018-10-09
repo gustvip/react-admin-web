@@ -79,7 +79,7 @@ const singleton = (function() {
 		instance.interceptors.request.use(function(config) {
 			return config;
 		}, function(error) {
-			return Promise.reject({msg: error});
+			return Promise.reject(error);
 		});
 		
 		/**
@@ -88,7 +88,7 @@ const singleton = (function() {
 		instance.interceptors.response.use(function(response) {
 			return response;
 		}, function(error) {
-			return Promise.reject({msg: error});
+			return Promise.reject(error);
 		});
 		
 		return instance;
@@ -111,7 +111,6 @@ const _request = (options = {}) => {
 	return new Promise((resolve, reject) => {
 		singleton.getInstance().request(options).then((info) => {
 			const {data, code, msg} = info.data;
-			
 			if (ENV.apiSuccessCode === code) {
 				resolve({
 					code,
@@ -126,11 +125,15 @@ const _request = (options = {}) => {
 				});
 			}
 		}).catch((info) => {
-			reject({
-				code: info.code,
-				data: info.data,
-				msg: info.message,
-			});
+			if (axios.isCancel(info)) {
+				reject({msg: info.message});
+			} else {
+				reject({
+					code: info.code,
+					data: info.data,
+					msg: info.message,
+				});
+			}
 		});
 	});
 };
@@ -191,7 +194,7 @@ export function postJSON(url, data = {}, options = {}) {
 }
 
 /**
- * 请求上传文件
+ * form-data传输数据
  * @param {String} url
  * @param {Object} data
  * @param {Function} onUploadProgress
@@ -204,7 +207,6 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 		method: "post",
 		data: objectToFormData(data),
 		onUploadProgress,
-		headers: {"Content-Type": "multipart/form-data; charset=utf-8"},
 	}, options));
 }
 
@@ -249,16 +251,16 @@ export function put(url, data = {}, options = {}) {
  */
 export function form(url, property = {}, params = {}) {
 	property = merge({
-		method: "POST",
+		method: "GET",
 		target: "_blank",
-		submit: true,
 	}, property);
 	
 	const formElement = document.createElement("form");
 	formElement.style.display = "none";
-	formElement.setAttribute("action", url);
-	formElement.setAttribute("method", property.method);
-	formElement.setAttribute("target", property.target);
+	
+	forOwn(property, (value, key) => {
+		formElement.setAttribute(key, value);
+	});
 	
 	forOwn(params, (value, key) => {
 		if (isArray(value) || isPlainObject(value)) {
@@ -272,9 +274,6 @@ export function form(url, property = {}, params = {}) {
 	});
 	
 	document.body.appendChild(formElement);
-	if (property.submit) {
-		formElement.submit();
-	}
 	return formElement;
 }
 
@@ -283,5 +282,5 @@ export function form(url, property = {}, params = {}) {
  * @returns {Promise.<*>}
  */
 export function all(args) {
-	return Array.isArray(args) ? Promise.all(args) : Promise.all([...arguments]);
+	return Promise.all(isArray(args) ? args : [].slice.call(arguments));
 }

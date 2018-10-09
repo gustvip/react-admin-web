@@ -12,7 +12,7 @@ const resourceBaseName = require("./util").resourceBaseName;
 
 module.exports = merge(baseConfig, {
 	mode: "development",
-	devtool: "cheap-module-eval-source-map",	// cheap-module-source-map,cheap-module-eval-source-map
+	devtool: "cheap-module-source-map",	// cheap-module-source-map,cheap-module-eval-source-map
 	
 	module: {
 		rules: [

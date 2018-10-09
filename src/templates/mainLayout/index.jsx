@@ -13,7 +13,7 @@ import {Select, Menu, Icon, Layout} from "antd";
 import style from "./mainLayout.scss";
 import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil";
 import * as React from "react";
-import {Link} from "react-router-dom";
+import Link from "react-router-dom/Link";
 
 /**
  * 获取图标字体
@@ -306,7 +306,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 			>
 				<SiderMenu
 					isCollapsed={self.state.isCollapsed}
-					handleCollapsed={self.handleCollapsed.bind(self)}
+					handleCollapsed={self.handleCollapsed}
 				/>
 				<Layout.Content
 					className={style["content-container"]}

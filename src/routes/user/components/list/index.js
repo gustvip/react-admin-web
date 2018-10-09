@@ -3,9 +3,9 @@
  */
 
 import T from "utils/t";
-import {Button, Input,Table} from "antd";
-import {Link} from "react-router-dom";
-import {MainHeader, MainContent} from "templates/mainLayout/index";
+import {Button, Input, Table} from "antd";
+import Link from "react-router-dom/Link";
+import {MainContent} from "templates/mainLayout/index";
 import EnumRouter from "constants/enumRouter";
 import React from "react";
 
@@ -203,7 +203,6 @@ class List extends React.PureComponent {
 		const self = this;
 		return (
 			<React.Fragment>
-				<MainHeader title="content-header"/>
 				<MainContent>
 					<header className={style["table-header-container"]}>
 						<div className={style["left-container"]}>
