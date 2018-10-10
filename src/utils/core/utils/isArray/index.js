@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/6/20
  */
-import _getClassName from "../aaa/_getClassName/index";
 
 /**
  * 是否为数组
@@ -9,5 +8,5 @@ import _getClassName from "../aaa/_getClassName/index";
  * @returns {boolean}
  */
 export default function isArray(x) {
-	return _getClassName(x) === "[object Array]";
+	return Array.isArray(x);
 }

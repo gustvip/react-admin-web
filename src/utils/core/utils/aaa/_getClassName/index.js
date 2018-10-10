@@ -1,5 +1,3 @@
-import {_toString} from "../_constant/index";
-
 /**
  * 获取对象[[Class]]名称
  * @private
@@ -7,5 +5,5 @@ import {_toString} from "../_constant/index";
  * @return {string}
  */
 export default function _getClassName(x) {
-	return _toString.call(x);
+	return Object.prototype.toString.call(x);
 }

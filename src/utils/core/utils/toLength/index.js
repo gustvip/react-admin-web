@@ -2,7 +2,6 @@
  * Created by joey on 2018/8/28
  */
 import toInteger from "../toInteger";
-import {MAX_ARRAY_INDEX} from "../aaa/_constant/index";
 
 /**
  * 转化为length
@@ -10,6 +9,7 @@ import {MAX_ARRAY_INDEX} from "../aaa/_constant/index";
  * @returns {number}
  */
 export default function toLength(x) {
+	var MAX_ARRAY_INDEX = 4294967295;
 	x = toInteger(x);
 	if (x < 0) {
 		return 0;

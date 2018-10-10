@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/8/25
  */
-import isArray from "../isArray";
 
 /**
  * Casts `value` as an array if it's not one.
@@ -12,5 +11,5 @@ export default function castArray(value) {
 	if (!arguments.length) {
 		return [];
 	}
-	return isArray(value) ? value : [value];
+	return Array.isArray(value) ? value : [value];
 }

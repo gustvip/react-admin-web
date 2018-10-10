@@ -1,127 +1,88 @@
 import DoubleLinkedList from "../doubleLinkedList";
 
-/**
- * 长度
- * @return  {number}
- */
-function size() {
-	return this.doubleLinkedList.size;
+function Stack() {
+	this.doubleLinkedList = new DoubleLinkedList();
 }
+
+Object.defineProperty(Stack.prototype, "size", {
+	get: function() {
+		return this.doubleLinkedList.size;
+	},
+	configurable: false,
+});
 
 /**
  * @return {boolean}
  */
-function isEmpty() {
-	return this.doubleLinkedList.isEmpty();
-}
+Stack.prototype.isEmpty = function isEmpty() {
+	return this.size === 0;
+};
 
 /**
  * @return {boolean}
  */
-function has(value) {
+Stack.prototype.has = function has(value) {
 	return this.doubleLinkedList.has(value);
-}
+};
 
 /**
  * 清空栈
  * @return {Stack}
  */
-function clear() {
+Stack.prototype.clear = function clear() {
 	this.doubleLinkedList.clear();
 	return this;
-}
+};
 
 /**
  * @return {*}
  */
-function peek() {
+Stack.prototype.peek = function peek() {
 	return this.isEmpty() ? undefined : this.doubleLinkedList.tail.value;
-}
+};
 
 /**
- * @param {*} value
+ * @param {Stack} value
  */
-function push(value) {
+Stack.prototype.push = function push(value) {
 	this.doubleLinkedList.append(value);
-}
+	return this;
+};
 
 /**
  * @return {*}
  */
-function pop() {
-	let removedTail = this.doubleLinkedList.deleteTail();
+Stack.prototype.pop = function pop() {
+	var removedTail = this.doubleLinkedList.deleteTail();
 	return removedTail ? removedTail.value : null;
-}
+};
 
 /**
  * @return {*[]}
  */
-function toArray() {
-	let index = -1;
-	let nodes = new Array(this.size);
-	let tail = this.doubleLinkedList.tail;
+Stack.prototype.toArray = function toArray() {
+	var index = -1;
+	var nodes = new Array(this.size);
+	var tail = this.doubleLinkedList.tail;
 	while (tail) {
 		nodes[++index] = tail.value;
 		tail = tail.previous;
 	}
 	return nodes;
-}
+};
 
 /**
  * @param {function} [callback]
  * @return {string}
  */
-function toString(callback) {
+Stack.prototype.toString = function toString(callback) {
 	return this.doubleLinkedList.toString(callback);
-}
+};
 
-Object.defineProperties(Stack.prototype, {
-	constructor: {
-		value: Stack,
-		configuarable: false,
-	},
-	size: {
-		get: size,
-		configuarable: false,
-	},
-	isEmpty: {
-		value: isEmpty,
-		configuarable: false,
-	},
-	has: {
-		value: has,
-		configuarable: false,
-	},
-	clear: {
-		value: clear,
-		configuarable: false,
-	},
-	peek: {
-		value: peek,
-		configuarable: false,
-	},
-	push: {
-		value: push,
-		configuarable: false,
-	},
-	pop: {
-		value: pop,
-		configuarable: false,
-	},
-	toArray: {
-		value: toArray,
-		configuarable: false,
-	},
-	toString: {
-		value: toString,
-		configuarable: false,
-	},
-});
-
-function Stack() {
-	this.doubleLinkedList = new DoubleLinkedList();
-}
-
-export default function stack() {
+function stack() {
 	return new Stack();
 }
+
+stack.Stack = Stack;
+
+export default stack;

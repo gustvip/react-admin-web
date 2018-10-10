@@ -9,6 +9,6 @@ import _getClassName from "../aaa/_getClassName/index";
  * @returns {boolean}
  */
 export default function isFunction(x) {
-	let className = _getClassName(x);
+	var className = _getClassName(x);
 	return className === "[object Function]" || className === "[object AsyncFunction]" || className === "[object GeneratorFunction]" || className === "[object Proxy]";
 }

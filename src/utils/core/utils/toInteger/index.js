@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/8/28
  */
-import _MathFloor from "../aaa/_MathFloor";
 import toFinite from "../toFinite";
 
 /**
@@ -10,5 +9,5 @@ import toFinite from "../toFinite";
  * @returns {number}
  */
 export default function toInteger(x) {
-	return _MathFloor(toFinite(x));
+	return Math.floor(toFinite(x));
 }

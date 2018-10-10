@@ -3,7 +3,6 @@
  */
 import isObjectLike from "../isObjectLike";
 import isNull from "../isNull";
-import {_getPrototypeOf} from "../aaa/_constant/index";
 
 /**
  * Checks if `value` is a plain object, that is, an object created by the
@@ -12,6 +11,7 @@ import {_getPrototypeOf} from "../aaa/_constant/index";
  * @returns {boolean}
  */
 export default function isPlainObject(x) {
+	var _getPrototypeOf = Object.getPrototypeOf;
 	if (!isObjectLike(x)) {
 		return false;
 	}
@@ -19,7 +19,7 @@ export default function isPlainObject(x) {
 	if (isNull(_getPrototypeOf(x))) {
 		return true;
 	}
-	let proto = x;
+	var proto = x;
 	while (!isNull(_getPrototypeOf(proto))) {
 		proto = _getPrototypeOf(proto);
 	}

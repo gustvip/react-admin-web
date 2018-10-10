@@ -9,7 +9,6 @@ import isArray from "../isArray";
 import isString from "../isString";
 import isArguments from "../isArguments";
 import isTypedArray from "../isTypedArray";
-import {_hasOwnProperty} from "../aaa/_constant/index";
 
 /**
  * 是否为空
@@ -20,8 +19,8 @@ export default function isEmpty(x) {
 	if (isNil(x)) {
 		return true;
 	} else if (isObject(x)) {
-		for (let key in x) {
-			if (_hasOwnProperty.call(x, key)) {
+		for (var key in x) {
+			if (Object.prototype.hasOwnProperty.call(x, key)) {
 				return false;
 			}
 		}

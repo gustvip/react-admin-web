@@ -10,8 +10,8 @@ import findIndex from "../findIndex";
  * @returns {boolean}
  */
 export default function isTypedArray(x) {
-	let className = _getClassName(x);
-	let typedArray = [
+	var className = _getClassName(x);
+	var typedArray = [
 		"[object ArrayBuffer]",
 		"[object DataView]",
 		"[object Float32Array]",
@@ -24,7 +24,7 @@ export default function isTypedArray(x) {
 		"[object Uint16Array]",
 		"[object Uint32Array]",
 	];
-	let index = findIndex(typedArray, function(value) {
+	var index = findIndex(typedArray, function(value) {
 		return className === value;
 	});
 	return index !== -1;

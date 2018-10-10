@@ -9,10 +9,6 @@ import merge from "lodash/merge";
 import transform from "lodash/transform";
 import isArray from "lodash/isArray";
 
-function isFile(x) {
-	return Object.prototype.toString.call(x) === "[object File]";
-}
-
 /**
  * 将对象转化为FormData数据格式
  * @param {Object} obj
@@ -21,6 +17,10 @@ function isFile(x) {
  * @returns {*|FormData}
  */
 function objectToFormData(obj, form, namespace) {
+	function isFile(x) {
+		return Object.prototype.toString.call(x) === "[object File]";
+	}
+	
 	const fd = form || new FormData();
 	let formKey;
 	forOwn(obj, (value, property) => {
@@ -40,8 +40,6 @@ function objectToFormData(obj, form, namespace) {
 	
 	return fd;
 }
-
-const source = axios.CancelToken.source();
 
 /**
  * 解决IE报warning Unhandled Rejections Error 参数书不正确的问题
@@ -64,9 +62,6 @@ const singleton = (function() {
 			 * 包括 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 			 */
 			responseType: "json",
-			
-			// 取消请求的令牌
-			cancelToken: source.token,
 			
 			headers: {
 				// "X-Requested-With": "XMLHttpRequest",
@@ -125,26 +120,18 @@ const _request = (options = {}) => {
 				});
 			}
 		}).catch((info) => {
-			if (axios.isCancel(info)) {
-				reject({msg: info.message});
-			} else {
+			if (info) {
 				reject({
 					code: info.code,
 					data: info.data,
 					msg: info.message,
 				});
+			} else {
+				reject({msg: "unknown error"});
 			}
 		});
 	});
 };
-
-/**
- * 取消请求
- * @param {string} reason
- */
-export function cancelAllRequest(reason = "") {
-	source.cancel(reason);
-}
 
 /**
  * Get请求
@@ -251,7 +238,8 @@ export function put(url, data = {}, options = {}) {
  */
 export function form(url, property = {}, params = {}) {
 	property = merge({
-		method: "GET",
+		enctype: "application/x-www-form-urlencoded",
+		method: "POST",
 		target: "_blank",
 	}, property);
 	
@@ -263,9 +251,6 @@ export function form(url, property = {}, params = {}) {
 	});
 	
 	forOwn(params, (value, key) => {
-		if (isArray(value) || isPlainObject(value)) {
-			value = JSON.stringify(value);
-		}
 		const hideElement = document.createElement("input");
 		hideElement.setAttribute("type", "hidden");
 		hideElement.setAttribute("name", key);

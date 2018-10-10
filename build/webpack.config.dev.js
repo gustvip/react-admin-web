@@ -1,7 +1,6 @@
 /**
  * @description webpack 开发模式下的打包基本配置
  */
-const webpack = require("webpack");
 const merge = require("webpack-merge");
 const host = "localhost";
 // const host = require("./util").getLocalIp();

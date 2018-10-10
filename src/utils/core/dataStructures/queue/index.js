@@ -1,97 +1,72 @@
 import DoubleLinkedList from "../doubleLinkedList";
 
-/**
- * @return {boolean}
- */
-function isEmpty() {
-	return this.doubleLinkedList.isEmpty();
+function Queue() {
+	this.doubleLinkedList = new DoubleLinkedList();
 }
+
+Object.defineProperty(Queue.prototype, "size", {
+	get: function() {
+		return this.doubleLinkedList.size;
+	},
+	configurable: false,
+});
 
 /**
  * @return {boolean}
  */
-function has(value) {
+Queue.prototype.isEmpty = function isEmpty() {
+	return this.size === 0;
+};
+
+/**
+ * @return {boolean}
+ */
+Queue.prototype.has = function has(value) {
 	return this.doubleLinkedList.has(value);
-}
+};
 
 /**
  * 清空队列
  * @return {Queue}
  */
-function clear() {
+Queue.prototype.clear = function clear() {
 	this.doubleLinkedList.clear();
 	return this;
-}
+};
 
 /**
  * @return {*}
  */
-function peek() {
+Queue.prototype.peek = function peek() {
 	return this.isEmpty() ? undefined : this.doubleLinkedList.head.value;
-}
+};
 
 /**
  * @param {*} value
  */
-function enqueue(value) {
+Queue.prototype.enqueue = function enqueue(value) {
 	this.doubleLinkedList.append(value);
-}
+};
 
 /**
  * @return {*}
  */
-function dequeue() {
-	let removedHead = this.doubleLinkedList.deleteHead();
+Queue.prototype.dequeue = function dequeue() {
+	var removedHead = this.doubleLinkedList.deleteHead();
 	return removedHead ? removedHead.value : null;
-}
+};
 
 /**
  * @param [callback]
  * @return {string}
  */
-function toString(callback) {
+Queue.prototype.toString = function toString(callback) {
 	return this.doubleLinkedList.toString(callback);
-}
+};
 
-Object.defineProperties(Queue.prototype, {
-	constructor: {
-		value: Queue,
-		configuarable: false,
-	},
-	isEmpty: {
-		value: isEmpty,
-		configuarable: false,
-	},
-	has: {
-		value: has,
-		configuarable: false,
-	},
-	clear: {
-		value: clear,
-		configuarable: false,
-	},
-	peek: {
-		value: peek,
-		configuarable: false,
-	},
-	enqueue: {
-		value: enqueue,
-		configuarable: false,
-	},
-	dequeue: {
-		value: dequeue,
-		configuarable: false,
-	},
-	toString: {
-		value: toString,
-		configuarable: false,
-	},
-});
-
-function Queue() {
-	this.doubleLinkedList = new DoubleLinkedList();
-}
-
-export default function queue() {
+function queue() {
 	return new Queue();
 }
+
+queue.Queue = Queue;
+export default queue;

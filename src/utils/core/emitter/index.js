@@ -15,14 +15,13 @@ function _addListener(type, callback, isOnce) {
 	if (!isFunction(callback)) {
 		throw new TypeError("callback must be function");
 	}
-	let row = this.__selfListeners__[type];
+	var row = this.__selfListeners__[type];
 	
-	let obj = {
+	var obj = {
 		isOnce,
 		callback,
 	};
-	row ? row.push(obj)
-		: this.__selfListeners__[type] = [obj];
+	row ? row.push(obj) : this.__selfListeners__[type] = [obj];
 	return this;
 }
 
@@ -71,8 +70,8 @@ function removeCategoryListener(type) {
  * @returns {Object}
  */
 function removeListener(type, callback) {
-	let row = this.__selfListeners__[type];
-	let index;
+	var row = this.__selfListeners__[type];
+	var index;
 	if (row) {
 		index = findIndex(row, function(value) {
 			return value.callback === callback;
@@ -95,8 +94,8 @@ function removeListener(type, callback) {
  * @returns {Object}
  */
 function trigger(type) {
-	let row = this.__selfListeners__[type];
-	let arg = arguments;
+	var row = this.__selfListeners__[type];
+	var arg = arguments;
 	if (row) {
 		this.__selfListeners__[type] = row.filter(function(value) {
 			value.callback.apply(null, [].slice.call(arg, 1));
@@ -110,57 +109,24 @@ function trigger(type) {
 	return this;
 }
 
-Object.defineProperties(Emitter.prototype, {
-	constructor: {
-		value: Emitter,
-		configuarable: false,
-	},
-	on: {
-		value: addListener,
-		configuarable: false,
-	},
-	once: {
-		value: addOnceListener,
-		configuarable: false,
-	},
-	addListener: {
-		value: addListener,
-		configuarable: false,
-	},
-	addOnceListener: {
-		value: addOnceListener,
-		configuarable: false,
-	},
-	removeAllListener: {
-		value: removeAllListener,
-		configuarable: false,
-	},
-	removeCategoryListener: {
-		value: removeCategoryListener,
-		configuarable: false,
-	},
-	removeListener: {
-		value: removeListener,
-		configuarable: false,
-	},
-	trigger: {
-		value: trigger,
-		configuarable: false,
-	},
-	emit: {
-		value: trigger,
-		configuarable: false,
-	},
-	dispatch: {
-		value: trigger,
-		configuarable: false,
-	},
-});
-
 function Emitter() {
 	this.removeAllListener();
 }
 
-export default function emitter() {
+Emitter.prototype.on = addListener;
+Emitter.prototype.addListener = addListener;
+Emitter.prototype.once = addOnceListener;
+Emitter.prototype.addOnceListener = addOnceListener;
+Emitter.prototype.removeAllListener = removeAllListener;
+Emitter.prototype.removeCategoryListener = removeCategoryListener;
+Emitter.prototype.removeListener = removeListener;
+Emitter.prototype.trigger = trigger;
+Emitter.prototype.emit = trigger;
+Emitter.prototype.dispatch = trigger;
+
+function emitter() {
 	return new Emitter();
 }
+
+emitter.Emitter = Emitter;
+export default emitter;
