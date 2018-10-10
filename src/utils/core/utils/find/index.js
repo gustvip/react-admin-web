@@ -6,13 +6,13 @@ import isFunction from "../isFunction";
 import toInteger from "../toInteger";
 
 /**
- * 查找符合条件的索引
+ * 查找符合条件的值
  * @param {*} x
  * @param {function} predicate
  * @param {number} [fromIndex]
- * @returns {number}
+ * @returns {*}
  */
-export default function findIndex(x, predicate, fromIndex) {
+export default function find(x, predicate, fromIndex) {
 	if (isArrayLike(x) && isFunction(predicate) && x.length > 0) {
 		var len = x.length;
 		var kValue;
@@ -20,10 +20,9 @@ export default function findIndex(x, predicate, fromIndex) {
 		fromIndex = fromIndex < 0 ? Math.max(0, fromIndex + len) : fromIndex >= len ? 0 : fromIndex;
 		while (fromIndex < len) {
 			if (predicate(kValue = x[fromIndex], fromIndex, x)) {
-				return fromIndex;
+				return x[fromIndex];
 			}
 			++fromIndex;
 		}
 	}
-	return -1;
 }

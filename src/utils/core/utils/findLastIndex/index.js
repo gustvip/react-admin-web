@@ -12,17 +12,18 @@ import toInteger from "../toInteger";
  * @param {number} [fromIndex]
  * @returns {number}
  */
-export default function findIndex(x, predicate, fromIndex) {
+export default function findLastIndex(x, predicate, fromIndex) {
 	if (isArrayLike(x) && isFunction(predicate) && x.length > 0) {
 		var len = x.length;
 		var kValue;
 		fromIndex = toInteger(fromIndex);
-		fromIndex = fromIndex < 0 ? Math.max(0, fromIndex + len) : fromIndex >= len ? 0 : fromIndex;
-		while (fromIndex < len) {
-			if (predicate(kValue = x[fromIndex], fromIndex, x)) {
-				return fromIndex;
+		fromIndex = fromIndex >= len ? Math.min(fromIndex - len, len - 1) : fromIndex < 0 ? len - 1 : fromIndex;
+		var k = fromIndex;
+		while (k) {
+			if (predicate(kValue = x[k], k, x)) {
+				return k;
 			}
-			++fromIndex;
+			--k;
 		}
 	}
 	return -1;

@@ -17,7 +17,7 @@ LinkedList.prototype.isEmpty = function isEmpty() {
  * @return {boolean}
  */
 LinkedList.prototype.has = function has(value) {
-	return !!this.find({value});
+	return !!this.find({value: value});
 };
 
 /**
