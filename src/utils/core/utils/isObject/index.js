@@ -1,7 +1,6 @@
 /**
  * Created by joey on 2018/6/20
  */
-import _getClassName from "../aaa/_getClassName/index";
 
 /**
  * 是否为对象 {}
@@ -9,5 +8,5 @@ import _getClassName from "../aaa/_getClassName/index";
  * @returns {boolean}
  */
 export default function isObject(x) {
-	return _getClassName(x) === "[object Object]";
+	return (typeof x === "object" || typeof x === "function") && x !== null;
 }

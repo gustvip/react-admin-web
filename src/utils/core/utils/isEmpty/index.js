@@ -17,6 +17,10 @@ import isTypedArray from "../isTypedArray";
 export default function isEmpty(x) {
 	if (isNil(x)) {
 		return true;
+	} else if (Array.isArray(x) || isString(x) || isTypedArray(x) || isArguments(x)) {
+		return x.length === 0 || x.byteLength === 0;
+	} else if (isMap(x) || isSet(x)) {
+		return x.size === 0;
 	} else if (isObject(x)) {
 		for (var key in x) {
 			if (Object.prototype.hasOwnProperty.call(x, key)) {
@@ -24,10 +28,6 @@ export default function isEmpty(x) {
 			}
 		}
 		return true;
-	} else if (Array.isArray(x) || isString(x) || isTypedArray(x) || isArguments(x)) {
-		return x.length === 0 || x.byteLength === 0;
-	} else if (isMap(x) || isSet(x)) {
-		return x.size === 0;
 	} else {
 		return true;
 	}

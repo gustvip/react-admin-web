@@ -2,7 +2,7 @@
  * Created by joey on 2018/8/25
  */
 import _getClassName from "../aaa/_getClassName/index";
-import findIndex from "../findIndex";
+import indexOf from "../indexOf";
 
 /**
  * 是否为类型数组
@@ -24,8 +24,5 @@ export default function isTypedArray(x) {
 		"[object Uint16Array]",
 		"[object Uint32Array]",
 	];
-	var index = findIndex(typedArray, function(value) {
-		return className === value;
-	});
-	return index !== -1;
+	return indexOf(typedArray, className) !== -1;
 }
