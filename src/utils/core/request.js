@@ -7,7 +7,6 @@ import isPlainObject from "lodash/isPlainObject";
 import noop from "lodash/noop";
 import merge from "lodash/merge";
 import transform from "lodash/transform";
-import isArray from "lodash/isArray";
 
 /**
  * 将对象转化为FormData数据格式
@@ -24,7 +23,7 @@ function objectToFormData(obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
 	forOwn(obj, (value, property) => {
-		let key = isArray(obj) ? "[]" : `[${property}]`;
+		let key = Array.isArray(obj) ? "[]" : `[${property}]`;
 		if (namespace) {
 			formKey = namespace + key;
 		} else {
@@ -267,5 +266,5 @@ export function form(url, property = {}, params = {}) {
  * @returns {Promise.<*>}
  */
 export function all(args) {
-	return Promise.all(isArray(args) ? args : [].slice.call(arguments));
+	return Promise.all(Array.isArray(args) ? args : [].slice.call(arguments));
 }

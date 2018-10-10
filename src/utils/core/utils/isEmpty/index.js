@@ -5,7 +5,6 @@ import isNil from "../isNil";
 import isMap from "../isMap";
 import isSet from "../isSet";
 import isObject from "../isObject";
-import isArray from "../isArray";
 import isString from "../isString";
 import isArguments from "../isArguments";
 import isTypedArray from "../isTypedArray";
@@ -25,7 +24,7 @@ export default function isEmpty(x) {
 			}
 		}
 		return true;
-	} else if (isArray(x) || isString(x) || isTypedArray(x) || isArguments(x)) {
+	} else if (Array.isArray(x) || isString(x) || isTypedArray(x) || isArguments(x)) {
 		return x.length === 0 || x.byteLength === 0;
 	} else if (isMap(x) || isSet(x)) {
 		return x.size === 0;

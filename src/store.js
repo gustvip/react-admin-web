@@ -4,7 +4,6 @@
 import {createStore as _createStore, applyMiddleware, combineReducers} from "redux";
 import isPlainObject from "lodash/isPlainObject";
 import isFunction from "lodash/isFunction";
-import isArray from "lodash/isArray";
 import transform from "lodash/transform";
 
 export const STORE_INJECT = "@@STORE_INJECT";
@@ -37,7 +36,7 @@ class Registry {
  */
 function registryMiddleware(registry) {
 	return () => next => (action) => {
-		if (isPlainObject(action) && Object.prototype.hasOwnProperty.call(action, STORE_INJECT) && isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
+		if (isPlainObject(action) && Object.prototype.hasOwnProperty.call(action, STORE_INJECT) && Array.isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
 			return registry.injectReducers(action[STORE_INJECT]);
 		}
 		return next(action);

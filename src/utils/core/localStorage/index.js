@@ -5,7 +5,6 @@ import isObject from "../utils/isObject";
 import isString from "../utils/isString";
 import isNumber from "../utils/isNumber";
 import isBoolean from "../utils/isBoolean";
-import isArray from "../utils/isArray";
 import forOwn from "../utils/forOwn";
 
 // 无限期
@@ -19,7 +18,7 @@ let storageValue = (function() {
 }());
 
 function canJSON(x) {
-	return isString(x) || isNumber(x) || isObject(x) || isArray(x) || isBoolean(x);
+	return isString(x) || isNumber(x) || isObject(x) || Array.isArray(x) || isBoolean(x);
 }
 
 /**
