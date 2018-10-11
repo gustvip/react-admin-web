@@ -1,17 +1,13 @@
 import isNumber from "../utils/isNumber";
 import isString from "../utils/isString";
 import isPureObject from "../utils/isPureObject";
-import forOwn from "../utils/forOwn";
+import _objectForEach from "../utils/aaa/_objectForEach";
+import _arrayLikeForEach from "../utils/aaa/_arrayLikeForEach";
 
 function classNames() {
 	var classCollections = [];
-	var arg = arguments;
-	var value;
-	for (var index = 0; index < arg.length; index++) {
-		value = arg[index];
-		if (!value) {
-			continue;
-		} else if (isString(value) || isNumber(value)) {
+	_arrayLikeForEach(arguments, function(value) {
+		if (isString(value) || isNumber(value)) {
 			classCollections.push(value);
 		} else if (Array.isArray(value)) {
 			var inner = classNames.apply(null, value);
@@ -19,13 +15,13 @@ function classNames() {
 				classCollections.push(inner);
 			}
 		} else if (isPureObject(value)) {
-			forOwn(value, function(val, key) {
+			_objectForEach(value, function(val, key) {
 				if (val) {
 					classCollections.push(key);
 				}
 			});
 		}
-	}
+	});
 	
 	return classCollections.join(" ");
 }

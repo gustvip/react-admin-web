@@ -4,7 +4,7 @@
 
 /**
  * 遍历类数组
- * @param {Array} data
+ * @param {array || string || *} data
  * @param {function} callback
  * @returns {undefined}
  */
