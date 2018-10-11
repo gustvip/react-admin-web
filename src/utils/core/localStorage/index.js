@@ -1,7 +1,7 @@
 /**
  * Created by joey 2018/02/20
  */
-import isObject from "../utils/isObject";
+import isPureObject from "../utils/isPureObject";
 import isString from "../utils/isString";
 import isNumber from "../utils/isNumber";
 import isBoolean from "../utils/isBoolean";
@@ -14,11 +14,11 @@ let STORAGE_KEY = "__STORAGE__";
 // 临时存储的变量
 let storageValue = (function() {
 	let result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-	return isObject(result) ? result : {};
+	return isPureObject(result) ? result : {};
 }());
 
 function canJSON(x) {
-	return isString(x) || isNumber(x) || isObject(x) || Array.isArray(x) || isBoolean(x);
+	return isString(x) || isNumber(x) || isPureObject(x) || Array.isArray(x) || isBoolean(x);
 }
 
 /**
@@ -53,7 +53,7 @@ function length() {
  */
 function clearExpired() {
 	forOwn(storageValue, function(value, key) {
-		if (!isObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
+		if (!isPureObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
 			delete storageValue[key];
 		}
 	});

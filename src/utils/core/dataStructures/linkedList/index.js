@@ -2,7 +2,7 @@ import LinkedListNode from "./linkedListNode";
 import Comparator from "../../utils/comparator";
 import isFunction from "../../utils/isFunction";
 import isUndefined from "../../utils/isUndefined";
-import isObject from "../../utils/isObject";
+import isPureObject from "../../utils/isPureObject";
 
 /**
  * 是否为空
@@ -107,7 +107,7 @@ LinkedList.prototype.delete = function _delete(value) {
  * @return {LinkedListNode | null}
  */
 LinkedList.prototype.find = function find(findParams) {
-	findParams = isObject(findParams) ? findParams : {};
+	findParams = isPureObject(findParams) ? findParams : {};
 	var value = findParams.value;
 	var callback = findParams.callback;
 	var currentNode = this.head;

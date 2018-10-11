@@ -1,6 +1,6 @@
 import isNumber from "../utils/isNumber";
 import isString from "../utils/isString";
-import isPlainObject from "../utils/isPlainObject";
+import isPureObject from "../utils/isPureObject";
 import forOwn from "../utils/forOwn";
 
 function classNames() {
@@ -18,7 +18,7 @@ function classNames() {
 			if (inner) {
 				classCollections.push(inner);
 			}
-		} else if (isPlainObject(value)) {
+		} else if (isPureObject(value)) {
 			forOwn(value, function(val, key) {
 				if (val) {
 					classCollections.push(key);
