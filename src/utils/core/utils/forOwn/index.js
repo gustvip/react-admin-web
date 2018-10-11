@@ -3,6 +3,7 @@
  */
 import isObject from "../isObject";
 import isFunction from "../isFunction";
+import _objectForEach from "../aaa/_objectForEach";
 
 /**
  * 遍历对象(含有自身属性)
@@ -12,12 +13,6 @@ import isFunction from "../isFunction";
  */
 export default function forOwn(object, callback) {
 	if (isObject(object) && isFunction(callback)) {
-		for (var key in object) {
-			if (Object.prototype.hasOwnProperty.call(object, key)) {
-				if (callback(object[key], key, object) === false) {
-					return;
-				}
-			}
-		}
+		_objectForEach(object, callback);
 	}
 }

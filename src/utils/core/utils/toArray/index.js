@@ -4,7 +4,7 @@
 import isArrayLike from "../isArrayLike";
 import isMap from "../isMap";
 import isSet from "../isSet";
-import _arrayLikeToArray from "../aaa/_arrayLikeToArray";
+import _baseSlice from "../aaa/_baseSlice";
 import _mapAndSetToArray from "../aaa/_mapAndSetToArray";
 
 /**
@@ -14,7 +14,7 @@ import _mapAndSetToArray from "../aaa/_mapAndSetToArray";
  */
 export default function toArray(x) {
 	if (isArrayLike(x)) {
-		return _arrayLikeToArray(x);
+		return _baseSlice(x);
 	} else if (isMap(x) || isSet(x)) {
 		return _mapAndSetToArray(x);
 	} else {
