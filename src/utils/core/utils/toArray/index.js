@@ -17,7 +17,6 @@ export default function toArray(x) {
 		return _baseSlice(x);
 	} else if (isMap(x) || isSet(x)) {
 		return _mapAndSetToArray(x);
-	} else {
-		return [];
 	}
+	return [];
 }

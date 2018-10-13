@@ -7,6 +7,10 @@ function DoubleLinkedListNode(value, next, previous) {
 	this.previous = isUndefined(previous) ? null : previous;
 }
 
+/**
+ * @param {function} [callback]
+ * @return {string}
+ */
 DoubleLinkedListNode.prototype.toString = function toString(callback) {
 	return isFunction(callback) ? callback(this.value) : String(this.value);
 };

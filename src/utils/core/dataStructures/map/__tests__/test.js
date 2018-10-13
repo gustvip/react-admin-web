@@ -91,3 +91,12 @@ test("map test", () => {
 	expect(_map.values()).toEqual([]);
 	expect(_map.entries()).toEqual([]);
 });
+
+test("test undefined", () => {
+	const map5 = Map();
+	map5.set(undefined,undefined);
+	expect(map5.size).toBe(1);
+	expect(map5.has(undefined)).toBe(true);
+	expect(map5.values()).toEqual([undefined]);
+	expect(map5.entries()).toEqual([[undefined, undefined]]);
+});

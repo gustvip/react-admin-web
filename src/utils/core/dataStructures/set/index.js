@@ -2,17 +2,13 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from "../doubleLinkedList";
+import isArray from "../../utils/isArray";
+import _arrayLikeForEach from "../../utils/aaa/_arrayLikeForEach";
 
 function Set() {
 	this.doubleLinkedList = DoubleLinkedList();
+	this.size = this.doubleLinkedList.size;
 }
-
-Object.defineProperty(Set.prototype, "size", {
-	get: function() {
-		return this.doubleLinkedList.size;
-	},
-	configurable: false,
-});
 
 /**
  * 是否有此值
@@ -29,6 +25,7 @@ Set.prototype.has = function has(value) {
  */
 Set.prototype.clear = function clear() {
 	this.doubleLinkedList.clear();
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -88,6 +85,7 @@ Set.prototype.add = function add(value) {
 	} else {
 		this.doubleLinkedList.append(value);
 	}
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -98,6 +96,7 @@ Set.prototype.add = function add(value) {
  */
 Set.prototype.delete = function(value) {
 	this.doubleLinkedList.delete(value);
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -107,8 +106,8 @@ function set(object) {
 		object.forEach(function(value) {
 			_set.add(value);
 		});
-	} else if (Array.isArray(object)) {
-		object.forEach(function(value) {
+	} else if (isArray(object)) {
+		_arrayLikeForEach(object, function(value) {
 			_set.add(value);
 		});
 	}

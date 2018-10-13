@@ -2,7 +2,7 @@
  * Created by joey on 2018/6/20
  */
 import isFunction from "../isFunction";
-import isArrayLike from "../isArrayLike";
+import isArray from "../isArray";
 
 /**
  * 验证集合是否有某项符合
@@ -11,7 +11,7 @@ import isArrayLike from "../isArrayLike";
  * @returns {boolean}
  */
 export default function some(data, callback) {
-	if (isFunction(callback) && isArrayLike(data) && data.length > 0) {
+	if (isFunction(callback) && isArray(data) && data.length > 0) {
 		var i = -1;
 		var k = data.length;
 		while (++i < k) {
@@ -19,6 +19,7 @@ export default function some(data, callback) {
 				return true;
 			}
 		}
+		return false;
 	}
-	return false;
+	return true;
 }

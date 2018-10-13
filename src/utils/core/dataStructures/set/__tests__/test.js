@@ -4,12 +4,12 @@
 import Set from "../index";
 
 const mockCallback = jest.fn();
-const value1 = { name: "a" };
-const value2 = { name: "b" };
+const value1 = {name: "a"};
+const value2 = {name: "b"};
 const set1 = Set([value1]);
 const set2 = new Set(set1);
 const set3 = new Set("");
-test("test s", () => {
+test("test set", () => {
 	expect(set3.values()).toEqual([]);
 	expect(set1).toEqual(set2);
 	expect(set1.size).toBe(1);
@@ -19,7 +19,7 @@ test("test s", () => {
 	expect(set1.size).toBe(0);
 	set1.forEach(mockCallback);
 	expect(mockCallback.mock.calls.length).toBe(0);
-
+	
 	expect(set1.add(value1)).toEqual(set1);
 	expect(set1.values()).toEqual([value1]);
 	expect(set1.size).toBe(1);
@@ -31,7 +31,7 @@ test("test s", () => {
 	expect(mockCallback.mock.calls[0][0]).toEqual(value1);
 	expect(mockCallback.mock.calls[0][1]).toEqual(value1);
 	expect(mockCallback.mock.results[0].value).toBeUndefined();
-
+	
 	set1.add(value1);
 	expect(set1.values()).toEqual([value1]);
 	expect(set1.size).toBe(1);
@@ -43,7 +43,7 @@ test("test s", () => {
 	expect(mockCallback.mock.calls.length).toBe(2);
 	expect(mockCallback.mock.calls[1][0]).toEqual(value1);
 	expect(mockCallback.mock.calls[1][1]).toEqual(value1);
-
+	
 	set1.add(value2);
 	expect(set1.values()).toEqual([value1, value2]);
 	expect(set1.size).toBe(2);
@@ -62,7 +62,7 @@ test("test s", () => {
 	set1.delete(value1);
 	expect(set1.size).toBe(1);
 	expect(set1.values()).toEqual([value2]);
-
+	
 	set1.clear();
 	expect(set1.values()).toEqual([]);
 	expect(set1.size).toBe(0);
@@ -71,3 +71,13 @@ test("test s", () => {
 	expect(set1.values()).toEqual([]);
 	expect(set1.entries()).toEqual([]);
 });
+
+test("test undefined", () => {
+	const set5 = Set();
+	set5.add(undefined);
+	expect(set5.size).toBe(1);
+	expect(set5.has(undefined)).toBe(true);
+	expect(set5.values()).toEqual([undefined]);
+	expect(set5.entries()).toEqual([[undefined, undefined]]);
+});
+

@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isArrayLike from "../isArrayLike";
+import isArray from "../isArray";
 import _baseSlice from "../aaa/_baseSlice";
 
 /**
@@ -12,7 +12,7 @@ import _baseSlice from "../aaa/_baseSlice";
  * @returns {array}
  */
 export default function slice(data, startIndex, endIndex) {
-	if (isArrayLike(data) && data.length > 0) {
+	if (isArray(data) && data.length > 0) {
 		return _baseSlice(data, startIndex, endIndex);
 	}
 	return [];

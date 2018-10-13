@@ -6,7 +6,7 @@ import identity from "../identity";
 
 /**
  * 筛选集合
- * @param {array | string} [data]
+ * @param {array} [data]
  * @returns {array}
  */
 export default function compact(data) {

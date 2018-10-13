@@ -1,9 +1,10 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isArrayLike from "../isArrayLike";
+import isArray from "../isArray";
 import isFunction from "../isFunction";
 import toInteger from "../toInteger";
+import isUndefined from "../isUndefined";
 
 /**
  * 查找符合条件的索引
@@ -13,14 +14,13 @@ import toInteger from "../toInteger";
  * @returns {number}
  */
 export default function findLastIndex(x, predicate, fromIndex) {
-	if (isArrayLike(x) && isFunction(predicate) && x.length > 0) {
+	if (isArray(x) && isFunction(predicate) && x.length > 0) {
 		var len = x.length;
-		var kValue;
-		fromIndex = toInteger(fromIndex);
+		fromIndex = isUndefined(fromIndex) ? len - 1 : toInteger(fromIndex);
 		fromIndex = fromIndex >= len ? Math.min(fromIndex - len, len - 1) : fromIndex < 0 ? len - 1 : fromIndex;
 		var k = fromIndex;
 		while (k) {
-			if (predicate(kValue = x[k], k, x)) {
+			if (predicate(x[k], k, x)) {
 				return k;
 			}
 			--k;

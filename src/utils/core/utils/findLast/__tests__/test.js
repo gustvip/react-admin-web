@@ -15,7 +15,7 @@ test("test findLast", () => {
 	}, -2)).toEqual({age: 20});
 	expect(findLast(array2, (value) => {
 		return value.age > 10 && value.age < 30;
-	})).toBeUndefined();
+	})).toEqual({age: 20});
 	expect(findLast(array2, (value) => {
 		return value.age > 10 && value.age < 30;
 	}, 0)).toBeUndefined();

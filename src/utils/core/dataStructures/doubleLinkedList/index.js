@@ -1,8 +1,10 @@
 import DoubleLinkedListNode from "./doubleLinkedListNode";
 import Comparator from "../../utils/comparator";
 import isFunction from "../../utils/isFunction";
-import isUndefined from "../../utils/isUndefined";
 import isPureObject from "../../utils/isPureObject";
+import isArray from "../../utils/isArray";
+import map from "../../utils/map";
+import _arrayLikeForEach from "../../utils/aaa/_arrayLikeForEach";
 
 /**
  * 是否为空
@@ -126,7 +128,7 @@ DoubleLinkedList.prototype.find = function find(findParams) {
 		// If callback is specified then try to find node by callback.
 		if (callback && isFunction(callback) && callback(currentNode.value)) {
 			break;
-		} else if (!isUndefined(value) && this.compare.equal(currentNode.value, value)) {
+		} else if (this.compare.equal(currentNode.value, value)) {
 			break;
 		}
 		
@@ -193,8 +195,8 @@ DoubleLinkedList.prototype.toArray = function toArray() {
  */
 DoubleLinkedList.prototype.fromArray = function fromArray(values) {
 	var self = this;
-	if (Array.isArray(values)) {
-		values.forEach(function(value) {
+	if (isArray(values)) {
+		_arrayLikeForEach(values, function(value) {
 			self.append(value);
 		});
 	}
@@ -208,7 +210,7 @@ DoubleLinkedList.prototype.fromArray = function fromArray(values) {
  * @return {string}
  */
 DoubleLinkedList.prototype.toString = function toString(callback) {
-	return this.toArray().map(function(node) {
+	return map(this.toArray(), function(node) {
 		return node.toString(callback);
 	}).toString();
 };

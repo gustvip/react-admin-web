@@ -320,4 +320,16 @@ describe("Index", () => {
 		expect(node.value.customValue).toBe("test2");
 		expect(linkedList.find({ value: 2, customValue: "test5" })).toBeNull();
 	});
+	
+	it("add undefined", () => {
+		const linkedList = new Index();
+		
+		expect(linkedList.find({value: 5})).toBeNull();
+		expect(linkedList.find(111)).toBeNull();
+		
+		linkedList.append(undefined);
+		expect(linkedList.find({value: undefined})).toBeDefined();
+		expect(linkedList.size).toBe(1);
+		expect(linkedList.has(undefined)).toBe(true);
+	});
 });

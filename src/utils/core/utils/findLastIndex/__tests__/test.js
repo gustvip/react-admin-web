@@ -12,7 +12,7 @@ test("test findLastIndex", () => {
 	}, -1)).toBe(1);
 	expect(findLastIndex(array2, (value) => {
 		return value === "b";
-	})).toBe(-1);
+	})).toBe(1);
 	expect(findLastIndex(array2, (value) => {
 		return value === "b";
 	}, 0)).toBe(-1);

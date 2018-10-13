@@ -1,5 +1,5 @@
 /**
- * Created by joey on 2018/6/20
+ * Created by joey on 2018/10/15
  */
 import isFunction from "../isFunction";
 

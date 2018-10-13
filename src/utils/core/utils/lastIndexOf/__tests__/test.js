@@ -9,7 +9,7 @@ test("test lastIndexOf", () => {
 	expect(lastIndexOf(array1, 1)).toBe(-1);
 	expect(lastIndexOf(str1, null, 99)).toBe(-1);
 	expect(lastIndexOf(array2, "b", -1)).toBe(1);
-	expect(lastIndexOf(array2, "b")).toBe(-1);
+	expect(lastIndexOf(array2, "b")).toBe(1);
 	expect(lastIndexOf(array2, "b", 0)).toBe(-1);
 	expect(lastIndexOf(array2, "b", 1)).toBe(1);
 	expect(lastIndexOf(array2, "b", 2)).toBe(1);

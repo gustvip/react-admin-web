@@ -2,14 +2,8 @@ import DoubleLinkedList from "../doubleLinkedList";
 
 function Stack() {
 	this.doubleLinkedList = new DoubleLinkedList();
+	this.size = this.doubleLinkedList.size;
 }
-
-Object.defineProperty(Stack.prototype, "size", {
-	get: function() {
-		return this.doubleLinkedList.size;
-	},
-	configurable: false,
-});
 
 /**
  * @return {boolean}
@@ -31,6 +25,7 @@ Stack.prototype.has = function has(value) {
  */
 Stack.prototype.clear = function clear() {
 	this.doubleLinkedList.clear();
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -46,6 +41,7 @@ Stack.prototype.peek = function peek() {
  */
 Stack.prototype.push = function push(value) {
 	this.doubleLinkedList.append(value);
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -54,6 +50,7 @@ Stack.prototype.push = function push(value) {
  */
 Stack.prototype.pop = function pop() {
 	var removedTail = this.doubleLinkedList.deleteTail();
+	this.size = this.doubleLinkedList.size;
 	return removedTail ? removedTail.value : null;
 };
 

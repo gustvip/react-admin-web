@@ -2,17 +2,13 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from "../doubleLinkedList";
+import isArray from "../../utils/isArray";
+import _arrayLikeForEach from "../../utils/aaa/_arrayLikeForEach";
 
 function Map() {
 	this.doubleLinkedList = DoubleLinkedList(compareFunction);
+	this.size = this.doubleLinkedList.size;
 }
-
-Object.defineProperty(Map.prototype, "size", {
-	get: function() {
-		return this.doubleLinkedList.size;
-	},
-	configurable: false,
-});
 
 /**
  * 是否有此属性
@@ -39,6 +35,7 @@ Map.prototype.get = function get(key) {
  */
 Map.prototype.clear = function clear() {
 	this.doubleLinkedList.clear();
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -117,6 +114,7 @@ Map.prototype.set = function set(key, value) {
 			value: value,
 		});
 	}
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -127,6 +125,7 @@ Map.prototype.set = function set(key, value) {
  */
 Map.prototype.delete = function(key) {
 	this.doubleLinkedList.delete({key: key});
+	this.size = this.doubleLinkedList.size;
 	return this;
 };
 
@@ -149,9 +148,9 @@ function map(object) {
 		object.forEach(function(value, key) {
 			_map.set(key, value);
 		});
-	} else if (Array.isArray(object)) {
-		object.forEach(function(value) {
-			if (Array.isArray(value)) {
+	} else if (isArray(object)) {
+		_arrayLikeForEach(object, function(value) {
+			if (isArray(value)) {
 				_map.set(value[0], value[1]);
 			}
 		});

@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isArrayLike from "../isArrayLike";
+import isArray from "../isArray";
 
 /**
  * 反转类数组
@@ -10,7 +10,7 @@ import isArrayLike from "../isArrayLike";
  */
 export default function reverse(data) {
 	var s = [];
-	if (isArrayLike(data) && data.length > 0) {
+	if (isArray(data) && data.length > 0) {
 		var i = data.length;
 		var j = -1;
 		while (i--) {

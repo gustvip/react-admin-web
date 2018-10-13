@@ -1,8 +1,10 @@
 import LinkedListNode from "./linkedListNode";
 import Comparator from "../../utils/comparator";
 import isFunction from "../../utils/isFunction";
-import isUndefined from "../../utils/isUndefined";
 import isPureObject from "../../utils/isPureObject";
+import map from "../../utils/map";
+import isArray from "../../utils/isArray";
+import _arrayLikeForEach from "../../utils/aaa/_arrayLikeForEach";
 
 /**
  * 是否为空
@@ -116,7 +118,7 @@ LinkedList.prototype.find = function find(findParams) {
 		// If callback is specified then try to find node by callback.
 		if (callback && isFunction(callback) && callback(currentNode.value)) {
 			break;
-		} else if (!isUndefined(value) && this.compare.equal(currentNode.value, value)) {
+		} else if (this.compare.equal(currentNode.value, value)) {
 			break;
 		}
 		
@@ -175,8 +177,8 @@ LinkedList.prototype.deleteHead = function deleteHead() {
  */
 LinkedList.prototype.fromArray = function fromArray(values) {
 	var self = this;
-	if (Array.isArray(values)) {
-		values.forEach(function(value) {
+	if (isArray(values)) {
+		_arrayLikeForEach(values, function(value) {
 			self.append(value);
 		});
 	}
@@ -205,7 +207,7 @@ LinkedList.prototype.toArray = function toArray() {
  * @return {string}
  */
 LinkedList.prototype.toString = function toString(callback) {
-	return this.toArray().map(function(node) {
+	return map(this.toArray(), function(node) {
 		return node.toString(callback);
 	}).toString();
 };

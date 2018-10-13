@@ -3,6 +3,7 @@
  */
 import findIndex from "../utils/findIndex/index";
 import isFunction from "../utils/isFunction/index";
+import filter from "../utils/filter/index";
 
 /**
  * 内部增加监听函数处理
@@ -97,10 +98,9 @@ function trigger(type) {
 	var row = this.__selfListeners__[type];
 	var arg = arguments;
 	if (row) {
-		this.__selfListeners__[type] = row.filter(function(value) {
+		this.__selfListeners__[type] = filter(row, function(value) {
 			value.callback.apply(null, [].slice.call(arg, 1));
 			return !value.isOnce;
-			
 		});
 		if (this.__selfListeners__[type].length === 0) {
 			delete this.__selfListeners__[type];
