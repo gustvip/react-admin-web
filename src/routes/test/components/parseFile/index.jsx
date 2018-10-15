@@ -40,7 +40,7 @@ export default class TestComponent extends React.PureComponent {
 					<input
 						ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
 						multiple={false}
-						accept=".xlsx"
+						accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 						type="file"
 						onChange={(e) => e.target.files && this.handleParseXlsx(e.target.files[0])}
 					/>
@@ -55,7 +55,7 @@ export default class TestComponent extends React.PureComponent {
 					<input
 						ref={csvContainer => this.csvContainer = csvContainer}
 						multiple={false}
-						accept=".csv"
+						accept="text/csv"
 						type="file"
 						onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
 					/>

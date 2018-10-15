@@ -148,7 +148,7 @@ export function get(url, params = {}, options = {}) {
 }
 
 /**
- * Post请求
+ * Post请求 Content-Type application/x-www-form-urlencoded
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -159,12 +159,11 @@ export function post(url, data = {}, options = {}) {
 		url,
 		method: "post",
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
-		headers: {"Content-Type": "application/x-www-form-urlencoded; charset=utf-8"},
 	}, options));
 }
 
 /**
- * Post json请求
+ * Post Content-Type application/json
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -175,7 +174,6 @@ export function postJSON(url, data = {}, options = {}) {
 		url,
 		method: "post",
 		data,
-		headers: {"Content-Type": "application/json; charset=utf-8"},
 	}, options));
 }
 
@@ -197,7 +195,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 }
 
 /**
- * Restful delete
+ * Delete Content-Type application/json
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -208,12 +206,11 @@ export function del(url, data = {}, options = {}) {
 		url,
 		method: "delete",
 		data,
-		headers: {"Content-Type": "application/json; charset=utf-8"},
 	}, options));
 }
 
 /**
- * Restful put
+ * Put Content-Type application/json
  * @param {String} url
  * @param {Object} data
  * @param {Object} options
@@ -224,7 +221,6 @@ export function put(url, data = {}, options = {}) {
 		url,
 		method: "put",
 		data,
-		headers: {"Content-Type": "application/json; charset=utf-8"},
 	}, options));
 }
 
