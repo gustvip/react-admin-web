@@ -7,78 +7,52 @@ import {Button, Input, Table} from "antd";
 import Link from "react-router-dom/Link";
 import {MainContent} from "templates/mainLayout/index";
 import EnumRouter from "constants/enumRouter";
+import * as webAPI from "../../webAPI/list";
 import React from "react";
 
-import assign from "lodash/assign";
 import debounce from "lodash/debounce";
 import style from "../../scss/list/index.scss";
-import * as actionTypes from "../../actions/list/index";
 
 @T.decorate.contextTypes("router")
 class List extends React.PureComponent {
-	/**
-	 * 获取用户所有信息
-	 */
-	componentDidMount() {
-		const self = this;
-		self.props.dispatch(actionTypes.getInitialDataAction({
-			currentPage: self.props.mapProps.currentPage,
-			pageSize: self.props.mapProps.pageSize,
-		}));
+	constructor() {
+		super();
+		this.state = {
+			currentPage: 1,
+			pageSize: 2,
+			count: 10,
+			totalPages: 1,
+			dataSource: [],
+			selectedRowKeys: [],
+			selectedRows: [],
+			search: "",
+		};
 	}
 	
-	/**
-	 * 删除相关用户
-	 * @param {Number || Array} userId
-	 */
+	componentDidMount() {
+		this.getList(1, this.state.pageSize, this.state.search);
+	}
+	
+	getList = (currentPage, pageSize, search) => {
+		webAPI.getUserList(currentPage, pageSize, search).then(info => {
+			const data = info.data;
+			this.setState({
+				currentPage,
+				pageSize: data.pageSize,
+				count: data.count,
+				totalPages: data.totalPages,
+				dataSource: data.data,
+				selectedRowKeys: [],
+				selectedRows: [],
+			});
+		}).catch(info => T.prompt.error(info.msg));
+	};
+	
 	handleDelete = (userId) => {
-		const userIdCollection = [];
-		const self = this;
-		if (T.helper.isUsefulNumber(userId)) {
-			userIdCollection.push(userId);
-		} else if (T.helper.checkArray(userId)) {
-			userId.forEach(item => userIdCollection.push(self.props.mapProps.dataSource[item].userId));
-		}
-		
-		T.helper.checkArray(userIdCollection) && self.props.dispatch(actionTypes.deleteUserAction({
-			userId: userIdCollection,
-			currentPage: self.props.mapProps.currentPage,
-			pageSize: self.props.mapProps.pageSize,
-		}));
 	};
 	
-	/**
-	 * 选中行
-	 * @param {Array} selectedRowKeys
-	 */
-	handleSelectedRowKeys = (selectedRowKeys) => {
-		this.props.dispatch(actionTypes.setDeleteRowAction(selectedRowKeys));
-	};
-	
-	/**
-	 * 搜索
-	 * @param {string} value
-	 */
-	handleSearch = (value) => {
-		const self = this;
-		self.props.dispatch(actionTypes.setUserSearchAction({
-			userInfo: value,
-			limitLength: self.props.mapProps.pageSize,
-		}));
-	};
-	
-	/**
-	 * 获取表格配置
-	 * @returns {*[]}
-	 */
 	get columns() {
-		const self = this;
-		
 		return [
-			{
-				title: "id",
-				dataIndex: "userId",
-			},
 			{
 				title: "名称",
 				dataIndex: "userName",
@@ -109,92 +83,31 @@ class List extends React.PureComponent {
 				dataIndex: "updatedAt",
 				render: val => new Date(val).toLocaleDateString(),
 			},
-			{
-				title: "操作",
-				dataIndex: "",
-				render: (val, row) => {
-					return (
-						<div>
-							<Button
-								type="primary"
-								onClick={() => self.handleDelete(row.userId)}
-							>
-								删除
-							</Button>
-							<Link
-								to={{
-									pathname: EnumRouter.userEdit,
-									state: {
-										userId: row.userId,
-									},
-								}}
-							>
-								<Button
-									type="primary"
-								>
-									编辑
-								</Button>
-							</Link>
-							<Link
-								to={{
-									pathname: EnumRouter.orderAdd,
-									state: {
-										userId: row.userId,
-									},
-								}}
-							>
-								<Button
-									type="primary"
-								>
-									新增订单
-								</Button>
-							</Link>
-						</div>
-					);
-				},
-			},
 		];
 	}
 	
-	/**
-	 * 获取表格数据
-	 */
-	get dataSource() {
-		return this.props.mapProps.dataSource.map((item, index) => assign({}, item, {key: index}));
-	}
-	
-	/**
-	 * 分页
-	 * @returns {{current: *, total: ((key?: (IDBKeyRange | IDBValidKey)) => IDBRequest) | ((countTitle?: string) => void), pageSize: *, showQuickJumper: boolean, onChange(*=, *=): void}}
-	 */
 	get pagination() {
 		const self = this;
-		
 		return {
-			current: self.props.mapProps.currentPage,
-			total: self.props.mapProps.count,
-			pageSize: self.props.mapProps.pageSize,
+			current: self.state.currentPage,
+			total: self.state.count,
+			pageSize: self.state.pageSize,
 			showQuickJumper: true,
 			onChange(currentPage, pageSize) {
-				self.props.dispatch(actionTypes.getUserListAction({
-					currentPage,
-					pageSize,
-				}));
+				self.getList(currentPage, pageSize, self.state.search);
 			},
 		};
 	}
 	
-	/**
-	 * 行选中
-	 * @return {*}
-	 */
 	get rowSelection() {
 		const self = this;
-		
 		return {
-			selectedRowKeys: self.props.mapProps.selectedRowKeys,
-			onChange(selectedRowKeys) {
-				return self.handleSelectedRowKeys(selectedRowKeys);
+			selectedRowKeys: self.state.selectedRowKeys,
+			onChange(selectedRowKeys, selectedRows) {
+				self.setState({
+					selectedRowKeys,
+					selectedRows,
+				});
 			},
 		};
 	}
@@ -207,18 +120,32 @@ class List extends React.PureComponent {
 					<header className={style["table-header-container"]}>
 						<div className={style["left-container"]}>
 							<Button
+								disabled={this.state.selectedRows.length === 0}
 								type="primary"
-								onClick={debounce(() => self.handleDelete(self.props.mapProps.selectedRowKeys), 300)}
+								onClick={debounce(() => this.handleDelete(self.state.selectedRows), 300)}
 							>
 								删除
 							</Button>
+							<Button
+								disabled={this.state.selectedRows.length !== 1}
+								type="primary"
+							>
+								编辑
+							</Button>
 						</div>
 						<div className={style["right-container"]}>
-							<Input.Search placeholder="请搜索" onSearch={debounce(value => self.handleSearch(value), 300)}/>
+							<Input.Search
+								onChange={event => this.setState({search: event.target.value})}
+								placeholder="请搜索"
+								onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
+							/>
 						</div>
 					</header>
 					<Table
-						dataSource={self.dataSource}
+						dataSource={self.state.dataSource.map(value => ({
+							...value,
+							key: value.userId,
+						}))}
 						columns={self.columns}
 						pagination={self.pagination}
 						rowSelection={self.rowSelection}

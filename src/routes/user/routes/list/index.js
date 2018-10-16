@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import Index from "../../components/list/index";
 
 /**
@@ -11,10 +11,7 @@ import Index from "../../components/list/index";
  * @param ownProps
  */
 const mapStateToProps = (state, ownProps) => {
-	return {
-		mapProps: state.userListReducer,
-		...ownProps,
-	};
+	return {...ownProps};
 };
 
 /**
@@ -22,9 +19,7 @@ const mapStateToProps = (state, ownProps) => {
  * @param dispatch
  */
 const mapDispatchToProps = (dispatch) => {
-	return {
-		dispatch,
-	};
+	return {dispatch};
 };
 
 /**

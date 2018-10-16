@@ -8,18 +8,10 @@ import {MenuAndHeaderLayout} from "templates/mainLayout";
 
 import UserList from "./routes/list";
 
-import userListReducer from "./reducers/list";
-
 export default AssembleRoute([
 	{
 		layout: MenuAndHeaderLayout,
 		path: EnumRouter.userList,
 		component: UserList,
-		reducers: [
-			{
-				name: "userListReducer",
-				reducer: userListReducer,
-			},
-		],
 	},
 ]);

@@ -3,15 +3,17 @@
  */
 import React from "react";
 import styles from "../../scss/register/index.scss";
-import {Form, Input, Button} from "antd";
+import {Form, Input, Button, Radio} from "antd";
 import regExpHelper from "utils/core/regexp";
 import crypto from "utils/core/crypto";
 import PropTypes from "prop-types";
 import enumRouter from "constants/enumRouter";
+import {ALL_SEX} from "constants/app/common";
 import prompt from "utils/core/prompt";
 import * as webAPI from "../../webAPI/register/index";
 import bg from "../../img/bg.jpeg";
 
+const RadioGroup = Radio.Group;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
@@ -49,10 +51,21 @@ class RegisterComponent extends React.PureComponent {
 						setTimeout(() => {
 							self.context.router.history.push(enumRouter.login);
 						}, 1000);
-					}).catch(info => prompt.error(info.msg));
+					}).catch(info => {
+						prompt.error(info.msg);
+						self.setState({loading: false});
+					});
 				});
 			}
 		});
+	};
+	
+	handleConfirmPassword = (rule, value, callback) => {
+		if (value && value !== this.props.form.getFieldValue("userPassword")) {
+			callback("两次输入的密码不一致");
+		} else {
+			callback();
+		}
 	};
 	
 	render() {
@@ -65,6 +78,7 @@ class RegisterComponent extends React.PureComponent {
 					onSubmit={this.handleSubmit}
 				>
 					<Form.Item
+						hasFeedback
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userName", {
@@ -83,6 +97,7 @@ class RegisterComponent extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						hasFeedback
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userPassword", {
@@ -101,6 +116,23 @@ class RegisterComponent extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						hasFeedback
+						{...formItemLayout}
+					>
+						{getFieldDecorator("confirmPassword", {
+							rules: [
+								{
+									required: true,
+									message: "请再次填写密码",
+								},
+								{validator: this.handleConfirmPassword},
+							],
+						})(
+							<Input type="password" placeholder="请再次填写密码"/>,
+						)}
+					</Form.Item>
+					<Form.Item
+						hasFeedback
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userEmail", {
@@ -119,6 +151,7 @@ class RegisterComponent extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						hasFeedback
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userPhone", {
@@ -134,6 +167,63 @@ class RegisterComponent extends React.PureComponent {
 							],
 						})(
 							<Input placeholder="请填写手机"/>,
+						)}
+					</Form.Item>
+					<Form.Item
+						hasFeedback
+						{...formItemLayout}
+					>
+						{getFieldDecorator("name", {
+							rules: [
+								{
+									required: true,
+									message: "请填写姓名",
+								},
+								{
+									pattern: regExpHelper.name,
+									message: "姓名格式不对",
+								},
+							],
+						})(<Input placeholder="请填写姓名"/>)}
+					</Form.Item>
+					<Form.Item
+						{...formItemLayout}
+					>
+						{getFieldDecorator("userSex", {
+							rules: [
+								{
+									required: true,
+									message: "请选择性别",
+								},
+								{
+									type: "enum",
+									enum: ["0", "1", "2"],
+									message: "性别枚举不对",
+								},
+							],
+						})(
+							<RadioGroup>
+								{
+									Object.values(ALL_SEX).map(value => {
+										return <Radio key={value.value} value={value.value}>{value.label}</Radio>;
+									})
+								}
+							</RadioGroup>,
+						)}
+					</Form.Item>
+					<Form.Item
+						{...formItemLayout}
+					>
+						{getFieldDecorator("userDescription", {
+							rules: [
+								{required: false},
+								{
+									max: 50,
+									message: "描述不能超过50字",
+								},
+							],
+						})(
+							<Input.TextArea placeholder="请填写描述"/>,
 						)}
 					</Form.Item>
 					<Form.Item

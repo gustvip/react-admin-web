@@ -9,6 +9,10 @@
 	word-wrap: break-word;
 }
 
+textarea {
+	resize: none !important;
+}
+
 canvas {
 	display: block;
 }

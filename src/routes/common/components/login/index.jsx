@@ -9,22 +9,17 @@ import prompt from "utils/core/prompt";
 import * as decorate from "utils/core/decorate";
 
 import styles from "../../scss/login/index.scss";
-import {Button, Input, Checkbox} from "antd";
+import {Button, Input} from "antd";
 import {Link} from "react-router-dom";
 import bg from "../../img/bg.jpeg";
 
 @decorate.contextTypes("router")
 class Login extends React.PureComponent {
-	
-	static userNameStorageValue = auth.getUserNameStorageValue();
-	static userPasswordStorageValue = auth.getUserPasswordStorageValue();
-	
 	constructor() {
 		super();
 		this.state = {
-			isRemember: true,
-			userName: Login.userNameStorageValue ? Login.userNameStorageValue : "",
-			userPassword: Login.userPasswordStorageValue ? Login.userPasswordStorageValue : "",
+			userName: "",
+			userPassword: "",
 			loading: false,
 		};
 	}
@@ -35,7 +30,7 @@ class Login extends React.PureComponent {
 			return false;
 		}
 		
-		if (!(userPassword === Login.userPasswordStorageValue || regExp.password.test(userPassword))) {
+		if (!regExp.password.test(userPassword)) {
 			prompt.warn("密码格式不对");
 			return false;
 		}
@@ -48,26 +43,13 @@ class Login extends React.PureComponent {
 		let userPassword = self.state.userPassword.trim();
 		
 		if (self.checkParam(userName, userPassword)) {
+			userPassword = crypto.hmacSHA512(userPassword, userPassword);
 			self.setState({loading: true}, () => {
-				
-				userPassword = userPassword === Login.userPasswordStorageValue
-					? Login.userPasswordStorageValue
-					: crypto.hmacSHA512(userPassword, userPassword);
-				
 				auth.login(
 					userName,
 					userPassword,
 					() => {
 						prompt.success("登陆成功,正在跳转");
-						
-						if (self.state.isRemember) {
-							auth.setUserNameStorageValue(userName);
-							auth.setUserPasswordStorageValue(userPassword);
-						} else {
-							auth.removeUserNameStorageValue();
-							auth.removeUserPasswordStorageValue();
-						}
-						
 						auth.setLoginStorageValue();
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
@@ -113,12 +95,6 @@ class Login extends React.PureComponent {
 						登&nbsp;&nbsp;录
 					</Button>
 					<footer>
-						<Checkbox
-							onChange={event => self.setState({isRemember: event.target.checked})}
-							checked={self.state.isRemember}
-						>
-							记住我
-						</Checkbox>
 						<Link to={enumRouter.register}>注册</Link>
 					</footer>
 				

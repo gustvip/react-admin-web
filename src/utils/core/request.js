@@ -3,7 +3,7 @@
  */
 import axios from "axios";
 import forOwn from "lodash/forOwn";
-import isPlainObject from "lodash/isPlainObject";
+import isObjectLike from "lodash/isObjectLike";
 import noop from "lodash/noop";
 import merge from "lodash/merge";
 import transform from "lodash/transform";
@@ -30,7 +30,7 @@ function objectToFormData(obj, form, namespace) {
 			formKey = property;
 		}
 		
-		if (isPlainObject(value) && !isFile(value)) {
+		if (isObjectLike(value) && !isFile(value)) {
 			objectToFormData(obj[property], fd, formKey);
 		} else {
 			fd.append(formKey, obj[property]);

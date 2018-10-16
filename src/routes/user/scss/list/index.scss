@@ -6,6 +6,11 @@
 	border-radius: 4px;
 	.left-container {
 		float: left;
+		:global {
+			.ant-btn {
+				margin-right: 8px;
+			}
+		}
 	}
 	.right-container {
 		float: right;
