@@ -20,7 +20,7 @@ export const getUserList = (currentPage, pageSize, search) => T.request.get(enum
 
 /**
  * 删除用户
- * @param {Array} condition {{user_id: Array ,currentPage: Number, pageSize: Number}}
+ * @param {Array} userId
  * @return {Promise}
  */
-export const deleteUser = condition => T.request.del(enumAPI.userDelete, {userId: condition});
+export const deleteUser = (userId) => T.request.del(enumAPI.userDelete, {userId});

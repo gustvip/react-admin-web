@@ -1,19 +1,18 @@
 /**
  * Created by joey on 18-2-7
  */
-
 import T from "utils/t";
 import PropTypes from "prop-types";
 import {EnumIconTypes} from "constants/enumDefaultMenus";
-import merge from "lodash/merge";
-import isEqual from "lodash/isEqual";
-import find from "lodash/find";
-import flowRight from "lodash/flowRight";
 import {Select, Menu, Icon, Layout} from "antd";
 import style from "./mainLayout.scss";
 import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil";
 import * as React from "react";
 import Link from "react-router-dom/Link";
+
+import merge from "lodash/merge";
+import isEqual from "lodash/isEqual";
+import flowRight from "lodash/flowRight";
 
 /**
  * 获取图标字体
@@ -79,11 +78,12 @@ MainContent.propTypes = {
 	children: PropTypes.node,
 };
 
-@T.decorate.propTypes({
-	handleCollapsed: PropTypes.func.isRequired,
-	isCollapsed: PropTypes.bool.isRequired,
-})
 class SiderMenu extends React.PureComponent {
+	static propTypes = {
+		handleCollapsed: PropTypes.func.isRequired,
+		isCollapsed: PropTypes.bool.isRequired,
+	};
+	
 	constructor() {
 		super();
 		const locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
@@ -218,7 +218,7 @@ export class HeaderLayout extends React.PureComponent {
 			<div className={style["drop-down-menu-container"]}>
 				<Select
 					onChange={value => self.context.router.history.push(value)}
-					value={find(EnumMenus, value => value.url.indexOf(self.locationPathname) !== -1).url[0]}
+					value={EnumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1).url[0]}
 				>
 					{
 						EnumMenus.map((item, index) => {

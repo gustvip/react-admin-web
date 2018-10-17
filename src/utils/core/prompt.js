@@ -58,6 +58,7 @@ class Prompt {
 			okText: "确定",
 			cancelText: "取消",
 			onCancel: noop,
+			onOk: noop,
 		}, options);
 
 		return Modal.confirm(options);

@@ -4,11 +4,10 @@
 
 import T from "utils/t";
 import EnumDefaultMenus from "constants/enumDefaultMenus";
-import assign from "lodash/assign";
 import uniq from "lodash/uniq";
 import flowRight from "lodash/flowRight";
-import find from "lodash/find";
 import identity from "lodash/identity";
+import isString from "lodash/isString";
 import isPlainObject from "lodash/isPlainObject";
 
 /**
@@ -31,13 +30,13 @@ export const EnumMenus = (() => {
 		let resultUrl = [];
 		let resultChildren = [];
 		
-		if (T.helper.checkArray(children)) {
+		if (Array.isArray(children) && children.length) {
 			resultChildren = children.map((item) => {
-				if (T.helper.checkArray(item.children)) {
+				if (Array.isArray(item.children) && item.children.length) {
 					const result = formatData(item.children);
 					resultUrl = resultUrl.concat(result.resultUrl);
 					
-					return assign(
+					return Object.assign(
 						{},
 						item,
 						{
@@ -45,7 +44,7 @@ export const EnumMenus = (() => {
 							url: uniq(
 								(Array.isArray(item.url)
 									? item.url
-									: T.helper.checkString(item.url)
+									: isString(item.url)
 										? [item.url]
 										: []
 								).concat(result.resultUrl),
@@ -53,18 +52,18 @@ export const EnumMenus = (() => {
 						},
 					);
 				}
-				if (Array.isArray(item.url) || T.helper.checkString(item.url)) {
+				if (Array.isArray(item.url) || isString(item.url)) {
 					resultUrl = resultUrl.concat(item.url);
 				}
 				
-				return assign(
+				return Object.assign(
 					{},
 					item,
 					{
 						children: [],
 						url: Array.isArray(item.url)
 							? uniq(item.url)
-							: T.helper.checkString(item.url)
+							: isString(item.url)
 								? [item.url]
 								: [],
 					},
@@ -86,7 +85,7 @@ export const EnumMenus = (() => {
 			mapUrlToCategory[locationPathname] = {category: item.value};
 		});
 		
-		return assign(
+		return Object.assign(
 			{},
 			item,
 			{
@@ -94,7 +93,7 @@ export const EnumMenus = (() => {
 				url: uniq(
 					(Array.isArray(item.url)
 						? item.url
-						: T.helper.checkString(item.url)
+						: isString(item.url)
 							? [item.url]
 							: []
 					).concat(result.resultUrl),
@@ -124,7 +123,7 @@ export const getCategoryData = (locationPathname) => {
  * @return {Array}
  */
 export const getCategoryChildrenData = (category) => {
-	const result = find(EnumMenus, item => item.value === category);
+	const result = EnumMenus.find(item => item.value === category);
 	
 	return isPlainObject(result)
 		? Array.isArray(result.children)
@@ -147,7 +146,7 @@ export const getCategoryRoute = flowRight(getCategoryChildrenData, getCategoryDa
  */
 export const getMenuData = (locationPathname) => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
-	const result = find(getCategoryRoute(locationPathname), item => item.url.indexOf(locationPathname) !== -1);
+	const result = getCategoryRoute(locationPathname).find(item => item.url.indexOf(locationPathname) !== -1);
 	
 	return isPlainObject(result)
 		? Array.isArray(result.children)
@@ -167,15 +166,10 @@ export const getOpenKeys = (locationPathname) => {
 	const data = [];
 	
 	(function fn(_dataSource) {
-		/**
-		 * 从顶层开始判断当前的location.pathname是否在其中
-		 * 如果在将对应的url[0]添加到返回的data中
-		 * 如果该行的children为长度大于0的数组则继续递归
-		 */
-		const result = find(_dataSource, item => item.url.indexOf(locationPathname) !== -1);
+		const result = _dataSource.find(item => item.url.indexOf(locationPathname) !== -1);
 		if (result) {
 			data.push(result.id);
-			T.helper.checkArray(result.children) && fn(result.children);
+			Array.isArray(result.children) && result.children.length && fn(result.children);
 		}
 	}(dataSource));
 	return data.slice(0, data.length - 1);

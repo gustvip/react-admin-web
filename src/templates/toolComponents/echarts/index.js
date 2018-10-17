@@ -7,7 +7,6 @@ import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
 import classNames from "classnames";
-import assign from "lodash/assign";
 import merge from "lodash/merge";
 import debounce from "lodash/debounce";
 
@@ -16,21 +15,21 @@ export default class Chart extends React.PureComponent {
 		className: PropTypes.string,
 		theme: PropTypes.string,
 		style: PropTypes.object,
-		extraOptions: PropTypes.object,
-		options: PropTypes.object.isRequired,
+		extraOption: PropTypes.object,
+		option: PropTypes.object.isRequired,
 	};
-
-	constructor(props) {
-		super(props);
+	
+	constructor() {
+		super();
 		this.chart = null;
 		this.chartContainer = null;
 	}
-
+	
 	get echartsInstance() {
 		return this.chart;
 	}
-
-	get defaultOptions() {
+	
+	get defaultOption() {
 		return {
 			backgroundColor: "#efefef",
 			color: ["#f00", "#ff0", "#61a0a8", "#d48265", "#91c7ae", "#749f83", "#ca8622", "#bda29a", "#6e7074", "#546570", "#c4ccd3"],
@@ -100,7 +99,7 @@ export default class Chart extends React.PureComponent {
 					fontSize: 14,
 				},
 			},
-
+			
 			xAxis: {
 				axisLine: {
 					show: true,
@@ -183,24 +182,23 @@ export default class Chart extends React.PureComponent {
 				}],
 		};
 	}
-
+	
 	componentDidMount() {
 		const self = this;
-		self.chart = echarts.init(self.chartContainer, self.props.theme || "", assign({
+		self.chart = echarts.init(self.chartContainer, self.props.theme || "", Object.assign({
 			height: 300,
 			width: "auto",
-		}, self.props.extraOptions));
-		self.chart.setOption(merge(self.defaultOptions, self.props.options));
-		self.chart.resize();
+		}, self.props.extraOption));
+		self.chart.setOption(merge(self.defaultOption, self.props.option));
 		window.addEventListener("resize", debounce(() => {
 			self.chart.resize();
 		}, 300));
 	}
-
+	
 	render() {
 		return (
 			<div
-				style={assign({}, this.props.style)}
+				style={Object.assign({}, this.props.style)}
 				className={classNames(this.props.className)}
 				ref={chartContainer => this.chartContainer = chartContainer}
 			/>

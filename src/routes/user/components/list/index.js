@@ -4,11 +4,10 @@
 
 import T from "utils/t";
 import {Button, Input, Table} from "antd";
-import Link from "react-router-dom/Link";
 import {MainContent} from "templates/mainLayout/index";
-import EnumRouter from "constants/enumRouter";
 import * as webAPI from "../../webAPI/list";
 import React from "react";
+import {userSex, userType, userStatus} from "constants/app/common";
 
 import debounce from "lodash/debounce";
 import style from "../../scss/list/index.scss";
@@ -19,7 +18,7 @@ class List extends React.PureComponent {
 		super();
 		this.state = {
 			currentPage: 1,
-			pageSize: 2,
+			pageSize: 10,
 			count: 10,
 			totalPages: 1,
 			dataSource: [],
@@ -48,11 +47,31 @@ class List extends React.PureComponent {
 		}).catch(info => T.prompt.error(info.msg));
 	};
 	
-	handleDelete = (userId) => {
+	handleDelete = () => {
+		T.prompt.confirm({
+			onOk: () => webAPI.deleteUser(this.state.selectedRows.map(value => value.userId)).
+				then(() => this.getList(1, this.state.pageSize, this.state.search)).
+				catch(info => T.prompt.error(info.msg)),
+		});
 	};
 	
 	get columns() {
 		return [
+			{
+				title: "姓名",
+				dataIndex: "name",
+			},
+			{
+				title: "性别",
+				dataIndex: "userSex",
+				render(text) {
+					return Object.values(userSex).find(value => value.value === text).label;
+				},
+			},
+			{
+				title: "描述",
+				dataIndex: "userDescription",
+			},
 			{
 				title: "名称",
 				dataIndex: "userName",
@@ -67,11 +86,17 @@ class List extends React.PureComponent {
 			},
 			{
 				title: "状态",
-				dataIndex: "deleteStatus",
+				dataIndex: "userStatus",
+				render(text) {
+					return Object.values(userStatus).find(value => value.value === text).label;
+				},
 			},
 			{
 				title: "用户类型",
 				dataIndex: "userType",
+				render(text) {
+					return Object.values(userType).find(value => value.value === text).label;
+				},
 			},
 			{
 				title: "创建时间",
@@ -122,7 +147,7 @@ class List extends React.PureComponent {
 							<Button
 								disabled={this.state.selectedRows.length === 0}
 								type="primary"
-								onClick={debounce(() => this.handleDelete(self.state.selectedRows), 300)}
+								onClick={() => this.handleDelete()}
 							>
 								删除
 							</Button>

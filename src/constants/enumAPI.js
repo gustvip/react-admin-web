@@ -21,7 +21,6 @@ const API = {
 	userDelete: _userAPI("/user/delete"),
 	userDetail: _userAPI("/user/detail"),
 	userUpdate: _userAPI("/user/update"),
-	userSearch: _userAPI("/user/search"),
 	userList: _userAPI("/user/list"),
 	userParseXlsx: _userAPI("/user/parseXlsx"),
 	userParseCsv: _userAPI("/user/parseCsv"),

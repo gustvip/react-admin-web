@@ -4,7 +4,6 @@
 
 import PropTypes from "prop-types";
 import {STORE_INJECT} from "store.js";
-import * as decorate from "utils/core/decorate";
 import {Spin} from "antd";
 import auth from "utils/core/auth";
 
@@ -14,22 +13,25 @@ import auth from "utils/core/auth";
  */
 const injectReducers = reducers => ({[STORE_INJECT]: reducers});
 
-@decorate.contextTypes("store", "router")
-@decorate.propTypes({
-	lazyLoader: PropTypes.func.isRequired,
-	reducers: PropTypes.arrayOf(
-		PropTypes.shape({
-			name: PropTypes.string.isRequired,
-			reducer: PropTypes.func.isRequired,
-		}).isRequired,
-	),
-})
-class LazyLoadTpl extends React.PureComponent {
-
+export default class LazyLoadTpl extends React.PureComponent {
+	static contextTypes = {
+		store: PropTypes.object.isRequired,
+		router: PropTypes.object.isRequired,
+	};
+	static propTypes = {
+		lazyLoader: PropTypes.func.isRequired,
+		reducers: PropTypes.arrayOf(
+			PropTypes.shape({
+				name: PropTypes.string.isRequired,
+				reducer: PropTypes.func.isRequired,
+			}).isRequired,
+		),
+	};
+	
 	state = {
 		Component: null,
 	};
-
+	
 	componentDidMount() {
 		const self = this;
 		const {defaultQuery, login} = ENV;
@@ -46,20 +48,17 @@ class LazyLoadTpl extends React.PureComponent {
 			});
 		}
 	}
-
+	
 	render() {
 		const self = this;
 		const Component = self.state.Component;
-
+		
 		if (Component) {
 			if (Array.isArray(self.props.reducers) && self.props.reducers.length > 0) {
 				self.context.store.dispatch(injectReducers(self.props.reducers));
 			}
 			return <Component {...self.props}/>;
-		} else {
-			return <Spin size="large"/>;
 		}
+		return <Spin size="large"/>;
 	}
 }
-
-export default LazyLoadTpl;

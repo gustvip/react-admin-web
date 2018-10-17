@@ -8,10 +8,11 @@ import regExpHelper from "utils/core/regexp";
 import crypto from "utils/core/crypto";
 import PropTypes from "prop-types";
 import enumRouter from "constants/enumRouter";
-import {ALL_SEX} from "constants/app/common";
+import {userSex} from "constants/app/common";
 import prompt from "utils/core/prompt";
 import * as webAPI from "../../webAPI/register/index";
 import bg from "../../img/bg.jpeg";
+import auth from "utils/core/auth";
 
 const RadioGroup = Radio.Group;
 const formItemLayout = {
@@ -40,17 +41,20 @@ class RegisterComponent extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				self.setState({loading: true}, () => {
-					const {userName, userPassword, userEmail, userPhone} = values;
+					const {userName, userPassword, userEmail, userPhone, userDescription, userSex, name} = values;
 					webAPI.userAdd({
 						userName,
 						userPassword: crypto.hmacSHA512(userPassword, userPassword),
 						userEmail,
 						userPhone,
+						userDescription,
+						userSex,
+						name,
 					}).then(() => {
-						prompt.success("注册成功,正在跳转至登陆页面");
-						setTimeout(() => {
-							self.context.router.history.push(enumRouter.login);
-						}, 1000);
+						prompt.success("正在跳转");
+						setTimeout(() => self.context.router.history.push(
+							auth.isLogin ? ENV.login.defaultRedirectUrl : enumRouter.login,
+						), 1000);
 					}).catch(info => {
 						prompt.error(info.msg);
 						self.setState({loading: false});
@@ -89,7 +93,7 @@ class RegisterComponent extends React.PureComponent {
 								},
 								{
 									pattern: regExpHelper.name,
-									message: "不能有空格。名称可以是数字、字母、中文、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)",
+									message: "不能有空格。名称可以是数字、字母、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)",
 								},
 							],
 						})(
@@ -180,8 +184,8 @@ class RegisterComponent extends React.PureComponent {
 									message: "请填写姓名",
 								},
 								{
-									pattern: regExpHelper.name,
-									message: "姓名格式不对",
+									max: 10,
+									message: "姓名长度不能超过10",
 								},
 							],
 						})(<Input placeholder="请填写姓名"/>)}
@@ -190,6 +194,7 @@ class RegisterComponent extends React.PureComponent {
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userSex", {
+							initialValue: userSex.secret.value,
 							rules: [
 								{
 									required: true,
@@ -197,14 +202,14 @@ class RegisterComponent extends React.PureComponent {
 								},
 								{
 									type: "enum",
-									enum: ["0", "1", "2"],
+									enum: Object.values(userSex).map(value => value),
 									message: "性别枚举不对",
 								},
 							],
 						})(
 							<RadioGroup>
 								{
-									Object.values(ALL_SEX).map(value => {
+									Object.values(userSex).map(value => {
 										return <Radio key={value.value} value={value.value}>{value.label}</Radio>;
 									})
 								}
@@ -215,6 +220,7 @@ class RegisterComponent extends React.PureComponent {
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userDescription", {
+							initialValue: "",
 							rules: [
 								{required: false},
 								{

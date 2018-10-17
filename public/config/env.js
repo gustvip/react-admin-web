@@ -1,38 +1,38 @@
-(function () {
-	'use strict';
-	var rootPath = '/pw/';
-	var apiDomain = 'http://localhost:8081';
+(function() {
+	"use strict";
+	var rootPath = "/pw/";
+	var apiDomain = "http://localhost:8081";
 	
-	Object.defineProperty(window, 'ENV', {
+	Object.defineProperty(window, "ENV", {
 		value: immutable({
 			apiDomain: apiDomain,         // api请求接口
 			rootPath: rootPath,                       	// 路由的根路径
 			apiSuccessCode: 0,                          // api响应成功的code
 			apiFailCode: 900,                          // api响应失败的code
-			defaultQuery: 'redirect_uri',							// 跳转时search的key
+			defaultQuery: "redirect_uri",							// 跳转时search的key
 			
 			login: {
 				isCheckLogin: true,                            // web端是否验证登录
-				defaultRedirectUrl: rootPath + 'user/list',  // 登录成功默认重定向的url
-				loginUrl: rootPath + 'login',                   // 登录页面url
+				defaultRedirectUrl: rootPath + "user/list",  // 登录成功默认重定向的url
+				loginUrl: rootPath + "login",                   // 登录页面url
 				noCheckIsLoginRoutes: [    						// 不需要验证是否登录的路由配置
-					rootPath + 'login',
-					rootPath + 'register',
+					rootPath + "login",
+					rootPath + "register",
 				],
 			},
 			
 			localStorage: {
 				login: {
-					key: '__LOGIN_USER_INFO__',		// 私有localStorage的key下的登陆的key
-					value: '__LOGIN_USER_INFO__',									// 私有localStorage的key下的登陆的value
+					key: "__LOGIN_USER_INFO__",		// 私有localStorage的key下的登陆的key
+					value: "__LOGIN_USER_INFO__",									// 私有localStorage的key下的登陆的value
 					expire: 24 * 60 * 60 * 1000,		// 私有localStorage的key下的登陆的expire
 				},
 				userName: {
-					key: '__user_name__',		// 私有localStorage的key下的用户名key
+					key: "__user_name__",		// 私有localStorage的key下的用户名key
 					expire: 0,		// 私有localStorage的key下的登陆的expire
 				},
 				userPassword: {
-					key: '__user_password__',		// 私有localStorage的key下的用户密码key
+					key: "__user_password__",		// 私有localStorage的key下的用户密码key
 					expire: 0,		// 私有localStorage的key下的登陆的expire
 				},
 			},
@@ -42,11 +42,11 @@
 	});
 	
 	function isObject(x) {
-		return Object.prototype.toString.call(x) === '[object Object]';
+		return Object.prototype.toString.call(x) === "[object Object]";
 	}
 	
 	function immutable(data, callback) {
-		callback = callback ? callback : function (value, key) {
+		callback = callback ? callback : function(value, key) {
 			return value;
 		};
 		
@@ -55,7 +55,7 @@
 			
 			if (Array.isArray(_data)) {
 				result = [];
-				_data.forEach(function (value, key) {
+				_data.forEach(function(value, key) {
 					Object.defineProperty(result, key, {
 						value: fn(callback(value, key)),
 						configurable: false,
@@ -64,7 +64,7 @@
 			} else if (isObject(_data)) {
 				result = {};
 				for (var key in _data) {
-					if (_data.hasOwnProperty(key)) {
+					if (Object.prototype.hasOwnProperty.call(_data, key)) {
 						Object.defineProperty(result, key, {
 							value: fn(callback(_data[key], key)),
 							configurable: false,
