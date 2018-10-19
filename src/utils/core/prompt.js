@@ -2,10 +2,8 @@
  * Created by joey on 2018/02/19
  */
 
-import Modal from "antd/lib/modal";
-import message from "antd/lib/message";
-import "antd/lib/message/style";
-import "antd/lib/modal/style";
+import {Modal} from "antd";
+import {message} from "antd";
 
 import noop from "lodash/noop";
 import merge from "lodash/merge";
@@ -16,7 +14,7 @@ class Prompt {
 			duration: 2,
 		});
 	}
-
+	
 	/**
 	 * 提示成功
 	 * @param {String} msg
@@ -26,7 +24,7 @@ class Prompt {
 	success(msg, duration = 2, onClose = noop) {
 		message.success(msg, duration, onClose);
 	}
-
+	
 	/**
 	 * 提示错误
 	 * @param {String} msg
@@ -36,7 +34,7 @@ class Prompt {
 	error(msg, duration = 2, onClose = noop) {
 		message.error(msg, duration, onClose);
 	}
-
+	
 	/**
 	 * 提示警告
 	 * @param {String} msg
@@ -46,7 +44,7 @@ class Prompt {
 	warn(msg, duration = 2, onClose = noop) {
 		message.warn(msg, duration, onClose);
 	}
-
+	
 	/**
 	 * 确认提示框
 	 * @param {Object} options
@@ -60,7 +58,7 @@ class Prompt {
 			onCancel: noop,
 			onOk: noop,
 		}, options);
-
+		
 		return Modal.confirm(options);
 	}
 }

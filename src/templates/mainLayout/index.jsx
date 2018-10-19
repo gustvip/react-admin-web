@@ -11,10 +11,12 @@ import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil"
 import * as React from "react";
 import Link from "react-router-dom/Link";
 import UpdatePasswordModal from "templates/toolComponents/updatePasswordModal";
+
 import merge from "lodash/merge";
 import isEqual from "lodash/isEqual";
 import flowRight from "lodash/flowRight";
 import get from "lodash/get";
+import uniqueId from "lodash/uniqueId";
 
 /**
  * 获取图标字体
@@ -260,20 +262,20 @@ export class HeaderLayout extends React.PureComponent {
 			<Menu>
 				<Menu.Item
 					onClick={() => this.context.router.history.push(enumRouter.login)}
-					key="1"
+					key={uniqueId()}
 				>
 					登陆
 				</Menu.Item>
 				<Menu.Item
 					onClick={() => this.context.router.history.push(enumRouter.register)}
-					key="2"
+					key={uniqueId()}
 				>
 					注册
 				</Menu.Item>
 				<Menu.Divider/>
 				<Menu.Item
 					onClick={() => T.helper.renderModal(<UpdatePasswordModal/>)}
-					key="3"
+					key={uniqueId()}
 				>
 					修改密码
 				</Menu.Item>
@@ -283,14 +285,14 @@ export class HeaderLayout extends React.PureComponent {
 							T.auth.resetUserPassword();
 						},
 					})}
-					key="3"
+					key={uniqueId()}
 				>
 					重置密码
 				</Menu.Item>
 				<Menu.Divider/>
 				<Menu.Item
 					onClick={() => this.logout()}
-					key="4"
+					key={uniqueId()}
 				>
 					退出登陆
 				</Menu.Item>
