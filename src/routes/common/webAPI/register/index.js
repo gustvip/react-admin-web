@@ -12,4 +12,4 @@ import * as request from "utils/core/request";
  * @param {string} condition.name  用户姓名
  * @return {Promise}
  */
-export const userAdd = condition => request.post(enumAPI.userAdd, condition);
+export const userAdd = condition => request.postJSON(enumAPI.userAdd, condition);

@@ -4,15 +4,17 @@
 import T from "utils/t";
 import PropTypes from "prop-types";
 import {EnumIconTypes} from "constants/enumDefaultMenus";
-import {Select, Menu, Icon, Layout} from "antd";
+import enumRouter from "constants/enumRouter";
+import {Select, Menu, Icon, Layout, Dropdown} from "antd";
 import style from "./mainLayout.scss";
 import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil";
 import * as React from "react";
 import Link from "react-router-dom/Link";
-
+import UpdatePasswordModal from "templates/toolComponents/updatePasswordModal";
 import merge from "lodash/merge";
 import isEqual from "lodash/isEqual";
 import flowRight from "lodash/flowRight";
+import get from "lodash/get";
 
 /**
  * 获取图标字体
@@ -163,12 +165,7 @@ class SiderMenu extends React.PureComponent {
 		/**
 		 * 将打开的菜单关闭---菜单宽度减少到80px，但是subMenu离左侧还是200px
 		 */
-		if (collapsed) {
-			this.setState({defaultOpenKeys: []});
-		} else {
-			this.setState({defaultOpenKeys: getOpenKeys(this.locationPathname)});
-		}
-		
+		this.setState({defaultOpenKeys: collapsed ? [] : getOpenKeys(this.locationPathname)});
 		this.props.handleCollapsed();
 	};
 	
@@ -206,6 +203,7 @@ export class HeaderLayout extends React.PureComponent {
 	
 	logout = () => {
 		T.auth.removeLoginStorageValue();
+		T.auth.removeUserInfoStorageValue();
 		this.context.router.history.push(
 			`${ENV.login.loginUrl}?${ENV.defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
 			this.context.router.route.location.state,
@@ -256,6 +254,61 @@ export class HeaderLayout extends React.PureComponent {
 		);
 	};
 	
+	getUserManage = () => {
+		const userInfo = T.auth.getUserInfoStorageValue();
+		const menu = (
+			<Menu>
+				<Menu.Item
+					onClick={() => this.context.router.history.push(enumRouter.login)}
+					key="1"
+				>
+					登陆
+				</Menu.Item>
+				<Menu.Item
+					onClick={() => this.context.router.history.push(enumRouter.register)}
+					key="2"
+				>
+					注册
+				</Menu.Item>
+				<Menu.Divider/>
+				<Menu.Item
+					onClick={() => T.helper.renderModal(<UpdatePasswordModal/>)}
+					key="3"
+				>
+					修改密码
+				</Menu.Item>
+				<Menu.Item
+					onClick={() => T.prompt.confirm({
+						onOk() {
+							T.auth.resetUserPassword();
+						},
+					})}
+					key="3"
+				>
+					重置密码
+				</Menu.Item>
+				<Menu.Divider/>
+				<Menu.Item
+					onClick={() => this.logout()}
+					key="4"
+				>
+					退出登陆
+				</Menu.Item>
+			</Menu>
+		);
+		return (
+			<section
+				className={style["right-container"]}
+			>
+				<Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
+					<span>
+						hi {get(userInfo, "name")}<Icon type="down"/>
+					</span>
+				</Dropdown>
+			</section>
+		);
+	};
+	
 	render() {
 		return (
 			<React.Fragment>
@@ -271,12 +324,9 @@ export class HeaderLayout extends React.PureComponent {
 						{this.getCategoryRoute()}
 					
 					</section>
-					<section
-						onClick={() => this.logout()}
-						className={style["right-container"]}
-					>
-						退出登录
-					</section>
+					{
+						this.getUserManage()
+					}
 				</Layout.Header>
 				{
 					<div className={T.classNames({[style["header-children"]]: this.props.children})}>

@@ -9,6 +9,7 @@ import * as request from "./request";
 
 import flowRight from "lodash/flowRight";
 import isFunction from "lodash/isFunction";
+import get from "lodash/get";
 
 class Auth {
 	constructor() {
@@ -27,7 +28,17 @@ class Auth {
 	}
 	
 	/**
-	 * 获取localStorage(自定义)的login值
+	 * 重置用户密码
+	 * @param {function} [successCallback]
+	 * @param {function} [failCallback]
+	 */
+	resetUserPassword() {
+		const userId = get(this.getUserInfoStorageValue(), "userId");
+		request.postJSON(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
+	}
+	
+	/**
+	 * 获取login
 	 * @returns {*}
 	 */
 	getLoginStorageValue() {
@@ -35,7 +46,7 @@ class Auth {
 	}
 	
 	/**
-	 * 设置登录的localStorage(自定义)值
+	 * 设置login
 	 */
 	setLoginStorageValue() {
 		const login = this.ENV.localStorage.login;
@@ -43,10 +54,33 @@ class Auth {
 	}
 	
 	/**
-	 * 移除登录的localStorage(自定义)值
+	 * 移除login
 	 */
 	removeLoginStorageValue() {
 		localStorage.removeItem(this.ENV.localStorage.login.key);
+	}
+	
+	/**
+	 * 获取userInfo
+	 * @returns {*}
+	 */
+	getUserInfoStorageValue() {
+		return localStorage.getItem(this.ENV.localStorage.userInfo.key);
+	}
+	
+	/**
+	 * 设置userInfo
+	 */
+	setUserInfoStorageValue(value) {
+		const userInfo = this.ENV.localStorage.userInfo;
+		localStorage.setItem(userInfo.key, value, userInfo.expire);
+	}
+	
+	/**
+	 * 移除userInfo
+	 */
+	removeUserInfoStorageValue() {
+		localStorage.removeItem(this.ENV.localStorage.userInfo.key);
 	}
 	
 	/**
@@ -57,7 +91,7 @@ class Auth {
 	 * @param {function} [failCallback]
 	 */
 	login(userName, userPassword, successCallback, failCallback) {
-		request.post(enumAPI.userLogin, {
+		request.postJSON(enumAPI.userLogin, {
 			userName,
 			userPassword,
 		}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));

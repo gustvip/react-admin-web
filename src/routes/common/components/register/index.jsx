@@ -92,7 +92,7 @@ class RegisterComponent extends React.PureComponent {
 									message: "请填写名称",
 								},
 								{
-									pattern: regExpHelper.name,
+									pattern: regExpHelper.name(),
 									message: "不能有空格。名称可以是数字、字母、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)",
 								},
 							],
@@ -111,7 +111,7 @@ class RegisterComponent extends React.PureComponent {
 									message: "请填密码",
 								},
 								{
-									pattern: regExpHelper.password,
+									pattern: regExpHelper.password(),
 									message: "密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一",
 								},
 							],
@@ -202,7 +202,7 @@ class RegisterComponent extends React.PureComponent {
 								},
 								{
 									type: "enum",
-									enum: Object.values(userSex).map(value => value),
+									enum: Object.values(userSex).map(value => value.value),
 									message: "性别枚举不对",
 								},
 							],

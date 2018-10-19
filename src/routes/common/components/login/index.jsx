@@ -25,12 +25,11 @@ class Login extends React.PureComponent {
 	}
 	
 	checkParam = (userName, userPassword) => {
-		if (!(regExp.name.test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
+		if (!(regExp.name().test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
 			prompt.warn("账号格式不对");
 			return false;
 		}
-		
-		if (!regExp.password.test(userPassword)) {
+		if (!regExp.password().test(userPassword)) {
 			prompt.warn("密码格式不对");
 			return false;
 		}
@@ -48,9 +47,10 @@ class Login extends React.PureComponent {
 				auth.login(
 					userName,
 					userPassword,
-					() => {
+					(info) => {
 						prompt.success("登陆成功,正在跳转");
-						auth.setLoginStorageValue();
+						auth.setLoginStorageValue(info.data.userInfo);
+						auth.setUserInfoStorageValue(info.data.userInfo);
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
 					(info) => {
@@ -72,7 +72,6 @@ class Login extends React.PureComponent {
 					<Input
 						type="text"
 						value={self.state.userName}
-						className={styles["login_email"]}
 						onChange={e => self.setState({userName: e.target.value.trim()})}
 						placeholder="账号"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
@@ -80,7 +79,6 @@ class Login extends React.PureComponent {
 					<Input
 						type="password"
 						value={self.state.userPassword}
-						className={styles["login_password"]}
 						onChange={e => self.setState({userPassword: e.target.value.trim()})}
 						placeholder="密码"
 						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}

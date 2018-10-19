@@ -133,7 +133,7 @@ html, body {
 	justify-content: space-between;
 	align-items: center;
 	height: $header-height;
-	padding: 0 $right-main-content-basis-padding;
+	padding: 0 5%;
 	.left-container {
 		line-height: $header-height;
 		display: flex;
@@ -169,11 +169,7 @@ html, body {
 		}
 	}
 	.right-container {
-		:global {
-			.iconfont {
-				margin-right: 8px;
-			}
-		}
+		cursor: pointer;
 	}
 }
 

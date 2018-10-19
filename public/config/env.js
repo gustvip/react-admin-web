@@ -23,17 +23,13 @@
 			
 			localStorage: {
 				login: {
-					key: "__LOGIN_USER_INFO__",		// 私有localStorage的key下的登陆的key
-					value: "__LOGIN_USER_INFO__",									// 私有localStorage的key下的登陆的value
-					expire: 24 * 60 * 60 * 1000,		// 私有localStorage的key下的登陆的expire
+					key: "__LOGIN_USER_INFO__",		// login的key
+					value: "__LOGIN_USER_INFO__",									// login的value
+					expire: 24 * 60 * 60 * 1000,		// login的expire
 				},
-				userName: {
-					key: "__user_name__",		// 私有localStorage的key下的用户名key
-					expire: 0,		// 私有localStorage的key下的登陆的expire
-				},
-				userPassword: {
-					key: "__user_password__",		// 私有localStorage的key下的用户密码key
-					expire: 0,		// 私有localStorage的key下的登陆的expire
+				userInfo: {
+					key: "__USER_INFO__",		// userInfo的key
+					expire: 24 * 60 * 60 * 1000,		// userInfo的expire
 				},
 			},
 			
