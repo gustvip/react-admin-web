@@ -32,7 +32,7 @@ class Auth {
 	 * @param {function} [successCallback]
 	 * @param {function} [failCallback]
 	 */
-	resetUserPassword() {
+	resetUserPassword(successCallback, failCallback) {
 		const userId = get(this.getUserInfoStorageValue(), "userId");
 		request.postJSON(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
