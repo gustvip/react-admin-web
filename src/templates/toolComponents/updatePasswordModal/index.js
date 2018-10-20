@@ -19,7 +19,7 @@ const formItemLayout = {
 	},
 	wrapperCol: {
 		xs: {span: 24},
-		sm: {span: 24},
+		sm: {span: 20},
 	},
 };
 
@@ -44,7 +44,6 @@ class UpdatePasswordModal extends React.PureComponent {
 				self.setState({loading: true}, () => {
 					const {oldPassword, newPassword} = values;
 					const userId = self.props.userId;
-					
 					request.postJSON(enumAPI.userUpdatePassword, {
 						userId,
 						oldPassword: crypto.hmacSHA512(oldPassword, oldPassword),
@@ -91,6 +90,7 @@ class UpdatePasswordModal extends React.PureComponent {
 					onSubmit={this.handleSubmit}
 				>
 					<Form.Item
+						label="原始密码"
 						hasFeedback
 						{...formItemLayout}
 					>
@@ -110,6 +110,7 @@ class UpdatePasswordModal extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						label="新密码"
 						hasFeedback
 						{...formItemLayout}
 					>
@@ -129,6 +130,7 @@ class UpdatePasswordModal extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						label="确认密码"
 						hasFeedback
 						{...formItemLayout}
 					>

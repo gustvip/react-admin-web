@@ -275,7 +275,9 @@ export class HeaderLayout extends React.PureComponent {
 				</Menu.Item>
 				<Menu.Divider/>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(<UpdateUserInfoModal userId={get(T.auth.getUserInfoStorageValue(), "userId")}/>)}
+					onClick={() => T.helper.renderModal(
+						<UpdateUserInfoModal userId={get(T.auth.getUserInfoStorageValue(), "userId")}/>,
+					)}
 					key={uniqueId()}
 				>
 					修改信息
@@ -291,6 +293,7 @@ export class HeaderLayout extends React.PureComponent {
 						onOk() {
 							T.auth.resetUserPassword(get(T.auth.getUserInfoStorageValue(), "userId"));
 						},
+						title: "确认重置密码码？",
 					})}
 					key={uniqueId()}
 				>

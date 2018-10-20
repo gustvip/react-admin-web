@@ -21,7 +21,7 @@ const formItemLayout = {
 	},
 	wrapperCol: {
 		xs: {span: 24},
-		sm: {span: 24},
+		sm: {span: 20},
 	},
 };
 
@@ -108,6 +108,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 					onSubmit={this.handleSubmit}
 				>
 					<Form.Item
+						label="登录名"
 						hasFeedback
 						{...formItemLayout}
 					>
@@ -128,6 +129,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						label="邮箱"
 						hasFeedback
 						{...formItemLayout}
 					>
@@ -148,6 +150,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						label="手机"
 						hasFeedback
 						{...formItemLayout}
 					>
@@ -168,6 +171,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						label="姓名"
 						hasFeedback
 						{...formItemLayout}
 					>
@@ -186,6 +190,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 						})(<Input placeholder="请填写姓名"/>)}
 					</Form.Item>
 					<Form.Item
+						label="性别"
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userSex", {
@@ -212,6 +217,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 						)}
 					</Form.Item>
 					<Form.Item
+						label="描述"
 						{...formItemLayout}
 					>
 						{getFieldDecorator("userDescription", {
