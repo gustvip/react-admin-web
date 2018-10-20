@@ -1,16 +1,15 @@
 /**
  * Created by joey on 18-9-4
  */
+import PropTypes from "prop-types";
 import React from "react";
 import {Form, Input, Modal} from "antd";
 import prompt from "utils/core/prompt";
 import regExpHelper from "utils/core/regexp";
 import crypto from "utils/core/crypto";
-import auth from "utils/core/auth";
 import enumAPI from "constants/enumAPI";
 import * as request from "utils/core/request";
 
-import get from "lodash/get";
 import isFunction from "lodash/isFunction";
 
 const formItemLayout = {
@@ -25,6 +24,14 @@ const formItemLayout = {
 };
 
 class UpdatePasswordModal extends React.PureComponent {
+	static propTypes = {
+		form: PropTypes.object.isRequired,
+		successCallback: PropTypes.func,
+		userId: PropTypes.string.isRequired,
+		className: PropTypes.string,
+		option: PropTypes.object,
+	};
+	
 	state = {
 		showModal: true,
 		loading: false,
@@ -36,7 +43,7 @@ class UpdatePasswordModal extends React.PureComponent {
 			if (!err) {
 				self.setState({loading: true}, () => {
 					const {oldPassword, newPassword} = values;
-					const userId = get(auth.getUserInfoStorageValue(), "userId");
+					const userId = self.props.userId;
 					
 					request.postJSON(enumAPI.userUpdatePassword, {
 						userId,
@@ -64,10 +71,11 @@ class UpdatePasswordModal extends React.PureComponent {
 	};
 	
 	render() {
+		const {className = "", option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
-		
 		return (
 			<Modal
+				classNmae={className}
 				okButtonProps={{loading: this.state.loading}}
 				onOk={() => this.handleSubmit()}
 				onCancel={() => this.setState({showModal: false})}
@@ -77,6 +85,7 @@ class UpdatePasswordModal extends React.PureComponent {
 				visible={this.state.showModal}
 				maskClosable={true}
 				destroyOnClose={true}
+				{...option}
 			>
 				<Form
 					onSubmit={this.handleSubmit}

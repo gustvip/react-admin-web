@@ -29,11 +29,11 @@ class Auth {
 	
 	/**
 	 * 重置用户密码
+	 * @param {string} userId
 	 * @param {function} [successCallback]
 	 * @param {function} [failCallback]
 	 */
-	resetUserPassword(successCallback, failCallback) {
-		const userId = get(this.getUserInfoStorageValue(), "userId");
+	resetUserPassword(userId, successCallback, failCallback) {
 		request.postJSON(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
 	

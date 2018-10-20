@@ -11,6 +11,7 @@ import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil"
 import * as React from "react";
 import Link from "react-router-dom/Link";
 import UpdatePasswordModal from "templates/toolComponents/updatePasswordModal";
+import UpdateUserInfoModal from "templates/toolComponents/updateUserInfoModal";
 
 import merge from "lodash/merge";
 import isEqual from "lodash/isEqual";
@@ -274,7 +275,13 @@ export class HeaderLayout extends React.PureComponent {
 				</Menu.Item>
 				<Menu.Divider/>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(<UpdatePasswordModal/>)}
+					onClick={() => T.helper.renderModal(<UpdateUserInfoModal userId={get(T.auth.getUserInfoStorageValue(), "userId")}/>)}
+					key={uniqueId()}
+				>
+					修改信息
+				</Menu.Item>
+				<Menu.Item
+					onClick={() => T.helper.renderModal(<UpdatePasswordModal userId={get(T.auth.getUserInfoStorageValue(), "userId")}/>)}
 					key={uniqueId()}
 				>
 					修改密码
@@ -282,7 +289,7 @@ export class HeaderLayout extends React.PureComponent {
 				<Menu.Item
 					onClick={() => T.prompt.confirm({
 						onOk() {
-							T.auth.resetUserPassword();
+							T.auth.resetUserPassword(get(T.auth.getUserInfoStorageValue(), "userId"));
 						},
 					})}
 					key={uniqueId()}

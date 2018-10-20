@@ -8,24 +8,31 @@ import flowRight from "lodash/flowRight";
 const _userAPI = api => window.ENV.apiDomain + api;
 
 /**
- * @type {{userLogin: *, userAdd: *, userDelete: *, userDetail: *, userUpdate: *, userSearch: *, userList: *, userParseXlsx: *, userParseCsv: *, userDownJson: *}}
+ * @type {{userLogin: *, userAdd: *, userDelete: *, userDetail: *, userUpdate: *, userUpdatePassword: *, userResetPassword: *, userList: *, fileParseXlsx: *, fileParseCsv: *, fileDownJson: *}}
  */
 const API = {
 	/*
    |----------------------------------------------------------------
    | 用户相关API地址
    |----------------------------------------------------------------
-   */
+ */
 	userLogin: _userAPI("/user/login"),
 	userAdd: _userAPI("/user/add"),
 	userDelete: _userAPI("/user/delete"),
 	userDetail: _userAPI("/user/detail"),
-	userUpdate: _userAPI("/user/update"),
+	userUpdateInfo: _userAPI("/user/updateInfo"),
 	userUpdatePassword: _userAPI("/user/updatePassword"),
 	userResetPassword: _userAPI("/user/resetPassword"),
 	userList: _userAPI("/user/list"),
-	userParseXlsx: _userAPI("/user/parseXlsx"),
-	userParseCsv: _userAPI("/user/parseCsv"),
-	userDownJson: _userAPI("/user/downJson"),
+	
+	/*
+   |----------------------------------------------------------------
+   | 文件相关API地址
+   |----------------------------------------------------------------
+ */
+	fileParseXlsx: _userAPI("/file/parseXlsx"),
+	fileParseCsv: _userAPI("/file/parseCsv"),
+	fileDownJson: _userAPI("/file/downJson"),
+	
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
