@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/2/18
  */
-import isNil from "lodash/isNil";
-import toLength from "lodash/toLength";
+import isNil from 'lodash/isNil';
+import toLength from 'lodash/toLength';
 
 /**
  * 常用正则

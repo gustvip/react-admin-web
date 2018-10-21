@@ -1,7 +1,7 @@
-import IsFinite from "../index";
+import IsFinite from '../index';
 
-test("test IsFinite", () => {
+test('test IsFinite', () => {
 	expect(IsFinite({})).toBeFalsy();
 	expect(IsFinite(1)).toBeTruthy();
-	expect(IsFinite("1")).toBeFalsy();
+	expect(IsFinite('1')).toBeFalsy();
 });

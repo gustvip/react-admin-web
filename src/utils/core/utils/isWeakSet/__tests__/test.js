@@ -1,6 +1,6 @@
-import isWeakSet from "../index";
+import isWeakSet from '../index';
 
-test("test isWeakSet", () => {
+test('test isWeakSet', () => {
 	expect(isWeakSet({})).toBeFalsy();
 	expect(isWeakSet(new WeakSet())).toBeTruthy();
 });

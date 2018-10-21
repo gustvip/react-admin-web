@@ -1,6 +1,6 @@
-import isObjectLike from "../index";
+import isObjectLike from '../index';
 
-test("test isObjectLike", () => {
+test('test isObjectLike', () => {
 	expect(isObjectLike(() => {})).toBeFalsy();
 	expect(isObjectLike([])).toBeTruthy();
 	expect(isObjectLike(null)).toBeFalsy();

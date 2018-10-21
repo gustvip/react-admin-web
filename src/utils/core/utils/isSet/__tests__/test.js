@@ -1,6 +1,6 @@
-import isSet from "../index";
+import isSet from '../index';
 
-test("test isSet", () => {
+test('test isSet', () => {
 	expect(isSet({})).toBeFalsy();
 	expect(isSet(new Set())).toBeTruthy();
 });

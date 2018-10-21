@@ -1,42 +1,42 @@
 /**
  * Created by joey 2018/10/01
  */
-import assign from "lodash/assign";
-import decodeComponent from "./decodeComponent";
-import strictUriEncode from "./strictUriEncode";
+import assign from 'lodash/assign';
+import decodeComponent from './decodeComponent';
+import strictUriEncode from './strictUriEncode';
 
 function encoderForArrayFormat(options) {
 	switch (options.arrayFormat) {
-		case "index":
+		case 'index':
 			return (key, value, index) => {
 				return value === null ? [
 					encode(key, options),
-					"[",
+					'[',
 					index,
-					"]",
-				].join("") : [
+					']',
+				].join('') : [
 					encode(key, options),
-					"[",
+					'[',
 					encode(index, options),
-					"]=",
+					']=',
 					encode(value, options),
-				].join("");
+				].join('');
 			};
-		case "bracket":
+		case 'bracket':
 			return (key, value) => {
-				return value === null ? [encode(key, options), "[]"].join("") : [
+				return value === null ? [encode(key, options), '[]'].join('') : [
 					encode(key, options),
-					"[]=",
+					'[]=',
 					encode(value, options),
-				].join("");
+				].join('');
 			};
 		default:
 			return (key, value) => {
 				return value === null ? encode(key, options) : [
 					encode(key, options),
-					"=",
+					'=',
 					encode(value, options),
-				].join("");
+				].join('');
 			};
 	}
 }
@@ -45,11 +45,11 @@ function parserForArrayFormat(options) {
 	let result;
 	
 	switch (options.arrayFormat) {
-		case "index":
+		case 'index':
 			return (key, value, accumulator) => {
 				result = /\[(\d*)\]$/.exec(key);
 				
-				key = key.replace(/\[\d*\]$/, "");
+				key = key.replace(/\[\d*\]$/, '');
 				
 				if (!result) {
 					accumulator[key] = value;
@@ -62,10 +62,10 @@ function parserForArrayFormat(options) {
 				
 				accumulator[key][result[1]] = value;
 			};
-		case "bracket":
+		case 'bracket':
 			return (key, value, accumulator) => {
 				result = /(\[\])$/.exec(key);
-				key = key.replace(/\[\]$/, "");
+				key = key.replace(/\[\]$/, '');
 				
 				if (!result) {
 					accumulator[key] = value;
@@ -112,7 +112,7 @@ function keysSorter(input) {
 		return input.sort();
 	}
 	
-	if (typeof input === "object") {
+	if (typeof input === 'object') {
 		return keysSorter(Object.keys(input)).sort((a, b) => Number(a) - Number(b)).map(key => input[key]);
 	}
 	
@@ -120,9 +120,9 @@ function keysSorter(input) {
 }
 
 export const extract = function extract(input) {
-	const queryStart = input.indexOf("?");
+	const queryStart = input.indexOf('?');
 	if (queryStart === -1) {
-		return "";
+		return '';
 	}
 	return input.slice(queryStart + 1);
 };
@@ -130,7 +130,7 @@ export const extract = function extract(input) {
 export const parse = function parse(input, options) {
 	options = assign({
 		decode: true,
-		arrayFormat: "none",
+		arrayFormat: 'none',
 	}, options);
 	
 	const formatter = parserForArrayFormat(options);
@@ -138,18 +138,18 @@ export const parse = function parse(input, options) {
 	// Create an object with no prototype
 	const ret = {};
 	
-	if (typeof input !== "string") {
+	if (typeof input !== 'string') {
 		return ret;
 	}
 	
-	input = input.trim().replace(/^[?#&]/, "");
+	input = input.trim().replace(/^[?#&]/, '');
 	
 	if (!input) {
 		return ret;
 	}
 	
-	for (const param of input.split("&")) {
-		let [key, value] = param.replace(/\+/g, " ").split("=");
+	for (const param of input.split('&')) {
+		let [key, value] = param.replace(/\+/g, ' ').split('=');
 		
 		// Missing `=` should be `null`:
 		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
@@ -160,7 +160,7 @@ export const parse = function parse(input, options) {
 	
 	return Object.keys(ret).sort().reduce((result, key) => {
 		const value = ret[key];
-		if (Boolean(value) && typeof value === "object" && !Array.isArray(value)) {
+		if (Boolean(value) && typeof value === 'object' && !Array.isArray(value)) {
 			// Sort object keys, not values
 			result[key] = keysSorter(value);
 		} else {
@@ -175,7 +175,7 @@ export const stringify = function(obj, options) {
 	const defaults = {
 		encode: true,
 		strict: true,
-		arrayFormat: "none",
+		arrayFormat: 'none',
 	};
 	
 	options = assign(defaults, options);
@@ -190,7 +190,7 @@ export const stringify = function(obj, options) {
 		const value = obj[key];
 		
 		if (value === undefined) {
-			return "";
+			return '';
 		}
 		
 		if (value === null) {
@@ -208,16 +208,16 @@ export const stringify = function(obj, options) {
 				result.push(formatter(key, value2, result.length));
 			}
 			
-			return result.join("&");
+			return result.join('&');
 		}
 		
-		return encode(key, options) + "=" + encode(value, options);
-	}).filter(x => x.length > 0).join("&") : "";
+		return encode(key, options) + '=' + encode(value, options);
+	}).filter(x => x.length > 0).join('&') : '';
 };
 
 export const parseUrl = function(input, options) {
 	return {
-		url: input.split("?")[0] || "",
+		url: input.split('?')[0] || '',
 		query: parse(extract(input), options),
 	};
 };

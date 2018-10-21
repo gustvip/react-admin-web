@@ -1,10 +1,10 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isArray from "../isArray";
-import isFunction from "../isFunction";
-import toInteger from "../toInteger";
-import isUndefined from "../isUndefined";
+import isArray from '../isArray';
+import isFunction from '../isFunction';
+import toInteger from '../toInteger';
+import isUndefined from '../isUndefined';
 
 /**
  * 查找符合条件的索引

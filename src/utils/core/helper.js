@@ -1,10 +1,10 @@
-import get from "lodash/get";
-import identity from "lodash/identity";
-import each from "lodash/each";
-import isString from "lodash/isString";
-import isNumber from "lodash/isNumber";
-import classNames from "classnames";
-import {render as reactDomRender, unmountComponentAtNode} from "react-dom";
+import get from 'lodash/get';
+import identity from 'lodash/identity';
+import each from 'lodash/each';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
+import classNames from 'classnames';
+import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
 
 class Helper {
 	/**
@@ -12,13 +12,13 @@ class Helper {
 	 * @param {ReactElement} component react组件
 	 */
 	renderModal(component) {
-		const domId = "__render-modal-dom-id__";
-		const oldDomElement = document.querySelector("#" + domId);
+		const domId = '__render-modal-dom-id__';
+		const oldDomElement = document.querySelector('#' + domId);
 		if (oldDomElement) {
 			unmountComponentAtNode(oldDomElement);
 			document.body.removeChild(oldDomElement);
 		}
-		const newDomElement = document.createElement("div");
+		const newDomElement = document.createElement('div');
 		newDomElement.id = domId;
 		document.body.appendChild(newDomElement);
 		reactDomRender(component, newDomElement);
@@ -31,7 +31,7 @@ class Helper {
 	 * @return {string}
 	 */
 	uuid(len, radix) {
-		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
+		var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 		var uuid = [];
 		var i;
 		var r;
@@ -42,8 +42,8 @@ class Helper {
 				uuid[i] = chars[0 | Math.random() * radix];
 			}
 		} else {
-			uuid[8] = uuid[13] = uuid[18] = uuid[23] = "-";
-			uuid[14] = "4";
+			uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+			uuid[14] = '4';
 			
 			for (i = 0; i < 36; i++) {
 				if (!uuid[i]) {
@@ -53,7 +53,7 @@ class Helper {
 			}
 		}
 		
-		return uuid.join("");
+		return uuid.join('');
 	}
 	
 	/**
@@ -104,7 +104,7 @@ class Helper {
 	 * @return {Function}
 	 */
 	classNames(basisClass) {
-		return (...rest) => classNames(isString(basisClass) ? basisClass : "iconfont", ...rest);
+		return (...rest) => classNames(isString(basisClass) ? basisClass : 'iconfont', ...rest);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ class Helper {
 	 * @param {String}    defaultVal  不满足条件的默认值
 	 * @return {String}
 	 */
-	showValue(val, defaultVal = "-") {
+	showValue(val, defaultVal = '-') {
 		return (this.checkString(val) || this.isUsefulNumber(val)) ? val : defaultVal;
 	}
 	
@@ -141,7 +141,7 @@ class Helper {
 	 * @return {boolean}
 	 */
 	isObject(x) {
-		return Object.prototype.toString.call(x) === "[object Object]";
+		return Object.prototype.toString.call(x) === '[object Object]';
 	}
 	
 	/**
@@ -167,7 +167,7 @@ class Helper {
 	 * @return {* || String}
 	 */
 	removeBlank(x) {
-		return isString(x) ? x.replace(/\s/g, "") : x;
+		return isString(x) ? x.replace(/\s/g, '') : x;
 	}
 	
 	/**
@@ -206,7 +206,7 @@ class Helper {
 	 * @param {String} defaultVal 格式化错误的默认值
 	 * @return {String}
 	 */
-	toFixed(num, fixNum = 2, defaultVal = "-") {
+	toFixed(num, fixNum = 2, defaultVal = '-') {
 		num = Number(num);
 		return !isFinite(num) ? defaultVal : num.toFixed(fixNum);
 	}

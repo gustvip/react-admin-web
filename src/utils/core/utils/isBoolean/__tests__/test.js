@@ -1,6 +1,6 @@
-import isBoolean from "../index";
+import isBoolean from '../index';
 
-test("test isBoolean", () => {
+test('test isBoolean', () => {
 	expect(isBoolean({})).toBeFalsy();
 	/* eslint-disable no-new-wrappers */
 	expect(isBoolean(new Boolean(true))).toBeFalsy();

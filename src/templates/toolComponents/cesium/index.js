@@ -1,8 +1,8 @@
-import "cesium/Build/Cesium/Widgets/widgets.css";
+import 'cesium/Build/Cesium/Widgets/widgets.css';
 
-const AMAP_URL = "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}"; // 加载高德地图底图服务地址
-const AMAP_CHINA_BORDER_URL = "http://wprd04.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8&ltype=11";
-const AMAP_SATELITTE_URL = "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}";
+const AMAP_URL = 'http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}'; // 加载高德地图底图服务地址
+const AMAP_CHINA_BORDER_URL = 'http://wprd04.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8&ltype=11';
+const AMAP_SATELITTE_URL = 'http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}';
 
 export default class Component extends React.PureComponent {
 	constructor() {
@@ -36,7 +36,7 @@ export default class Component extends React.PureComponent {
 			callback(positions) {
 				const polygon = new DrawHelper.PolygonPrimitive({
 					positions,
-					material: Cesium.Material.fromType("Checkerboard"),
+					material: Cesium.Material.fromType('Checkerboard'),
 				});
 				self.viewer.scene.primitives.add(polygon);
 			},
@@ -53,9 +53,9 @@ export default class Component extends React.PureComponent {
 	createGoogleMapsByUrl(Cesium, options) {
 		options = Cesium.defaultValue(options, {});
 
-		const templateUrl = Cesium.defaultValue(options.url, "http://mt1.google.cn/vt/lyrs=s&hl=zh-CN&x={x}&y={y}&z={z}");
+		const templateUrl = Cesium.defaultValue(options.url, 'http://mt1.google.cn/vt/lyrs=s&hl=zh-CN&x={x}&y={y}&z={z}');
 
-		const defaultCredit = new Cesium.Credit("Google Maps");
+		const defaultCredit = new Cesium.Credit('Google Maps');
 
 		const tilingScheme = new Cesium.WebMercatorTilingScheme({ ellipsoid: options.ellipsoid });
 
@@ -81,7 +81,7 @@ export default class Component extends React.PureComponent {
 		// >>includeEnd('debug');
 
 		let credit = Cesium.defaultValue(options.credit, defaultCredit);
-		if (typeof credit === "string") {
+		if (typeof credit === 'string') {
 			credit = new Cesium.Credit(credit);
 		}
 
@@ -104,7 +104,7 @@ export default class Component extends React.PureComponent {
 
 		const templateUrl = Cesium.defaultValue(options.url, AMAP_URL);
 
-		const defaultCredit = new Cesium.Credit("AMap");
+		const defaultCredit = new Cesium.Credit('AMap');
 
 		const tilingScheme = new Cesium.WebMercatorTilingScheme({ ellipsoid: options.ellipsoid });
 
@@ -130,7 +130,7 @@ export default class Component extends React.PureComponent {
 		// >>includeEnd('debug');
 
 		let credit = Cesium.defaultValue(options.credit, defaultCredit);
-		if (typeof credit === "string") {
+		if (typeof credit === 'string') {
 			credit = new Cesium.Credit(credit);
 		}
 
@@ -153,9 +153,9 @@ export default class Component extends React.PureComponent {
 				<div
 					ref={container => this.container = container}
 					id="cesiumContainer"
-					style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
+					style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
 				/>
-				<div id="toolbar" style={{ position: "absolute", left: 0, right: 0, top: 0, height: "20px" }}/>
+				<div id="toolbar" style={{ position: 'absolute', left: 0, right: 0, top: 0, height: '20px' }}/>
 			</div>
 		);
 	}

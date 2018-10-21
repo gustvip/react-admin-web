@@ -1,6 +1,6 @@
-import isArray from "../index";
+import isArray from '../index';
 
-test("test isArray", () => {
+test('test isArray', () => {
 	expect(isArray({})).toBeFalsy();
 	expect(isArray([])).toBeTruthy();
 });

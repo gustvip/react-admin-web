@@ -1,9 +1,9 @@
 /**
  * Created by joey on 2018/8/20
  */
-import DoubleLinkedList from "../doubleLinkedList";
-import isArray from "../../utils/isArray";
-import _arrayLikeForEach from "../../utils/aaa/_arrayLikeForEach";
+import DoubleLinkedList from '../doubleLinkedList';
+import isArray from '../../utils/isArray';
+import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach';
 
 function Map() {
 	this.doubleLinkedList = DoubleLinkedList(compareFunction);

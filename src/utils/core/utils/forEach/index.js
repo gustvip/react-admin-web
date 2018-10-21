@@ -1,11 +1,11 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isObject from "../isObject";
-import isFunction from "../isFunction";
-import isArrayLike from "../isArrayLike";
-import _objectForEach from "../aaa/_objectForEach";
-import _arrayLikeForEach from "../aaa/_arrayLikeForEach";
+import isObject from '../isObject';
+import isFunction from '../isFunction';
+import isArrayLike from '../isArrayLike';
+import _objectForEach from '../aaa/_objectForEach';
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
 
 /**
  * 遍历集合

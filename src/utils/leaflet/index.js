@@ -1,10 +1,10 @@
 /**
  * Created by joey on 2018/2/27
  */
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import merge from "lodash/merge";
-import * as EnumMap from "./constants/index";
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import merge from 'lodash/merge';
+import * as EnumMap from './constants/index';
 
 class mapBasisHelper {
 	constructor() {

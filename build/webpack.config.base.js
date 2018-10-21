@@ -1,17 +1,17 @@
 /**
  * @description webpack 打包基本配置
  */
-const webpack = require("webpack");
-const webpackBar = require("webpackbar");
+const webpack = require('webpack');
+const webpackBar = require('webpackbar');
 // 处理vtk规则
-const vtkRules = require("vtk.js/Utilities/config/dependency.js").webpack.v2.rules;
-const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rules;
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // 页面入口文件,使用异步加载方式
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.([jt]sx?))$/ig;
-const excludeRegex = require("./util").excludeRegex;
-const resourceBaseName = require("./util").resourceBaseName;
-const customAntdStyle = require("./util").customAntdStyle;
+const excludeRegex = require('./util').excludeRegex;
+const resourceBaseName = require('./util').resourceBaseName;
+const customAntdStyle = require('./util').customAntdStyle;
 
 const staticResource = [
 	{
@@ -36,23 +36,23 @@ const staticResource = [
 	},
 	{
 		test: /\.(csv|tsv)$/,
-		use: "csv-loader",
+		use: 'csv-loader',
 	},
 ];
 
 module.exports = {
 	optimization: {
 		splitChunks: {
-			chunks: "all",
+			chunks: 'all',
 			minSize: 30000,
 			minChunks: 1,
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
 				vendor: {
-					name: "vendor",
+					name: 'vendor',
 					test: /\.scss|css|less$/,
-					chunks: "all", // Merge all the css chunk to one file
+					chunks: 'all', // Merge all the css chunk to one file
 					minChunks: 1,
 					reuseExistingChunk: true,
 					enforce: true,
@@ -60,8 +60,8 @@ module.exports = {
 				},
 				
 				commons: { // Key 为entry中定义的 入口名称
-					chunks: "initial", // 必须三选一： "initial" | "all" | "async"(默认就是异步)
-					name: "commons", // 要缓存的 分隔出来的 chunk 名称
+					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
+					name: 'commons', // 要缓存的 分隔出来的 chunk 名称
 					minChunks: 2,
 					minSize: 0,
 					priority: 2,
@@ -70,29 +70,29 @@ module.exports = {
 		},
 		
 		runtimeChunk: {
-			name: "runtime",
+			name: 'runtime',
 		},
 	},
 	
 	entry: {
-		app: ["babel-polyfill", "url-search-params-polyfill", "./src/index"],
+		app: ['babel-polyfill', 'url-search-params-polyfill', './src/index'],
 		commons: [
-			"axios",
-			"immutability-helper",
-			"prop-types",
-			"react",
-			"react-dom",
-			"react-redux",
-			"redux",
-			"classnames",
+			'axios',
+			'immutability-helper',
+			'prop-types',
+			'react',
+			'react-dom',
+			'react-redux',
+			'redux',
+			'classnames',
 			
-			"utils/core/decorate.js",
-			"utils/core/crypto.js",
-			"utils/core/request.js",
-			"utils/core/emitter/index.js",
-			"utils/core/localStorage/index.js",
-			"utils/core/queryString/index.js",
-			"utils/core/helper.js",
+			'utils/core/decorate.js',
+			'utils/core/crypto.js',
+			'utils/core/request.js',
+			'utils/core/emitter/index.js',
+			'utils/core/localStorage/index.js',
+			'utils/core/queryString/index.js',
+			'utils/core/helper.js',
 		],
 	},
 	
@@ -107,13 +107,13 @@ module.exports = {
   }, */
 	
 	resolve: {
-		extensions: [".js", ".jsx", ".ts", ".tsx", ".scss"],
-		modules: ["node_modules", "src/"],
-		mainFields: ["browser", "main", "module"],
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
+		modules: ['node_modules', 'src/'],
+		mainFields: ['browser', 'main', 'module'],
 	},
 	
 	node: {
-		fs: "empty",
+		fs: 'empty',
 	},
 	
 	module: {
@@ -125,8 +125,8 @@ module.exports = {
 				test: /\.css$/,
 				use: [
 					miniCssExtractPlugin.loader,
-					"css-loader",
-					"postcss-loader",
+					'css-loader',
+					'postcss-loader',
 				],
 			},
 			
@@ -138,17 +138,17 @@ module.exports = {
 					
 					// scss开启css的命名空间
 					{
-						loader: "css-loader",
+						loader: 'css-loader',
 						options: {
 							sourceMap: true,
 							modules: true,
-							localIdentName: "[name][hash:base64]",
+							localIdentName: '[name][hash:base64]',
 						},
 					},
 					
-					"postcss-loader",
+					'postcss-loader',
 					{
-						loader: "sass-loader",
+						loader: 'sass-loader',
 						options: {
 							sourceMap: true,
 						},
@@ -160,10 +160,10 @@ module.exports = {
 				test: /\.less/,
 				use: [
 					miniCssExtractPlugin.loader,
-					"css-loader",
-					"postcss-loader",
+					'css-loader',
+					'postcss-loader',
 					{
-						loader: "less-loader",
+						loader: 'less-loader',
 						options: {
 							sourceMap: true,
 							javascriptEnabled: true,
@@ -178,7 +178,7 @@ module.exports = {
 				exclude: excludeRegex,
 				use: [
 					{
-						loader: "bundle-loader",
+						loader: 'bundle-loader',
 						options: {
 							lazy: true,
 						},
@@ -188,13 +188,13 @@ module.exports = {
 			
 			{
 				test: /\.jsx?$/,
-				use: ["babel-loader"],
+				use: ['babel-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 			
 			{
 				test: /\.tsx?$/,
-				use: ["babel-loader", "ts-loader"],
+				use: ['babel-loader', 'ts-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 		],
@@ -202,13 +202,13 @@ module.exports = {
 	
 	plugins: [
 		new webpack.ProvidePlugin({
-			React: "react",
+			React: 'react',
 		}),
 		new webpackBar({
 			profile: true,
 		}),
 		new miniCssExtractPlugin({
-			filename: process.env.NODE_ENV === "development" ? "[name].css" : "[name].[contenthash].css",
+			filename: process.env.NODE_ENV === 'development' ? '[name].css' : '[name].[contenthash].css',
 		}),
 	],
 };

@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import toInteger from "../../toInteger";
-import isUndefined from "../../isUndefined";
+import toInteger from '../../toInteger';
+import isUndefined from '../../isUndefined';
 
 /**
  * 截取集合

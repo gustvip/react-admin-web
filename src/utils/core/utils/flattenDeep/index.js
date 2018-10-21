@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import _arrayLikeForEach from "../aaa/_arrayLikeForEach";
-import isArray from "../isArray";
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
+import isArray from '../isArray';
 
 /**
  * 展开数组

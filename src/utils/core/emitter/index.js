@@ -1,9 +1,9 @@
 /**
  * Created by joey on 2018/6/20
  */
-import findIndex from "../utils/findIndex/index";
-import isFunction from "../utils/isFunction/index";
-import filter from "../utils/filter/index";
+import findIndex from '../utils/findIndex/index';
+import isFunction from '../utils/isFunction/index';
+import filter from '../utils/filter/index';
 
 /**
  * 内部增加监听函数处理
@@ -14,7 +14,7 @@ import filter from "../utils/filter/index";
  */
 function _addListener(type, callback, isOnce) {
 	if (!isFunction(callback)) {
-		throw new TypeError("callback must be function");
+		throw new TypeError('callback must be function');
 	}
 	var row = this.__selfListeners__[type];
 	

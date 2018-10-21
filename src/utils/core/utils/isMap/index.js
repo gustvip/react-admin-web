@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/25
  */
-import _getClassName from "../aaa/_getClassName/index";
+import _getClassName from '../aaa/_getClassName/index';
 
 /**
  * 是否为Map
@@ -9,5 +9,5 @@ import _getClassName from "../aaa/_getClassName/index";
  * @returns {boolean}
  */
 export default function isMap(x) {
-	return _getClassName(x) === "[object Map]";
+	return _getClassName(x) === '[object Map]';
 }

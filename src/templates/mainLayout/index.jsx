@@ -1,23 +1,23 @@
 /**
  * Created by joey on 18-2-7
  */
-import T from "utils/t";
-import PropTypes from "prop-types";
-import {EnumIconTypes} from "constants/enumDefaultMenus";
-import enumRouter from "constants/enumRouter";
-import {Select, Menu, Icon, Layout, Dropdown} from "antd";
-import style from "./mainLayout.scss";
-import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from "./menuUtil";
-import * as React from "react";
-import Link from "react-router-dom/Link";
-import UpdatePasswordModal from "templates/toolComponents/updatePasswordModal";
-import UpdateUserInfoModal from "templates/toolComponents/updateUserInfoModal";
+import T from 'utils/t';
+import PropTypes from 'prop-types';
+import {EnumIconTypes} from 'constants/enumDefaultMenus';
+import enumRouter from 'constants/enumRouter';
+import {Select, Menu, Icon, Layout, Dropdown} from 'antd';
+import style from './mainLayout.scss';
+import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from './menuUtil';
+import * as React from 'react';
+import Link from 'react-router-dom/Link';
+import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
+import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 
-import merge from "lodash/merge";
-import isEqual from "lodash/isEqual";
-import flowRight from "lodash/flowRight";
-import get from "lodash/get";
-import uniqueId from "lodash/uniqueId";
+import merge from 'lodash/merge';
+import isEqual from 'lodash/isEqual';
+import flowRight from 'lodash/flowRight';
+import get from 'lodash/get';
+import uniqueId from 'lodash/uniqueId';
 
 /**
  * 获取图标字体
@@ -40,8 +40,8 @@ const getIcon = (icon) => {
  * @param {String} title
  * @param {Object} style
  */
-export const MainHeader = ({className = "", title = "", styles = {}}) => {
-	const defaultClassName = style["content-header-container"];
+export const MainHeader = ({className = '', title = '', styles = {}}) => {
+	const defaultClassName = style['content-header-container'];
 	const defaultStyle = {};
 	
 	return (
@@ -64,8 +64,8 @@ MainHeader.propTypes = {
  * @param {Object} style
  * @param {Array} children
  */
-export const MainContent = ({className = "", styles = {}, children = null}) => {
-	const defaultClassName = style["content-body-container"];
+export const MainContent = ({className = '', styles = {}, children = null}) => {
+	const defaultClassName = style['content-body-container'];
 	const defaultStyle = {};
 	
 	return (
@@ -181,11 +181,11 @@ class SiderMenu extends React.PureComponent {
 				collapsible
 				collapsed={this.props.isCollapsed}
 				onCollapse={this.handleCollapsed}
-				className={style["sider-container"]}
+				className={style['sider-container']}
 			>
 				<Menu
 					mode="inline"
-					className={style["sider-menu"]}
+					className={style['sider-menu']}
 					theme="dark"
 					selectedKeys={[locationPathname]}
 					openKeys={defaultOpenKeys}
@@ -216,7 +216,7 @@ export class HeaderLayout extends React.PureComponent {
 	getTopRoute = () => {
 		const self = this;
 		return (
-			<div className={style["drop-down-menu-container"]}>
+			<div className={style['drop-down-menu-container']}>
 				<Select
 					onChange={value => self.context.router.history.push(value)}
 					value={EnumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1).url[0]}
@@ -238,12 +238,12 @@ export class HeaderLayout extends React.PureComponent {
 	getCategoryRoute = () => {
 		const self = this;
 		return (
-			<div className={style["category-menu-container"]}>
+			<div className={style['category-menu-container']}>
 				{
 					getCategoryRoute(self.locationPathname).map((item, index) => {
 						return (
 							<Link
-								className={T.helper.classNames("")({[style.active]: item.url.indexOf(self.locationPathname) !== -1})}
+								className={T.helper.classNames('')({[style.active]: item.url.indexOf(self.locationPathname) !== -1})}
 								key={index}
 								to={item.url[0]}
 							>
@@ -276,14 +276,14 @@ export class HeaderLayout extends React.PureComponent {
 				<Menu.Divider/>
 				<Menu.Item
 					onClick={() => T.helper.renderModal(
-						<UpdateUserInfoModal userId={get(T.auth.getUserInfoStorageValue(), "userId")}/>,
+						<UpdateUserInfoModal userId={get(userInfo, 'userId')}/>,
 					)}
 					key={uniqueId()}
 				>
 					修改信息
 				</Menu.Item>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(<UpdatePasswordModal userId={get(T.auth.getUserInfoStorageValue(), "userId")}/>)}
+					onClick={() => T.helper.renderModal(<UpdatePasswordModal userId={get(userInfo, 'userId')}/>)}
 					key={uniqueId()}
 				>
 					修改密码
@@ -291,9 +291,9 @@ export class HeaderLayout extends React.PureComponent {
 				<Menu.Item
 					onClick={() => T.prompt.confirm({
 						onOk() {
-							T.auth.resetUserPassword(get(T.auth.getUserInfoStorageValue(), "userId"));
+							T.auth.resetUserPassword(get(userInfo, 'userId'));
 						},
-						title: "确认重置密码码？",
+						title: '确认重置密码码？',
 					})}
 					key={uniqueId()}
 				>
@@ -310,11 +310,11 @@ export class HeaderLayout extends React.PureComponent {
 		);
 		return (
 			<section
-				className={style["right-container"]}
+				className={style['right-container']}
 			>
-				<Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
+				<Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
 					<span>
-						hi {get(userInfo, "name")}<Icon type="down"/>
+						hi {get(userInfo, 'name')}<Icon type="down"/>
 					</span>
 				</Dropdown>
 			</section>
@@ -324,8 +324,8 @@ export class HeaderLayout extends React.PureComponent {
 	render() {
 		return (
 			<React.Fragment>
-				<Layout.Header className={style["main-header-container"]}>
-					<section className={style["left-container"]}>
+				<Layout.Header className={style['main-header-container']}>
+					<section className={style['left-container']}>
 						
 						{/* <div className={style["logo-container"]}>logo</div>*/}
 						
@@ -341,7 +341,7 @@ export class HeaderLayout extends React.PureComponent {
 					}
 				</Layout.Header>
 				{
-					<div className={T.classNames({[style["header-children"]]: this.props.children})}>
+					<div className={T.classNames({[style['header-children']]: this.props.children})}>
 						{this.props.children}
 					</div>
 				}
@@ -363,7 +363,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 		const self = this;
 		return (
 			<Layout
-				id={style["main-container"]}
+				id={style['main-container']}
 				style={{paddingLeft: self.state.isCollapsed ? 80 : 200}}
 			>
 				<SiderMenu
@@ -371,10 +371,10 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 					handleCollapsed={self.handleCollapsed}
 				/>
 				<Layout.Content
-					className={style["content-container"]}
+					className={style['content-container']}
 				>
 					<HeaderLayout/>
-					<Layout.Content className={style["main-content-container"]}>
+					<Layout.Content className={style['main-content-container']}>
 						{self.props.children}
 					</Layout.Content>
 				</Layout.Content>

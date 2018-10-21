@@ -1,15 +1,15 @@
 /**
  * Created by joey 2018/02/19
  */
-import enumAPI from "constants/enumAPI";
-import * as queryString from "./queryString";
-import helper from "./helper";
-import localStorage from "./localStorage";
-import * as request from "./request";
+import enumAPI from 'constants/enumAPI';
+import * as queryString from './queryString';
+import helper from './helper';
+import localStorage from './localStorage';
+import * as request from './request';
 
-import flowRight from "lodash/flowRight";
-import isFunction from "lodash/isFunction";
-import get from "lodash/get";
+import flowRight from 'lodash/flowRight';
+import isFunction from 'lodash/isFunction';
+import get from 'lodash/get';
 
 class Auth {
 	constructor() {

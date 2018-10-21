@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isArray from "../isArray";
+import isArray from '../isArray';
 
 /**
  * 反转类数组

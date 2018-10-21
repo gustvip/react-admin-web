@@ -1,18 +1,18 @@
 /**
  * Created by joey on 2018/2/18
  */
-import * as queryString from "./core/queryString";
-import helper from "./core/helper";
-import prompt from "./core/prompt";
-import auth from "./core/auth";
-import regExp from "./core/regexp";
-import localStorage from "./core/localStorage/index";
-import emitter from "./core/emitter/index";
-import * as decorate from "./core/decorate";
-import * as request from "./core/request";
-import crypto from "./core/crypto";
-import classNames from "classnames";
-import update from "immutability-helper";
+import * as queryString from './core/queryString';
+import helper from './core/helper';
+import prompt from './core/prompt';
+import auth from './core/auth';
+import regExp from './core/regexp';
+import localStorage from './core/localStorage/index';
+import emitter from './core/emitter/index';
+import * as decorate from './core/decorate';
+import * as request from './core/request';
+import crypto from './core/crypto';
+import classNames from 'classnames';
+import update from 'immutability-helper';
 
 const T = {
 	update,

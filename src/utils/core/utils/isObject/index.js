@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isObject(x) {
-	return (typeof x === "object" || typeof x === "function") && x !== null;
+	return (typeof x === 'object' || typeof x === 'function') && x !== null;
 }

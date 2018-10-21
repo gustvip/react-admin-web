@@ -1,5 +1,5 @@
-import isFunction from "../../utils/isFunction";
-import isUndefined from "../../utils/isUndefined";
+import isFunction from '../../utils/isFunction';
+import isUndefined from '../../utils/isUndefined';
 
 function DoubleLinkedListNode(value, next, previous) {
 	this.value = value;

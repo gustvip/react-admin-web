@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isFunction from "../isFunction";
-import isArray from "../isArray";
+import isFunction from '../isFunction';
+import isArray from '../isArray';
 
 /**
  * 映射集合

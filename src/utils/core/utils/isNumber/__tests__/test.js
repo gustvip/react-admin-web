@@ -1,6 +1,6 @@
-import isNumber from "../index";
+import isNumber from '../index';
 
-test("test isNumber", () => {
+test('test isNumber', () => {
 	expect(isNumber({})).toBeFalsy();
 	/* eslint-disable no-new-wrappers */
 	expect(isNumber(new Number(1))).toBeFalsy();

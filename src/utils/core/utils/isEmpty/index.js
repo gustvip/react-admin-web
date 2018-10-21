@@ -1,14 +1,14 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isNil from "../isNil";
-import isMap from "../isMap";
-import isSet from "../isSet";
-import isObject from "../isObject";
-import isString from "../isString";
-import isArguments from "../isArguments";
-import isTypedArray from "../isTypedArray";
-import isArray from "../isArray";
+import isNil from '../isNil';
+import isMap from '../isMap';
+import isSet from '../isSet';
+import isObject from '../isObject';
+import isString from '../isString';
+import isArguments from '../isArguments';
+import isTypedArray from '../isTypedArray';
+import isArray from '../isArray';
 
 /**
  * 是否为空

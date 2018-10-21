@@ -1,6 +1,6 @@
-import isTypedArray from "../index";
+import isTypedArray from '../index';
 
-test("test isTypedArray", () => {
+test('test isTypedArray', () => {
 	expect(isTypedArray({})).toBeFalsy();
 	expect(isTypedArray(new ArrayBuffer(1))).toBeTruthy();
 	expect(isTypedArray(new DataView(new ArrayBuffer(1)))).toBeTruthy();

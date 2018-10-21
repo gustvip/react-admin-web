@@ -1,6 +1,6 @@
-import isPureObject from "../index";
+import isPureObject from '../index';
 
-test("test isPureObject", () => {
+test('test isPureObject', () => {
 	expect(isPureObject({})).toBeTruthy();
 	expect(isPureObject(new Map())).toBeFalsy();
 });

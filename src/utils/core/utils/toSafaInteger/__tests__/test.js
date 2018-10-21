@@ -1,6 +1,6 @@
-import toLength from "../index";
+import toLength from '../index';
 
-test("test toLength", () => {
+test('test toLength', () => {
 	expect(toLength({})).toBe(0);
 	expect(toLength(false)).toBe(0);
 	expect(toLength(true)).toBe(1);

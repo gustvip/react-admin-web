@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/10/15
  */
-import isArray from "../isArray";
+import isArray from '../isArray';
 
 /**
  * Casts `value` as an array if it's not one.

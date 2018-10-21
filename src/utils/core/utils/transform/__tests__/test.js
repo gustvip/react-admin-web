@@ -1,12 +1,12 @@
-import transform from "../index";
+import transform from '../index';
 
-test("test transform array", () => {
+test('test transform array', () => {
 	const mockCallback = jest.fn();
 	const obj = [1, 2, 3];
 	expect(transform([])).toBeUndefined();
 	expect(transform([], mockCallback)).toBeUndefined();
 	expect(transform({}, mockCallback)).toBeUndefined();
-	expect(transform("", mockCallback)).toBeUndefined();
+	expect(transform('', mockCallback)).toBeUndefined();
 	expect(transform(obj, (prev, value, index, arr) => {})).toBeUndefined();
 	expect(transform([], (prev, value, index, arr) => {}, 1)).toBe(1);
 	
@@ -27,7 +27,7 @@ test("test transform array", () => {
 	}, [])).toEqual([undefined, undefined, undefined]);
 });
 
-test("test transform object", () => {
+test('test transform object', () => {
 	const obj = {
 		a: 1,
 		b: 2,
@@ -44,27 +44,27 @@ test("test transform object", () => {
 		prev[key] = value;
 		return prev;
 	}, {})).toEqual({
-		"a": 1,
-		"b": 2,
-		"c": 3,
+		'a': 1,
+		'b': 2,
+		'c': 3,
 	});
 	
 	expect(transform(obj, (prev, value, key) => {
 		prev[value] = key;
 		return prev;
 	}, {})).toEqual({
-		"1": "a",
-		"2": "b",
-		"3": "c",
+		'1': 'a',
+		'2': 'b',
+		'3': 'c',
 	});
 	
 	expect(transform(obj, (prev, value, key, obj) => {
 		prev[key] = obj;
 		return prev;
 	}, {})).toEqual({
-		"a": obj,
-		"b": obj,
-		"c": obj,
+		'a': obj,
+		'b': obj,
+		'c': obj,
 	});
 	
 	expect(transform(obj, (prev, value, index, arr, other) => {

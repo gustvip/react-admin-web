@@ -1,7 +1,7 @@
-import findLast from "../index";
+import findLast from '../index';
 
-test("test findLast", () => {
-	const str1 = "";
+test('test findLast', () => {
+	const str1 = '';
 	const array1 = [];
 	const array2 = [{age: 10}, {age: 20}, {age: 30}];
 	expect(findLast(str1, function() {}, 99)).toBeUndefined();

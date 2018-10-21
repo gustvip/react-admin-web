@@ -1,9 +1,9 @@
-import isArray from "../utils/isArray";
-import isFinite from "../utils/isFinite";
-import isString from "../utils/isString";
-import isPureObject from "../utils/isPureObject";
-import _objectForEach from "../utils/aaa/_objectForEach";
-import _arrayLikeForEach from "../utils/aaa/_arrayLikeForEach";
+import isArray from '../utils/isArray';
+import isFinite from '../utils/isFinite';
+import isString from '../utils/isString';
+import isPureObject from '../utils/isPureObject';
+import _objectForEach from '../utils/aaa/_objectForEach';
+import _arrayLikeForEach from '../utils/aaa/_arrayLikeForEach';
 
 function classNames() {
 	var classCollections = [];
@@ -25,7 +25,7 @@ function classNames() {
 		}
 	});
 	
-	return classCollections.join(" ");
+	return classCollections.join(' ');
 }
 
 export default classNames;

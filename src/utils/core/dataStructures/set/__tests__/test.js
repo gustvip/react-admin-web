@@ -1,15 +1,15 @@
 /**
  * Created by joey on 2018/8/20
  */
-import Set from "../index";
+import Set from '../index';
 
 const mockCallback = jest.fn();
-const value1 = {name: "a"};
-const value2 = {name: "b"};
+const value1 = {name: 'a'};
+const value2 = {name: 'b'};
 const set1 = Set([value1]);
 const set2 = new Set(set1);
-const set3 = new Set("");
-test("test set", () => {
+const set3 = new Set('');
+test('test set', () => {
 	expect(set3.values()).toEqual([]);
 	expect(set1).toEqual(set2);
 	expect(set1.size).toBe(1);
@@ -57,7 +57,7 @@ test("test set", () => {
 	expect(mockCallback.mock.calls[2][1]).toEqual(value1);
 	expect(mockCallback.mock.calls[3][0]).toEqual(value2);
 	expect(mockCallback.mock.calls[3][1]).toEqual(value2);
-	set1.delete("aaa");
+	set1.delete('aaa');
 	expect(set1.values()).toEqual([value1, value2]);
 	set1.delete(value1);
 	expect(set1.size).toBe(1);
@@ -72,7 +72,7 @@ test("test set", () => {
 	expect(set1.entries()).toEqual([]);
 });
 
-test("test undefined", () => {
+test('test undefined', () => {
 	const set5 = Set();
 	set5.add(undefined);
 	expect(set5.size).toBe(1);

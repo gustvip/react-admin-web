@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isInteger from "../isInteger";
+import isInteger from '../isInteger';
 
 /**
  * 是否为符合条件的整数

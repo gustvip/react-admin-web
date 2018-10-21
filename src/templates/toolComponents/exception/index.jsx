@@ -1,12 +1,12 @@
 /**
  * Created by joey on 2018/02/19
  */
-import Link from "react-router-dom/Link";
-import {Button} from "antd";
-import styles from "./index.scss";
-import img404 from "./img/404.svg";
+import Link from 'react-router-dom/Link';
+import {Button} from 'antd';
+import styles from './index.scss';
+import img404 from './img/404.svg';
 
-export default ({className = "", ...rest}) => {
+export default ({className = '', ...rest}) => {
 	return (
 		<div className={`${styles.exception} ${className}`} {...rest}>
 			<div className={styles.imgBlock}>

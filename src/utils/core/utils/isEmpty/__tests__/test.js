@@ -1,8 +1,8 @@
-import isEmpty from "../index";
+import isEmpty from '../index';
 
-test("test isEmpty", () => {
+test('test isEmpty', () => {
 	expect(isEmpty({
-		key1: "value1",
+		key1: 'value1',
 	})).toBeFalsy();
 	expect(isEmpty({})).toBeTruthy();
 	expect(isEmpty(null)).toBeTruthy();
@@ -19,11 +19,11 @@ test("test isEmpty", () => {
 	expect(isEmpty(map)).toBeFalsy();
 	expect(isEmpty(set)).toBeFalsy();
 	
-	expect(isEmpty("abc")).toBeFalsy();
+	expect(isEmpty('abc')).toBeFalsy();
 	expect(isEmpty(new ArrayBuffer(1))).toBeFalsy();
 	expect(isEmpty([1, 2])).toBeFalsy();
 	/* eslint-disable no-extend-native */
-	Object.prototype.aaa = "aaa";
+	Object.prototype.aaa = 'aaa';
 	expect(isEmpty({})).toBeTruthy();
 	delete Object.prototype.aaa;
 });

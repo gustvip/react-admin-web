@@ -1,16 +1,16 @@
 /**
  * Created by joey on 2018/8/20
  */
-import Map from "../index";
+import Map from '../index';
 
 const mockCallback = jest.fn();
-const key1 = {name: "a"};
-const value1 = {name: "b"};
+const key1 = {name: 'a'};
+const value1 = {name: 'b'};
 const map = Map([[key1, value1]]);
 const _map = new Map(map);
-const map3 = new Map("");
+const map3 = new Map('');
 const map4 = new Map([1, 2, 3]);
-test("map test", () => {
+test('map test', () => {
 	expect(_map).toEqual(map);
 	expect(map4.size).toBe(0);
 	expect(_map.size).toBe(1);
@@ -72,7 +72,7 @@ test("map test", () => {
 	expect(mockCallback.mock.calls[2][1]).toEqual(key1);
 	expect(mockCallback.mock.calls[3][0]).toEqual(key1);
 	expect(mockCallback.mock.calls[3][1]).toEqual(value1);
-	_map.delete("aaa");
+	_map.delete('aaa');
 	expect(_map.keys()).toEqual([key1, value1]);
 	expect(_map.values()).toEqual([value1, key1]);
 	_map.delete(key1);
@@ -92,7 +92,7 @@ test("map test", () => {
 	expect(_map.entries()).toEqual([]);
 });
 
-test("test undefined", () => {
+test('test undefined', () => {
 	const map5 = Map();
 	map5.set(undefined,undefined);
 	expect(map5.size).toBe(1);

@@ -1,3 +1,3 @@
-import Register from "../../components/register";
+import Register from '../../components/register';
 
 export default () => <Register/>;

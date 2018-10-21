@@ -1,11 +1,11 @@
 /**
  * Created by joey on 2018/8/28
  */
-import isArrayLike from "../isArrayLike";
-import isMap from "../isMap";
-import isSet from "../isSet";
-import _baseSlice from "../aaa/_baseSlice";
-import _mapAndSetToArray from "../aaa/_mapAndSetToArray";
+import isArrayLike from '../isArrayLike';
+import isMap from '../isMap';
+import isSet from '../isSet';
+import _baseSlice from '../aaa/_baseSlice';
+import _mapAndSetToArray from '../aaa/_mapAndSetToArray';
 
 /**
  * 转化为数组

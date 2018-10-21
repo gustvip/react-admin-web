@@ -2,7 +2,7 @@
  * Created by joey on 2018/6/20
  */
 
-import isPlainObject from "../isPlainObject";
+import isPlainObject from '../isPlainObject';
 
 /**
  * 是否为HTMLElement

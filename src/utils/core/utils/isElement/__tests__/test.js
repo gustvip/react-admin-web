@@ -1,6 +1,6 @@
-import isElement from "../index";
+import isElement from '../index';
 
-test("test isElement", () => {
+test('test isElement', () => {
 	expect(isElement({})).toBeFalsy();
 	expect(isElement(document.body)).toBeTruthy();
 });

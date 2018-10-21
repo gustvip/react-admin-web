@@ -1,6 +1,6 @@
-import isPlainObject from "../index";
+import isPlainObject from '../index';
 
-test("test isObjectLike", () => {
+test('test isObjectLike', () => {
 	expect(isPlainObject([])).toBeFalsy();
 	expect(isPlainObject(null)).toBeFalsy();
 	expect(isPlainObject({})).toBeTruthy();

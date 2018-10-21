@@ -1,36 +1,36 @@
 /**
  * Created by joey on 17-8-30.
  */
-import enumRouter from "constants/enumRouter";
-import regExp from "utils/core/regExp";
-import auth from "utils/core/auth";
-import crypto from "utils/core/crypto";
-import prompt from "utils/core/prompt";
-import * as decorate from "utils/core/decorate";
+import enumRouter from 'constants/enumRouter';
+import regExp from 'utils/core/regExp';
+import auth from 'utils/core/auth';
+import crypto from 'utils/core/crypto';
+import prompt from 'utils/core/prompt';
+import * as decorate from 'utils/core/decorate';
 
-import styles from "../../scss/login/index.scss";
-import {Button, Input} from "antd";
-import Link from "react-router-dom/Link";
-import bg from "../../img/bg.jpeg";
+import styles from '../../scss/login/index.scss';
+import {Button, Input} from 'antd';
+import Link from 'react-router-dom/Link';
+import bg from '../../img/bg.jpeg';
 
-@decorate.contextTypes("router")
+@decorate.contextTypes('router')
 class Login extends React.PureComponent {
 	constructor() {
 		super();
 		this.state = {
-			userName: "",
-			userPassword: "",
+			userName: '',
+			userPassword: '',
 			loading: false,
 		};
 	}
 	
 	checkParam = (userName, userPassword) => {
 		if (!(regExp.name().test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
-			prompt.warn("账号格式不对");
+			prompt.warn('账号格式不对');
 			return false;
 		}
 		if (!regExp.password().test(userPassword)) {
-			prompt.warn("密码格式不对");
+			prompt.warn('密码格式不对');
 			return false;
 		}
 		return true;
@@ -48,7 +48,7 @@ class Login extends React.PureComponent {
 					userName,
 					userPassword,
 					(info) => {
-						prompt.success("登陆成功,正在跳转");
+						prompt.success('登陆成功,正在跳转');
 						auth.setLoginStorageValue(info.data.userInfo);
 						auth.setUserInfoStorageValue(info.data.userInfo);
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
@@ -66,9 +66,9 @@ class Login extends React.PureComponent {
 		const self = this;
 		
 		return (
-			<div id={styles["login-container"]}>
+			<div id={styles['login-container']}>
 				<img src={bg} alt="背景图片"/>
-				<div className={styles["condition-container"]}>
+				<div className={styles['condition-container']}>
 					<Input
 						type="text"
 						value={self.state.userName}

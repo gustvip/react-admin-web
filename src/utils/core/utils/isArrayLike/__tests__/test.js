@@ -1,9 +1,9 @@
-import isArrayLike from "../index";
+import isArrayLike from '../index';
 
-test("test isArrayLike", () => {
+test('test isArrayLike', () => {
 	expect(isArrayLike(1)).toBeFalsy();
 	expect(isArrayLike(() => {
 
 	})).toBeFalsy();
-	expect(isArrayLike("aa")).toBeTruthy();
+	expect(isArrayLike('aa')).toBeTruthy();
 });

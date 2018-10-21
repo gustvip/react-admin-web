@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import findIndex from "../findIndex";
-import isNaN from "../isNaN";
+import findIndex from '../findIndex';
+import isNaN from '../isNaN';
 
 /**
  * 查找符合条件的索引

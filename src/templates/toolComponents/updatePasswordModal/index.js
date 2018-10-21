@@ -1,16 +1,16 @@
 /**
  * Created by joey on 18-9-4
  */
-import PropTypes from "prop-types";
-import React from "react";
-import {Form, Input, Modal} from "antd";
-import prompt from "utils/core/prompt";
-import regExpHelper from "utils/core/regexp";
-import crypto from "utils/core/crypto";
-import enumAPI from "constants/enumAPI";
-import * as request from "utils/core/request";
+import PropTypes from 'prop-types';
+import React from 'react';
+import {Form, Input, Modal} from 'antd';
+import prompt from 'utils/core/prompt';
+import regExpHelper from 'utils/core/regexp';
+import crypto from 'utils/core/crypto';
+import enumAPI from 'constants/enumAPI';
+import * as request from 'utils/core/request';
 
-import isFunction from "lodash/isFunction";
+import isFunction from 'lodash/isFunction';
 
 const formItemLayout = {
 	labelCol: {
@@ -62,15 +62,15 @@ class UpdatePasswordModal extends React.PureComponent {
 	};
 	
 	handleConfirmPassword = (rule, value, callback) => {
-		if (value && value !== this.props.form.getFieldValue("newPassword")) {
-			callback("两次输入的密码不一致");
+		if (value && value !== this.props.form.getFieldValue('newPassword')) {
+			callback('两次输入的密码不一致');
 		} else {
 			callback();
 		}
 	};
 	
 	render() {
-		const {className = "", option = {}} = this.props;
+		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<Modal
@@ -94,15 +94,15 @@ class UpdatePasswordModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("oldPassword", {
+						{getFieldDecorator('oldPassword', {
 							rules: [
 								{
 									required: true,
-									message: "请填写原始密码",
+									message: '请填写原始密码',
 								},
 								{
 									pattern: regExpHelper.password(),
-									message: "密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一",
+									message: '密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一',
 								},
 							],
 						})(
@@ -114,15 +114,15 @@ class UpdatePasswordModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("newPassword", {
+						{getFieldDecorator('newPassword', {
 							rules: [
 								{
 									required: true,
-									message: "请填写新密码",
+									message: '请填写新密码',
 								},
 								{
 									pattern: regExpHelper.password(),
-									message: "密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一",
+									message: '密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一',
 								},
 							],
 						})(
@@ -134,11 +134,11 @@ class UpdatePasswordModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("confirmNewPassword", {
+						{getFieldDecorator('confirmNewPassword', {
 							rules: [
 								{
 									required: true,
-									message: "请再次填写新密码",
+									message: '请再次填写新密码',
 								},
 								{validator: this.handleConfirmPassword},
 							],

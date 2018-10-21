@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import filter from "../filter";
-import identity from "../identity";
+import filter from '../filter';
+import identity from '../identity';
 
 /**
  * 筛选集合

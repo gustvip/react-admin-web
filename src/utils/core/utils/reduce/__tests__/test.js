@@ -1,12 +1,12 @@
-import reduce from "../index";
+import reduce from '../index';
 
-test("test reduce array", () => {
+test('test reduce array', () => {
 	const mockCallback = jest.fn();
 	const obj = [1, 2, 3];
 	expect(reduce([])).toBeUndefined();
 	expect(reduce([], mockCallback)).toBeUndefined();
 	expect(reduce({}, mockCallback)).toBeUndefined();
-	expect(reduce("", mockCallback)).toBeUndefined();
+	expect(reduce('', mockCallback)).toBeUndefined();
 	expect(reduce(obj, (prev, value, index, arr) => {})).toBeUndefined();
 	expect(reduce([], (prev, value, index, arr) => {}, 1)).toBe(1);
 	
@@ -31,7 +31,7 @@ test("test reduce array", () => {
 	}, [])).toEqual([undefined, undefined, undefined]);
 });
 
-test("test reduce object", () => {
+test('test reduce object', () => {
 	const obj = {
 		a: 1,
 		b: 2,
@@ -48,27 +48,27 @@ test("test reduce object", () => {
 		prev[key] = value;
 		return prev;
 	}, {})).toEqual({
-		"a": 1,
-		"b": 2,
-		"c": 3,
+		'a': 1,
+		'b': 2,
+		'c': 3,
 	});
 	
 	expect(reduce(obj, (prev, value, key) => {
 		prev[value] = key;
 		return prev;
 	}, {})).toEqual({
-		"1": "a",
-		"2": "b",
-		"3": "c",
+		'1': 'a',
+		'2': 'b',
+		'3': 'c',
 	});
 	
 	expect(reduce(obj, (prev, value, key, obj) => {
 		prev[key] = obj;
 		return prev;
 	}, {})).toEqual({
-		"a": obj,
-		"b": obj,
-		"c": obj,
+		'a': obj,
+		'b': obj,
+		'c': obj,
 	});
 	
 	expect(reduce(obj, (prev, value, index, arr, other) => {

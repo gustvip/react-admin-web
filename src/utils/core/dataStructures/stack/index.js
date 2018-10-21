@@ -1,4 +1,4 @@
-import DoubleLinkedList from "../doubleLinkedList";
+import DoubleLinkedList from '../doubleLinkedList';
 
 function Stack() {
 	this.doubleLinkedList = new DoubleLinkedList();

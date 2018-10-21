@@ -2,8 +2,8 @@
  * Created by joey on 2018/2/27
  */
 
-import merge from "lodash/merge";
-import * as EnumMap from "./constants/index";
+import merge from 'lodash/merge';
+import * as EnumMap from './constants/index';
 
 class mapBasisHelper {
 	constructor() {
@@ -726,7 +726,7 @@ class mapBasisHelper {
 	 */
 	mouseTool() {
 		if (!this.AMapInstance.MouseTool) {
-			this.mapInstance.plugin(["AMap.MouseTool"]);
+			this.mapInstance.plugin(['AMap.MouseTool']);
 		}
 
 		return new this.AMapInstance.MouseTool(this.mapInstance);
@@ -738,7 +738,7 @@ class mapBasisHelper {
 	 */
 	rangingTool(options) {
 		if (!this.AMapInstance.RangingTool) {
-			this.mapInstance.plugin(["AMap.RangingTool"]);
+			this.mapInstance.plugin(['AMap.RangingTool']);
 		}
 
 		return new this.AMapInstance.RangingTool(this.mapInstance, options);
@@ -754,7 +754,7 @@ class mapBasisHelper {
 		 * 判读地图实列是否添加了插件
 		 */
 		if (!this.AMapInstance.Geocoder) {
-			this.mapInstance.plugin(["AMap.Geocoder"]);
+			this.mapInstance.plugin(['AMap.Geocoder']);
 		}
 
 		/**
@@ -856,7 +856,7 @@ class mapBasisHelper {
 		 * 判读地图实列是否添加了插件
 		 */
 		if (!this.AMapInstance.Autocomplete) {
-			this.mapInstance.plugin(["AMap.Autocomplete"]);
+			this.mapInstance.plugin(['AMap.Autocomplete']);
 		}
 
 		/**
@@ -864,7 +864,7 @@ class mapBasisHelper {
 		 */
 		const result = new this.AMapInstance.Autocomplete(options);
 		const search = result.search.bind(result);
-		Object.defineProperty(result, "search", {
+		Object.defineProperty(result, 'search', {
 			value(address) {
 				return new Promise((resolve, reject) => {
 					search(address, (status, result) => {
@@ -916,7 +916,7 @@ class mapBasisHelper {
 		 * 判读地图实列是否添加了插件
 		 */
 		if (!this.AMapInstance.DistrictSearch) {
-			this.mapInstance.plugin(["AMap.DistrictSearch"]);
+			this.mapInstance.plugin(['AMap.DistrictSearch']);
 		}
 
 		/**
@@ -924,7 +924,7 @@ class mapBasisHelper {
 		 */
 		const result = new this.AMapInstance.DistrictSearch(options);
 		const search = result.search.bind(result);
-		Object.defineProperty(result, "search", {
+		Object.defineProperty(result, 'search', {
 			value(address) {
 				return new Promise((resolve, reject) => {
 					search(address, (status, result) => {

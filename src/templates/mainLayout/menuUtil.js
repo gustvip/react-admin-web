@@ -2,13 +2,13 @@
  * Created by joey on 18-2-7
  */
 
-import T from "utils/t";
-import EnumDefaultMenus from "constants/enumDefaultMenus";
-import uniq from "lodash/uniq";
-import flowRight from "lodash/flowRight";
-import identity from "lodash/identity";
-import isString from "lodash/isString";
-import isPlainObject from "lodash/isPlainObject";
+import T from 'utils/t';
+import EnumDefaultMenus from 'constants/enumDefaultMenus';
+import uniq from 'lodash/uniq';
+import flowRight from 'lodash/flowRight';
+import identity from 'lodash/identity';
+import isString from 'lodash/isString';
+import isPlainObject from 'lodash/isPlainObject';
 
 /**
  * Location.pathname和分类值的对应关系

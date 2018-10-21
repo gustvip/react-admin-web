@@ -1,16 +1,16 @@
 /**
  * Created by joey on 18-9-4
  */
-import PropTypes from "prop-types";
-import React from "react";
-import {Form, Input, Radio, Modal} from "antd";
-import prompt from "utils/core/prompt";
-import regExpHelper from "utils/core/regexp";
-import enumAPI from "constants/enumAPI";
-import * as request from "utils/core/request";
+import PropTypes from 'prop-types';
+import React from 'react';
+import {Form, Input, Radio, Modal} from 'antd';
+import prompt from 'utils/core/prompt';
+import regExpHelper from 'utils/core/regexp';
+import enumAPI from 'constants/enumAPI';
+import * as request from 'utils/core/request';
 
-import isFunction from "lodash/isFunction";
-import {userSex} from "constants/app/common";
+import isFunction from 'lodash/isFunction';
+import {userSex} from 'constants/app/common';
 
 const RadioGroup = Radio.Group;
 
@@ -50,12 +50,12 @@ class UpdateUserInfoModal extends React.PureComponent {
 	state = {
 		showModal: true,
 		loading: false,
-		userName: "",
-		userEmail: "",
-		userPhone: "",
-		userSex: "",
-		name: "",
-		userDescription: "",
+		userName: '',
+		userEmail: '',
+		userPhone: '',
+		userSex: '',
+		name: '',
+		userDescription: '',
 	};
 	
 	handleSubmit = () => {
@@ -88,7 +88,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 	};
 	
 	render() {
-		const {className = "", option = {}} = this.props;
+		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<Modal
@@ -112,16 +112,16 @@ class UpdateUserInfoModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userName", {
+						{getFieldDecorator('userName', {
 							initialValue: this.state.userName,
 							rules: [
 								{
 									required: true,
-									message: "请填写名称",
+									message: '请填写名称',
 								},
 								{
 									pattern: regExpHelper.name(),
-									message: "不能有空格。名称可以是数字、字母、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)",
+									message: '不能有空格。名称可以是数字、字母、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)',
 								},
 							],
 						})(
@@ -133,16 +133,16 @@ class UpdateUserInfoModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userEmail", {
+						{getFieldDecorator('userEmail', {
 							initialValue: this.state.userEmail,
 							rules: [
 								{
 									required: true,
-									message: "请填写邮箱",
+									message: '请填写邮箱',
 								},
 								{
 									pattern: regExpHelper.email,
-									message: "邮箱格式不对",
+									message: '邮箱格式不对',
 								},
 							],
 						})(
@@ -154,16 +154,16 @@ class UpdateUserInfoModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userPhone", {
+						{getFieldDecorator('userPhone', {
 							initialValue: this.state.userPhone,
 							rules: [
 								{
 									required: true,
-									message: "请填写手机",
+									message: '请填写手机',
 								},
 								{
 									pattern: regExpHelper.telephone,
-									message: "手机格式不对",
+									message: '手机格式不对',
 								},
 							],
 						})(
@@ -175,16 +175,16 @@ class UpdateUserInfoModal extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("name", {
+						{getFieldDecorator('name', {
 							initialValue: this.state.name,
 							rules: [
 								{
 									required: true,
-									message: "请填写姓名",
+									message: '请填写姓名',
 								},
 								{
 									max: 10,
-									message: "姓名长度不能超过10",
+									message: '姓名长度不能超过10',
 								},
 							],
 						})(<Input placeholder="请填写姓名"/>)}
@@ -193,17 +193,17 @@ class UpdateUserInfoModal extends React.PureComponent {
 						label="性别"
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userSex", {
+						{getFieldDecorator('userSex', {
 							initialValue: this.state.userSex,
 							rules: [
 								{
 									required: true,
-									message: "请选择性别",
+									message: '请选择性别',
 								},
 								{
-									type: "enum",
+									type: 'enum',
 									enum: Object.values(userSex).map(value => value.value),
-									message: "性别枚举不对",
+									message: '性别枚举不对',
 								},
 							],
 						})(
@@ -220,13 +220,13 @@ class UpdateUserInfoModal extends React.PureComponent {
 						label="描述"
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userDescription", {
+						{getFieldDecorator('userDescription', {
 							initialValue: this.state.userDescription,
 							rules: [
 								{required: false},
 								{
 									max: 50,
-									message: "描述不能超过50字",
+									message: '描述不能超过50字',
 								},
 							],
 						})(

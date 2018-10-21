@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import indexOf from "../indexOf";
+import indexOf from '../indexOf';
 
 /**
  * 是否包含此值

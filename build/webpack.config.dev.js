@@ -1,17 +1,17 @@
 /**
  * @description webpack 开发模式下的打包基本配置
  */
-const merge = require("webpack-merge");
-const host = "localhost";
+const merge = require('webpack-merge');
+const host = 'localhost';
 // const host = require("./util").getLocalIp();
 const port = 11111; // 端口号
-const bundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const baseConfig = require("./webpack.config.base");
-const resourceBaseName = require("./util").resourceBaseName;
+const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const baseConfig = require('./webpack.config.base');
+const resourceBaseName = require('./util').resourceBaseName;
 
 module.exports = merge(baseConfig, {
-	mode: "development",
-	devtool: "cheap-module-source-map",	// cheap-module-source-map,cheap-module-eval-source-map
+	mode: 'development',
+	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-module-eval-source-map
 	
 	module: {
 		rules: [
@@ -24,7 +24,7 @@ module.exports = merge(baseConfig, {
 	devServer: {
 		host,
 		port,
-		publicPath: "/public/",
+		publicPath: '/public/',
 		contentBase: `${__dirname}/../public/`,
 		
 		watchContentBase: true,
@@ -33,7 +33,7 @@ module.exports = merge(baseConfig, {
 		},
 		hot: false,
 		historyApiFallback: {
-			index: "/",
+			index: '/',
 			disableDotRule: true,
 		},
 		stats: {
@@ -43,9 +43,9 @@ module.exports = merge(baseConfig, {
 	},
 	
 	output: {
-		publicPath: "/public/",
+		publicPath: '/public/',
 		path: `${__dirname}/../public/`,
-		filename: "[name].js",
+		filename: '[name].js',
 	},
 	
 	plugins: [

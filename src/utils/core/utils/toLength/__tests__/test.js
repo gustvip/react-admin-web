@@ -1,6 +1,6 @@
-import toLength from "../index";
+import toLength from '../index';
 
-test("test toLength", () => {
+test('test toLength', () => {
 	expect(toLength({ a: 1 })).toBe(0);
 	expect(toLength(1.1)).toBe(1);
 	expect(toLength(-1.1)).toBe(0);
@@ -13,7 +13,7 @@ test("test toLength", () => {
 		return 10;
 	} })).toBe(10);
 	expect(toLength(1)).toBe(1);
-	expect(toLength("-111")).toBe(0);
+	expect(toLength('-111')).toBe(0);
 	expect(toLength(false)).toBe(0);
 	expect(toLength(true)).toBe(1);
 	expect(toLength(Infinity)).toBe(4294967295);

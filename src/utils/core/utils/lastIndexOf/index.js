@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import findLastIndex from "../findLastIndex";
-import isNaN from "../isNaN";
+import findLastIndex from '../findLastIndex';
+import isNaN from '../isNaN';
 
 /**
  * 查找符合条件的索引

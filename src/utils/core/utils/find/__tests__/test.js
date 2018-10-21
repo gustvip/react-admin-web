@@ -1,7 +1,7 @@
-import find from "../index";
+import find from '../index';
 
-test("test find", () => {
-	const str1 = "";
+test('test find', () => {
+	const str1 = '';
 	const array1 = [];
 	const array2 = [{age: 10}, {age: 20}, {age: 30}];
 	expect(find(str1, function() {}, 99)).toBeUndefined();

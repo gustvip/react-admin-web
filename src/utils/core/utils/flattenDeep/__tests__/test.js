@@ -1,7 +1,7 @@
-import flattenDeep from "../index";
+import flattenDeep from '../index';
 
-test("test flattenDeep", () => {
-	expect(flattenDeep("")).toEqual([]);
+test('test flattenDeep', () => {
+	expect(flattenDeep('')).toEqual([]);
 	expect(flattenDeep([])).toEqual([]);
 	expect(flattenDeep([1, 2, 3])).toEqual([1, 2, 3]);
 	expect(flattenDeep([1, 2, [3]])).toEqual([1, 2, 3]);

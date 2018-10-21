@@ -2,15 +2,15 @@
  * @description webpack 生产环境的打包基本配置
  */
 
-const merge = require("webpack-merge");
-const optimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const uglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const baseConfig = require("./webpack.config.base");
+const merge = require('webpack-merge');
+const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const baseConfig = require('./webpack.config.base');
 
-const resourceBaseName = require("./util").resourceBaseName;
+const resourceBaseName = require('./util').resourceBaseName;
 
 module.exports = merge(baseConfig, {
-	mode: "production",
+	mode: 'production',
 	
 	optimization: {
 		minimizer: [
@@ -50,7 +50,7 @@ module.exports = merge(baseConfig, {
 				test: /\.(png|jpg|gif|jpeg|svg)$/,
 				use: [
 					{
-						loader: "url-loader",
+						loader: 'url-loader',
 						options: {
 							name: `${resourceBaseName}/[name].[hash].[ext]`,
 							limit: 8192,	 // <= 8kb的图片base64内联
@@ -58,7 +58,7 @@ module.exports = merge(baseConfig, {
 					},
 					// 压缩图片
 					{
-						loader: "image-webpack-loader",
+						loader: 'image-webpack-loader',
 						options: {
 							mozjpeg: {
 								progressive: true,

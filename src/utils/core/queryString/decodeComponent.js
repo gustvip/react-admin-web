@@ -1,12 +1,12 @@
-"use strict";
-let token = "%[a-f0-9]{2}";
-let singleMatcher = new RegExp(token, "gi");
-let multiMatcher = new RegExp("(" + token + ")+", "gi");
+'use strict';
+let token = '%[a-f0-9]{2}';
+let singleMatcher = new RegExp(token, 'gi');
+let multiMatcher = new RegExp('(' + token + ')+', 'gi');
 
 function decodeComponents(components, split) {
 	try {
 		// Try to decode the entire string first
-		return decodeURIComponent(components.join(""));
+		return decodeURIComponent(components.join(''));
 	} catch (err) {
 		// Do nothing
 	}
@@ -31,7 +31,7 @@ function decode(input) {
 		let tokens = input.match(singleMatcher);
 		
 		for (let i = 1; i < tokens.length; i++) {
-			input = decodeComponents(tokens, i).join("");
+			input = decodeComponents(tokens, i).join('');
 			
 			tokens = input.match(singleMatcher);
 		}
@@ -43,8 +43,8 @@ function decode(input) {
 function customDecodeURIComponent(input) {
 	// Keep track of all the replacements and prefill the map with the `BOM`
 	let replaceMap = {
-		"%FE%FF": "\uFFFD\uFFFD",
-		"%FF%FE": "\uFFFD\uFFFD",
+		'%FE%FF': '\uFFFD\uFFFD',
+		'%FF%FE': '\uFFFD\uFFFD',
 	};
 	
 	let match = multiMatcher.exec(input);
@@ -64,26 +64,26 @@ function customDecodeURIComponent(input) {
 	}
 	
 	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
-	replaceMap["%C2"] = "\uFFFD";
+	replaceMap['%C2'] = '\uFFFD';
 	
 	let entries = Object.keys(replaceMap);
 	
 	for (let i = 0; i < entries.length; i++) {
 		// Replace all decoded components
 		let key = entries[i];
-		input = input.replace(new RegExp(key, "g"), replaceMap[key]);
+		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
 	}
 	
 	return input;
 }
 
 export default function(encodedURI) {
-	if (typeof encodedURI !== "string") {
-		throw new TypeError("Expected `encodedURI` to be of type `string`, got `" + typeof encodedURI + "`");
+	if (typeof encodedURI !== 'string') {
+		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
 	}
 	
 	try {
-		encodedURI = encodedURI.replace(/\+/g, " ");
+		encodedURI = encodedURI.replace(/\+/g, ' ');
 		
 		// Try the built in decoder first
 		return decodeURIComponent(encodedURI);

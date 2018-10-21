@@ -2,10 +2,10 @@
  * Created by joey 2018/02/19
  */
 
-import PropTypes from "prop-types";
-import {STORE_INJECT} from "store.js";
-import {Spin} from "antd";
-import auth from "utils/core/auth";
+import PropTypes from 'prop-types';
+import {STORE_INJECT} from 'store.js';
+import {Spin} from 'antd';
+import auth from 'utils/core/auth';
 
 /**
  * 定义注入的reducer

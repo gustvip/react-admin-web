@@ -1,16 +1,16 @@
 /**
  * Created by joey 2018/02/20
  */
-import isPureObject from "../utils/isPureObject";
-import isString from "../utils/isString";
-import isNumber from "../utils/isNumber";
-import isBoolean from "../utils/isBoolean";
-import forOwn from "../utils/forOwn";
+import isPureObject from '../utils/isPureObject';
+import isString from '../utils/isString';
+import isNumber from '../utils/isNumber';
+import isBoolean from '../utils/isBoolean';
+import forOwn from '../utils/forOwn';
 
 // 无限期
 let NO_EXPIRE = 0;
 // LocalStorage的key
-let STORAGE_KEY = "__STORAGE__";
+let STORAGE_KEY = '__STORAGE__';
 // 临时存储的变量
 let storageValue = (function() {
 	let result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
@@ -79,7 +79,7 @@ function getAllItem() {
 function setItem(key, value, expTime) {
 	clearExpired();
 	if (!canJSON(value)) {
-		console.warn("设置的值不可序列化，请重新设置");
+		console.warn('设置的值不可序列化，请重新设置');
 	} else {
 		expTime = parseInt(expTime, 10);
 		if (!isFinite(expTime) || expTime < 0) {

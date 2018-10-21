@@ -1,6 +1,6 @@
-import isUndefined from "../index";
+import isUndefined from '../index';
 
-test("test isUndefined", () => {
+test('test isUndefined', () => {
 	expect(isUndefined(undefined)).toBeTruthy();
-	expect(isUndefined("")).toBeFalsy();
+	expect(isUndefined('')).toBeFalsy();
 });

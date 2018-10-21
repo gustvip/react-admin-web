@@ -1,6 +1,6 @@
-import isNaN from "../index";
+import isNaN from '../index';
 
-test("test isNaN", () => {
+test('test isNaN', () => {
 	expect(isNaN(1.1)).toBeFalsy();
 	expect(isNaN(-2)).toBeFalsy();
 	expect(isNaN(undefined)).toBeFalsy();

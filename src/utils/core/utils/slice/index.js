@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isArray from "../isArray";
-import _baseSlice from "../aaa/_baseSlice";
+import isArray from '../isArray';
+import _baseSlice from '../aaa/_baseSlice';
 
 /**
  * 截取集合

@@ -1,18 +1,18 @@
 /**
  * Created by joey on 18-9-4
  */
-import React from "react";
-import styles from "../../scss/register/index.scss";
-import {Form, Input, Button, Radio} from "antd";
-import regExpHelper from "utils/core/regexp";
-import crypto from "utils/core/crypto";
-import PropTypes from "prop-types";
-import enumRouter from "constants/enumRouter";
-import {userSex} from "constants/app/common";
-import prompt from "utils/core/prompt";
-import * as webAPI from "../../webAPI/register/index";
-import bg from "../../img/bg.jpeg";
-import auth from "utils/core/auth";
+import React from 'react';
+import styles from '../../scss/register/index.scss';
+import {Form, Input, Button, Radio} from 'antd';
+import regExpHelper from 'utils/core/regexp';
+import crypto from 'utils/core/crypto';
+import PropTypes from 'prop-types';
+import enumRouter from 'constants/enumRouter';
+import {userSex} from 'constants/app/common';
+import prompt from 'utils/core/prompt';
+import * as webAPI from '../../webAPI/register/index';
+import bg from '../../img/bg.jpeg';
+import auth from 'utils/core/auth';
 
 const RadioGroup = Radio.Group;
 const formItemLayout = {
@@ -51,7 +51,7 @@ class RegisterComponent extends React.PureComponent {
 						userSex,
 						name,
 					}).then(() => {
-						prompt.success("正在跳转");
+						prompt.success('正在跳转');
 						setTimeout(() => self.context.router.history.push(
 							auth.isLogin ? ENV.login.defaultRedirectUrl : enumRouter.login,
 						), 1000);
@@ -65,8 +65,8 @@ class RegisterComponent extends React.PureComponent {
 	};
 	
 	handleConfirmPassword = (rule, value, callback) => {
-		if (value && value !== this.props.form.getFieldValue("userPassword")) {
-			callback("两次输入的密码不一致");
+		if (value && value !== this.props.form.getFieldValue('userPassword')) {
+			callback('两次输入的密码不一致');
 		} else {
 			callback();
 		}
@@ -76,7 +76,7 @@ class RegisterComponent extends React.PureComponent {
 		const {getFieldDecorator} = this.props.form;
 		
 		return (
-			<div className={styles["main-container"]}>
+			<div className={styles['main-container']}>
 				<img src={bg} alt="背景图片"/>
 				<Form
 					onSubmit={this.handleSubmit}
@@ -85,15 +85,15 @@ class RegisterComponent extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userName", {
+						{getFieldDecorator('userName', {
 							rules: [
 								{
 									required: true,
-									message: "请填写名称",
+									message: '请填写名称',
 								},
 								{
 									pattern: regExpHelper.name(),
-									message: "不能有空格。名称可以是数字、字母、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)",
+									message: '不能有空格。名称可以是数字、字母、下划线的组合(长度大于等于8,小于等于16,且以英文或者下划线开头)',
 								},
 							],
 						})(
@@ -104,15 +104,15 @@ class RegisterComponent extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userPassword", {
+						{getFieldDecorator('userPassword', {
 							rules: [
 								{
 									required: true,
-									message: "请填密码",
+									message: '请填密码',
 								},
 								{
 									pattern: regExpHelper.password(),
-									message: "密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一",
+									message: '密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一',
 								},
 							],
 						})(
@@ -123,11 +123,11 @@ class RegisterComponent extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("confirmPassword", {
+						{getFieldDecorator('confirmPassword', {
 							rules: [
 								{
 									required: true,
-									message: "请再次填写密码",
+									message: '请再次填写密码',
 								},
 								{validator: this.handleConfirmPassword},
 							],
@@ -139,15 +139,15 @@ class RegisterComponent extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userEmail", {
+						{getFieldDecorator('userEmail', {
 							rules: [
 								{
 									required: true,
-									message: "请填写邮箱",
+									message: '请填写邮箱',
 								},
 								{
 									pattern: regExpHelper.email,
-									message: "邮箱格式不对",
+									message: '邮箱格式不对',
 								},
 							],
 						})(
@@ -158,15 +158,15 @@ class RegisterComponent extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userPhone", {
+						{getFieldDecorator('userPhone', {
 							rules: [
 								{
 									required: true,
-									message: "请填写手机",
+									message: '请填写手机',
 								},
 								{
 									pattern: regExpHelper.telephone,
-									message: "手机格式不对",
+									message: '手机格式不对',
 								},
 							],
 						})(
@@ -177,15 +177,15 @@ class RegisterComponent extends React.PureComponent {
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator("name", {
+						{getFieldDecorator('name', {
 							rules: [
 								{
 									required: true,
-									message: "请填写姓名",
+									message: '请填写姓名',
 								},
 								{
 									max: 10,
-									message: "姓名长度不能超过10",
+									message: '姓名长度不能超过10',
 								},
 							],
 						})(<Input placeholder="请填写姓名"/>)}
@@ -193,17 +193,17 @@ class RegisterComponent extends React.PureComponent {
 					<Form.Item
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userSex", {
+						{getFieldDecorator('userSex', {
 							initialValue: userSex.secret.value,
 							rules: [
 								{
 									required: true,
-									message: "请选择性别",
+									message: '请选择性别',
 								},
 								{
-									type: "enum",
+									type: 'enum',
 									enum: Object.values(userSex).map(value => value.value),
-									message: "性别枚举不对",
+									message: '性别枚举不对',
 								},
 							],
 						})(
@@ -219,13 +219,13 @@ class RegisterComponent extends React.PureComponent {
 					<Form.Item
 						{...formItemLayout}
 					>
-						{getFieldDecorator("userDescription", {
-							initialValue: "",
+						{getFieldDecorator('userDescription', {
+							initialValue: '',
 							rules: [
 								{required: false},
 								{
 									max: 50,
-									message: "描述不能超过50字",
+									message: '描述不能超过50字',
 								},
 							],
 						})(

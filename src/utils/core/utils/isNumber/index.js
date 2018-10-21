@@ -8,5 +8,5 @@
  * @returns {boolean}
  */
 export default function isNumber(x) {
-	return typeof x === "number";
+	return typeof x === 'number';
 }

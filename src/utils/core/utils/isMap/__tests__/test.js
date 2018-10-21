@@ -1,6 +1,6 @@
-import isMap from "../index";
+import isMap from '../index';
 
-test("test isMap", () => {
+test('test isMap', () => {
 	expect(isMap({})).toBeFalsy();
 	expect(isMap(new Map())).toBeTruthy();
 });

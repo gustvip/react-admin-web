@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isNumber from "../isNumber";
+import isNumber from '../isNumber';
 
 /**
  * 是否为有限的数字

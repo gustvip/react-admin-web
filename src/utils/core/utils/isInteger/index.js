@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import isFinite from "../isFinite";
+import isFinite from '../isFinite';
 
 /**
  * 是否为整数

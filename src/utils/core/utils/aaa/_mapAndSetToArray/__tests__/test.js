@@ -1,9 +1,9 @@
-import _mapAndSetToArray from "../index";
+import _mapAndSetToArray from '../index';
 
-test("test _mapAndSetToArray", () => {
+test('test _mapAndSetToArray', () => {
 	const _map = new Map();
-	_map.set("a", 1);
-	_map.set("b", 2);
+	_map.set('a', 1);
+	_map.set('b', 2);
 	expect(_mapAndSetToArray(_map)).toEqual([1, 2]);
 	
 	const _set = new Set();

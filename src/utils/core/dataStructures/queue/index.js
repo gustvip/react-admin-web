@@ -1,4 +1,4 @@
-import DoubleLinkedList from "../doubleLinkedList";
+import DoubleLinkedList from '../doubleLinkedList';
 
 function Queue() {
 	this.doubleLinkedList = new DoubleLinkedList();

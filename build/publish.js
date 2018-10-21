@@ -1,20 +1,20 @@
-process.env.NODE_ENV = "production";
-process.env.BABEL_ENV = "production";
+process.env.NODE_ENV = 'production';
+process.env.BABEL_ENV = 'production';
 
-const path = require("path");
-const os = require("os");
-const merge = require("webpack-merge");
-const webpack = require("webpack");
-const copyWebpackPlugin = require("copy-webpack-plugin");
-const rm = require("rimraf");
-const htmlWebpackPlugin = require("html-webpack-plugin");
-const clc = require("cli-color");
-const prodConfig = require("./webpack.config.prod");
+const path = require('path');
+const os = require('os');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const rm = require('rimraf');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const clc = require('cli-color');
+const prodConfig = require('./webpack.config.prod');
 
 const conf = {
-	indexHtmlName: "demo_project.html",		// 生成的html的名字
-	appName: "platform", // 项目名称
-	proxyPath: process.argv[3] ? process.argv[3] : "/", // 代理的前缀 注意：后面必须带斜线
+	indexHtmlName: 'demo_project.html',		// 生成的html的名字
+	appName: 'platform', // 项目名称
+	proxyPath: process.argv[3] ? process.argv[3] : '/', // 代理的前缀 注意：后面必须带斜线
 	webPath: process.argv[2], // Web目录
 };
 
@@ -22,10 +22,10 @@ const conf = {
 prodConfig.module.rules.forEach((item) => {
 	if (item.use && Array.isArray(item.use)) {
 		item.use.forEach((item2) => {
-			if (item2.loader === "less-loader") {
-				const oldIconUrl = item2.options.modifyVars ? item2.options.modifyVars["@icon-url"] : null;
+			if (item2.loader === 'less-loader') {
+				const oldIconUrl = item2.options.modifyVars ? item2.options.modifyVars['@icon-url'] : null;
 				if (oldIconUrl) {
-					item2.options.modifyVars["@icon-url"] = path.join(conf.proxyPath, oldIconUrl);
+					item2.options.modifyVars['@icon-url'] = path.join(conf.proxyPath, oldIconUrl);
 				}
 			}
 		});
@@ -35,14 +35,14 @@ prodConfig.module.rules.forEach((item) => {
 // 更新webpack配置
 const webpackConfigProd = merge(prodConfig, {
 	output: {
-		filename: "[name].[contenthash].js",
-		publicPath: path.join(conf.proxyPath, conf.appName, "/"),
+		filename: '[name].[contenthash].js',
+		publicPath: path.join(conf.proxyPath, conf.appName, '/'),
 		path: path.join(conf.webPath, conf.appName),
 	},
 	plugins: [
 		// 生成html文件
 		new htmlWebpackPlugin({
-			template: path.join(__dirname, "../public/template.html"),
+			template: path.join(__dirname, '../public/template.html'),
 			filename: path.join(conf.webPath, conf.indexHtmlName),
 			minify: {
 				removeComments: true,
@@ -56,29 +56,29 @@ const webpackConfigProd = merge(prodConfig, {
 				minifyCSS: true,
 				minifyURLs: true,
 			},
-			chunksSortMode: "dependency",
+			chunksSortMode: 'dependency',
 		}),
 		
 		// 复制config
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, "../public/config/env.js"),
-				to: path.join(conf.webPath, "config"),
+				from: path.join(__dirname, '../public/config/env.js'),
+				to: path.join(conf.webPath, 'config'),
 			},
 		]),
 		
 		// 复制assets
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, "../public/assets/"),
-				to: path.join(conf.webPath, "assets"),
+				from: path.join(__dirname, '../public/assets/'),
+				to: path.join(conf.webPath, 'assets'),
 			},
 		]),
 		
 		// 复制favicon
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, "../public/favicon.ico"),
+				from: path.join(__dirname, '../public/favicon.ico'),
 				to: conf.webPath,
 			},
 		]),
@@ -86,7 +86,7 @@ const webpackConfigProd = merge(prodConfig, {
 		// 复制nginx配置
 		new copyWebpackPlugin([
 			{
-				from: path.join(__dirname, "../public/nginx.conf"),
+				from: path.join(__dirname, '../public/nginx.conf'),
 				to: conf.webPath,
 			},
 		]),
@@ -125,9 +125,9 @@ function deleteFile() {
  */
 function toEnd(startTime) {
 	const endTime = Date.now();
-	console.log(clc.green("  ↓"));
-	console.log(clc.green("总计耗时:" + ((endTime - startTime) / 1000).toFixed(2) + "s"));
-	console.log(clc.green("  ↓"));
+	console.log(clc.green('  ↓'));
+	console.log(clc.green('总计耗时:' + ((endTime - startTime) / 1000).toFixed(2) + 's'));
+	console.log(clc.green('  ↓'));
 	console.log(clc.green(`附属信息:
 	        PID: ${process.pid}
 	        CPU数量: ${os.cpus().length}
@@ -135,7 +135,7 @@ function toEnd(startTime) {
 	        计算机名称: ${os.hostname()}
 	        系统类型: ${os.type()}
 	        系统版本号: ${os.release()}
-	        系统总内存量: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(1) + "G"}
+	        系统总内存量: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(1) + 'G'}
 	`));
 }
 

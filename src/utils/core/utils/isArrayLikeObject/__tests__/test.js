@@ -1,6 +1,6 @@
-import isArrayLikeObject from "../index";
+import isArrayLikeObject from '../index';
 
-test("test isArrayLikeObject", () => {
+test('test isArrayLikeObject', () => {
 	expect(isArrayLikeObject(1)).toBeFalsy();
 	expect(isArrayLikeObject(() => {
 	

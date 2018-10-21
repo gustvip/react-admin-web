@@ -1,12 +1,12 @@
 /**
  * Created by joey on 2018/2/19
  */
-import axios from "axios";
-import forOwn from "lodash/forOwn";
-import isObjectLike from "lodash/isObjectLike";
-import noop from "lodash/noop";
-import merge from "lodash/merge";
-import transform from "lodash/transform";
+import axios from 'axios';
+import forOwn from 'lodash/forOwn';
+import isObjectLike from 'lodash/isObjectLike';
+import noop from 'lodash/noop';
+import merge from 'lodash/merge';
+import transform from 'lodash/transform';
 
 /**
  * 将对象转化为FormData数据格式
@@ -17,13 +17,13 @@ import transform from "lodash/transform";
  */
 function objectToFormData(obj, form, namespace) {
 	function isFile(x) {
-		return Object.prototype.toString.call(x) === "[object File]";
+		return Object.prototype.toString.call(x) === '[object File]';
 	}
 	
 	const fd = form || new FormData();
 	let formKey;
 	forOwn(obj, (value, property) => {
-		let key = Array.isArray(obj) ? "[]" : `[${property}]`;
+		let key = Array.isArray(obj) ? '[]' : `[${property}]`;
 		if (namespace) {
 			formKey = namespace + key;
 		} else {
@@ -60,7 +60,7 @@ const singleton = (function() {
 			 * 表示服务器将响应的数据类型
 			 * 包括 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
 			 */
-			responseType: "json",
+			responseType: 'json',
 			
 			headers: {
 				// "X-Requested-With": "XMLHttpRequest",
@@ -126,7 +126,7 @@ const _request = (options = {}) => {
 					msg: info.message,
 				});
 			} else {
-				reject({msg: "unknown error"});
+				reject({msg: 'unknown error'});
 			}
 		});
 	});
@@ -142,7 +142,7 @@ const _request = (options = {}) => {
 export function get(url, params = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: "get",
+		method: 'get',
 		params,
 	}, options));
 }
@@ -157,7 +157,7 @@ export function get(url, params = {}, options = {}) {
 export function post(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: "post",
+		method: 'post',
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
 	}, options));
 }
@@ -172,7 +172,7 @@ export function post(url, data = {}, options = {}) {
 export function postJSON(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: "post",
+		method: 'post',
 		data,
 	}, options));
 }
@@ -188,7 +188,7 @@ export function postJSON(url, data = {}, options = {}) {
 export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 	return _request(merge({
 		url,
-		method: "post",
+		method: 'post',
 		data: objectToFormData(data),
 		onUploadProgress,
 	}, options));
@@ -204,7 +204,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 export function del(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: "delete",
+		method: 'delete',
 		data,
 	}, options));
 }
@@ -219,7 +219,7 @@ export function del(url, data = {}, options = {}) {
 export function put(url, data = {}, options = {}) {
 	return _request(merge({
 		url,
-		method: "put",
+		method: 'put',
 		data,
 	}, options));
 }
@@ -233,23 +233,23 @@ export function put(url, data = {}, options = {}) {
  */
 export function form(url, property = {}, params = {}) {
 	property = merge({
-		enctype: "application/x-www-form-urlencoded",
-		method: "POST",
-		target: "_blank",
+		enctype: 'application/x-www-form-urlencoded',
+		method: 'POST',
+		target: '_blank',
 	}, property);
 	
-	const formElement = document.createElement("form");
-	formElement.style.display = "none";
+	const formElement = document.createElement('form');
+	formElement.style.display = 'none';
 	
 	forOwn(property, (value, key) => {
 		formElement.setAttribute(key, value);
 	});
 	
 	forOwn(params, (value, key) => {
-		const hideElement = document.createElement("input");
-		hideElement.setAttribute("type", "hidden");
-		hideElement.setAttribute("name", key);
-		hideElement.setAttribute("value", encodeURIComponent(value));
+		const hideElement = document.createElement('input');
+		hideElement.setAttribute('type', 'hidden');
+		hideElement.setAttribute('name', key);
+		hideElement.setAttribute('value', encodeURIComponent(value));
 		formElement.appendChild(hideElement);
 	});
 	

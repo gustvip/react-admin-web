@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import forEach from "../forEach";
+import forEach from '../forEach';
 
 /**
  * 获取对象的value

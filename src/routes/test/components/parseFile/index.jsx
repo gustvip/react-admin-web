@@ -1,8 +1,8 @@
-import React from "react";
-import T from "utils/t";
-import enumAPI from "constants/enumAPI";
-import {Button} from "antd";
-import styles from "../../scss/parseFile/index.scss";
+import React from 'react';
+import T from 'utils/t';
+import enumAPI from 'constants/enumAPI';
+import {Button} from 'antd';
+import styles from '../../scss/parseFile/index.scss';
 
 export default class TestComponent extends React.PureComponent {
 	constructor() {
@@ -27,7 +27,7 @@ export default class TestComponent extends React.PureComponent {
 	render() {
 		return (
 			<div
-				className={styles["main-container"]}
+				className={styles['main-container']}
 				ref={container => this.container = container}
 			>
 				<div className="xlsx-container">

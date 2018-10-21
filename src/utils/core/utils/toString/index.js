@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/8/28
  */
-import isNil from "../isNil";
+import isNil from '../isNil';
 
 /**
  * 转化为字符串
@@ -10,7 +10,7 @@ import isNil from "../isNil";
  */
 export default function toString(x) {
 	if (isNil(x)) {
-		return "";
+		return '';
 	}
 	return String(x);
 }

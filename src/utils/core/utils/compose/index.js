@@ -1,12 +1,12 @@
 /**
  * Created by joey on 2018/6/20
  */
-import _baseSlice from "../aaa/_baseSlice";
-import _arrayLikeForEach from "../aaa/_arrayLikeForEach";
-import reverse from "../reverse";
-import isFunction from "../isFunction";
-import identity from "../identity";
-import isArray from "../isArray";
+import _baseSlice from '../aaa/_baseSlice';
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
+import reverse from '../reverse';
+import isFunction from '../isFunction';
+import identity from '../identity';
+import isArray from '../isArray';
 
 /**
  * 组合
@@ -17,7 +17,7 @@ export default function compose(funs) {
 	funs = reverse(isArray(funs) ? funs : _baseSlice(arguments));
 	_arrayLikeForEach(funs, function(fn) {
 		if (!isFunction(fn)) {
-			throw new TypeError("params must be function");
+			throw new TypeError('params must be function');
 		}
 	});
 	
