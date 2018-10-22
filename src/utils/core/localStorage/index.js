@@ -5,15 +5,17 @@ import isPureObject from '../utils/isPureObject';
 import isString from '../utils/isString';
 import isNumber from '../utils/isNumber';
 import isBoolean from '../utils/isBoolean';
-import forOwn from '../utils/forOwn';
+import _objectForEach from '../utils/aaa/_objectForEach';
+import toInteger from '../utils/toInteger';
+import isInteger from '../utils/isInteger';
 
 // 无限期
-let NO_EXPIRE = 0;
-// LocalStorage的key
-let STORAGE_KEY = '__STORAGE__';
+var NO_EXPIRE = 0;
+// localStorage的key
+var STORAGE_KEY = '__STORAGE__';
 // 临时存储的变量
-let storageValue = (function() {
-	let result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+var storageValue = (function() {
+	var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
 	return isPureObject(result) ? result : {};
 }());
 
@@ -27,7 +29,7 @@ function canJSON(x) {
  * @returns {Boolean}
  */
 function isFresh(expTime) {
-	return expTime === NO_EXPIRE || (isNumber(expTime) && isFinite(expTime) && expTime - Date.now() > 0);
+	return (expTime === NO_EXPIRE) || (isInteger(expTime) && expTime - Date.now() > 0);
 }
 
 /**
@@ -45,6 +47,7 @@ function update(key, value) {
  */
 function length() {
 	clearExpired();
+	update(STORAGE_KEY, storageValue);
 	return Object.keys(storageValue).length;
 }
 
@@ -52,78 +55,58 @@ function length() {
  * 清空过期的数据
  */
 function clearExpired() {
-	forOwn(storageValue, function(value, key) {
+	_objectForEach(storageValue, function(value, key) {
 		if (!isPureObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
 			delete storageValue[key];
 		}
 	});
-	
-	update(STORAGE_KEY, storageValue);
 }
 
 /**
- * 返回localStorage的所有值
- * @return {Object}
- */
-function getAllItem() {
-	clearExpired();
-	return JSON.parse(JSON.stringify(storageValue));
-}
-
-/**
- * 设置localStorage
- * @param {String} key 名称
- * @param {String || Number ||  Boolean || Array || Object} value 设置的值
+ * @param {String} key
+ * @param {String || Number ||  Boolean || Array || Object} value
  * @param {Number} expTime 过期时间
  */
 function setItem(key, value, expTime) {
 	clearExpired();
-	if (!canJSON(value)) {
-		console.warn('设置的值不可序列化，请重新设置');
-	} else {
-		expTime = parseInt(expTime, 10);
-		if (!isFinite(expTime) || expTime < 0) {
-			expTime = NO_EXPIRE;
-		}
+	if (canJSON(value)) {
+		expTime = toInteger(expTime);
+		expTime = expTime < 0 ? NO_EXPIRE : expTime;
 		storageValue[key] = {
 			value,
 			expire: expTime === NO_EXPIRE ? NO_EXPIRE : expTime + Date.now(),
 		};
-		update(STORAGE_KEY, storageValue);
 	}
+	update(STORAGE_KEY, storageValue);
 }
 
 /**
- * 获取localStorage某一项的值
- * @param {String} key 数据名
- * @returns {String || Boolean || Number || Array || Object}
+ * @param {String} key
+ * @returns {String || Boolean || Number || Array || Object || Undefined}
  */
 function getItem(key) {
 	clearExpired();
-	let storage = storageValue[key];
-	if (storage) {
-		return storage.value;
-	}
+	update(STORAGE_KEY, storageValue);
+	var storage = storageValue[key];
+	return storage ? storage.value : undefined;
 }
 
 /**
- * 续期localStorage的expire
- * @param {String} key 数据名
+ * @param {String} key
  * @param {Number} expTime 过期时间
  * @return {Boolean}
  */
-function keepItem(key, expTime) {
+function keepItemExpire(key, expTime) {
 	clearExpired();
-	let storage = storageValue[key];
-	expTime = parseInt(expTime, 10);
-	if (storage && isFinite(expTime)) {
+	var storage = storageValue[key];
+	if (storage) {
+		expTime = toInteger(expTime);
 		storage.expire += expTime;
 		if (storage.expire !== NO_EXPIRE && storage.expire < Date.now()) {
 			delete storageValue[key];
-		} else {
-			update(STORAGE_KEY, storageValue);
 		}
 	}
+	update(STORAGE_KEY, storageValue);
 }
 
 /**
@@ -131,23 +114,31 @@ function keepItem(key, expTime) {
  * @param {String} key 数据名
  * @param {Number} expTime 过期时间
  */
-function updateItem(key, expTime) {
+function updateItemExpire(key, expTime) {
 	clearExpired();
-	let storage = storageValue[key];
-	expTime = parseInt(expTime, 10);
-	
-	if (!isFinite(expTime) || expTime < 0) {
-		expTime = NO_EXPIRE;
-	}
-	
+	var storage = storageValue[key];
 	if (storage) {
+		expTime = toInteger(expTime);
+		expTime = expTime < 0 ? NO_EXPIRE : expTime;
 		storage.expire = expTime === NO_EXPIRE ? NO_EXPIRE : Date.now() + expTime;
-		update(STORAGE_KEY, storageValue);
 	}
+	update(STORAGE_KEY, storageValue);
 }
 
 /**
- * 删除localStorage的某一项数据
+ * @param {String} key
+ * @param{String || Boolean || Number || Array || Object} value
+ */
+function updateItemValue(key, value) {
+	clearExpired();
+	var storage = storageValue[key];
+	if (storage && canJSON(value)) {
+		storage.value = value;
+	}
+	update(STORAGE_KEY, storageValue);
+}
+
+/**
  * @param {string} key 数据名
  */
 function removeItem(key) {
@@ -156,51 +147,24 @@ function removeItem(key) {
 	update(STORAGE_KEY, storageValue);
 }
 
-/**
- * 清空本地数据
- */
 function clear() {
 	update(STORAGE_KEY, storageValue = {});
 }
 
-export default Object.defineProperties({}, {
-	length: {
-		get() {
-			return length();
-		},
-		configurable: false,
+/**
+ * @type {{length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}
+ */
+var method = {
+	get length() {
+		return length();
 	},
-	clearExpired: {
-		value: clearExpired,
-		configurable: false,
-	},
-	getAllItem: {
-		value: getAllItem,
-		configurable: false,
-	},
-	setItem: {
-		value: setItem,
-		configurable: false,
-	},
-	getItem: {
-		value: getItem,
-		configurable: false,
-	},
-	keepItem: {
-		value: keepItem,
-		configurable: false,
-	},
-	updateItem: {
-		value: updateItem,
-		configurable: false,
-	},
-	removeItem: {
-		value: removeItem,
-		configurable: false,
-	},
-	clear: {
-		value: clear,
-		configurable: false,
-	},
-});
-
+	clearExpired: clearExpired,
+	setItem: setItem,
+	getItem: getItem,
+	keepItemExpire: keepItemExpire,
+	updateItemExpire: updateItemExpire,
+	updateItemValue: updateItemValue,
+	removeItem: removeItem,
+	clear: clear,
+};
+export default method;

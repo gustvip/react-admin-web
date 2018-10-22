@@ -41,7 +41,7 @@ export default class TestComponent extends React.PureComponent {
 			<div
 				ref={container => this.container = container}
 			>
-				hello world
+				API 练习
 			</div>
 		);
 	}

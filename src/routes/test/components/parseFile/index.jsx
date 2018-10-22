@@ -38,6 +38,7 @@ export default class TestComponent extends React.PureComponent {
 						解析xlsx
 					</Button>
 					<input
+						style={{display: 'none'}}
 						ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
 						multiple={false}
 						accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -53,6 +54,7 @@ export default class TestComponent extends React.PureComponent {
 						解析csv
 					</Button>
 					<input
+						style={{display: 'none'}}
 						ref={csvContainer => this.csvContainer = csvContainer}
 						multiple={false}
 						accept="text/csv"
