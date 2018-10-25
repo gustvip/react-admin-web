@@ -10,7 +10,6 @@ import isArray from '../isArray';
  * @returns {array}
  */
 export default function flattenDeep(data) {
-	var i = -1;
 	var s = [];
 	if (isArray(data)) {
 		!(function fn(arr) {
@@ -18,7 +17,7 @@ export default function flattenDeep(data) {
 				if (isArray(value)) {
 					fn(value);
 				} else {
-					s[++i] = value;
+					s.push(value);
 				}
 			});
 		})(data);

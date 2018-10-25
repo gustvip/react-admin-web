@@ -9,10 +9,9 @@
  * @returns {array}
  */
 export default function _mapAndSetToArray(x) {
-	var result = new Array(x.size);
-	var index = -1;
+	var result = [];
 	x.forEach(function(value) {
-		result[++index] = value;
+		result.push(value);
 	});
 	return result;
 }

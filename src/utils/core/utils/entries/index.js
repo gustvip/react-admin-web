@@ -9,10 +9,9 @@ import forEach from '../forEach';
  * @returns {array}
  */
 export default function entries(data) {
-	var i = -1;
 	var s = [];
 	forEach(data, function(value, key) {
-		s[++i] = [key, value];
+		s.push([key, value]);
 	});
 	return s;
 }

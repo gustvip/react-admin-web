@@ -13,7 +13,6 @@ import isUndefined from '../../isUndefined';
  */
 export default function _baseSlice(data, startIndex, endIndex) {
 	var s = [];
-	var i = -1;
 	var k = data.length;
 	
 	startIndex = isUndefined(startIndex) ? 0 : toInteger(startIndex);
@@ -24,7 +23,7 @@ export default function _baseSlice(data, startIndex, endIndex) {
 	
 	if (0 <= startIndex && startIndex < endIndex) {
 		while (endIndex - startIndex > 0) {
-			s[++i] = data[startIndex];
+			s.push(data[startIndex]);
 			++startIndex;
 		}
 	}

@@ -12,9 +12,8 @@ export default function reverse(data) {
 	var s = [];
 	if (isArray(data) && data.length > 0) {
 		var i = data.length;
-		var j = -1;
 		while (i--) {
-			s[++j] = data[i];
+			s.push(data[i]);
 		}
 	}
 	return s;

@@ -7,19 +7,18 @@ import _arrayLikeForEach from '../utils/aaa/_arrayLikeForEach';
 
 function classNames() {
 	var classCollections = [];
-	var i = -1;
 	_arrayLikeForEach(arguments, function(value) {
 		if (isString(value) || isFinite(value)) {
-			classCollections[++i] = value;
+			classCollections.push(value);
 		} else if (isArray(value)) {
 			var inner = classNames.apply(null, value);
 			if (inner) {
-				classCollections[++i] = inner;
+				classCollections.push(inner);
 			}
 		} else if (isPureObject(value)) {
 			_objectForEach(value, function(val, key) {
 				if (val) {
-					classCollections[++i] = key;
+					classCollections.push(key);
 				}
 			});
 		}

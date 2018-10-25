@@ -37,7 +37,7 @@ export const DefaultLayout = ({component: Component, layout: LayoutComponent, re
  * @param {Array} routes
  * @returns {function()}
  */
-export const AssembleRoute = (...routes) => () => flattenDeep(routes).map(val => DefaultLayout(val));
+export const AssembleRoute = (routes) => () => flattenDeep(routes).map(val => DefaultLayout(val));
 
 /**
  * 未匹配到的页面

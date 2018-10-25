@@ -191,11 +191,10 @@ LinkedList.prototype.fromArray = function fromArray(values) {
  * @return {LinkedListNode[]}
  */
 LinkedList.prototype.toArray = function toArray() {
-	var index = -1;
-	var nodes = new Array(this.size);
+	var nodes = [];
 	var currentNode = this.head;
 	while (currentNode) {
-		nodes[++index] = currentNode;
+		nodes.push(currentNode);
 		currentNode = currentNode.next;
 	}
 	

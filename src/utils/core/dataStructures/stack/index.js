@@ -58,11 +58,10 @@ Stack.prototype.pop = function pop() {
  * @return {*[]}
  */
 Stack.prototype.toArray = function toArray() {
-	var index = -1;
-	var nodes = new Array(this.size);
+	var nodes = [];
 	var tail = this.doubleLinkedList.tail;
 	while (tail) {
-		nodes[++index] = tail.value;
+		nodes.push(tail.value);
 		tail = tail.previous;
 	}
 	return nodes;

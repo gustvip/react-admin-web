@@ -44,11 +44,10 @@ Map.prototype.clear = function clear() {
  * @return {*[]}
  */
 Map.prototype.keys = function keys() {
-	var index = -1;
-	var keys = new Array(this.size);
+	var keys = [];
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		keys[++index] = head.value.key;
+		keys.push(head.value.key);
 		head = head.next;
 	}
 	return keys;
@@ -59,11 +58,10 @@ Map.prototype.keys = function keys() {
  * @return {*[]}
  */
 Map.prototype.values = function values() {
-	var index = -1;
-	var values = new Array(this.size);
+	var values = [];
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		values[++index] = head.value.value;
+		values.push(head.value.value);
 		head = head.next;
 	}
 	return values;
@@ -74,11 +72,10 @@ Map.prototype.values = function values() {
  * @return {[][]}
  */
 Map.prototype.entries = function entries() {
-	var index = -1;
-	var entries = new Array(this.size);
+	var entries = [];
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		entries[++index] = [head.value.key, head.value.value];
+		entries.push([head.value.key, head.value.value]);
 		head = head.next;
 	}
 	return entries;

@@ -7,44 +7,6 @@
 					{
 						"targets": {
 							"browsers": [
-								"Chrome >= 65"
-							],
-							"node": "8.11"
-						},
-						"useBuiltIns": true,
-						"debug": false
-					}
-				],
-				"react",
-				"stage-0"
-			],
-			"plugins": [
-				[
-					"import",
-					{
-						"libraryName": "antd",
-						"libraryDirectory": "es",
-						"style": true
-					}
-				],
-				"transform-decorators-legacy",
-				"transform-decorators",
-				[
-					"transform-runtime",
-					{
-						"polyfill": false,
-						"regenerator": true
-					}
-				]
-			]
-		},
-		"production": {
-			"presets": [
-				[
-					"env",
-					{
-						"targets": {
-							"browsers": [
 								"Chrome >= 45",
 								"Firefox >= 38",
 								"Edge >= 12",

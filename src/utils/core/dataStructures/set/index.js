@@ -34,11 +34,10 @@ Set.prototype.clear = function clear() {
  * @return {*[]}
  */
 Set.prototype.values = function values() {
-	var index = -1;
-	var values = new Array(this.size);
+	var values = [];
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		values[++index] = head.value;
+		values.push(head.value);
 		head = head.next;
 	}
 	return values;
@@ -49,11 +48,10 @@ Set.prototype.values = function values() {
  * @return {[][]}
  */
 Set.prototype.entries = function entries() {
-	var index = -1;
-	var entries = new Array(this.size);
+	var entries = [];
 	var head = this.doubleLinkedList.head;
 	while (head) {
-		entries[++index] = [head.value, head.value];
+		entries.push([head.value, head.value]);
 		head = head.next;
 	}
 	return entries;

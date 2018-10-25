@@ -15,8 +15,8 @@
 		"lodash": "^4.17.10",
 		"mockjs": "^1.0.1-beta3",
 		"prop-types": "^15.6.0",
-		"react": "^16.4.2",
-		"react-dom": "^16.4.2",
+		"react": "^16.6.0",
+		"react-dom": "^16.6.0",
 		"react-redux": "^5.0.6",
 		"react-router-dom": "^4.3.1",
 		"redux": "3.7.2",
@@ -88,18 +88,18 @@
 		"webpackbar": "^2.6.3"
 	},
 	"scripts": {
-		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
+		"dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
 		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
 		"test": "cross-env BABEL_ENV=test jest --config jest.js --color",
 		"lint": "npm run lint:es && npm run lint:style",
-		"lint:es": "eslint build src ./*.js --ext '.js,.jsx'",
+		"lint:es": "eslint build src tests ./.*.js --ext '.js,.jsx'",
 		"lint:style": "stylelint src/**/*.scss --syntax scss",
-		"lint-fix:es": "eslint --fix build src ./.*.js --ext '.js,.jsx'",
+		"lint-fix:es": "eslint --fix build src tests ./.*.js --ext '.js,.jsx'",
 		"lint-fix:style": "stylelint src/**/*.scss --fix --syntax scss",
 		"stylelint": "stylelint src/**/*.scss --syntax scss",
 		"tslint": "tslint 'src/**/*.{ts,tsx}'",
 		"lint-staged": "lint-staged",
-		"lint-staged:es": "eslint ./*.js"
+		"lint-staged:es": "eslint ./.*.js"
 	},
 	"browserslist": [
 		"Chrome >= 45",
@@ -115,7 +115,7 @@
 		"lint-staged"
 	],
 	"lint-staged": {
-		"{build,src}/**/*.{js,jsx}": [
+		"{build,src,tests}/**/*.{js,jsx}": [
 			"npm run lint-staged:es"
 		],
 		"src/**/*.scss": [

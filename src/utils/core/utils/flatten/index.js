@@ -10,16 +10,15 @@ import isArray from '../isArray';
  * @returns {array}
  */
 export default function flatten(data) {
-	var i = -1;
 	var s = [];
 	if (isArray(data)) {
 		_arrayLikeForEach(data, function(value) {
 			if (isArray(value)) {
 				_arrayLikeForEach(value, function(val) {
-					s[++i] = val;
+					s.push(val);
 				});
 			} else {
-				s[++i] = value;
+				s.push(value);
 			}
 		});
 	}

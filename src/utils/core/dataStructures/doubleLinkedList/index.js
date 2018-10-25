@@ -177,11 +177,10 @@ DoubleLinkedList.prototype.deleteHead = function deleteHead() {
  * @return {DoubleLinkedListNode[]}
  */
 DoubleLinkedList.prototype.toArray = function toArray() {
-	var index = -1;
-	var nodes = new Array(this.size);
+	var nodes = [];
 	var currentNode = this.head;
 	while (currentNode) {
-		nodes[++index] = currentNode;
+		nodes.push(currentNode);
 		currentNode = currentNode.next;
 	}
 	
