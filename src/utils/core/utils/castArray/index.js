@@ -4,7 +4,6 @@
 import isArray from '../isArray';
 
 /**
- * Casts `value` as an array if it's not one.
  * @param {*} value
  * @returns {array}
  */

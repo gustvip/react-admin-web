@@ -236,6 +236,7 @@ export function form(url, property = {}, params = {}) {
 		enctype: 'application/x-www-form-urlencoded',
 		method: 'POST',
 		target: '_blank',
+		action: url,
 	}, property);
 	
 	const formElement = document.createElement('form');

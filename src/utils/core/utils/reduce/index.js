@@ -3,7 +3,7 @@
  */
 import isFunction from '../isFunction';
 import isObject from '../isObject';
-import isArrayLike from '../isArray';
+import isArrayLike from '../isArrayLike';
 import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
 import _objectForEach from '../aaa/_objectForEach';
 

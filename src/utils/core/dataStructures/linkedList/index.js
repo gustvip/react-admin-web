@@ -38,7 +38,6 @@ LinkedList.prototype.clear = function clear() {
  * @return {LinkedList}
  */
 LinkedList.prototype.prepend = function prepend(value) {
-	// Make new node to be a head.
 	var newNode = new LinkedListNode(value, this.head);
 	if (this.isEmpty()) {
 		this.head = this.tail = newNode;
@@ -115,7 +114,6 @@ LinkedList.prototype.find = function find(findParams) {
 	var currentNode = this.head;
 	
 	while (currentNode) {
-		// If callback is specified then try to find node by callback.
 		if (callback && isFunction(callback) && callback(currentNode.value)) {
 			break;
 		} else if (this.compare.equal(currentNode.value, value)) {

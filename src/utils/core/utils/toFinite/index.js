@@ -13,12 +13,11 @@ export default function toFinite(x) {
 	x = toNumber(x);
 	if (x !== x) {
 		return 0;
-	}
-	if (x === Infinity) {
+	} else if (x === Infinity) {
 		return MAX_NUMBER;
-	}
-	if (x === -Infinity) {
+	} else if (x === -Infinity) {
 		return -MAX_NUMBER;
+	} else {
+		return x;
 	}
-	return x;
 }

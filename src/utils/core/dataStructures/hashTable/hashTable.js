@@ -1,8 +1,6 @@
 import doubleLinkedList from '../doubleLinkedList';
 import toLength from '../../utils/toLength';
-import fill from '../../utils/fill';
 import map from '../../utils/map';
-import _baseSlice from '../../utils/aaa/_baseSlice';
 import reduce from '../../utils/reduce';
 import keys from '../../utils/keys';
 import isUndefined from '../../utils/isUndefined';
@@ -12,7 +10,7 @@ import isUndefined from '../../utils/isUndefined';
  */
 function HashTable(hashTableSize) {
 	hashTableSize = isUndefined(hashTableSize) ? 32 : toLength(hashTableSize);
-	this.buckets = map(fill(new Array(hashTableSize), null), function() {
+	this.buckets = map(new Array(hashTableSize), function() {
 		return new doubleLinkedList();
 	});
 	this.keys = {};
@@ -24,7 +22,7 @@ function HashTable(hashTableSize) {
  */
 HashTable.prototype.hash = function hash(key) {
 	var hash = reduce(
-		_baseSlice(key),
+		key,
 		function(hashAccumulator, keySymbol) {
 			return hashAccumulator + keySymbol.charCodeAt(0);
 		},

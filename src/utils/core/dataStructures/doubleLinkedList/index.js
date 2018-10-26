@@ -38,9 +38,7 @@ DoubleLinkedList.prototype.clear = function clear() {
  * @return {DoubleLinkedList}
  */
 DoubleLinkedList.prototype.prepend = function prepend(value) {
-	// Make new node to be a head.
 	var newNode = new DoubleLinkedListNode(value, this.head);
-	// If there is no head yet let's make new node a head.
 	if (this.isEmpty()) {
 		this.head = this.tail = newNode;
 	} else {
@@ -59,7 +57,6 @@ DoubleLinkedList.prototype.prepend = function prepend(value) {
 DoubleLinkedList.prototype.append = function append(value) {
 	var newNode = new DoubleLinkedListNode(value, null, this.tail);
 	
-	// If there is no head yet let's make new node a head.
 	if (this.isEmpty()) {
 		this.head = this.tail = newNode;
 	} else {
@@ -125,7 +122,6 @@ DoubleLinkedList.prototype.find = function find(findParams) {
 	var currentNode = this.head;
 	
 	while (currentNode) {
-		// If callback is specified then try to find node by callback.
 		if (callback && isFunction(callback) && callback(currentNode.value)) {
 			break;
 		} else if (this.compare.equal(currentNode.value, value)) {

@@ -6,7 +6,7 @@ import _baseSlice from '../aaa/_baseSlice';
 
 /**
  * 截取集合
- * @param {array | string} [data]
+ * @param {array} [data]
  * @param {* | number} [startIndex]
  * @param {* | number} [endIndex]
  * @returns {array}
