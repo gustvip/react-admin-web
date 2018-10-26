@@ -1,13 +1,11 @@
 import Heap from './heap';
-import bind from '../../utils/bind';
+import inherit from '../../utils/inherit';
 
 function MaxHeap(comparatorFunction) {
-	var minHeapInstance = new Heap(comparatorFunction);
-	minHeapInstance.pairIsInCorrectOrder = bind(function(firstElement, secondElement) {
-		return this.compare.greaterThanOrEqual(firstElement, secondElement);
-	}, minHeapInstance);
-	return minHeapInstance;
+	Heap.call(this, comparatorFunction);
 }
 
-MaxHeap.Heap = Heap;
+inherit(MaxHeap, Heap).prototype.pairIsInCorrectOrder = function(firstElement, secondElement) {
+	return this.compare.greaterThanOrEqual(firstElement, secondElement);
+};
 export default MaxHeap;

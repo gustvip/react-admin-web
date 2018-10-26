@@ -12,7 +12,7 @@ import isFunction from '../isFunction';
  */
 export default function bind(fn, context) {
 	if (!isFunction(fn)) {
-		throw new TypeError('fn must be function');
+		throw new TypeError(fn + 'must be function');
 	}
 	var arg = _baseSlice(arguments, 2);
 	return function() {
