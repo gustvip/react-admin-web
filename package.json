@@ -88,7 +88,7 @@
 		"webpackbar": "^2.6.3"
 	},
 	"scripts": {
-		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
+		"dev": "node ./build/server.js",
 		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
 		"test": "jest --config jest.js --color",
 		"lint": "npm run lint:es && npm run lint:style",

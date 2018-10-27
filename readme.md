@@ -2,7 +2,7 @@
 ```
 |--build
 |    |--webpack.config.base.js       	// webpack打包基础配置文件
-|    |--webpack.config.dev.js       	// webpack打包开发环境下配置文件
+|    |--server.js       	// webpack打包开发环境下配置文件
 |    |--webpack.config.prod.js        // webpack打包生产环境下配置文件
 |    |--util.js      								 	// 小工具
 |    |--publish.js       							// 项目发布文件

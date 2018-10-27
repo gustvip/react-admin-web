@@ -25,4 +25,4 @@ exports.customAntdStyle = {
 };
 exports.excludeRegex = /node_modules/;
 
-exports.resourceBaseName = 'resources';
+exports.resourceBaseName = 'assets';
