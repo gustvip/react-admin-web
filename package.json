@@ -80,7 +80,7 @@
 		"uglifyjs-webpack-plugin": "2.0.1",
 		"url-loader": "^1.1.1",
 		"vtk.js": "^7.8.4",
-		"webpack": "^4.21.0",
+		"webpack": "^4.23.1",
 		"webpack-bundle-analyzer": "3.0.2",
 		"webpack-cli": "^3.1.0",
 		"webpack-dev-server": "^3.1.5",
@@ -88,9 +88,9 @@
 		"webpackbar": "^2.6.3"
 	},
 	"scripts": {
-		"dev": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
+		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
 		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
-		"test": "cross-env BABEL_ENV=test jest --config jest.js --color",
+		"test": "jest --config jest.js --color",
 		"lint": "npm run lint:es && npm run lint:style",
 		"lint:es": "eslint build src tests ./.*.js --ext '.js,.jsx'",
 		"lint:style": "stylelint src/**/*.scss --syntax scss",
@@ -116,7 +116,7 @@
 	],
 	"lint-staged": {
 		"{build,src,tests}/**/*.{js,jsx}": [
-			"npm run lint-staged:es"
+			"npm run lint:es"
 		],
 		"src/**/*.scss": [
 			"stylelint --syntax scss"

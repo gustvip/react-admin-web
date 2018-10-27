@@ -107,7 +107,7 @@ module.exports = {
   }, */
 	
 	resolve: {
-		extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
 		modules: ['node_modules', 'src/'],
 		mainFields: ['browser', 'main', 'module'],
 	},
