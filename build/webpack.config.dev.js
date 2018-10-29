@@ -1,11 +1,6 @@
-process.env.NODE_ENV = 'development';
-process.env.BABEL_ENV = 'development';
-
 /**
  * @description webpack 开发模式下的配置
  */
-const webpackDevServer = require('webpack-dev-server');
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 const host = 'localhost';
 // const host = require("./util").getLocalIp();
@@ -13,8 +8,7 @@ const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const baseConfig = require('./webpack.config.base');
 const resourceBaseName = require('./util').resourceBaseName;
-
-const server = new webpackDevServer(webpack(merge(baseConfig, {
+module.exports = merge(baseConfig, {
 	mode: 'development',
 	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-module-eval-source-map
 	
@@ -26,7 +20,33 @@ const server = new webpackDevServer(webpack(merge(baseConfig, {
 			},
 		],
 	},
-	
+	devServer: {
+		host,
+		port,
+		publicPath: '/public/',
+		contentBase: `${__dirname}/../public/`,
+		
+		watchContentBase: true,
+		watchOptions: {
+			ignored: /node_modules/,
+		},
+		hot: false,
+		historyApiFallback: {
+			index: '/',
+			disableDotRule: true,
+		},
+		stats: {
+			colors: true,
+		},
+		open: false,
+		
+		proxy: {
+			'/proxyAPI': {
+				target: 'http://10.0.3.179:9090',
+				pathRewrite: {'^/proxyAPI': ''},
+			},
+		},
+	},
 	output: {
 		publicPath: '/public/',
 		path: `${__dirname}/../public/`,
@@ -40,38 +60,4 @@ const server = new webpackDevServer(webpack(merge(baseConfig, {
 			analyzerPort: port + 100, // 端口
 		}),
 	],
-})), {
-	host,
-	port,
-	publicPath: '/public/',
-	contentBase: `${__dirname}/../public/`,
-	
-	watchContentBase: true,
-	watchOptions: {
-		ignored: /node_modules/,
-	},
-	hot: false,
-	historyApiFallback: {
-		index: '/',
-		disableDotRule: true,
-	},
-	stats: {
-		colors: true,
-	},
-	open: false,
-	
-	proxy: {
-		'/proxyAPI': {
-			target: 'http://10.0.3.179:9090',
-			pathRewrite: {'^/proxyAPI': ''},
-		},
-	},
 });
-
-server.app.get('*', (req, res) => {
-	res.sendFile(`${__dirname}/public/index.html`);
-});
-
-console.log('http://' + host + ':' + port);
-
-server.listen(port, host);

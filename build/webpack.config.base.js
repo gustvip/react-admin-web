@@ -187,13 +187,7 @@ module.exports = {
 			},
 			
 			{
-				test: /\.jsx?$/,
-				use: ['babel-loader'],
-				exclude: [excludeRegex, routesComponentsRegex],
-			},
-			
-			{
-				test: /\.tsx?$/,
+				test: /\.[jt]sx?$/,
 				use: ['babel-loader', 'ts-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
