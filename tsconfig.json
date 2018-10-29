@@ -7,6 +7,7 @@
 			"es6",
 			"dom"
 		],
+		"strictNullChecks": true,
 		"jsx": "preserve",
 		"noImplicitAny": false,
 		"removeComments": true,
