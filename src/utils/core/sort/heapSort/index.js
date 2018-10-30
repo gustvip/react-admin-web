@@ -1,5 +1,5 @@
 import MinHeap from '../../dataStructures/heap/minHeap';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 /**
  * 堆排序

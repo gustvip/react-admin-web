@@ -1,5 +1,5 @@
 import Comparator from '../../utils/comparator';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 /**
  * @param {*[]} array

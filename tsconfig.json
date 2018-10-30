@@ -1,24 +1,23 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
-		"module": "esnext",
-		"target": "esnext",
-		"lib": [
-			"es6",
-			"dom"
-		],
-		"strictNullChecks": true,
-		"jsx": "preserve",
-		"noImplicitAny": false,
-		"removeComments": true,
-		"preserveConstEnums": true,
 		"sourceMap": true,
+		"strict": true,
+		 "module": "esnext",
 		"moduleResolution": "node",
-		"experimentalDecorators": true
+		"target": "esnext",
+		"allowSyntheticDefaultImports": true,
+		 "isolatedModules": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"noImplicitAny": false,
+		"noImplicitReturns": true,
+		"importHelpers": true,
+		"listFiles": true,
+		"removeComments": true,
+		"suppressImplicitAnyIndexErrors": true,
+		 "allowJs": true
 	},
 	"exclude": [
-		"node_modules",
-		"build",
-		"public"
+		"node_modules"
 	]
 }

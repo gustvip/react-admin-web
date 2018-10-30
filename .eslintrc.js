@@ -23,6 +23,14 @@ const eslintrc = {
 		'import/no-unresolved': 0,
 		'import/no-extraneous-dependencies': 0,
 		
+		'react/jsx-indent': [
+			2,
+			'tab',
+		],
+		'react/jsx-indent-props': [
+			2,
+			'tab',
+		],
 		'react/sort-comp': 0,
 		'react/require-default-props': 0,
 		'react/no-array-index-key': 0,
@@ -52,6 +60,7 @@ const eslintrc = {
 		'jsx-a11y/anchor-has-content': 0,
 		'jsx-a11y/click-events-have-key-events': 0,
 		'jsx-a11y/anchor-is-valid': 0,
+		'jsx-quotes': 2,
 		
 		'no-mixed-spaces-and-tabs': 2,
 		'no-prototype-builtins': 2,
@@ -62,15 +71,6 @@ const eslintrc = {
 			{
 				'SwitchCase': 1,
 			},
-		],
-		
-		'react/jsx-indent': [
-			2,
-			'tab',
-		],
-		'react/jsx-indent-props': [
-			2,
-			'tab',
 		],
 		'space-in-parens': [2, 'never'],
 		'space-before-blocks': 2,
@@ -105,7 +105,6 @@ const eslintrc = {
 				maxEOF: 1,
 				maxBOF: 1,
 			}],
-		'jsx-quotes': 2,
 		'no-caller': 2,
 		'no-useless-escape': 0,
 		'default-case': 2,

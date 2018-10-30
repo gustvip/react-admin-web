@@ -2,7 +2,7 @@
  * Created by joey on 2018/6/20
  */
 import _baseSlice from '../aaa/_baseSlice';
-import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 import reverse from '../reverse';
 import isFunction from '../isFunction';
 import identity from '../identity';

@@ -10,24 +10,22 @@ module.exports = {
 	collectCoverage: true,
 	
 	// The directory where Jest should output its coverage files.
-	coverageDirectory: './coverage/',
+	coverageDirectory: '<rootDir>/coverage/',
 	
-	moduleFileExtensions: [
-		'ts',
-		'tsx',
-		'js',
-		'jsx',
-		'json',
-	],
-	
+	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 	setupFiles: [
-		'./tests/setup.js',
+		'<rootDir>/tests/setup.js',
 	],
 	
 	// If the test path matches any of the patterns, it will be skipped.
 	testPathIgnorePatterns: [
 		'/node_modules/',
 	],
+	
+	transform: {
+		'^.+\\.js$': 'babel-jest',
+		'.*\\.(ts)$': 'ts-jest',
+	},
 	
 	snapshotSerializers: [
 		'enzyme-to-json/serializer',
@@ -39,7 +37,7 @@ module.exports = {
 	],
 	
 	// The pattern Jest uses to detect test files.
-	testRegex: '(/__tests__/.*|(.|/)(test|spec)).jsx?$',
+	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
 	
 	// This option sets the URL for the jsdom environment.
 	// It is reflected in properties such as location.href.

@@ -4,7 +4,7 @@ import isFunction from '../../utils/isFunction';
 import isPureObject from '../../utils/isPureObject';
 import isArray from '../../utils/isArray';
 import map from '../../utils/map';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 /**
  * 是否为空

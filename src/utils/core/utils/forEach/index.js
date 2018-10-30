@@ -5,7 +5,7 @@ import isObject from '../isObject';
 import isFunction from '../isFunction';
 import isArrayLike from '../isArrayLike';
 import _objectForEach from '../aaa/_objectForEach';
-import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 
 /**
  * 遍历集合

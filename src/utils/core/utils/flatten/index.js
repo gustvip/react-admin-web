@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 import isArray from '../isArray';
 
 /**

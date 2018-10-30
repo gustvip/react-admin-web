@@ -1,4 +1,4 @@
-import _objectForEach from '../index';
+import _objectForEach from '../index.ts';
 
 test('test _objectForEach', () => {
 	const mockCallback = jest.fn();

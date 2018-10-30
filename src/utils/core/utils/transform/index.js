@@ -4,7 +4,7 @@
 import isFunction from '../isFunction';
 import isObject from '../isObject';
 import isArrayLike from '../isArrayLike';
-import _arrayLikeForEach from '../aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 import _objectForEach from '../aaa/_objectForEach';
 
 /**

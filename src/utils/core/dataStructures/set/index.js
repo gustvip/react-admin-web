@@ -3,7 +3,7 @@
  */
 import DoubleLinkedList from '../doubleLinkedList';
 import isArray from '../../utils/isArray';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach';
+import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 function Set() {
 	this.doubleLinkedList = DoubleLinkedList();
