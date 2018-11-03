@@ -1,13 +1,13 @@
 /**
  * Created by joey 2018/02/20
  */
-import isPureObject from '../utils/isPureObject';
-import isString from '../utils/isString';
-import isNumber from '../utils/isNumber';
-import isBoolean from '../utils/isBoolean';
-import _objectForEach from '../utils/aaa/_objectForEach';
-import toInteger from '../utils/toInteger';
-import isInteger from '../utils/isInteger';
+import isPureObject from '../utils/isPureObject/index';
+import isString from '../utils/isString/index';
+import isNumber from '../utils/isNumber/index';
+import isBoolean from '../utils/isBoolean/index';
+import _objectForEach from '../utils/aaa/_objectForEach/index';
+import toInteger from '../utils/toInteger/index';
+import isInteger from '../utils/isInteger/index';
 
 // 无限期
 var NO_EXPIRE = 0;

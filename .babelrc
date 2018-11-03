@@ -11,6 +11,8 @@
 							],
 							"node": "8.11"
 						},
+						"loose": true,
+						"module": false,
 						"useBuiltIns": true,
 						"debug": false
 					}
@@ -56,6 +58,8 @@
 							],
 							"node": "8.11"
 						},
+						"loose": true,
+						"module": false,
 						"useBuiltIns": true,
 						"debug": false
 					}

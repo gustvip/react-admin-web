@@ -1,5 +1,5 @@
-import isFunction from '../../utils/isFunction';
-import isUndefined from '../../utils/isUndefined';
+import isFunction from '../../utils/isFunction/index';
+import isUndefined from '../../utils/isUndefined/index';
 
 function LinkedListNode(value, next) {
 	this.value = value;

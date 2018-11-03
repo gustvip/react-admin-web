@@ -5,6 +5,7 @@ test('test transform array', () => {
 	const obj = [1, 2, 3];
 	expect(transform([])).toBeUndefined();
 	expect(transform([], mockCallback)).toBeUndefined();
+	expect(transform(null, mockCallback)).toBeUndefined();
 	expect(transform({}, mockCallback)).toBeUndefined();
 	expect(transform('', mockCallback)).toBeUndefined();
 	expect(transform(obj, (prev, value, index, arr) => {})).toBeUndefined();

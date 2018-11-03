@@ -1,9 +1,9 @@
 import DoubleLinkedListNode from './doubleLinkedListNode';
 import Comparator from '../../utils/comparator';
-import isFunction from '../../utils/isFunction';
-import isPureObject from '../../utils/isPureObject';
-import isArray from '../../utils/isArray';
-import map from '../../utils/map';
+import isFunction from '../../utils/isFunction/index';
+import isPureObject from '../../utils/isPureObject/index';
+import isArray from '../../utils/isArray/index';
+import map from '../../utils/map/index';
 import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 /**

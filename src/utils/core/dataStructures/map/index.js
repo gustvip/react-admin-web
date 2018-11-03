@@ -2,7 +2,7 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from '../doubleLinkedList';
-import isArray from '../../utils/isArray';
+import isArray from '../../utils/isArray/index';
 import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 function Map() {

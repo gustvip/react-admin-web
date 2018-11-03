@@ -1,5 +1,5 @@
 import Heap from './heap';
-import inherit from '../../utils/inherit';
+import inherit from '../../utils/inherit/index';
 
 function MinHeap(comparatorFunction) {
 	Heap.call(this, comparatorFunction);

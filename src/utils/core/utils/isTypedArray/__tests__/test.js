@@ -2,6 +2,7 @@ import isTypedArray from '../index';
 
 test('test isTypedArray', () => {
 	expect(isTypedArray({})).toBeFalsy();
+	expect(isTypedArray()).toBeFalsy();
 	expect(isTypedArray(new ArrayBuffer(1))).toBeTruthy();
 	expect(isTypedArray(new DataView(new ArrayBuffer(1)))).toBeTruthy();
 	expect(isTypedArray(new Float32Array(1))).toBeTruthy();

@@ -6,6 +6,7 @@ test('test reduce array', () => {
 	expect(reduce([])).toBeUndefined();
 	expect(reduce([], mockCallback)).toBeUndefined();
 	expect(reduce({}, mockCallback)).toBeUndefined();
+	expect(reduce(null, mockCallback)).toBeUndefined();
 	expect(reduce('', mockCallback)).toBeUndefined();
 	expect(reduce(obj, (prev, value, index, arr) => {})).toBeUndefined();
 	expect(reduce([], (prev, value, index, arr) => {}, 1)).toBe(1);

@@ -1,9 +1,9 @@
 import doubleLinkedList from '../doubleLinkedList';
-import toLength from '../../utils/toLength';
-import map from '../../utils/map';
-import reduce from '../../utils/reduce';
-import keys from '../../utils/keys';
-import isUndefined from '../../utils/isUndefined';
+import toLength from '../../utils/toLength/index';
+import map from '../../utils/map/index';
+import reduce from '../../utils/reduce/index';
+import keys from '../../utils/keys/index';
+import isUndefined from '../../utils/isUndefined/index';
 
 /**
  * @param {number} hashTableSize

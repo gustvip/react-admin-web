@@ -15,13 +15,13 @@ export default class TestComponent extends React.PureComponent {
 	handleParseXlsx = (file) => {
 		T.request.upload(enumAPI.fileParseXlsx, {file}).then(info => {
 			window.open(`${enumAPI.fileDownJson}?id=${info.data.id}`);
-		}).catch(info => T.prompt(info.msg));
+		}).catch(info => T.prompt.error(info.msg));
 	};
 	
 	handleParseCsv = (file) => {
 		T.request.upload(enumAPI.fileParseCsv, {file}).then(info => {
 			window.open(`${enumAPI.fileDownJson}?id=${info.data.id}`);
-		}).catch(info => T.prompt(info.msg));
+		}).catch(info => T.prompt.error(info.msg));
 	};
 	
 	render() {

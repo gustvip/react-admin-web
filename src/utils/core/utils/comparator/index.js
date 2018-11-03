@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/10/15
  */
-import isFunction from '../isFunction';
+import isFunction from '../isFunction/index';
 
 function defaultCompareFunction(a, b) {
 	if (a === b) {

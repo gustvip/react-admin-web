@@ -1,9 +1,9 @@
 import LinkedListNode from './linkedListNode';
 import Comparator from '../../utils/comparator';
-import isFunction from '../../utils/isFunction';
-import isPureObject from '../../utils/isPureObject';
-import map from '../../utils/map';
-import isArray from '../../utils/isArray';
+import isFunction from '../../utils/isFunction/index';
+import isPureObject from '../../utils/isPureObject/index';
+import map from '../../utils/map/index';
+import isArray from '../../utils/isArray/index';
 import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 /**

@@ -2,9 +2,9 @@
  * Created by joey on 2018/10/25
  */
 import Comparator from '../../utils/comparator';
-import isUndefined from '../../utils/isUndefined';
-import findIndex from '../../utils/findIndex';
-import swap from '../../utils/swap';
+import isUndefined from '../../utils/isUndefined/index';
+import findIndex from '../../utils/findIndex/index';
+import swap from '../../utils/swap/index';
 
 /**
  * @constructs Heap

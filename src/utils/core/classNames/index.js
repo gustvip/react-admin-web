@@ -1,8 +1,8 @@
-import isArray from '../utils/isArray';
-import isFinite from '../utils/isFinite';
-import isString from '../utils/isString';
-import isPureObject from '../utils/isPureObject';
-import _objectForEach from '../utils/aaa/_objectForEach';
+import isArray from '../utils/isArray/index';
+import isFinite from '../utils/isFinite/index';
+import isString from '../utils/isString/index';
+import isPureObject from '../utils/isPureObject/index';
+import _objectForEach from '../utils/aaa/_objectForEach/index';
 import _arrayLikeForEach from '../utils/aaa/_arrayLikeForEach/index';
 
 function classNames() {
