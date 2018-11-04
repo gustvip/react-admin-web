@@ -18,11 +18,6 @@ exports.getLocalIp = function() {
 	return flattenDeep(Object.values(os.networkInterfaces())).find(value => value.family === 'IPv4' && value.address !== '127.0.0.1' && !value.internal).address;
 };
 
-exports.customAntdStyle = {
-	'@icon-url': '/assets/antd-iconfont/iconfont',
-	'@text-color': '#333', // 修改字体基本颜色
-	'@font-size-base': '12px', // 修改基础字体大小
-};
 exports.excludeRegex = /node_modules/;
 
 exports.resourceBaseName = 'assets';
