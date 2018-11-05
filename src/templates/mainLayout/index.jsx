@@ -13,7 +13,6 @@ import Link from 'react-router-dom/Link';
 import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 
-import merge from 'lodash/merge';
 import isEqual from 'lodash/isEqual';
 import flowRight from 'lodash/flowRight';
 import get from 'lodash/get';
@@ -45,7 +44,7 @@ export const MainHeader = ({className = '', title = '', styles = {}}) => {
 	const defaultStyle = {};
 	
 	return (
-		<header className={T.helper.classNames(defaultClassName)(className)} style={merge(defaultStyle, styles)}>
+		<header className={T.helper.classNames(defaultClassName)(className)} style={Object.assign(defaultStyle, styles)}>
 			{title}
 		</header>
 	);
@@ -56,31 +55,6 @@ MainHeader.propTypes = {
 	children: PropTypes.node,
 	leftRender: PropTypes.node,
 	rightRender: PropTypes.node,
-};
-
-/**
- * 内容组件
- * @param {String} className
- * @param {Object} style
- * @param {Array} children
- */
-export const MainContent = ({className = '', styles = {}, children = null}) => {
-	const defaultClassName = style['content-body-container'];
-	const defaultStyle = {};
-	
-	return (
-		<section
-			style={merge(defaultStyle, styles)}
-			className={T.helper.classNames(defaultClassName)(className)}
-		>
-			{children}
-		</section>
-	);
-};
-MainContent.propTypes = {
-	className: PropTypes.string,
-	style: PropTypes.object,
-	children: PropTypes.node,
 };
 
 class SiderMenu extends React.PureComponent {

@@ -1,7 +1,8 @@
 import React from 'react';
 import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
-import {Button} from 'antd';
+import {Button, Input} from 'antd';
+import mime from 'mime';
 import styles from '../../scss/parseFile/index.scss';
 
 export default class TestComponent extends React.PureComponent {
@@ -10,6 +11,9 @@ export default class TestComponent extends React.PureComponent {
 		this.xlsxContainer = null;
 		this.csvContainer = null;
 		this.container = null;
+		this.state = {
+			mime: '',
+		};
 	}
 	
 	handleParseXlsx = (file) => {
@@ -61,6 +65,16 @@ export default class TestComponent extends React.PureComponent {
 						type="file"
 						onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
 					/>
+				</div>
+				<div className="mime-container">
+					<Input
+						value={this.state.mime}
+						onChange={event => this.setState({mime: event.target.value})}
+						placeholder="请输入文件后缀"
+					/>
+					<div className="content">
+						{mime.getType(this.state.mime)}
+					</div>
 				</div>
 			</div>
 		);

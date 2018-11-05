@@ -11,9 +11,7 @@ const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.([jt]sx?))$/ig;
 const excludeRegex = require('./util').excludeRegex;
 const resourceBaseName = require('./util').resourceBaseName;
-const customAntStyle = {
-	'@icon-url': '/assets/antd-iconfont/iconfont',
-};
+const customAntStyle = require('./util').customAntStyle;
 
 const staticResource = [
 	{

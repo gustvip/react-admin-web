@@ -7,42 +7,19 @@ $header-height: 48px;
 /* 侧边栏基本背景 */
 $base-sider-background-color: #333;
 
-/* 内容的content背景 */
-$base-body-background-color: #efefef;
-
 /* 内容的header背景 */
 $base-body-header-background-color: #fff;
 
+/* body背景 */
+$base-body-background-color: #f0f2f5;
+
+/* 菜单加头部布局的content的padding */
+$base-menu-and-header-content-padding: 24px;
+
 @mixin tableStyle {
-	.ant-table {
-		border: none;
-		font-size: 14px;
-		line-height: 1;
-		border-radius: 4px;
-		.ant-table-thead > tr > th {
-			border: none;
-			padding: 8px 4px;
-			background: #f0f0f0;
-			font-size: 16px;
-			font-weight: normal;
-		}
-		.ant-table-tbody > tr:nth-child(2n) {
-			background-color: #f9f9f9;
-		}
-		.ant-table-tbody > tr > td {
-			padding: 8px 4px;
-			border-bottom: none;
-		}
-	}
 	.ant-table-pagination {
 		margin-top: 32px;
 		float: none !important;
 		text-align: center;
-		.ant-pagination-item {
-		}
-		.ant-pagination-item-active {
-			a {
-			}
-		}
 	}
 }

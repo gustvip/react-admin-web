@@ -2,10 +2,22 @@
 	:global {
 		.xlsx-container,
 		.csv-container {
-			margin-bottom: 12px;
+			margin-bottom: 16px;
 			.ant-btn {
 				width: 100%;
 				display: block;
+			}
+		}
+		.mime-container {
+			margin-bottom: 16px;
+			display: flex;
+			align-items: center;
+			input {
+				margin-right: 16px;
+				width: 200px;
+			}
+			.content {
+				flex-grow: 1;
 			}
 		}
 	}

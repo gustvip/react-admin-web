@@ -12,19 +12,10 @@
 		bottom: 0;
 	}
 	flex-grow: 1;
-	:global(.ant-btn) {
-		display: block;
-		width: 100%;
-	}
 	:global {
-		.ant-form-item {
-			.ant-radio-group {
-				label {
-					span:last-child {
-						color: rgb(217, 217, 217);
-					}
-				}
-			}
+		.ant-btn {
+			display: block;
+			width: 100%;
 		}
 	}
 }

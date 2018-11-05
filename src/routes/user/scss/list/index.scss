@@ -1,27 +1,17 @@
 @import "baseStyleVarity.scss";
 
-.table-header-container {
-	background-color: #fff;
-	padding: 8px;
-	border-radius: 4px;
-	.left-container {
-		float: left;
-		:global {
-			.ant-btn {
-				margin-right: 8px;
-			}
-		}
+.main-container {
+	flex-grow: 1;
+	.table-header-container {
+		border-radius: 4px;
+		margin-bottom: 16px;
+		background-color: #fff;
+		padding: 8px;
+		display: flex;
+		justify-content: space-between;
 	}
-	.right-container {
-		float: right;
-	}
-}
 
-:global {
-	@include tableStyle();
-	.ant-table {
-		.ant-btn {
-			margin: 0 8px;
-		}
+	:global {
+		@include tableStyle();
 	}
 }

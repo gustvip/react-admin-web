@@ -1,13 +1,11 @@
 @import "baseStyleVarity";
 
-$right-main-content-header-height: 40px;
-$right-main-content-basis-padding: 20px;
-
 html, body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
 	flex-grow: 1;
+	flex-shrink: 0;
 	:global {
 		.ant-menu-dark {
 			.ant-menu-item {
@@ -17,19 +15,17 @@ html, body {
 						color: #fff;
 					}
 				}
-				margin-bottom: 0;
-				height: 32px;
-				line-height: 32px;
 			}
 			.ant-menu-sub {
 				background-color: $base-sider-background-color;
 			}
 		}
-	}
-	:global(#wrapper) {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
+		#wrapper {
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			background-color: $base-body-background-color;
+		}
 	}
 }
 
@@ -39,6 +35,7 @@ html, body {
 	flex-direction: column;
 	flex-grow: 1;
 	position: relative;
+	background-color: transparent;
 	/* sider */
 	.sider-container {
 		position: fixed;
@@ -62,18 +59,9 @@ html, body {
 							color: #fff;
 						}
 					}
-					margin-bottom: 0;
-					height: 32px;
-					line-height: 32px;
 				}
 				.ant-menu-submenu-title {
-					height: 32px;
-					line-height: 32px;
-
 					background-color: $base-sider-background-color;
-				}
-				.iconfont, .anticon {
-					margin-right: 8px;
 				}
 			}
 		}
@@ -96,25 +84,10 @@ html, body {
 			flex-direction: column;
 			flex-grow: 1;
 			position: relative;
-			padding: $right-main-content-basis-padding;
+			padding: $base-menu-and-header-content-padding;
 
 			/* 主内容---header */
 			.content-header-container {
-				padding: 8px 0;
-				.left-container {
-					.title-container {
-						font-size: 20px;
-						font-weight: bold;
-					}
-				}
-				.right-container {
-				}
-			}
-			.content-body-container {
-				display: flex;
-				flex-direction: column;
-				flex-grow: 1;
-				position: relative;
 			}
 		}
 	}
@@ -137,9 +110,6 @@ html, body {
 	.left-container {
 		line-height: $header-height;
 		display: flex;
-		/* logo */
-		.logo-container {
-		}
 
 		/* 一级路由 */
 		.drop-down-menu-container {

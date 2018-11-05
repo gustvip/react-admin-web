@@ -120,7 +120,7 @@ export default class List extends React.PureComponent {
 			current: self.state.currentPage,
 			total: self.state.count,
 			pageSize: self.state.pageSize,
-			showQuickJumper: true,
+			showQuickJumper: false,
 			onChange(currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search);
 			},
@@ -143,37 +143,36 @@ export default class List extends React.PureComponent {
 	render() {
 		const self = this;
 		return (
-			<React.Fragment>
-				<MainContent>
-					<header className={style['table-header-container']}>
-						<div className={style['left-container']}>
-							<Button
-								disabled={this.state.selectedRows.length === 0}
-								type="primary"
-								onClick={() => this.handleDelete()}
-							>
-								删除
-							</Button>
-						</div>
-						<div className={style['right-container']}>
-							<Input.Search
-								onChange={event => this.setState({search: event.target.value})}
-								placeholder="请搜索"
-								onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
-							/>
-						</div>
-					</header>
-					<Table
-						dataSource={self.state.dataSource.map(value => ({
-							...value,
-							key: value.userId,
-						}))}
-						columns={self.columns}
-						pagination={self.pagination}
-						rowSelection={self.rowSelection}
-					/>
-				</MainContent>
-			</React.Fragment>
+			<div className={style['main-container']}>
+				<header className={style['table-header-container']}>
+					<div className={style['left-container']}>
+						<Button
+							disabled={this.state.selectedRows.length === 0}
+							type="primary"
+							onClick={() => this.handleDelete()}
+						>
+							删除
+						</Button>
+					</div>
+					<div className={style['right-container']}>
+						<Input.Search
+							onChange={event => this.setState({search: event.target.value})}
+							placeholder="请搜索"
+							onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
+						/>
+					</div>
+				</header>
+				<Table
+					dataSource={self.state.dataSource.map(value => ({
+						...value,
+						key: value.userId,
+					}))}
+					bordered
+					columns={self.columns}
+					pagination={self.pagination}
+					rowSelection={self.rowSelection}
+				/>
+			</div>
 		);
 	}
 }
