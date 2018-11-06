@@ -3,7 +3,6 @@
  */
 import axios from 'axios';
 import forOwn from 'lodash/forOwn';
-import isObjectLike from 'lodash/isObjectLike';
 import noop from 'lodash/noop';
 import merge from 'lodash/merge';
 import transform from 'lodash/transform';
@@ -16,26 +15,44 @@ import transform from 'lodash/transform';
  * @returns {*|FormData}
  */
 function objectToFormData(obj, form, namespace) {
-	function isFile(x) {
-		return Object.prototype.toString.call(x) === '[object File]';
-	}
-	
 	const fd = form || new FormData();
 	let formKey;
-	forOwn(obj, (value, property) => {
-		let key = Array.isArray(obj) ? '[]' : `[${property}]`;
-		if (namespace) {
-			formKey = namespace + key;
-		} else {
-			formKey = property;
+	if (Array.isArray(obj)) {
+		obj.forEach((value, index) => {
+			if (namespace) {
+				formKey = `${namespace}[${index}]`;
+			} else {
+				formKey = `[${index}]`;
+			}
+			
+			if (typeof value === 'object' && !(value instanceof File)) {
+				objectToFormData(value, fd, formKey);
+			} else if (Array.isArray(value)) {
+				objectToFormData(value, fd, formKey);
+			} else {
+				fd.append(formKey, value);
+			}
+		});
+	} else if (typeof obj === 'object') {
+		for (var property in obj) {
+			if (Object.prototype.hasOwnProperty.call(obj, property)) {
+				if (namespace) {
+					formKey = `${namespace}[${property}]`;
+				} else {
+					formKey = property;
+				}
+				
+				if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+					objectToFormData(obj[property], fd, formKey);
+				} else if (Array.isArray(obj[property])) {
+					objectToFormData(obj[property], fd, formKey);
+				} else {
+					fd.append(formKey, obj[property]);
+				}
+				
+			}
 		}
-		
-		if (isObjectLike(value) && !isFile(value)) {
-			objectToFormData(obj[property], fd, formKey);
-		} else {
-			fd.append(formKey, obj[property]);
-		}
-	});
+	}
 	
 	return fd;
 }
