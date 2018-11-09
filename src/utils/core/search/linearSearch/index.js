@@ -1,4 +1,4 @@
-import Comparator from '../../utils/comparator';
+import Comparator from '../../utils/comparator/index';
 import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 /**

@@ -1,14 +1,9 @@
 import MinHeap from '../../dataStructures/heap/minHeap';
 import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
+import { compareFunctionType } from '../../utils/@types';
 
-/**
- * 堆排序
- * @param {Array} originalArray
- * @param {Function} [compareCallback]
- * @return {Array}
- */
-export default function sort(originalArray, compareCallback) {
-	var sortedArray = [];
+export default function(originalArray: any[], compareCallback?: compareFunctionType): any[] {
+	var sortedArray: any[] = [];
 	var minHeap = new MinHeap(compareCallback);
 	
 	_arrayLikeForEach(originalArray, function(value) {

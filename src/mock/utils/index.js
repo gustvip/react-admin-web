@@ -25,33 +25,6 @@ class MockUtil {
 	get(url, template) {
 		return this.request(url, 'get', template);
 	}
-	
-	/**
-	 * 模拟ajax的post请求
-	 * @param {string} url
-	 * @param template mockjs的模版
-	 */
-	post(url, template) {
-		return this.request(url, 'POST', template);
-	}
-	
-	/**
-	 * 模拟ajax的put请求
-	 * @param {string} url
-	 * @param template mockjs的模版
-	 */
-	put(url, template) {
-		return this.request(url, 'PUT', template);
-	}
-	
-	/**
-	 * 模拟ajax的delete请求
-	 * @param {string} url
-	 * @param template mockjs的模版
-	 */
-	delete(url, template) {
-		return this.request(url, 'DELETE', template);
-	}
 }
 
 export default new MockUtil();

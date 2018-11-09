@@ -1,5 +1,5 @@
 import MaxHeap from '../maxHeap';
-import Comparator from '../../../utils/comparator';
+import Comparator from '../../../utils/comparator/index';
 
 describe('MaxHeap', () => {
 	it('should create an empty max heap', () => {
@@ -70,7 +70,7 @@ describe('MaxHeap', () => {
 		expect(maxHeap.poll()).toBe(1);
 		expect(maxHeap.toString()).toBe('');
 		
-		expect(maxHeap.poll()).toBeNull();
+		expect(maxHeap.poll()).toBeUndefined();
 		expect(maxHeap.toString()).toBe('');
 	});
 	

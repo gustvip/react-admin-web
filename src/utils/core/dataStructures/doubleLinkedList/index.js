@@ -1,5 +1,5 @@
 import DoubleLinkedListNode from './doubleLinkedListNode';
-import Comparator from '../../utils/comparator';
+import Comparator from '../../utils/comparator/index';
 import isFunction from '../../utils/isFunction/index';
 import isPureObject from '../../utils/isPureObject/index';
 import isArray from '../../utils/isArray/index';

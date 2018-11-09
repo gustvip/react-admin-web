@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/10/25
  */
-import Comparator from '../../utils/comparator';
+import Comparator from '../../utils/comparator/index';
 import isUndefined from '../../utils/isUndefined/index';
 import findIndex from '../../utils/findIndex/index';
 import swap from '../../utils/swap/index';
@@ -88,14 +88,6 @@ Heap.prototype.parent = function parent(childIndex) {
 };
 
 /**
- * @param {number} indexOne
- * @param {number} indexTwo
- */
-Heap.prototype.swap = function(indexOne, indexTwo) {
-	swap(this.heapContainer, indexOne, indexTwo);
-};
-
-/**
  * @return {*}
  */
 Heap.prototype.peek = function peek() {
@@ -110,7 +102,7 @@ Heap.prototype.peek = function peek() {
  */
 Heap.prototype.poll = function poll() {
 	if (this.isEmpty()) {
-		return null;
+		return undefined;
 	} else if (this.heapContainer.length === 1) {
 		return this.heapContainer.pop();
 	} else {
@@ -188,7 +180,7 @@ Heap.prototype.toString = function toString() {
 Heap.prototype.heapifyUp = function heapifyUp(customStartIndex) {
 	customStartIndex = isUndefined(customStartIndex) ? this.heapContainer.length - 1 : customStartIndex;
 	while (this.hasParent(customStartIndex) && !this.pairIsInCorrectOrder(this.parent(customStartIndex), this.heapContainer[customStartIndex])) {
-		this.swap(customStartIndex, this.getParentIndex(customStartIndex));
+		swap(this.heapContainer, customStartIndex, this.getParentIndex(customStartIndex));
 		customStartIndex = this.getParentIndex(customStartIndex);
 	}
 };
@@ -209,7 +201,7 @@ Heap.prototype.heapifyDown = function heapifyDown(customStartIndex) {
 		if (this.pairIsInCorrectOrder(this.heapContainer[customStartIndex], this.heapContainer[nextIndex])) {
 			break;
 		} else {
-			this.swap(customStartIndex, nextIndex);
+			swap(this.heapContainer, customStartIndex, nextIndex);
 			customStartIndex = nextIndex;
 		}
 	}

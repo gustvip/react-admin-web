@@ -1,5 +1,5 @@
 import MinHeap from '../minHeap';
-import Comparator from '../../../utils/comparator';
+import Comparator from '../../../utils/comparator/index';
 
 describe('MinHeap', () => {
 	it('should create an empty min heap', () => {
@@ -70,7 +70,7 @@ describe('MinHeap', () => {
 		expect(minHeap.poll()).toBe(11);
 		expect(minHeap.toString()).toBe('');
 		
-		expect(minHeap.poll()).toBeNull();
+		expect(minHeap.poll()).toBeUndefined();
 		expect(minHeap.toString()).toBe('');
 	});
 	
