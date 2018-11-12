@@ -13,6 +13,7 @@
 		"noImplicitReturns": true,
 		"importHelpers": true,
 		"listFiles": true,
+		"noImplicitThis": false,
 		"removeComments": true,
 		"suppressImplicitAnyIndexErrors": true,
 		"allowJs": true

@@ -3,7 +3,7 @@
  */
 import _getClassName from "../aaa/_getClassName/index";
 
-export default function isFunction(x: any): boolean {
+export default function isFunction(x?: any): boolean {
 	var className = _getClassName(x);
 	return className === "[object Function]" || className === "[object AsyncFunction]" || className === "[object GeneratorFunction]" || className === "[object Proxy]";
 }

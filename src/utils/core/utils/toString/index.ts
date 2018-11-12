@@ -3,7 +3,7 @@
  */
 import isNil from '../isNil/index';
 
-export default function toString(x: any): string {
+export default function toString(x?: any): string {
 	if (isNil(x)) {
 		return '';
 	}

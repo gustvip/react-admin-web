@@ -4,7 +4,7 @@
 import isObjectLike from "../isObjectLike/index";
 import isNull from "../isNull/index";
 
-export default function isPlainObject(x: any): boolean {
+export default function isPlainObject(x?: any): boolean {
 	var _getPrototypeOf = Object.getPrototypeOf;
 	if (!isObjectLike(x)) {
 		return false;

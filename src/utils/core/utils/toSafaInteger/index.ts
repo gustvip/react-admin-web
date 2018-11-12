@@ -3,7 +3,7 @@
  */
 import toInteger from '../toInteger/index';
 
-export default function toSafeInteger(x: any): number {
+export default function toSafeInteger(x?: any): number {
 	var MAX_SAFE_INTEGER = 9007199254740991;
 	x = toInteger(x);
 	if (x < -MAX_SAFE_INTEGER) {

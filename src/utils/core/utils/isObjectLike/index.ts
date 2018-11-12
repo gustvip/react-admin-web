@@ -3,6 +3,6 @@
  */
 import isNull from "../isNull/index";
 
-export default function isObjectLike(x: any): boolean {
+export default function isObjectLike(x?: any): boolean {
 	return typeof x === "object" && !isNull(x);
 }

@@ -6,7 +6,7 @@ import isArrayLike from '../isArrayLike/index';
 import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 import _objectForEach from '../aaa/_objectForEach/index';
 
-export default function transform(data: any, callback: (initValue?: any, value?: any, index?: number | string, arr?: any) => any | any, initValue?: any): any {
+export default function transform(data?: any, callback?: (initValue?: any, value?: any, index?: number | string, arr?: any) => any | any, initValue?: any): any {
 	if (typeof callback === 'function') {
 		if (isArrayLike(data)) {
 			_arrayLikeForEach(data, function(value, index, arr) {

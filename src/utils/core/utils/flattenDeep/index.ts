@@ -4,7 +4,7 @@
 import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 import isArray from '../isArray/index';
 
-export default function flattenDeep(data: any): any[] {
+export default function flattenDeep(data?: any): any[] {
 	var s: any[] = [];
 	if (isArray(data)) {
 		// @ts-ignore

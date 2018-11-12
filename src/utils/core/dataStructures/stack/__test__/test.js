@@ -56,7 +56,7 @@ describe('Stack', () => {
 		expect(stack.size).toBe(1);
 		expect(stack.pop()).toBe(1);
 		expect(stack.size).toBe(0);
-		expect(stack.pop()).toBeNull();
+		expect(stack.pop()).toBeUndefined();
 		expect(stack.isEmpty()).toBe(true);
 	});
 	

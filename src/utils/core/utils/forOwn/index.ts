@@ -6,7 +6,7 @@ import isFunction from '../isFunction/index';
 import _objectForEach from '../aaa/_objectForEach/index';
 import { arrayLikeCallbackType } from '../@types';
 
-export default function forOwn(object: any, callback: arrayLikeCallbackType | any): void {
+export default function forOwn(object?: any, callback?: arrayLikeCallbackType | any): void {
 	if (isObject(object) && isFunction(callback)) {
 		_objectForEach(object, callback);
 	}

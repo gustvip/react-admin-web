@@ -5,7 +5,7 @@ import toInteger from '../toInteger/index';
 import isUndefined from '../isUndefined/index';
 import isArray from '../isArray/index';
 
-export default function fill(data: any, value: any, startIndex?: any, endIndex?: any): any {
+export default function fill(data?: any, value?: any, startIndex?: any, endIndex?: any): any {
 	if (isArray(data) && data.length > 0) {
 		var k = data.length;
 		startIndex = isUndefined(startIndex) ? 0 : toInteger(startIndex);

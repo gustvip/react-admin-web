@@ -1,4 +1,4 @@
-import doubleLinkedList from '../doubleLinkedList';
+import doubleLinkedList from '../doubleLinkedList/index';
 import toLength from '../../utils/toLength/index';
 import map from '../../utils/map/index';
 import reduce from '../../utils/reduce/index';

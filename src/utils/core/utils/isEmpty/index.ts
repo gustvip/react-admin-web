@@ -10,7 +10,7 @@ import isArguments from "../isArguments/index";
 import isTypedArray from "../isTypedArray/index";
 import isArray from "../isArray/index";
 
-export default function isEmpty(x: any): boolean {
+export default function isEmpty(x?: any): boolean {
 	if (isNil(x)) {
 		return true;
 	} else if (isArray(x) || isString(x) || isTypedArray(x) || isArguments(x)) {

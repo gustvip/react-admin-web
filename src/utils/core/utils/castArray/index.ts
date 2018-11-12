@@ -3,7 +3,7 @@
  */
 import isArray from '../isArray/index';
 
-export default function castArray(value: any): any[] {
+export default function castArray(value?: any): any[] {
 	if (!arguments.length) {
 		return [];
 	}

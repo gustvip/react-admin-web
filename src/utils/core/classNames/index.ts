@@ -5,8 +5,8 @@ import isPureObject from '../utils/isPureObject/index';
 import _objectForEach from '../utils/aaa/_objectForEach/index';
 import _arrayLikeForEach from '../utils/aaa/_arrayLikeForEach/index';
 
-function classNames() {
-	var classCollections = [];
+function classNames(): string {
+	var classCollections: any[] = [];
 	_arrayLikeForEach(arguments, function(value) {
 		if (isString(value) || isFinite(value)) {
 			classCollections.push(value);

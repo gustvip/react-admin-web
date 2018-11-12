@@ -4,6 +4,6 @@
 import isArrayLike from "../isArrayLike/index";
 import isObjectLike from "../isObjectLike/index";
 
-export default function isArrayLikeObject(x: any): boolean {
+export default function isArrayLikeObject(x?: any): boolean {
 	return isObjectLike(x) && isArrayLike(x);
 }

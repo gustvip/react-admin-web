@@ -3,6 +3,6 @@
  */
 import _getClassName from "../aaa/_getClassName/index";
 
-export default function isMap(x: any): boolean {
+export default function isMap(x?: any): boolean {
 	return _getClassName(x) === "[object Map]";
 }

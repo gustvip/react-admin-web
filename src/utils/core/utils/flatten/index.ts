@@ -4,7 +4,7 @@
 import _arrayLikeForEach from '../aaa/_arrayLikeForEach/index';
 import isArray from '../isArray/index';
 
-export default function flatten(data: any): any[] {
+export default function flatten(data?: any): any[] {
 	var s: any[] = [];
 	if (isArray(data)) {
 		_arrayLikeForEach(data, function(value) {

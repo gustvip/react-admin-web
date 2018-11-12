@@ -3,6 +3,6 @@
  */
 import isNumber from "../isNumber/index";
 
-export default function IsFinite(x: any): boolean {
+export default function IsFinite(x?: any): boolean {
 	return isNumber(x) && isFinite(x);
 }

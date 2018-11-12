@@ -6,7 +6,7 @@ import Set from '../index';
 const mockCallback = jest.fn();
 const value1 = {name: 'a'};
 const value2 = {name: 'b'};
-const set1 = Set([value1]);
+const set1 = new Set([value1]);
 const set2 = new Set(set1);
 const set3 = new Set('');
 test('test set', () => {
@@ -73,7 +73,7 @@ test('test set', () => {
 });
 
 test('test undefined', () => {
-	const set5 = Set();
+	const set5 = new Set();
 	set5.add(undefined);
 	expect(set5.size).toBe(1);
 	expect(set5.has(undefined)).toBe(true);

@@ -3,7 +3,6 @@
  */
 import _getClassName from '../aaa/_getClassName/index';
 
-// @ts-ignore
-export default function isWeakSet(x: any): boolean {
+export default function isWeakSet(x?: any): boolean {
 	return _getClassName(x) === '[object WeakSet]';
 }

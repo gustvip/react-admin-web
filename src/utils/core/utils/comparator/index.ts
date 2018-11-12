@@ -18,30 +18,31 @@ export default class Comparator {
 	
 	public compare: compareFunctionType;
 	
-	public equal(a: any, b: any): boolean {
+	public equal(a?: any, b?: any): boolean {
 		return this.compare(a, b) === 0;
 	};
 	
-	public lessThan(a: any, b: any): boolean {
+	public lessThan(a?: any, b?: any): boolean {
 		return this.compare(a, b) < 0;
 	};
 	
-	public greaterThan(a: any, b: any): boolean {
+	public greaterThan(a?: any, b?: any): boolean {
 		return this.compare(a, b) > 0;
 	};
 	
-	public lessThanOrEqual(a: any, b: any): boolean {
+	public lessThanOrEqual(a?: any, b?: any): boolean {
 		return this.lessThan(a, b) || this.equal(a, b);
 	};
 	
-	public greaterThanOrEqual(a: any, b: any): boolean {
+	public greaterThanOrEqual(a?: any, b?: any): boolean {
 		return this.greaterThan(a, b) || this.equal(a, b);
 	};
 	
-	public reverse(): void {
+	public reverse(): this {
 		var compareOriginal = this.compare;
 		this.compare = function(a, b) {
 			return compareOriginal(b, a);
 		};
+		return this;
 	};
 }

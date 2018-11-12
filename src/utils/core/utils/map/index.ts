@@ -5,7 +5,7 @@ import isFunction from '../isFunction/index';
 import isArray from '../isArray/index';
 import { arrayLikeCallbackType } from '../@types';
 
-export default function map(data: any, callback: arrayLikeCallbackType | any): any[] {
+export default function map(data?: any, callback?: arrayLikeCallbackType | any): any[] {
 	var s: any[] = [];
 	if (isFunction(callback) && isArray(data)) {
 		var i = -1;

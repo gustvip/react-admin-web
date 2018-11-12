@@ -3,7 +3,7 @@
  */
 import toNumber from '../toNumber/index';
 
-export default function toFinite(x: any): number {
+export default function toFinite(x?: any): number {
 	var MAX_NUMBER = 1.7976931348623157e+308;
 	x = toNumber(x);
 	if (x !== x) {

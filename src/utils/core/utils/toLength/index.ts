@@ -3,7 +3,7 @@
  */
 import toInteger from '../toInteger/index';
 
-export default function toLength(x: any): number {
+export default function toLength(x?: any): number {
 	var MAX_ARRAY_INDEX = 4294967295;
 	x = toInteger(x);
 	if (x < 0) {

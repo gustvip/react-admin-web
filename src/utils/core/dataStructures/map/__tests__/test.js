@@ -6,7 +6,7 @@ import Map from '../index';
 const mockCallback = jest.fn();
 const key1 = {name: 'a'};
 const value1 = {name: 'b'};
-const map = Map([[key1, value1]]);
+const map = new Map([[key1, value1]]);
 const _map = new Map(map);
 const map3 = new Map('');
 const map4 = new Map([1, 2, 3]);
@@ -93,8 +93,8 @@ test('map test', () => {
 });
 
 test('test undefined', () => {
-	const map5 = Map();
-	map5.set(undefined,undefined);
+	const map5 = new Map();
+	map5.set(undefined, undefined);
 	expect(map5.size).toBe(1);
 	expect(map5.has(undefined)).toBe(true);
 	expect(map5.values()).toEqual([undefined]);

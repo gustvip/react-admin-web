@@ -3,6 +3,6 @@
  */
 import toFinite from '../toFinite/index';
 
-export default function toInteger(x: any): number {
+export default function toInteger(x?: any): number {
 	return Math.floor(toFinite(x));
 }

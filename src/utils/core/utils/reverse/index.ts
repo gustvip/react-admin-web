@@ -3,7 +3,7 @@
  */
 import isArray from '../isArray/index';
 
-export default function reverse(data: any[] | any): any[] {
+export default function reverse(data?: any[] | any): any[] {
 	var s: any[] = [];
 	if (isArray(data) && data.length > 0) {
 		var i = data.length;

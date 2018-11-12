@@ -4,6 +4,6 @@
 
 import isPlainObject from "../isPlainObject/index";
 
-export default function isElement(x: any): boolean {
+export default function isElement(x?: any): boolean {
 	return x && x.nodeType === 1 && !isPlainObject(x);
 }

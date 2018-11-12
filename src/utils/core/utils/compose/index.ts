@@ -8,7 +8,7 @@ import isFunction from "../isFunction/index";
 import identity from "../identity/index";
 import isArray from "../isArray/index";
 
-export default function compose(funs: any): Function {
+export default function compose(funs?: any): Function {
 	funs = reverse(isArray(funs) ? funs : _baseSlice(arguments));
 	_arrayLikeForEach(funs, function(fn) {
 		if (!isFunction(fn)) {

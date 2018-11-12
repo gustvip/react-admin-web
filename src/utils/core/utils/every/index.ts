@@ -5,7 +5,7 @@ import isFunction from '../isFunction/index';
 import isArray from '../isArray/index';
 import { arrayLikeCallbackType } from '../@types';
 
-export default function every(data: any, callback: arrayLikeCallbackType | any): boolean {
+export default function every(data?: any, callback?: arrayLikeCallbackType | any): boolean {
 	if (isFunction(callback) && isArray(data) && data.length > 0) {
 		var i = -1;
 		var k = data.length;

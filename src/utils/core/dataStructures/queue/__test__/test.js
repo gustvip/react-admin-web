@@ -70,7 +70,7 @@ describe('Index', () => {
 		
 		expect(queue.dequeue()).toBe(1);
 		expect(queue.dequeue()).toBe(2);
-		expect(queue.dequeue()).toBeNull();
+		expect(queue.dequeue()).toBeUndefined();
 		expect(queue.isEmpty()).toBe(true);
 	});
 	

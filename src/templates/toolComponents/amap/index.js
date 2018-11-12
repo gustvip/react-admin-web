@@ -3,7 +3,7 @@ import mapUtils from 'utils/amap';
 import noop from 'lodash/noop';
 import merge from 'lodash/merge';
 import isFunction from 'lodash/isFunction';
-import classNames from 'utils/core/classNames';
+import classNames from 'utils/core/classNames/index';
 
 export default class AMap extends React.PureComponent {
 	static defaultProps = {

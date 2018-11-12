@@ -3,6 +3,6 @@
  */
 import indexOf from '../indexOf/index';
 
-export default function includes(x: any, value: any, fromIndex?: any): boolean {
+export default function includes(x?: any, value?: any, fromIndex?: any): boolean {
 	return indexOf(x, value, fromIndex) !== -1;
 }

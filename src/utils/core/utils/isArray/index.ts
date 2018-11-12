@@ -3,6 +3,6 @@
  */
 import _getClassName from '../aaa/_getClassName/index';
 
-export default function isArray(x: any): boolean {
+export default function isArray(x?: any): boolean {
 	return _getClassName(x) === '[object Array]';
 }

@@ -7,7 +7,7 @@ import isSet from '../isSet/index';
 import _baseSlice from '../aaa/_baseSlice/index';
 import _mapAndSetToArray from '../aaa/_mapAndSetToArray/index';
 
-export default function toArray(x: any): any[] {
+export default function toArray(x?: any): any[] {
 	if (isArrayLike(x)) {
 		return _baseSlice(x);
 	} else if (isMap(x) || isSet(x)) {

@@ -7,7 +7,7 @@ import toInteger from '../toInteger/index';
 import isUndefined from '../isUndefined/index';
 import { arrayLikeCallbackType } from '../@types';
 
-export default function findLast(x: any, predicate: arrayLikeCallbackType | any, fromIndex?: any): any {
+export default function findLast(x?: any, predicate?: arrayLikeCallbackType | any, fromIndex?: any): any {
 	if (isArray(x) && isFunction(predicate) && x.length > 0) {
 		var len = x.length;
 		fromIndex = isUndefined(fromIndex) ? len - 1 : toInteger(fromIndex);
