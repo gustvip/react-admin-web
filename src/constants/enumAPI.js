@@ -37,6 +37,7 @@ const API = {
  */
 	fileParseXlsx: _userAPI('/file/parseXlsx'),
 	fileParseCsv: _userAPI('/file/parseCsv'),
+	fileParseXml: _userAPI('/file/parseXml'),
 	fileDownJson: _userAPI('/file/downJson'),
 	
 };

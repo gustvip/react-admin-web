@@ -9,6 +9,7 @@ export default class TestComponent extends React.PureComponent {
 	constructor() {
 		super();
 		this.xlsxContainer = null;
+		this.xmlContainer = null;
 		this.csvContainer = null;
 		this.container = null;
 		this.state = {
@@ -18,6 +19,12 @@ export default class TestComponent extends React.PureComponent {
 	
 	handleParseXlsx = (file) => {
 		T.request.upload(enumAPI.fileParseXlsx, {file}).then(info => {
+			window.open(`${enumAPI.fileDownJson}?id=${info.data.id}`);
+		}).catch(info => T.prompt.error(info.msg));
+	};
+	
+	handleParseXml = (file) => {
+		T.request.upload(enumAPI.fileParseXml, {file}).then(info => {
 			window.open(`${enumAPI.fileDownJson}?id=${info.data.id}`);
 		}).catch(info => T.prompt.error(info.msg));
 	};
@@ -34,6 +41,22 @@ export default class TestComponent extends React.PureComponent {
 				className={styles['main-container']}
 				ref={container => this.container = container}
 			>
+				<div className="xml-container">
+					<Button
+						onClick={() => this.xmlContainer.click()}
+						type="primary"
+					>
+						解析xml
+					</Button>
+					<input
+						style={{display: 'none'}}
+						ref={xmlContainer => this.xmlContainer = xmlContainer}
+						multiple={false}
+						accept="text/xml"
+						type="file"
+						onChange={(e) => e.target.files && this.handleParseXml(e.target.files[0])}
+					/>
+				</div>
 				<div className="xlsx-container">
 					<Button
 						onClick={() => this.xlsxContainer.click()}
