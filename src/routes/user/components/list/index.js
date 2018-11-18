@@ -1,10 +1,8 @@
 /**
  * Created by joey on 2018/2/18
  */
-
 import T from 'utils/t';
 import {Button, Input, Table} from 'antd';
-import {MainContent} from 'templates/mainLayout/index';
 import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';

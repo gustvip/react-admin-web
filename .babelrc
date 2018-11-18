@@ -9,7 +9,7 @@
 							"browsers": [
 								"Chrome >= 65"
 							],
-							"node": "8.11"
+							"node": "6.0.0"
 						},
 						"loose": true,
 						"module": false,
@@ -56,7 +56,7 @@
 								"Android >= 4.4",
 								"Opera >= 30"
 							],
-							"node": "8.11"
+							"node": "6.0.0"
 						},
 						"loose": true,
 						"module": false,

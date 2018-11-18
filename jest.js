@@ -23,7 +23,7 @@ module.exports = {
 	],
 	
 	transform: {
-		'^.+\\.js$': 'babel-jest',
+		'.*\\.(js)$': 'babel-jest',
 		'.*\\.(ts)$': 'ts-jest',
 	},
 	

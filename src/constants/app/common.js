@@ -1,6 +1,5 @@
 /**
- * 枚举用户状态
- * @type {{normal: number, delete: number}}
+ * @type {{normal: {label: string, value: string}, delete: {label: string, value: string}}}
  */
 export const userStatus = {
 	normal: {
@@ -13,6 +12,9 @@ export const userStatus = {
 	},
 };
 
+/**
+ * @type {{normal: {value: string, label: string}, admin: {value: string, label: string}, root: {value: string, label: string}}}
+ */
 export const userType = {
 	normal: {
 		value: '1',
@@ -29,8 +31,7 @@ export const userType = {
 };
 
 /**
- * 用户性别
- * @type {{'0': {value: string, label: string}, '1': {value: string, label: string}, '2': {value: string, label: string}}}
+ * @type {{boy: {value: string, label: string}, girl: {value: string, label: string}, secret: {value: string, label: string}}}
  */
 export const userSex = {
 	boy: {

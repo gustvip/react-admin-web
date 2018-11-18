@@ -99,12 +99,12 @@
 		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
 		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
 		"lint": "npm run lint:js && npm run lint:scss",
-		"lint:js": "eslint build src tests ./.*.js --ext '.js,.jsx'",
+		"lint:js": "eslint build src tests ./*.js --ext '.js,.jsx'",
 		"lint:ts": "tslint 'src/**/*.{ts,tsx}'",
-		"lint:scss": "stylelint src/**/*.scss --syntax scss",
-		"lint-fix:js": "eslint --fix build src tests ./.*.js --ext '.js,.jsx'",
+		"lint:scss": "stylelint 'src/**/*.scss' --syntax scss",
+		"lint-fix:js": "eslint --fix build src tests ./*.js --ext '.js,.jsx'",
 		"lint-fix:ts": "tslint 'src/**/*.{ts,tsx}' --fix",
-		"lint-fix:scss": "stylelint src/**/*.scss --fix --syntax scss",
+		"lint-fix:scss": "stylelint 'src/**/*.scss' --fix --syntax scss",
 		"pre-commit": "pre-commit",
 		"lint-staged": "lint-staged"
 	},
@@ -130,7 +130,7 @@
 		]
 	},
 	"engines": {
-		"node": "8.11"
+		"node": ">=6.0.0"
 	},
 	"repository": {
 		"type": "git",

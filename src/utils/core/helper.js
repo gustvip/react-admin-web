@@ -175,9 +175,10 @@ class Helper {
 	 * @param {Array} data
 	 * @param {*} stopValue 停止的值
 	 * @param {string} property
+	 * @param {function} [callback]
 	 * @return {Array}
 	 */
-	findPath(data, stopValue, property) {
+	findPath(data, stopValue, property, callback) {
 		let tag = false;
 		let array = [];
 		if (Array.isArray(data)) {
@@ -186,7 +187,11 @@ class Helper {
 				while (!tag && ++index < _data.length) {
 					const rowData = _data[index];
 					const rowArray = _array.slice();
-					rowArray.push(rowData[property]);
+					if (callback) {
+						rowArray.push(callback(rowData));
+					} else {
+						rowArray.push(rowData[property]);
+					}
 					if (rowData[property] === stopValue) {
 						array = rowArray;
 						tag = true;
