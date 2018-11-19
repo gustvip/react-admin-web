@@ -6,7 +6,7 @@ import {Button, Input, Table} from 'antd';
 import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {userSex, userType, userStatus} from 'constants/app/common';
+import {userSex, role, status} from 'constants/app/common';
 import style from '../../scss/list/index.scss';
 
 import debounce from 'lodash/debounce';
@@ -87,16 +87,16 @@ export default class List extends React.PureComponent {
 			},
 			{
 				title: '状态',
-				dataIndex: 'userStatus',
+				dataIndex: 'status',
 				render(text) {
-					return Object.values(userStatus).find(value => value.value === text).label;
+					return Object.values(status).find(value => value.value === text).label;
 				},
 			},
 			{
 				title: '用户类型',
-				dataIndex: 'userType',
+				dataIndex: 'role',
 				render(text) {
-					return Object.values(userType).find(value => value.value === text).label;
+					return Object.values(role).find(value => value.value === text).label;
 				},
 			},
 			{

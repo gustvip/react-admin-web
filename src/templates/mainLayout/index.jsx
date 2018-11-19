@@ -17,6 +17,7 @@ import isEqual from 'lodash/isEqual';
 import flowRight from 'lodash/flowRight';
 import get from 'lodash/get';
 import uniqueId from 'lodash/uniqueId';
+import noop from 'lodash/noop';
 
 /**
  * 获取图标字体
@@ -265,7 +266,7 @@ export class HeaderLayout extends React.PureComponent {
 				<Menu.Item
 					onClick={() => T.prompt.confirm({
 						onOk() {
-							T.auth.resetUserPassword(get(userInfo, 'userId'));
+							T.auth.resetUserPassword(get(userInfo, 'userId'), noop, (info) => T.prompt.error(info.msg));
 						},
 						title: '确认重置密码码？',
 					})}

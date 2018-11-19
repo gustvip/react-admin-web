@@ -27,7 +27,7 @@ class UpdatePasswordModal extends React.PureComponent {
 	static propTypes = {
 		form: PropTypes.object.isRequired,
 		successCallback: PropTypes.func,
-		userId: PropTypes.string.isRequired,
+		userId: PropTypes.number.isRequired,
 		className: PropTypes.string,
 		option: PropTypes.object,
 	};

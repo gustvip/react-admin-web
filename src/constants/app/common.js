@@ -1,7 +1,7 @@
 /**
  * @type {{normal: {label: string, value: string}, delete: {label: string, value: string}}}
  */
-export const userStatus = {
+export const status = {
 	normal: {
 		label: '正常',
 		value: '1',
@@ -15,7 +15,7 @@ export const userStatus = {
 /**
  * @type {{normal: {value: string, label: string}, admin: {value: string, label: string}, root: {value: string, label: string}}}
  */
-export const userType = {
+export const role = {
 	normal: {
 		value: '1',
 		label: '一般用户',
