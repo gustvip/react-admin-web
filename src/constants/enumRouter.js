@@ -1,12 +1,11 @@
 /**
  * Created by joey on 2018/02/19
  */
-
 import helper from 'utils/core/helper';
 import flowRight from 'lodash/flowRight';
 
 /**
- * @type {{rootPath: string, login: string, register: string, testDemo: string, parseFile: string, userList: string}}
+ * @type {{rootPath: string, login: string, register: string, testDemo: string, testParseFile: string, userList: string}}
  */
 const enumRouter = {
 	rootPath: '',

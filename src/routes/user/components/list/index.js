@@ -2,7 +2,9 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
+import enumAPI from 'constants/enumAPI';
 import {Button, Input, Table} from 'antd';
+import enumAuth from '../../../../constants/enumAuth';
 import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -153,11 +155,14 @@ export default class List extends React.PureComponent {
 						</Button>
 					</div>
 					<div className={style['right-container']}>
-						<Input.Search
-							onChange={event => this.setState({search: event.target.value})}
-							placeholder="请搜索"
-							onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
-						/>
+						<T.AuthComponent auth={enumAuth.user.userList.value}>
+							
+							<Input.Search
+								onChange={event => this.setState({search: event.target.value})}
+								placeholder="请搜索"
+								onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
+							/>
+						</T.AuthComponent>
 					</div>
 				</header>
 				<Table

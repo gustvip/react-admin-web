@@ -1,6 +1,8 @@
 /**
  * Created by joey 2018/02/19
  */
+import PropTypes from 'prop-types';
+import React from 'react';
 import enumAPI from 'constants/enumAPI';
 import * as queryString from './queryString';
 import helper from './helper';
@@ -14,6 +16,17 @@ import get from 'lodash/get';
 class Auth {
 	constructor() {
 		this.ENV = window.ENV;
+	}
+	
+	/**
+	 * 验证是api或者route是否有权限
+	 * @param api
+	 * @return boolean
+	 */
+	hasAuth(info) {
+		const userInfo = this.getUserInfoStorageValue();
+		const auth = get(userInfo, this.ENV.login.auth, []);
+		return auth.indexOf(info) !== -1;
 	}
 	
 	/**
@@ -69,6 +82,14 @@ class Auth {
 	}
 	
 	/**
+	 * 获取user详情
+	 * @returns {Object}
+	 */
+	getUserDetailStorageValue() {
+		return get(this.getUserInfoStorageValue(), this.ENV.login.userDetail, {});
+	}
+	
+	/**
 	 * 设置userInfo
 	 */
 	setUserInfoStorageValue(value) {
@@ -114,4 +135,17 @@ class Auth {
 	}
 }
 
-export default new Auth();
+const auth = new Auth();
+
+export class AuthComponent extends React.PureComponent {
+	static propTypes = {
+		auth: PropTypes.string.isRequired,
+		children: PropTypes.any,
+	};
+	
+	render() {
+		return auth.hasAuth(this.props.auth) && this.props.children;
+	}
+}
+
+export default auth;

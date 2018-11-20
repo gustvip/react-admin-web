@@ -49,8 +49,8 @@ class Login extends React.PureComponent {
 					userPassword,
 					(info) => {
 						prompt.success('登陆成功,正在跳转');
-						auth.setLoginStorageValue(info.data.userInfo);
-						auth.setUserInfoStorageValue(info.data.userInfo);
+						auth.setLoginStorageValue();
+						auth.setUserInfoStorageValue(info.data);
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
 					(info) => {

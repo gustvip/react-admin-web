@@ -233,7 +233,7 @@ export class HeaderLayout extends React.PureComponent {
 	};
 	
 	getUserManage = () => {
-		const userInfo = T.auth.getUserInfoStorageValue();
+		const userInfo = T.auth.getUserDetailStorageValue();
 		const menu = (
 			<Menu>
 				<Menu.Item
