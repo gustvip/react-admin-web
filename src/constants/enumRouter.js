@@ -5,7 +5,7 @@ import helper from 'utils/core/helper';
 import flowRight from 'lodash/flowRight';
 
 /**
- * @type {{rootPath: string, login: string, register: string, testDemo: string, testParseFile: string, userList: string}}
+ * @type {{rootPath: string, login: string, register: string, testDemo: string, testParseFile: string, userList: string, administratorAuthList: string}}
  */
 const enumRouter = {
 	rootPath: '',
@@ -20,5 +20,13 @@ const enumRouter = {
 	 |-----------------------------------------------
 	 */
 	userList: 'user/list',
+	
+	/*
+	 |-----------------------------------------------
+	 | 超级管理员-相关的路由
+	 |-----------------------------------------------
+	 */
+	administratorAuthList: 'administrator/auth/list',
+	administratorGroupList: 'administrator/group/list',
 };
 export default helper.immutable(enumRouter, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

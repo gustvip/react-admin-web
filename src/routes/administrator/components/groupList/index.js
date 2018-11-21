@@ -5,11 +5,11 @@ import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
 import {Button, Input, Table} from 'antd';
 import enumAuth from '../../../../constants/enumAuth';
-import * as webAPI from '../../webAPI/list';
+import * as webAPI from '../../webAPI/authList';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {userSex, role, status} from 'constants/app/common';
-import style from '../../scss/list/index.scss';
+import style from '../../scss/authList/index.scss';
 
 import debounce from 'lodash/debounce';
 

@@ -1,10 +1,9 @@
 /**
  * Created by joey on 2018/02/19
  */
-import helper from 'utils/core/helper';
 
 /**
- * @type {{user: {userList: {label: string, value: string}}}}
+ * @type {{userRoute: {userList: {label: string, value: string}}}}
  */
 const enumAuth = {
 	/*
@@ -12,10 +11,10 @@ const enumAuth = {
 	 | 用户模块-相关的权限
 	 |-----------------------------------------------
 	 */
-	user: {
+	userRoute: {
 		userList: {
 			label: '用户列表',
-			value: 'userRoute.list',
+			value: 'userRoute.userList',
 		},
 	},
 };

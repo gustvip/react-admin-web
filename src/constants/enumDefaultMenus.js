@@ -23,6 +23,44 @@ export default helper.immutable([
 		id: uniqueId(),
 		children: [
 			{
+				label: '超级管理员',
+				url: EnumRouter.administratorAuthList,
+				id: uniqueId(),
+				children: [
+					{
+						label: '超级管理员',
+						url: EnumRouter.administratorAuthList,
+						icon: {
+							type: EnumIconTypes.antd,
+							value: 'up-square-o',
+						},
+						id: uniqueId(),
+						children: [
+							{
+								label: '权限枚举',
+								url: EnumRouter.administratorAuthList,
+								icon: {
+									type: EnumIconTypes.antd,
+									value: 'up-square-o',
+								},
+								id: uniqueId(),
+								children: [],
+							},
+							{
+								label: '权限分配',
+								url: EnumRouter.administratorGroupList,
+								icon: {
+									type: EnumIconTypes.antd,
+									value: 'up-square-o',
+								},
+								id: uniqueId(),
+								children: [],
+							},
+						],
+					},
+				],
+			},
+			{
 				label: '用户管理',
 				url: EnumRouter.userList,
 				id: uniqueId(),
