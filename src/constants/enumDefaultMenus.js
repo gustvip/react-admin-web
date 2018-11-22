@@ -19,11 +19,11 @@ export default helper.immutable([
 	{
 		label: '大栏目',
 		value: 'data_platform',
-		url: EnumRouter.userList,
+		url: EnumRouter.administratorAuthList,
 		id: uniqueId(),
 		children: [
 			{
-				label: '超级管理员',
+				label: '小栏目',
 				url: EnumRouter.administratorAuthList,
 				id: uniqueId(),
 				children: [
@@ -58,13 +58,6 @@ export default helper.immutable([
 							},
 						],
 					},
-				],
-			},
-			{
-				label: '用户管理',
-				url: EnumRouter.userList,
-				id: uniqueId(),
-				children: [
 					{
 						label: '用户管理',
 						url: EnumRouter.userList,
@@ -86,13 +79,6 @@ export default helper.immutable([
 							},
 						],
 					},
-				],
-			},
-			{
-				label: 'API测试',
-				url: EnumRouter.testDemo,
-				id: uniqueId(),
-				children: [
 					{
 						label: 'API测试',
 						url: EnumRouter.testDemo,

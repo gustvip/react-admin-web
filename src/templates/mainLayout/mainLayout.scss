@@ -1,11 +1,7 @@
 @import "baseStyleVarity";
 
 html, body {
-	display: flex;
-	flex-direction: column;
-	min-height: 100%;
-	flex-grow: 1;
-	flex-shrink: 0;
+	@include flex-style();
 	:global {
 		.ant-menu-dark {
 			.ant-menu-item {
@@ -21,9 +17,7 @@ html, body {
 			}
 		}
 		#wrapper {
-			display: flex;
-			flex-direction: column;
-			flex-grow: 1;
+			@include flex-style();
 			background-color: $base-body-background-color;
 		}
 	}
@@ -31,9 +25,7 @@ html, body {
 
 #main-container {
 	padding-top: $header-height;
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
+	@include flex-style();
 	position: relative;
 	background-color: transparent;
 	/* sider */
@@ -74,20 +66,23 @@ html, body {
 
 	/* Layout */
 	.content-container {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
+		@include flex-style();
 		position: relative;
 		/* content */
 		.main-content-container {
-			display: flex;
-			flex-direction: column;
-			flex-grow: 1;
+			@include flex-style();
 			position: relative;
 			padding: $base-menu-and-header-content-padding;
 
 			/* 主内容---header */
 			.content-header-container {
+				display: flex;
+				flex-shrink: 0;
+				justify-content: space-between;
+				background-color: #fff;
+				padding: 8px;
+				border-radius: 4px;
+				margin-bottom: $base-menu-and-header-content-padding;
 			}
 		}
 	}

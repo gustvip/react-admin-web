@@ -7,20 +7,16 @@ import T from 'utils/t';
 
 /**
  * 获取用户列表
- * @param {number} currentPage
- * @param {number} pageSize
- * @param {string} search
+ * @param {number} condition.currentPage
+ * @param {number} condition.pageSize
+ * @param {string} condition.search
  * @return {Promise}
  */
-export const getUserList = (currentPage, pageSize, search) => T.request.get(enumAPI.userList, {
-	currentPage,
-	pageSize,
-	search,
-});
+export const getUserList = (condition) => T.request.get(enumAPI.userList, condition);
 
 /**
  * 删除用户
- * @param {Array} userId
+ * @param {Array} condition.userId
  * @return {Promise}
  */
-export const deleteUser = (userId) => T.request.del(enumAPI.userDelete, {userId});
+export const deleteUser = (condition) => T.request.del(enumAPI.userDelete, condition);

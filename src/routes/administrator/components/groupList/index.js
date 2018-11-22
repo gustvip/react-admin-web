@@ -3,9 +3,10 @@
  */
 import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
+import {MainHeader} from 'templates/mainLayout';
 import {Button, Input, Table} from 'antd';
 import enumAuth from '../../../../constants/enumAuth';
-import * as webAPI from '../../webAPI/authList';
+import * as webAPI from '../../webAPI/index';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {userSex, role, status} from 'constants/app/common';
@@ -19,163 +20,131 @@ export default class List extends React.PureComponent {
 	};
 	
 	state = {
-		currentPage: 1,
-		pageSize: 10,
-		count: 10,
-		totalPages: 1,
 		dataSource: [],
-		selectedRowKeys: [],
-		selectedRows: [],
-		search: '',
+		group: '1',
+		role: '3',
+		groupData: [],
+		roleData: [],
 	};
 	
 	componentDidMount() {
-		this.getList(1, this.state.pageSize, this.state.search);
+		this.getList(this.state.group, this.state.role);
 	}
 	
-	getList = (currentPage, pageSize, search) => {
-		webAPI.getUserList(currentPage, pageSize, search).then(info => {
+	getList = (group, role) => {
+		webAPI.administratorGroupList({
+			group,
+			role,
+		}).then(info => {
 			this.setState({
-				currentPage,
-				pageSize: info.data.pageSize,
-				count: info.data.count,
-				totalPages: info.data.totalPages,
-				dataSource: info.data.data,
-				selectedRowKeys: [],
-				selectedRows: [],
+				group,
+				role,
+				dataSource: info.data,
 			});
 		}).catch(info => T.prompt.error(info.msg));
-	};
-	
-	handleDelete = () => {
-		const self = this;
-		T.prompt.confirm({
-			onOk() {
-				webAPI.deleteUser(self.state.selectedRows.map(value => value.userId)).
-					then(() => self.getList(1, self.state.pageSize, self.state.search)).
-					catch(info => T.prompt.error(info.msg));
-			},
-		});
 	};
 	
 	get columns() {
 		return [
 			{
-				title: '姓名',
-				dataIndex: 'name',
-			},
-			{
-				title: '性别',
-				dataIndex: 'userSex',
-				render(text) {
-					return Object.values(userSex).find(value => value.value === text).label;
+				title: 'groupId',
+				dataIndex: 'groupId',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'groupId',
+					});
 				},
 			},
 			{
-				title: '描述',
-				dataIndex: 'userDescription',
-			},
-			{
-				title: '名称',
-				dataIndex: 'userName',
-			},
-			{
-				title: '邮箱',
-				dataIndex: 'userEmail',
-			},
-			{
-				title: '电话',
-				dataIndex: 'userPhone',
-			},
-			{
-				title: '状态',
-				dataIndex: 'status',
-				render(text) {
-					return Object.values(status).find(value => value.value === text).label;
+				title: 'value',
+				dataIndex: 'value',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'value',
+					});
 				},
 			},
 			{
-				title: '用户类型',
-				dataIndex: 'role',
-				render(text) {
-					return Object.values(role).find(value => value.value === text).label;
+				title: 'label',
+				dataIndex: 'label',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'label',
+					});
+				},
+			},
+			{
+				title: 'authParent',
+				dataIndex: 'authParent',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'authParent',
+					});
+				},
+			},
+			{
+				title: 'level',
+				dataIndex: 'level',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'level',
+					});
 				},
 			},
 			{
 				title: '创建时间',
 				dataIndex: 'createdAt',
-				render: val => new Date(val).toLocaleDateString(),
+				render: val => new Date(val).toLocaleString(),
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'createdAt',
+					});
+				},
 			},
 			{
 				title: '更新时间',
 				dataIndex: 'updatedAt',
-				render: val => new Date(val).toLocaleDateString(),
+				render: val => new Date(val).toLocaleString(),
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'updatedAt',
+					});
+				},
 			},
 		];
-	}
-	
-	get pagination() {
-		const self = this;
-		return {
-			current: self.state.currentPage,
-			total: self.state.count,
-			pageSize: self.state.pageSize,
-			showQuickJumper: false,
-			onChange(currentPage, pageSize) {
-				self.getList(currentPage, pageSize, self.state.search);
-			},
-		};
-	}
-	
-	get rowSelection() {
-		const self = this;
-		return {
-			selectedRowKeys: self.state.selectedRowKeys,
-			onChange(selectedRowKeys, selectedRows) {
-				self.setState({
-					selectedRowKeys,
-					selectedRows,
-				});
-			},
-		};
 	}
 	
 	render() {
 		const self = this;
 		return (
-			<div className={style['main-container']}>
-				<header className={style['table-header-container']}>
-					<div className={style['left-container']}>
-						<Button
-							disabled={this.state.selectedRows.length === 0}
-							type="primary"
-							onClick={() => this.handleDelete()}
-						>
-							删除
-						</Button>
-					</div>
-					<div className={style['right-container']}>
-						<T.AuthComponent auth={enumAuth.userRoute.userList.value}>
-							
-							<Input.Search
-								onChange={event => this.setState({search: event.target.value})}
-								placeholder="请搜索"
-								onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
-							/>
-						</T.AuthComponent>
-					</div>
-				</header>
-				<Table
-					dataSource={self.state.dataSource.map(value => ({
-						...value,
-						key: value.userId,
-					}))}
-					bordered
-					columns={self.columns}
-					pagination={self.pagination}
-					rowSelection={self.rowSelection}
-				/>
-			</div>
+			<React.Fragment>
+				<div className={style['main-container']}>
+					<Table
+						size="middle"
+						dataSource={self.state.dataSource.map(value => ({
+							...value,
+							key: value.value,
+						}))}
+						bordered
+						columns={self.columns}
+						pagination={false}
+					/>
+				</div>
+			</React.Fragment>
 		);
 	}
 }

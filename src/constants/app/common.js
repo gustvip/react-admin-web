@@ -31,6 +31,17 @@ export const role = {
 };
 
 /**
+ * @type {{normalGroup: {label: string, value: string, children: *[]}}}
+ */
+export const group = {
+	normalGroup: {
+		label: '目前当作正常分组',
+		value: '2',
+		children: [role.normal, role.admin, role.root],
+	},
+};
+
+/**
  * @type {{boy: {value: string, label: string}, girl: {value: string, label: string}, secret: {value: string, label: string}}}
  */
 export const userSex = {

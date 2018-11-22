@@ -14,7 +14,7 @@ $base-body-header-background-color: #fff;
 $base-body-background-color: #f0f2f5;
 
 /* 菜单加头部布局的content的padding */
-$base-menu-and-header-content-padding: 24px;
+$base-menu-and-header-content-padding: 16px;
 
 @mixin tableStyle {
 	.ant-table-pagination {
@@ -22,4 +22,11 @@ $base-menu-and-header-content-padding: 24px;
 		float: none !important;
 		text-align: center;
 	}
+}
+
+@mixin flex-style {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	flex-shrink: 0;
 }

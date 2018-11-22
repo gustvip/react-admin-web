@@ -37,16 +37,15 @@ const getIcon = (icon) => {
 /**
  * 头部组件
  * @param {String} className
- * @param {String} title
  * @param {Object} style
+ * @param {React.Element} [left]
+ * @param {React.Element} [right]
  */
-export const MainHeader = ({className = '', title = '', styles = {}}) => {
-	const defaultClassName = style['content-header-container'];
-	const defaultStyle = {};
-	
+export const MainHeader = ({className = '', left = null, right = null, styles = {}}) => {
 	return (
-		<header className={T.helper.classNames(defaultClassName)(className)} style={Object.assign(defaultStyle, styles)}>
-			{title}
+		<header className={T.helper.classNames(style['content-header-container'])(className)} style={styles}>
+			<div>{left}</div>
+			<div>{right}</div>
 		</header>
 	);
 };
@@ -180,12 +179,10 @@ export class HeaderLayout extends React.PureComponent {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 	
 	logout = () => {
-		T.auth.removeLoginStorageValue();
-		T.auth.removeUserInfoStorageValue();
-		this.context.router.history.push(
-			`${ENV.login.loginUrl}?${ENV.defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
-			this.context.router.route.location.state,
-		);
+		T.auth.loginOut(() => {
+			localStorage.clear();
+			this.context.router.history.push(ENV.login.loginUrl);
+		});
 	};
 	
 	getTopRoute = () => {

@@ -119,6 +119,15 @@ class Auth {
 	}
 	
 	/**
+	 * 退出登录
+	 * @param {function} [successCallback]
+	 * @param {function} [failCallback]
+	 */
+	loginOut(successCallback, failCallback) {
+		request.postJSON(enumAPI.userLoginOut).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
+	}
+	
+	/**
 	 * 登录成功重定向
 	 * @param {Object} [history] react-router的history
 	 * @param  {Object} [state] react-router的state

@@ -5,6 +5,7 @@ import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
 import {Button, Input, Table} from 'antd';
 import enumAuth from '../../../../constants/enumAuth';
+import {MainHeader} from 'templates/mainLayout';
 import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -34,8 +35,13 @@ export default class List extends React.PureComponent {
 	}
 	
 	getList = (currentPage, pageSize, search) => {
-		webAPI.getUserList(currentPage, pageSize, search).then(info => {
+		webAPI.getUserList({
+			currentPage,
+			pageSize,
+			search,
+		}).then(info => {
 			this.setState({
+				search,
 				currentPage,
 				pageSize: info.data.pageSize,
 				count: info.data.count,
@@ -51,7 +57,7 @@ export default class List extends React.PureComponent {
 		const self = this;
 		T.prompt.confirm({
 			onOk() {
-				webAPI.deleteUser(self.state.selectedRows.map(value => value.userId)).
+				webAPI.deleteUser({userId: self.state.selectedRows.map(value => value.userId)}).
 					then(() => self.getList(1, self.state.pageSize, self.state.search)).
 					catch(info => T.prompt.error(info.msg));
 			},
@@ -143,9 +149,9 @@ export default class List extends React.PureComponent {
 	render() {
 		const self = this;
 		return (
-			<div className={style['main-container']}>
-				<header className={style['table-header-container']}>
-					<div className={style['left-container']}>
+			<React.Fragment>
+				<MainHeader
+					left={
 						<Button
 							disabled={this.state.selectedRows.length === 0}
 							type="primary"
@@ -153,29 +159,29 @@ export default class List extends React.PureComponent {
 						>
 							删除
 						</Button>
-					</div>
-					<div className={style['right-container']}>
-						<T.AuthComponent auth={enumAuth.userRoute.userList.value}>
-							
-							<Input.Search
-								onChange={event => this.setState({search: event.target.value})}
-								placeholder="请搜索"
-								onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
-							/>
-						</T.AuthComponent>
-					</div>
-				</header>
-				<Table
-					dataSource={self.state.dataSource.map(value => ({
-						...value,
-						key: value.userId,
-					}))}
-					bordered
-					columns={self.columns}
-					pagination={self.pagination}
-					rowSelection={self.rowSelection}
+					}
+					right={
+						<Input.Search
+							onChange={event => this.setState({search: event.target.value})}
+							placeholder="请搜索"
+							onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
+						/>
+					}
 				/>
-			</div>
+				<div className={style['main-container']}>
+					<Table
+						size="middle"
+						dataSource={self.state.dataSource.map(value => ({
+							...value,
+							key: value.userId,
+						}))}
+						bordered
+						columns={self.columns}
+						pagination={self.pagination}
+						rowSelection={self.rowSelection}
+					/>
+				</div>
+			</React.Fragment>
 		);
 	}
 }

@@ -3,7 +3,7 @@
  */
 
 /**
- * @type {{userRoute: {userList: {label: string, value: string}}}}
+ * @type {{serverUserList: {label: string, value: string}, browserUserList: {label: string, value: string}}}
  */
 const enumAuth = {
 	/*
@@ -11,11 +11,13 @@ const enumAuth = {
 	 | 用户模块-相关的权限
 	 |-----------------------------------------------
 	 */
-	userRoute: {
-		userList: {
-			label: '用户列表',
-			value: 'userRoute.userList',
-		},
+	serverUserList: {
+		label: '用户列表api',
+		value: 'serverUserList',
+	},
+	browserUserList: {
+		label: '用户列表路由',
+		value: 'browserUserList',
 	},
 };
 export default enumAuth;

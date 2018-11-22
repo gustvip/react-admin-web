@@ -22,6 +22,7 @@ const API = {
    |----------------------------------------------------------------
  */
 	userLogin: _userAPI('/user/login'),
+	userLoginOut: _userAPI('/user/loginOut'),
 	userAdd: _userAPI('/user/add'),
 	userDelete: _userAPI('/user/delete'),
 	userDetail: _userAPI('/user/detail'),
@@ -40,5 +41,13 @@ const API = {
 	fileParseXml: _userAPI('/file/parseXml'),
 	fileDownJson: _userAPI('/file/downJson'),
 	
+	/*
+   |----------------------------------------------------------------
+   | 超级管理员相关API地址
+   |----------------------------------------------------------------
+ */
+	administratorAuthList: _userAPI('/administrator/auth/list'),
+	administratorAuthAdd: _userAPI('/administrator/auth/add'),
+	administratorGroupGroupAndRoleAuth: _userAPI('/administrator/group/groupAndRoleAuth'),
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));

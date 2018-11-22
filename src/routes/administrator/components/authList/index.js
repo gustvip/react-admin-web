@@ -3,179 +3,267 @@
  */
 import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
-import {Button, Input, Table} from 'antd';
-import enumAuth from '../../../../constants/enumAuth';
-import * as webAPI from '../../webAPI/authList';
+import {MainHeader} from 'templates/mainLayout';
+import {Button, Input, Table, Form, Select} from 'antd';
+import enumAuth from 'constants/enumAuth';
+import * as webAPI from '../../webAPI/index';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {userSex, role, status} from 'constants/app/common';
+import {status} from 'constants/app/common';
 import style from '../../scss/authList/index.scss';
 
 import debounce from 'lodash/debounce';
 
-export default class List extends React.PureComponent {
+const Option = Select.Option;
+const formItemLayout = {
+	labelCol: {
+		xs: {span: 24},
+		sm: {span: 4},
+	},
+	wrapperCol: {
+		xs: {span: 24},
+		sm: {span: 20},
+	},
+};
+
+class List extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
 	
 	state = {
-		currentPage: 1,
-		pageSize: 10,
-		count: 10,
-		totalPages: 1,
 		dataSource: [],
-		selectedRowKeys: [],
-		selectedRows: [],
 		search: '',
+		authValue: '',
+		authLabel: '',
+		authParent: null,
+		isAdd: false,
 	};
 	
 	componentDidMount() {
-		this.getList(1, this.state.pageSize, this.state.search);
+		this.getList(this.state.search);
 	}
 	
-	getList = (currentPage, pageSize, search) => {
-		webAPI.getUserList(currentPage, pageSize, search).then(info => {
+	getList = (search) => {
+		webAPI.administratorAuthList({search}).then(info => {
 			this.setState({
-				currentPage,
-				pageSize: info.data.pageSize,
-				count: info.data.count,
-				totalPages: info.data.totalPages,
-				dataSource: info.data.data,
-				selectedRowKeys: [],
-				selectedRows: [],
+				search,
+				dataSource: info.data,
 			});
 		}).catch(info => T.prompt.error(info.msg));
-	};
-	
-	handleDelete = () => {
-		const self = this;
-		T.prompt.confirm({
-			onOk() {
-				webAPI.deleteUser(self.state.selectedRows.map(value => value.userId)).
-					then(() => self.getList(1, self.state.pageSize, self.state.search)).
-					catch(info => T.prompt.error(info.msg));
-			},
-		});
 	};
 	
 	get columns() {
 		return [
 			{
-				title: '姓名',
-				dataIndex: 'name',
-			},
-			{
-				title: '性别',
-				dataIndex: 'userSex',
-				render(text) {
-					return Object.values(userSex).find(value => value.value === text).label;
+				title: 'value',
+				dataIndex: 'value',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'value',
+					});
 				},
 			},
 			{
-				title: '描述',
-				dataIndex: 'userDescription',
+				title: 'label',
+				dataIndex: 'label',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'label',
+					});
+				},
 			},
 			{
-				title: '名称',
-				dataIndex: 'userName',
+				title: 'authParent',
+				dataIndex: 'authParent',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'authParent',
+					});
+				},
 			},
 			{
-				title: '邮箱',
-				dataIndex: 'userEmail',
+				title: 'level',
+				dataIndex: 'level',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'level',
+					});
+				},
 			},
 			{
-				title: '电话',
-				dataIndex: 'userPhone',
-			},
-			{
-				title: '状态',
+				title: 'status',
 				dataIndex: 'status',
-				render(text) {
-					return Object.values(status).find(value => value.value === text).label;
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'status',
+					});
 				},
 			},
 			{
-				title: '用户类型',
-				dataIndex: 'role',
-				render(text) {
-					return Object.values(role).find(value => value.value === text).label;
-				},
-			},
-			{
-				title: '创建时间',
+				title: 'createdAt',
 				dataIndex: 'createdAt',
-				render: val => new Date(val).toLocaleDateString(),
+				render: val => new Date(val).toLocaleString(),
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'createdAt',
+					});
+				},
 			},
 			{
-				title: '更新时间',
+				title: 'updatedAt',
 				dataIndex: 'updatedAt',
-				render: val => new Date(val).toLocaleDateString(),
+				render: val => new Date(val).toLocaleString(),
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'updatedAt',
+					});
+				},
 			},
 		];
 	}
 	
-	get pagination() {
+	handleSubmit = (e) => {
+		e.preventDefault();
 		const self = this;
-		return {
-			current: self.state.currentPage,
-			total: self.state.count,
-			pageSize: self.state.pageSize,
-			showQuickJumper: false,
-			onChange(currentPage, pageSize) {
-				self.getList(currentPage, pageSize, self.state.search);
-			},
-		};
-	}
-	
-	get rowSelection() {
-		const self = this;
-		return {
-			selectedRowKeys: self.state.selectedRowKeys,
-			onChange(selectedRowKeys, selectedRows) {
-				self.setState({
-					selectedRowKeys,
-					selectedRows,
+		self.props.form.validateFields((err, values) => {
+			console.log(values);
+			if (!err) {
+				self.setState({isAdd: true}, () => {
+					webAPI.administratorAuthAdd(values).then(() => {
+						T.prompt.success('添加成功');
+						this.setState({isAdd: false}, () => this.getList(this.state.search));
+						this.props.form.resetFields();
+					}).catch(info => {
+						this.setState({isAdd: false});
+						T.prompt.error(info.msg);
+					});
 				});
-			},
-		};
-	}
+			}
+		});
+	};
 	
 	render() {
-		const self = this;
+		const {getFieldDecorator} = this.props.form;
 		return (
-			<div className={style['main-container']}>
-				<header className={style['table-header-container']}>
-					<div className={style['left-container']}>
-						<Button
-							disabled={this.state.selectedRows.length === 0}
-							type="primary"
-							onClick={() => this.handleDelete()}
-						>
-							删除
-						</Button>
-					</div>
-					<div className={style['right-container']}>
-						<T.AuthComponent auth={enumAuth.userRoute.userList.value}>
-							
+			<React.Fragment>
+				<MainHeader
+					left={
+						<T.AuthComponent auth={enumAuth.serverUserList.value}>
 							<Input.Search
 								onChange={event => this.setState({search: event.target.value})}
 								placeholder="请搜索"
-								onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
+								onSearch={debounce(() => this.getList(this.state.search), 300)}
 							/>
 						</T.AuthComponent>
-					</div>
-				</header>
-				<Table
-					dataSource={self.state.dataSource.map(value => ({
-						...value,
-						key: value.userId,
-					}))}
-					bordered
-					columns={self.columns}
-					pagination={self.pagination}
-					rowSelection={self.rowSelection}
+					}
+					right={
+						<Button
+							loading={this.state.isAdd}
+							onClick={this.handleSubmit}
+							type="primary"
+						>
+							添加
+						</Button>
+					}
 				/>
-			</div>
+				<Form
+					onSubmit={this.handleSubmit}
+				>
+					<Form.Item
+						label="权限枚举值"
+						hasFeedback
+						{...formItemLayout}
+					>
+						{getFieldDecorator('authValue', {
+							initialValue: this.state.authValue,
+							rules: [
+								{
+									required: true,
+									message: '请填写权限枚举值',
+								},
+								{
+									whitespace: true,
+									message: '不允许有空格',
+								},
+								{
+									max: 64,
+									message: '超过最大长度',
+								},
+							],
+						})(
+							<Input placeholder="请填写权限枚举值"/>,
+						)}
+					</Form.Item>
+					<Form.Item
+						label="权限描述"
+						hasFeedback
+						{...formItemLayout}
+					>
+						{getFieldDecorator('authLabel', {
+							initialValue: this.state.authLabel,
+							rules: [
+								{
+									required: true,
+									message: '请填写权限描述',
+								},
+								{
+									max: 32,
+									message: '超过最大长度',
+								},
+							],
+						})(
+							<Input placeholder="请填写权限描述"/>,
+						)}
+					</Form.Item>
+					<Form.Item
+						label="权限父级"
+						hasFeedback
+						{...formItemLayout}
+					>
+						{getFieldDecorator('authParent', {
+							initialValue: this.state.authParent,
+							rules: [{required: false}],
+						})(
+							<Select placeholder="请选择权限父级">
+								{
+									this.state.dataSource.map(value => {
+										return <Option key={value.value} value={value.value}>{value.value}</Option>;
+									})
+								}
+							</Select>,
+						)}
+					</Form.Item>
+				</Form>
+				<div className={style['main-container']}>
+					<Table
+						size="middle"
+						dataSource={this.state.dataSource.map(value => ({
+							...value,
+							key: value.value,
+						}))}
+						bordered
+						columns={this.columns}
+						pagination={false}
+					/>
+				</div>
+			</React.Fragment>
 		);
 	}
 }
+
+export default Form.create()(List);
