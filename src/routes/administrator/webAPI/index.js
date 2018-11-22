@@ -12,13 +12,35 @@ import T from 'utils/t';
 export const administratorAuthList = (condition) => T.request.get(enumAPI.administratorAuthList, condition);
 
 /**
- * 增加权限
+ * 增加权限枚举
  * @param {string} condition.authValue
  * @param {string} condition.label
- * @param {null | undefined} [condition.parent]
  * @return {Promise}
  */
 export const administratorAuthAdd = (condition) => T.request.postJSON(enumAPI.administratorAuthAdd, condition);
+
+/**
+ * 删除权限枚举
+ * @param {string} condition.authValue
+ * @return {Promise}
+ */
+export const administratorAuthDelete = (condition) => T.request.del(enumAPI.administratorAuthDelete, condition);
+
+/**
+ * 恢复权限枚举
+ * @param {string} condition.authValue
+ * @return {Promise}
+ */
+export const administratorAuthRecover = (condition) => T.request.postJSON(enumAPI.administratorAuthRecover, condition);
+
+/**
+ * 更新权限枚举
+ * @param {string} condition.oldAuthValue
+ * @param {string} condition.newAuthValue
+ * @param {string} condition.authLabel
+ * @return {Promise}
+ */
+export const administratorAuthUpdate = (condition) => T.request.postJSON(enumAPI.administratorAuthUpdate, condition);
 
 /**
  * 获取组对应角色已有权限列表

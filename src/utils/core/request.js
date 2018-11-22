@@ -276,6 +276,41 @@ export function form(url, property = {}, params = {}) {
 }
 
 /**
+ * 读取blob
+ * @param {Blob} blob
+ * @param {function} [successCallback]
+ * @param {function} [failCallback]
+ */
+export const readBlob = function(blob, successCallback, failCallback) {
+	const fileReader = new FileReader();
+	fileReader.readAsDataURL(blob);
+	fileReader.onload = function(event) {
+		successCallback && successCallback(event);
+	};
+	fileReader.onerror = function(event) {
+		failCallback && failCallback(event);
+	};
+};
+
+/**
+ * 下载文件
+ * @param {string} url
+ * @param {string} fileName
+ */
+export const downLoadUrl = function(url, fileName) {
+	const id = '__read-dnd-down-image-id__';
+	let newFile = document.querySelector('#' + id);
+	if (!newFile) {
+		newFile = document.createElement('a');
+		newFile.id = id;
+		document.body.appendChild(newFile);
+	}
+	newFile.href = url;
+	newFile.download = fileName ? fileName : Date.now().toString(10);
+	newFile.click();
+};
+
+/**
  * 并发执行多个请求
  * @returns {Promise.<*>}
  */

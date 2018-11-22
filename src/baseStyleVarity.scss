@@ -13,8 +13,17 @@ $base-body-header-background-color: #fff;
 /* body背景 */
 $base-body-background-color: #f0f2f5;
 
-/* 菜单加头部布局的content的padding */
+/* 菜单加头部布局的content的间隔 */
 $base-menu-and-header-content-padding: 16px;
+
+/* 按钮等的间隔 */
+$base-btn-gap: 8px;
+
+/* 内容等的间隔 */
+$base-content-gap: 16px;
+
+/* border-radius */
+$base-border-radius: 4px;
 
 @mixin tableStyle {
 	.ant-table-pagination {
@@ -29,4 +38,10 @@ $base-menu-and-header-content-padding: 16px;
 	flex-direction: column;
 	flex-grow: 1;
 	flex-shrink: 0;
+}
+
+:global {
+	.base-gap:not(:last-of-type) {
+		margin-right: $base-btn-gap;
+	}
 }

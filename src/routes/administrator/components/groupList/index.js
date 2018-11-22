@@ -80,28 +80,6 @@ export default class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'authParent',
-				dataIndex: 'authParent',
-				sorter(prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'authParent',
-					});
-				},
-			},
-			{
-				title: 'level',
-				dataIndex: 'level',
-				sorter(prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'level',
-					});
-				},
-			},
-			{
 				title: '创建时间',
 				dataIndex: 'createdAt',
 				render: val => new Date(val).toLocaleString(),

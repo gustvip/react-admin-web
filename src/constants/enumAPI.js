@@ -48,6 +48,9 @@ const API = {
  */
 	administratorAuthList: _userAPI('/administrator/auth/list'),
 	administratorAuthAdd: _userAPI('/administrator/auth/add'),
+	administratorAuthDelete: _userAPI('/administrator/auth/delete'),
+	administratorAuthRecover: _userAPI('/administrator/auth/recover'),
+	administratorAuthUpdate: _userAPI('/administrator/auth/update'),
 	administratorGroupGroupAndRoleAuth: _userAPI('/administrator/group/groupAndRoleAuth'),
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));

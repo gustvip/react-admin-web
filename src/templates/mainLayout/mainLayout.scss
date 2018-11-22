@@ -72,7 +72,7 @@ html, body {
 		.main-content-container {
 			@include flex-style();
 			position: relative;
-			padding: $base-menu-and-header-content-padding;
+			padding: $base-content-gap;
 
 			/* 主内容---header */
 			.content-header-container {
@@ -80,9 +80,9 @@ html, body {
 				flex-shrink: 0;
 				justify-content: space-between;
 				background-color: #fff;
-				padding: 8px;
-				border-radius: 4px;
-				margin-bottom: $base-menu-and-header-content-padding;
+				padding: $base-btn-gap;
+				border-radius: $base-border-radius;
+				margin-bottom: $base-content-gap;
 			}
 		}
 	}

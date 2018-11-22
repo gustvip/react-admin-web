@@ -1,12 +1,81 @@
+import _ from 'lodash';
 import get from 'lodash/get';
 import identity from 'lodash/identity';
 import each from 'lodash/each';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
+import groupBy from 'lodash/groupBy';
+import toLength from 'lodash/toLength';
+import round from 'lodash/round';
+import toFinite from 'lodash/toFinite';
 import classNames from 'classnames';
 import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
 
 class Helper {
+	getNumberBase(x, radix = 1024) {
+		const baseCollection = ['B', 'K', 'M', 'G', 'T'];
+		const index = toLength(Math.log(toFinite(Math.abs(x))) / Math.log(radix));
+		return {
+			index,
+			base: index >= baseCollection.length ? baseCollection[baseCollection.length - 1] : baseCollection[index],
+		};
+	}
+	
+	/**
+	 * @param x 字节大小
+	 * @param w 保留小数位数
+	 * @returns {string}
+	 */
+	autoToSize(x, w = 2) {
+		const base = this.getNumberBase(x);
+		return round(toFinite(Math.abs(x)) / Math.pow(1024, base.index), w) + base.base;
+	}
+	
+	/**
+	 * 将[{},{}...]转化为tree的数据结构
+	 * @param {Array} data
+	 * @param {Number} levelStart 开始的等级
+	 * @param {string} levelName 等级的key
+	 * @param {string} parentName 指向parent的key
+	 * @param {string} ownName 指向own的key
+	 * @param {string} [childrenName] 生成children的key
+	 * @return {Array}
+	 */
+	formatTreeData(data, levelStart, levelName, parentName, ownName, childrenName = 'children') {
+		const result = [];
+		data = groupBy(
+			data.map(value => ({
+				...value,
+				[childrenName]: [],
+			})),
+			levelName,
+		);
+		
+		let index = Object.keys(data).length + levelStart;
+		while (--index >= levelStart) {
+			let i = data[index];
+			if (i) {
+				if (index === levelStart) {
+					i.forEach(value => result.push(value));
+				} else {
+					const j = data[index - 1];
+					if (j) {
+						each(
+							groupBy(i, parentName),
+							(value, key) => {
+								const k = j.findIndex(value => value[ownName] === key);
+								if (k !== -1) {
+									j[k][childrenName] = j[k][childrenName].concat(value);
+								}
+							},
+						);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * 渲染弹出窗Modal
 	 * @param {ReactElement} component react组件
