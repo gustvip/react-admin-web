@@ -21,14 +21,14 @@ export const administratorAuthAdd = (condition) => T.request.postJSON(enumAPI.ad
 
 /**
  * 删除权限枚举
- * @param {string} condition.authValue
+ * @param {Array<String>} condition.authValue
  * @return {Promise}
  */
 export const administratorAuthDelete = (condition) => T.request.del(enumAPI.administratorAuthDelete, condition);
 
 /**
  * 恢复权限枚举
- * @param {string} condition.authValue
+ * @param {Array<String>} condition.authValue
  * @return {Promise}
  */
 export const administratorAuthRecover = (condition) => T.request.postJSON(enumAPI.administratorAuthRecover, condition);

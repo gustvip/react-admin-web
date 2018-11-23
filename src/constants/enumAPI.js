@@ -13,7 +13,7 @@ import flowRight from 'lodash/flowRight';
 const _userAPI = api => window.ENV.apiDomain + api;
 
 /**
- * @type {{userLogin: *, userAdd: *, userDelete: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, fileParseXlsx: *, fileParseCsv: *, fileDownJson: *}}
+ * @type {{userLogin: *, userLoginOut: *, userAdd: *, userDelete: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, fileParseXlsx: *, fileParseCsv: *, fileParseXml: *, fileDownJson: *, administratorAuthDownload: *, administratorAuthList: *, administratorAuthAdd: *, administratorAuthDelete: *, administratorAuthRecover: *, administratorAuthUpdate: *, administratorGroupGroupAndRoleAuth: *}}
  */
 const API = {
 	/*
@@ -46,6 +46,7 @@ const API = {
    | 超级管理员相关API地址
    |----------------------------------------------------------------
  */
+	administratorAuthDownload: _userAPI('/administrator/auth/download'),
 	administratorAuthList: _userAPI('/administrator/auth/list'),
 	administratorAuthAdd: _userAPI('/administrator/auth/add'),
 	administratorAuthDelete: _userAPI('/administrator/auth/delete'),

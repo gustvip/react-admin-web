@@ -1,4 +1,11 @@
+@import "baseStyleVarity.scss";
+
 .main-container {
+	flex-grow: 1;
+	background-color: #fff;
+	padding: $base-content-gap;
+	border-radius: $base-border-radius;
+
 	:global {
 		.xlsx-container,
 		.xml-container,

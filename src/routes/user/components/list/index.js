@@ -2,7 +2,6 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import enumAPI from 'constants/enumAPI';
 import {Button, Input, Table} from 'antd';
 import enumAuth from '../../../../constants/enumAuth';
 import {MainHeader} from 'templates/mainLayout';
@@ -11,8 +10,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {userSex, role, status} from 'constants/app/common';
 import style from '../../scss/list/index.scss';
-
-import debounce from 'lodash/debounce';
 
 export default class List extends React.PureComponent {
 	static contextTypes = {
@@ -110,12 +107,12 @@ export default class List extends React.PureComponent {
 			{
 				title: '创建时间',
 				dataIndex: 'createdAt',
-				render: val => new Date(val).toLocaleDateString(),
+				render: val => new Date(val).toLocaleString(),
 			},
 			{
 				title: '更新时间',
 				dataIndex: 'updatedAt',
-				render: val => new Date(val).toLocaleDateString(),
+				render: val => new Date(val).toLocaleString(),
 			},
 		];
 	}
@@ -151,7 +148,7 @@ export default class List extends React.PureComponent {
 		return (
 			<React.Fragment>
 				<MainHeader
-					left={
+					right={
 						<Button
 							disabled={this.state.selectedRows.length === 0}
 							type="primary"
@@ -160,11 +157,11 @@ export default class List extends React.PureComponent {
 							删除
 						</Button>
 					}
-					right={
+					left={
 						<Input.Search
 							onChange={event => this.setState({search: event.target.value})}
 							placeholder="请搜索"
-							onSearch={debounce(() => this.getList(1, this.state.pageSize, this.state.search), 300)}
+							onSearch={() => this.getList(1, this.state.pageSize, this.state.search)}
 						/>
 					}
 				/>

@@ -4,17 +4,15 @@
 import T from 'utils/t';
 import {MainHeader} from 'templates/mainLayout';
 import UpdateAuthInfoModal from './updateAuthInfoModal';
-import {Button, Input, Table, Form, Select} from 'antd';
+import {Button, Input, Table, Form} from 'antd';
 import enumAuth from 'constants/enumAuth';
+import enumAPI from 'constants/enumAPI';
 import * as webAPI from '../../webAPI/index';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {status} from 'constants/app/common';
 import style from '../../scss/authList/index.scss';
 
-import debounce from 'lodash/debounce';
-
-const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
@@ -32,6 +30,8 @@ class List extends React.PureComponent {
 	};
 	
 	state = {
+		selectedRowKeys: [],
+		selectedRows: [],
 		dataSource: [],
 		search: '',
 		authValue: '',
@@ -50,6 +50,8 @@ class List extends React.PureComponent {
 	getList = (search, callback) => {
 		webAPI.administratorAuthList({search}).then(info => {
 			this.setState({
+				selectedRowKeys: [],
+				selectedRows: [],
 				search,
 				dataSource: info.data,
 			}, () => {
@@ -74,14 +76,14 @@ class List extends React.PureComponent {
 	};
 	
 	/**
-	 * 删除一个枚举权限
-	 * @param record
+	 * 删除枚举权限
+	 * @param{Array<Object>} selectedRows
 	 */
-	handleDelete = (record) => {
+	handleDelete = (selectedRows) => {
 		const self = this;
 		T.prompt.confirm({
 			onOk() {
-				return webAPI.administratorAuthDelete({authValue: record.value}).then(() => {
+				return webAPI.administratorAuthDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
 					self.getList(self.state.search);
 				}).catch(info => T.prompt.error(info.msg));
@@ -90,15 +92,15 @@ class List extends React.PureComponent {
 	};
 	
 	/**
-	 * 恢复一个枚举权限
-	 * @param record
+	 * 恢复枚举权限
+	 * @param {Array<Object>} selectedRows
 	 */
-	handleRecover = (record) => {
+	handleRecover = (selectedRows) => {
 		const self = this;
 		T.prompt.confirm({
 			title: '确认恢复吗?',
 			onOk() {
-				return webAPI.administratorAuthRecover({authValue: record.value}).then(() => {
+				return webAPI.administratorAuthRecover({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('恢复成功');
 					self.getList(self.state.search);
 				}).catch(info => T.prompt.error(info.msg));
@@ -146,6 +148,9 @@ class List extends React.PureComponent {
 						property: 'status',
 					});
 				},
+				render(text) {
+					return Object.values(status).find(value => value.value === text).label;
+				},
 			},
 			{
 				title: 'createdAt',
@@ -183,20 +188,6 @@ class List extends React.PureComponent {
 							>
 								编辑
 							</Button>
-							<Button
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleDelete(record)}
-							>
-								删除
-							</Button>
-							<Button
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleRecover(record)}
-							>
-								恢复
-							</Button>
 						</React.Fragment>
 					);
 				},
@@ -204,11 +195,23 @@ class List extends React.PureComponent {
 		];
 	}
 	
+	get rowSelection() {
+		const self = this;
+		return {
+			selectedRowKeys: self.state.selectedRowKeys,
+			onChange(selectedRowKeys, selectedRows) {
+				self.setState({
+					selectedRowKeys,
+					selectedRows,
+				});
+			},
+		};
+	}
+	
 	handleSubmit = (e) => {
 		e.preventDefault();
 		const self = this;
 		self.props.form.validateFields((err, values) => {
-			console.log(values);
 			if (!err) {
 				self.setState({isAdd: true}, () => {
 					webAPI.administratorAuthAdd(values).then(() => {
@@ -224,40 +227,14 @@ class List extends React.PureComponent {
 		});
 	};
 	
+	handleDownloadAuth = () => {
+		window.open(enumAPI.administratorAuthDownload);
+	};
+	
 	render() {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
-				<MainHeader
-					left={
-						<T.AuthComponent auth={enumAuth.serverUserList.value}>
-							<Input.Search
-								onChange={event => this.setState({search: event.target.value})}
-								placeholder="请搜索权限值或者描述"
-								onSearch={debounce(() => this.getList(this.state.search), 300)}
-							/>
-						</T.AuthComponent>
-					}
-					right={
-						<React.Fragment>
-							<Button
-								className="base-gap"
-								loading={this.state.isAdd}
-								onClick={this.handleSubmit}
-								type="primary"
-							>
-								添加权限
-							</Button>
-							<Button
-								className="base-gap"
-								onClick={() => this.resetFields()}
-								type="primary"
-							>
-								重置表单
-							</Button>
-						</React.Fragment>
-					}
-				/>
 				<div className={style['main-container']}>
 					<Form
 						onSubmit={this.handleSubmit}
@@ -308,9 +285,60 @@ class List extends React.PureComponent {
 								<Input placeholder="请填写权限描述"/>,
 							)}
 						</Form.Item>
+						<Form.Item
+							style={{textAlign: 'center'}}
+						>
+							<Button
+								htmlType="reset"
+								className="base-gap"
+								type="primary"
+							>
+								重置表单
+							</Button>
+							<Button
+								htmlType="submit"
+								className="base-gap"
+								loading={this.state.isAdd}
+								type="primary"
+							>
+								添加权限
+							</Button>
+						</Form.Item>
+						<div
+							className={style['operate-container']}
+						>
+							<Input.Search
+								onChange={event => this.setState({search: event.target.value})}
+								placeholder="请搜索权限值或者描述"
+								onSearch={() => this.getList(this.state.search)}
+							/>
+							<Button
+								type="primary"
+								disabled={this.state.selectedRows.length <= 0}
+								onClick={() => this.handleDelete(this.state.selectedRows)}
+							>
+								删除
+							</Button>
+							<Button
+								type="primary"
+								disabled={this.state.selectedRows.length <= 0}
+								onClick={() => this.handleRecover(this.state.selectedRows)}
+							>
+								恢复
+							</Button>
+							
+							<Button
+								className="base-gap"
+								onClick={() => this.handleDownloadAuth()}
+								type="primary"
+							>
+								下载权限
+							</Button>
+						</div>
 					</Form>
 					<Table
 						size="middle"
+						rowSelection={this.rowSelection}
 						dataSource={this.state.dataSource.map(value => ({
 							...value,
 							key: value.value,

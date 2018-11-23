@@ -1,7 +1,21 @@
 @import "baseStyleVarity";
 
 html, body {
+	&::-webkit-scrollbar {
+		display: none;
+	}
 	@include flex-style();
+	/* 主内容---header */
+	.content-header-container {
+		display: flex;
+		flex-shrink: 0;
+		justify-content: space-between;
+		background-color: #fff;
+		padding: $base-btn-gap;
+		border-radius: $base-border-radius;
+		margin-bottom: $base-content-gap;
+	}
+
 	:global {
 		.ant-menu-dark {
 			.ant-menu-item {
@@ -73,17 +87,6 @@ html, body {
 			@include flex-style();
 			position: relative;
 			padding: $base-content-gap;
-
-			/* 主内容---header */
-			.content-header-container {
-				display: flex;
-				flex-shrink: 0;
-				justify-content: space-between;
-				background-color: #fff;
-				padding: $base-btn-gap;
-				border-radius: $base-border-radius;
-				margin-bottom: $base-content-gap;
-			}
 		}
 	}
 }
@@ -139,8 +142,7 @@ html, body {
 }
 
 .header-children {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
+	@include flex-style();
+	padding-top: $header-height+$base-content-gap;
 	position: relative;
 }

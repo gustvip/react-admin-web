@@ -5,4 +5,15 @@
 	background-color: #fff;
 	padding: $base-content-gap;
 	border-radius: $base-border-radius;
+	.operate-container {
+		padding-bottom: $base-content-gap;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		:global {
+			.ant-input-search {
+				width: auto;
+			}
+		}
+	}
 }
