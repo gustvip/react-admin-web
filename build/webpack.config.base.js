@@ -52,16 +52,16 @@ module.exports = {
 				vendor: {
 					name: 'vendor',
 					test: /\.scss|css|less$/,
-					chunks: 'all', // Merge all the css chunk to one file
+					chunks: 'all',
 					minChunks: 1,
 					reuseExistingChunk: true,
 					enforce: true,
 					priority: 0,
 				},
 				
-				commons: { // Key 为entry中定义的 入口名称
+				commons: {
 					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
-					name: 'commons', // 要缓存的 分隔出来的 chunk 名称
+					name: 'commons',
 					minChunks: 2,
 					minSize: 0,
 					priority: 2,
@@ -75,7 +75,8 @@ module.exports = {
 	},
 	
 	entry: {
-		app: ['babel-polyfill', 'url-search-params-polyfill', './src/index'],
+		// app: ['babel-polyfill', 'url-search-params-polyfill', './src/index'],
+		app: ['./src/index'],
 		commons: [
 			'axios',
 			'immutability-helper',
@@ -107,7 +108,7 @@ module.exports = {
   }, */
 	
 	resolve: {
-		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
+		extensions: ['.js', '.jsx', '.json', '.scss'],
 		modules: ['node_modules', 'src/'],
 		mainFields: ['browser', 'main', 'module'],
 	},
@@ -119,7 +120,7 @@ module.exports = {
 	module: {
 		rules: [
 			...staticResource,
-			...vtkRules,
+			// ...vtkRules,
 			
 			{
 				test: /\.css$/,
@@ -187,8 +188,9 @@ module.exports = {
 			},
 			
 			{
-				test: /\.[jt]sx?$/,
-				use: ['babel-loader', 'ts-loader'],
+				test: /\.jsx?$/,
+				// use: ['babel-loader', 'ts-loader'],
+				use: ['babel-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 		],

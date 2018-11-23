@@ -5,7 +5,7 @@
 /**
  * Mock数据---接入真实数据不要引入
  */
-import './mock';
+// import './mock';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import * as React from 'react';

@@ -1,9 +1,9 @@
 /**
  * Created by joey on 2018/6/20
  */
-import findIndex from '../utils/findIndex/index';
-import isFunction from '../utils/isFunction/index';
-import filter from '../utils/filter/index';
+import findIndex from 'lodash/findIndex';
+import isFunction from 'lodash/isFunction';
+import filter from 'lodash/filter';
 
 /**
  * 内部增加监听函数处理

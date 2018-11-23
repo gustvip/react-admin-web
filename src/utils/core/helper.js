@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import get from 'lodash/get';
 import identity from 'lodash/identity';
 import each from 'lodash/each';

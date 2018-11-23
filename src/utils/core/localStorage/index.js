@@ -1,13 +1,13 @@
 /**
  * Created by joey 2018/02/20
  */
-import isPureObject from '../utils/isPureObject/index';
-import isString from '../utils/isString/index';
-import isNumber from '../utils/isNumber/index';
-import isBoolean from '../utils/isBoolean/index';
-import _objectForEach from '../utils/aaa/_objectForEach/index';
-import toInteger from '../utils/toInteger/index';
-import isInteger from '../utils/isInteger/index';
+import isPlainObject from 'lodash/isPlainObject';
+import isString from 'lodash/isString';
+import isNumber from 'lodash/isNumber';
+import isBoolean from 'lodash/isBoolean';
+import fowOwn from 'lodash/forOwn';
+import toInteger from 'lodash/toInteger';
+import isInteger from 'lodash/isInteger';
 
 // 无限期
 var NO_EXPIRE = 0;
@@ -16,11 +16,11 @@ var STORAGE_KEY = '__STORAGE__';
 // 临时存储的变量
 var storageValue = (function() {
 	var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-	return isPureObject(result) ? result : {};
+	return isPlainObject(result) ? result : {};
 }());
 
 function canJSON(x) {
-	return isString(x) || isNumber(x) || isPureObject(x) || Array.isArray(x) || isBoolean(x);
+	return isString(x) || isNumber(x) || isPlainObject(x) || Array.isArray(x) || isBoolean(x);
 }
 
 /**
@@ -55,8 +55,8 @@ function length() {
  * 清空过期的数据
  */
 function clearExpired() {
-	_objectForEach(storageValue, function(value, key) {
-		if (!isPureObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
+	fowOwn(storageValue, function(value, key) {
+		if (!isPlainObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
 			delete storageValue[key];
 		}
 	});
