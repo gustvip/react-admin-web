@@ -36,22 +36,23 @@ const API = {
    | 文件相关API地址
    |----------------------------------------------------------------
  */
-	fileParseXlsx: _userAPI('/file/parseXlsx'),
-	fileParseCsv: _userAPI('/file/parseCsv'),
-	fileParseXml: _userAPI('/file/parseXml'),
-	fileDownJson: _userAPI('/file/downJson'),
+	fileParseXlsx: _userAPI('/file/parseXlsx'), // 解析xlsx文件
+	fileParseCsv: _userAPI('/file/parseCsv'), // 解析csv文件
+	fileParseXml: _userAPI('/file/parseXml'), // 解析xml文件
+	fileDownJson: _userAPI('/file/downJson'), // 下载json文件
 	
 	/*
    |----------------------------------------------------------------
    | 超级管理员相关API地址
    |----------------------------------------------------------------
  */
-	administratorAuthDownload: _userAPI('/administrator/auth/download'),
-	administratorAuthList: _userAPI('/administrator/auth/list'),
-	administratorAuthAdd: _userAPI('/administrator/auth/add'),
-	administratorAuthDelete: _userAPI('/administrator/auth/delete'),
-	administratorAuthRecover: _userAPI('/administrator/auth/recover'),
-	administratorAuthUpdate: _userAPI('/administrator/auth/update'),
-	administratorGroupGroupAndRoleAuth: _userAPI('/administrator/group/groupAndRoleAuth'),
+	administratorAuthDownload: _userAPI('/administrator/auth/download'), // 权限json下载
+	administratorAuthList: _userAPI('/administrator/auth/list'), // 权限枚举列表
+	administratorAuthAdd: _userAPI('/administrator/auth/add'), // 权限枚举新增
+	administratorAuthDelete: _userAPI('/administrator/auth/delete'), // 权限枚举删除
+	administratorAuthRecover: _userAPI('/administrator/auth/recover'), // 权限枚举恢复
+	administratorAuthUpdate: _userAPI('/administrator/auth/update'), // 权限枚举更新
+	administratorGroupGroupAndRoleAuth: _userAPI('/administrator/group/groupAndRoleAuth'), // 组对应角色权限列表
+	administratorGroupDelete: _userAPI('/administrator/group/delete'), // 组对应角色权限删除
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));

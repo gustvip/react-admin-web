@@ -4,25 +4,14 @@ html, body {
 	&::-webkit-scrollbar {
 		display: none;
 	}
-	@include flex-style();
-	/* 主内容---header */
-	.content-header-container {
-		display: flex;
-		flex-shrink: 0;
-		justify-content: space-between;
-		background-color: #fff;
-		padding: $base-btn-gap;
-		border-radius: $base-border-radius;
-		margin-bottom: $base-content-gap;
-	}
-
+	@include flex-column-grow();
 	:global {
 		.ant-menu-dark {
 			.ant-menu-item {
 				&.active, &:hover {
 					background-color: $base-primary-color;
 					a {
-						color: #fff;
+						color: $base-font-highlight-color;
 					}
 				}
 			}
@@ -31,7 +20,7 @@ html, body {
 			}
 		}
 		#wrapper {
-			@include flex-style();
+			@include flex-column-grow();
 			background-color: $base-body-background-color;
 		}
 	}
@@ -39,19 +28,17 @@ html, body {
 
 #main-container {
 	padding-top: $header-height;
-	@include flex-style();
 	position: relative;
 	background-color: transparent;
 	/* sider */
 	.sider-container {
+		z-index: $headr-and-sider-z-index;
 		position: fixed;
 		left: 0;
 		top: $header-height;
 		bottom: 0;
 		background-color: $base-sider-background-color;
 		.sider-menu {
-			padding: 20px 0;
-			font-size: 14px;
 			background-color: $base-sider-background-color;
 			overflow-y: auto;
 			:global {
@@ -61,9 +48,6 @@ html, body {
 				.ant-menu-item {
 					&.active, &:hover {
 						background-color: $base-primary-color;
-						a {
-							color: #fff;
-						}
 					}
 				}
 				.ant-menu-submenu-title {
@@ -80,11 +64,9 @@ html, body {
 
 	/* Layout */
 	.content-container {
-		@include flex-style();
 		position: relative;
 		/* content */
 		.main-content-container {
-			@include flex-style();
 			position: relative;
 			padding: $base-content-gap;
 		}
@@ -93,44 +75,43 @@ html, body {
 
 /* header */
 .main-header-container {
-	z-index: 1;
+	z-index: $headr-and-sider-z-index;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	background-color: $base-body-header-background-color;
-	box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
+	background-color: $base-background-color;
+	box-shadow: $base-box-shadow;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	height: $header-height;
-	padding: 0 5%;
+	padding: $base-content-gap;
 	.left-container {
-		line-height: $header-height;
 		display: flex;
-
+		align-items: center;
 		/* 一级路由 */
 		.drop-down-menu-container {
-			margin-left: 24px;
+			margin-left: $base-content-gap;
 		}
 
 		/* 分类路由 */
 		.category-menu-container {
 			display: flex;
-			margin-left: 24px;
+			line-height: $header-height;
+			margin-left: $base-content-gap;
 			a {
 				i {
-					margin-right: 8px;
-					vertical-align: middle;
+					margin-right: $base-btn-gap;
 				}
 				text-decoration: none;
 				height: $header-height;
 				position: relative;
-				margin: 0 8px;
-				padding: 0 24px;
+				margin: 0 $base-btn-gap;
+				padding: 0 $base-content-gap;
 				transition: all .3s linear;
 				&.active, &:hover {
-					color: #fff;
+					color: $base-font-highlight-color;
 					background-color: $base-primary-color;
 				}
 			}
@@ -142,7 +123,6 @@ html, body {
 }
 
 .header-children {
-	@include flex-style();
 	padding-top: $header-height+$base-content-gap;
 	position: relative;
 }

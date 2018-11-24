@@ -2,17 +2,18 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import {MainHeader} from 'templates/mainLayout';
 import UpdateAuthInfoModal from './updateAuthInfoModal';
-import {Button, Input, Table, Form} from 'antd';
+import MainHeader from 'templates/toolComponents/mainHeader';
+import {Button, Input, Table, Form, Select} from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
 import * as webAPI from '../../webAPI/index';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {status} from 'constants/app/common';
-import style from '../../scss/authList/index.scss';
+import {status, pagination} from 'constants/app/common';
+import styles from '../../scss/authList/index.scss';
 
+const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
@@ -30,35 +31,61 @@ class List extends React.PureComponent {
 	};
 	
 	state = {
+		currentPage: 1,
+		pageSize: pagination.pageSize,
+		count: 10,
+		totalPages: 1,
 		selectedRowKeys: [],
 		selectedRows: [],
 		dataSource: [],
 		search: '',
+		status: undefined,
+		
 		authValue: '',
 		authLabel: '',
 		isAdd: false,
+		isTableLoading: false,
 	};
 	
 	componentDidMount() {
-		this.getList(this.state.search);
+		this.getList(1, this.state.pageSize, this.state.search, this.state.status);
 	}
 	
 	/**
+	 * @param {number} currentPage
+	 * @param {number} pageSize
 	 * @param {string} search
+	 * @param {string | null | undefined} status
 	 * @param {function} [callback]
 	 */
-	getList = (search, callback) => {
-		webAPI.administratorAuthList({search}).then(info => {
-			this.setState({
-				selectedRowKeys: [],
-				selectedRows: [],
+	getList = (currentPage, pageSize, search, status, callback) => {
+		this.setState({isTableLoading: true}, () => {
+			webAPI.administratorAuthList({
+				currentPage,
+				pageSize,
 				search,
-				dataSource: info.data,
-			}, () => {
-				this.resetFields();
-				callback && callback();
+				status,
+			}).then(info => {
+				this.setState({
+					isTableLoading: false,
+					currentPage,
+					pageSize,
+					status,
+					count: info.data.count,
+					selectedRowKeys: [],
+					selectedRows: [],
+					search,
+					dataSource: info.data.data,
+				}, () => {
+					this.resetFields();
+					callback && callback(info.data);
+				});
+			}).catch(info => {
+				this.setState({isTableLoading: false});
+				T.prompt.error(info.msg);
 			});
-		}).catch(info => T.prompt.error(info.msg));
+			
+		});
 	};
 	
 	/**
@@ -70,7 +97,7 @@ class List extends React.PureComponent {
 			record={record}
 			successCallback={() => {
 				T.prompt.success('更新成功');
-				this.getList(this.state.search);
+				this.getList(1, this.state.pageSize, this.state.search, this.state.status);
 			}}
 		/>);
 	};
@@ -85,7 +112,7 @@ class List extends React.PureComponent {
 			onOk() {
 				return webAPI.administratorAuthDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
-					self.getList(self.state.search);
+					self.getList(1, self.state.pageSize, self.state.search, self.state.status);
 				}).catch(info => T.prompt.error(info.msg));
 			},
 		});
@@ -102,7 +129,7 @@ class List extends React.PureComponent {
 			onOk() {
 				return webAPI.administratorAuthRecover({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('恢复成功');
-					self.getList(self.state.search);
+					self.getList(1, self.state.pageSize, self.state.search, self.state.status);
 				}).catch(info => T.prompt.error(info.msg));
 			},
 		});
@@ -208,6 +235,24 @@ class List extends React.PureComponent {
 		};
 	}
 	
+	get pagination() {
+		const self = this;
+		return {
+			pageSizeOptions: pagination.pageSizeOptions,
+			showSizeChanger: true,
+			current: self.state.currentPage,
+			total: self.state.count,
+			pageSize: self.state.pageSize,
+			showQuickJumper: pagination.showQuickJumper,
+			onChange(currentPage, pageSize) {
+				self.getList(currentPage, pageSize, self.state.search, self.state.status);
+			},
+			onShowSizeChange(currentPage, pageSize) {
+				self.getList(1, pageSize, self.state.search, self.state.status);
+			},
+		};
+	}
+	
 	handleSubmit = (e) => {
 		e.preventDefault();
 		const self = this;
@@ -216,7 +261,7 @@ class List extends React.PureComponent {
 				self.setState({isAdd: true}, () => {
 					webAPI.administratorAuthAdd(values).then(() => {
 						T.prompt.success('添加成功');
-						this.setState({isAdd: false}, () => this.getList(this.state.search));
+						this.setState({isAdd: false}, () => this.getList(1, this.state.pageSize, this.state.search, this.state.status));
 						this.resetFields();
 					}).catch(info => {
 						this.setState({isAdd: false});
@@ -235,7 +280,19 @@ class List extends React.PureComponent {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
-				<div className={style['main-container']}>
+				<MainHeader
+				>
+					<React.Fragment>
+						<Button
+							className="base-gap"
+							onClick={() => this.handleDownloadAuth()}
+							type="primary"
+						>
+							下载权限
+						</Button>
+					</React.Fragment>
+				</MainHeader>
+				<div className={styles['form-container']}>
 					<Form
 						onSubmit={this.handleSubmit}
 					>
@@ -289,6 +346,7 @@ class List extends React.PureComponent {
 							style={{textAlign: 'center'}}
 						>
 							<Button
+								onClick={() => this.resetFields()}
 								htmlType="reset"
 								className="base-gap"
 								type="primary"
@@ -304,39 +362,47 @@ class List extends React.PureComponent {
 								添加权限
 							</Button>
 						</Form.Item>
-						<div
-							className={style['operate-container']}
-						>
-							<Input.Search
-								onChange={event => this.setState({search: event.target.value})}
-								placeholder="请搜索权限值或者描述"
-								onSearch={() => this.getList(this.state.search)}
-							/>
-							<Button
-								type="primary"
-								disabled={this.state.selectedRows.length <= 0}
-								onClick={() => this.handleDelete(this.state.selectedRows)}
-							>
-								删除
-							</Button>
-							<Button
-								type="primary"
-								disabled={this.state.selectedRows.length <= 0}
-								onClick={() => this.handleRecover(this.state.selectedRows)}
-							>
-								恢复
-							</Button>
-							
-							<Button
-								className="base-gap"
-								onClick={() => this.handleDownloadAuth()}
-								type="primary"
-							>
-								下载权限
-							</Button>
-						</div>
 					</Form>
+				</div>
+				<MainHeader
+					className={styles['operate-container']}
+				>
+					<Input.Search
+						onChange={event => this.setState({search: event.target.value})}
+						placeholder="请搜索权限值或者描述"
+						onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.status)}
+					/>
+					<Select
+						allowClear
+						onChange={statusValue => this.getList(1, this.state.pageSize, this.state.search, statusValue)}
+						value={this.state.status}
+						placeholder="请选择状态"
+					>
+						{
+							Object.values(status).map((value => {
+								return <Option value={value.value} key={value.value}>{value.label}</Option>;
+							}))
+						}
+					</Select>
+					<Button
+						type="primary"
+						disabled={this.state.selectedRows.length <= 0}
+						onClick={() => this.handleDelete(this.state.selectedRows)}
+					>
+						删除
+					</Button>
+					<Button
+						type="primary"
+						disabled={this.state.selectedRows.length <= 0}
+						onClick={() => this.handleRecover(this.state.selectedRows)}
+					>
+						恢复
+					</Button>
+				</MainHeader>
+				
+				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table
+						loading={this.state.isTableLoading}
 						size="middle"
 						rowSelection={this.rowSelection}
 						dataSource={this.state.dataSource.map(value => ({
@@ -345,7 +411,7 @@ class List extends React.PureComponent {
 						}))}
 						bordered
 						columns={this.columns}
-						pagination={false}
+						pagination={this.pagination}
 					/>
 				</div>
 			</React.Fragment>

@@ -34,29 +34,6 @@ const getIcon = (icon) => {
 	}
 };
 
-/**
- * 头部组件
- * @param {String} className
- * @param {Object} style
- * @param {React.Element} [left]
- * @param {React.Element} [right]
- */
-export const MainHeader = ({className = '', left = null, right = null, styles = {}}) => {
-	return (
-		<header className={T.helper.classNames(style['content-header-container'])(className)} style={styles}>
-			<div>{left}</div>
-			<div>{right}</div>
-		</header>
-	);
-};
-MainHeader.propTypes = {
-	className: PropTypes.string,
-	style: PropTypes.object,
-	children: PropTypes.node,
-	leftRender: PropTypes.node,
-	rightRender: PropTypes.node,
-};
-
 class SiderMenu extends React.PureComponent {
 	static propTypes = {
 		handleCollapsed: PropTypes.func.isRequired,
@@ -239,12 +216,6 @@ export class HeaderLayout extends React.PureComponent {
 				>
 					登陆
 				</Menu.Item>
-				<Menu.Item
-					onClick={() => this.context.router.history.push(enumRouter.register)}
-					key={uniqueId()}
-				>
-					注册
-				</Menu.Item>
 				<Menu.Divider/>
 				<Menu.Item
 					onClick={() => T.helper.renderModal(
@@ -313,7 +284,7 @@ export class HeaderLayout extends React.PureComponent {
 					}
 				</Layout.Header>
 				{
-					<div className={T.classNames({[style['header-children']]: this.props.children})}>
+					<div className={T.classNames({[style['header-children']]: this.props.children}, {'flex-column-grow': this.props.children})}>
 						{this.props.children}
 					</div>
 				}
@@ -336,6 +307,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 		return (
 			<Layout
 				id={style['main-container']}
+				className={T.classNames('flex-column-grow')}
 				style={{paddingLeft: self.state.isCollapsed ? 80 : 200}}
 			>
 				<SiderMenu
@@ -343,10 +315,10 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 					handleCollapsed={self.handleCollapsed}
 				/>
 				<Layout.Content
-					className={style['content-container']}
+					className={T.classNames(style['content-container'], 'flex-column-grow')}
 				>
 					<HeaderLayout/>
-					<Layout.Content className={style['main-content-container']}>
+					<Layout.Content className={T.classNames(style['main-content-container'], 'flex-column-grow')}>
 						{self.props.children}
 					</Layout.Content>
 				</Layout.Content>

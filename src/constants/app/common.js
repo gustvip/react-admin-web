@@ -33,9 +33,9 @@ export const role = {
 /**
  * @type {{normalGroup: {label: string, value: string, children: *[]}}}
  */
-export const group = {
+export const groupAndRoleData = {
 	normalGroup: {
-		label: '目前当作正常分组',
+		label: '正常分组',
 		value: '2',
 		children: [role.normal, role.admin, role.root],
 	},
@@ -57,5 +57,14 @@ export const userSex = {
 		value: '2',
 		label: '保密',
 	},
+};
+
+/**
+ * @type {{pageSize: number, pageSizeOptions: string[], showQuickJumper: boolean}}
+ */
+export const pagination = {
+	pageSize: 10,
+	pageSizeOptions: ['10', '20', '30', '40', '50'],
+	showQuickJumper: true,
 };
 

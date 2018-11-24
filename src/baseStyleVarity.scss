@@ -4,17 +4,32 @@ $base-primary-color: #1890ff;
 /* 头部高度 */
 $header-height: 48px;
 
+/* header和siderd基准z-index */
+$headr-and-sider-z-index: 1;
+
+/* 基准z-index */
+$z-index: 9999;
+
+/* 侧边栏基本背景 */
+$base-box-shadow: 0 1px 2px 0 rgba(82, 95, 102, 0.5);
+
 /* 侧边栏基本背景 */
 $base-sider-background-color: #333;
 
 /* 内容的header背景 */
-$base-body-header-background-color: #fff;
+$base-background-color: #fff;
+
+/* 字体高亮颜色 */
+$base-font-highlight-color: #fff;
+
+/* 字体title颜色 */
+$base-font-title-color: #333;
+
+/* 字体content颜色 */
+$base-font-content-color: #666;
 
 /* body背景 */
 $base-body-background-color: #f0f2f5;
-
-/* 菜单加头部布局的content的间隔 */
-$base-menu-and-header-content-padding: 16px;
 
 /* 按钮等的间隔 */
 $base-btn-gap: 8px;
@@ -25,15 +40,7 @@ $base-content-gap: 16px;
 /* border-radius */
 $base-border-radius: 4px;
 
-@mixin tableStyle {
-	.ant-table-pagination {
-		margin-top: 32px;
-		float: none !important;
-		text-align: center;
-	}
-}
-
-@mixin flex-style {
+@mixin flex-column-grow {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
@@ -41,7 +48,24 @@ $base-border-radius: 4px;
 }
 
 :global {
+	#wrapper {
+		/* ant-design的分页 */
+		.ant-table-pagination {
+			float: none !important;
+			text-align: center;
+		}
+	}
+
+	/* 按钮类基本间隔 */
 	.base-gap:not(:last-of-type) {
 		margin-right: $base-btn-gap;
+	}
+
+	/* flex-column的高度 */
+	.flex-column-grow {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		flex-shrink: 0;
 	}
 }

@@ -38,7 +38,7 @@ export default class TestComponent extends React.PureComponent {
 	render() {
 		return (
 			<div
-				className={styles['main-container']}
+				className={T.classNames(styles['main-container'], 'flex-column-grow')}
 				ref={container => this.container = container}
 			>
 				<div className="xml-container">

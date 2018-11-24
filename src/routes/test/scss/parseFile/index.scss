@@ -1,8 +1,7 @@
 @import "baseStyleVarity.scss";
 
 .main-container {
-	flex-grow: 1;
-	background-color: #fff;
+	background-color: $base-background-color;
 	padding: $base-content-gap;
 	border-radius: $base-border-radius;
 
@@ -10,18 +9,18 @@
 		.xlsx-container,
 		.xml-container,
 		.csv-container {
-			margin-bottom: 16px;
+			margin-bottom: $base-content-gap;
 			.ant-btn {
 				width: 100%;
 				display: block;
 			}
 		}
 		.mime-container {
-			margin-bottom: 16px;
+			margin-bottom: $base-content-gap;
 			display: flex;
 			align-items: center;
 			input {
-				margin-right: 16px;
+				margin-right: $base-content-gap;
 				width: 200px;
 			}
 			.content {

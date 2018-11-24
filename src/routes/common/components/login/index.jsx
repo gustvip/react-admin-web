@@ -10,7 +10,6 @@ import * as decorate from 'utils/core/decorate';
 
 import styles from '../../scss/login/index.scss';
 import {Button, Input} from 'antd';
-import Link from 'react-router-dom/Link';
 import bg from '../../img/bg.jpeg';
 
 @decorate.contextTypes('router')
@@ -92,10 +91,6 @@ class Login extends React.PureComponent {
 					>
 						登&nbsp;&nbsp;录
 					</Button>
-					<footer>
-						<Link to={enumRouter.register}>注册</Link>
-					</footer>
-				
 				</div>
 			</div>
 		);

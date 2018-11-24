@@ -1,8 +1,7 @@
 @import "baseStyleVarity.scss";
 
 .main-container {
-	flex-grow: 1;
-	background-color: #fff;
+	background-color: $base-background-color;
 	padding: $base-content-gap;
 	border-radius: $base-border-radius;
 }

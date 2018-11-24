@@ -4,7 +4,7 @@
 import T from 'utils/t';
 import {Button, Input, Table} from 'antd';
 import enumAuth from '../../../../constants/enumAuth';
-import {MainHeader} from 'templates/mainLayout';
+import MainHeader from 'templates/toolComponents/mainHeader';
 import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -148,7 +148,8 @@ export default class List extends React.PureComponent {
 		return (
 			<React.Fragment>
 				<MainHeader
-					right={
+				>
+					<React.Fragment>
 						<Button
 							disabled={this.state.selectedRows.length === 0}
 							type="primary"
@@ -156,16 +157,15 @@ export default class List extends React.PureComponent {
 						>
 							删除
 						</Button>
-					}
-					left={
 						<Input.Search
+							style={{width: 'auto'}}
 							onChange={event => this.setState({search: event.target.value})}
 							placeholder="请搜索"
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search)}
 						/>
-					}
-				/>
-				<div className={style['main-container']}>
+					</React.Fragment>
+				</MainHeader>
+				<div className={T.classNames(style['main-container'], 'flex-column-grow')}>
 					<Table
 						size="middle"
 						dataSource={self.state.dataSource.map(value => ({

@@ -1,3 +1,5 @@
+@import "baseStyleVarity";
+
 #login-container {
 	position: absolute;
 	left: 0;
@@ -17,14 +19,9 @@
 		display: flex;
 		flex-direction: column;
 		width: 350px;
-		padding: 12px;
+		padding: $base-content-gap;
 		> input {
-			margin-bottom: 24px;
-		}
-		> footer {
-			margin-top: 8px;
-			text-align: center;
-			font-size: 16px;
+			margin-bottom: $base-content-gap;
 		}
 	}
 }
