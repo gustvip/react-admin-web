@@ -1,0 +1,22 @@
+{
+	"bPlatformCategoryAdministratorGroupList": {
+		"value": "bPlatformCategoryAdministratorGroupList",
+		"label": "超级管理员权限分配"
+	},
+	"bPlatformCategoryAdministratorAuthList": {
+		"value": "bPlatformCategoryAdministratorAuthList",
+		"label": "超级管理员权限列表"
+	},
+	"bPlatformCategoryAdministrator": {
+		"value": "bPlatformCategoryAdministrator",
+		"label": "超级管理员"
+	},
+	"bPlatformCategory": {
+		"value": "bPlatformCategory",
+		"label": "栏目"
+	},
+	"bPlatform": {
+		"value": "bPlatform",
+		"label": "平台"
+	}
+}

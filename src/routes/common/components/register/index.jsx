@@ -2,7 +2,7 @@
  * Created by joey on 18-9-4
  */
 import React from 'react';
-import styles from '../../scss/register/index.scss';
+import styles from './register.scss';
 import {Form, Input, Button, Radio} from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
@@ -10,8 +10,7 @@ import PropTypes from 'prop-types';
 import enumRouter from 'constants/enumRouter';
 import {userSex} from 'constants/app/common';
 import prompt from 'utils/core/prompt';
-import * as webAPI from '../../webAPI/register/index';
-import bg from '../../img/bg.jpeg';
+import * as webAPI from '../../webAPI/register';
 import auth from 'utils/core/auth';
 
 const RadioGroup = Radio.Group;
@@ -77,7 +76,6 @@ class RegisterComponent extends React.PureComponent {
 		
 		return (
 			<div className={styles['main-container']}>
-				<img src={bg} alt="背景图片"/>
 				<Form
 					onSubmit={this.handleSubmit}
 				>

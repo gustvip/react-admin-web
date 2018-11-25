@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {EnumIconTypes} from 'constants/enumDefaultMenus';
 import enumRouter from 'constants/enumRouter';
 import {Select, Menu, Icon, Layout, Dropdown} from 'antd';
-import style from './mainLayout.scss';
+import styles from './mainLayout.scss';
 import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from './menuUtil';
 import * as React from 'react';
 import Link from 'react-router-dom/Link';
@@ -132,11 +132,11 @@ class SiderMenu extends React.PureComponent {
 				collapsible
 				collapsed={this.props.isCollapsed}
 				onCollapse={this.handleCollapsed}
-				className={style['sider-container']}
+				className={styles['sider-container']}
 			>
 				<Menu
 					mode="inline"
-					className={style['sider-menu']}
+					className={styles['sider-menu']}
 					theme="dark"
 					selectedKeys={[locationPathname]}
 					openKeys={defaultOpenKeys}
@@ -165,7 +165,7 @@ export class HeaderLayout extends React.PureComponent {
 	getTopRoute = () => {
 		const self = this;
 		return (
-			<div className={style['drop-down-menu-container']}>
+			<div className={styles['drop-down-menu-container']}>
 				<Select
 					onChange={value => self.context.router.history.push(value)}
 					value={EnumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1).url[0]}
@@ -187,12 +187,12 @@ export class HeaderLayout extends React.PureComponent {
 	getCategoryRoute = () => {
 		const self = this;
 		return (
-			<div className={style['category-menu-container']}>
+			<div className={styles['category-menu-container']}>
 				{
 					getCategoryRoute(self.locationPathname).map((item, index) => {
 						return (
 							<Link
-								className={T.helper.classNames('')({[style.active]: item.url.indexOf(self.locationPathname) !== -1})}
+								className={T.helper.classNames('')({[styles.active]: item.url.indexOf(self.locationPathname) !== -1})}
 								key={index}
 								to={item.url[0]}
 							>
@@ -253,7 +253,7 @@ export class HeaderLayout extends React.PureComponent {
 		);
 		return (
 			<section
-				className={style['right-container']}
+				className={styles['right-container']}
 			>
 				<Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
 					<span>
@@ -267,10 +267,10 @@ export class HeaderLayout extends React.PureComponent {
 	render() {
 		return (
 			<React.Fragment>
-				<Layout.Header className={style['main-header-container']}>
-					<section className={style['left-container']}>
+				<Layout.Header className={styles['main-header-container']}>
+					<section className={styles['left-container']}>
 						
-						{/* <div className={style["logo-container"]}>logo</div>*/}
+						{/* <div className={styles["logo-container"]}>logo</div>*/}
 						
 						{/* 一级路由 */}
 						{this.getTopRoute()}
@@ -284,7 +284,7 @@ export class HeaderLayout extends React.PureComponent {
 					}
 				</Layout.Header>
 				{
-					<div className={T.classNames({[style['header-children']]: this.props.children}, {'flex-column-grow': this.props.children})}>
+					<div className={T.classNames({[styles['header-children']]: this.props.children}, {'flex-column-grow': this.props.children})}>
 						{this.props.children}
 					</div>
 				}
@@ -306,7 +306,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 		const self = this;
 		return (
 			<Layout
-				id={style['main-container']}
+				id={styles['main-container']}
 				className={T.classNames('flex-column-grow')}
 				style={{paddingLeft: self.state.isCollapsed ? 80 : 200}}
 			>
@@ -315,10 +315,10 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 					handleCollapsed={self.handleCollapsed}
 				/>
 				<Layout.Content
-					className={T.classNames(style['content-container'], 'flex-column-grow')}
+					className={T.classNames(styles['content-container'], 'flex-column-grow')}
 				>
 					<HeaderLayout/>
-					<Layout.Content className={T.classNames(style['main-content-container'], 'flex-column-grow')}>
+					<Layout.Content className={T.classNames(styles['main-content-container'], 'flex-column-grow')}>
 						{self.props.children}
 					</Layout.Content>
 				</Layout.Content>

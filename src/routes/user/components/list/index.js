@@ -9,7 +9,7 @@ import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {userSex, role, status} from 'constants/app/common';
-import style from '../../scss/list/index.scss';
+import styles from './list.scss';
 
 export default class List extends React.PureComponent {
 	static contextTypes = {
@@ -165,7 +165,7 @@ export default class List extends React.PureComponent {
 						/>
 					</React.Fragment>
 				</MainHeader>
-				<div className={T.classNames(style['main-container'], 'flex-column-grow')}>
+				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table
 						size="middle"
 						dataSource={self.state.dataSource.map(value => ({

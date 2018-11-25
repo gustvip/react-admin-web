@@ -31,13 +31,18 @@ export const role = {
 };
 
 /**
- * @type {{normalGroup: {label: string, value: string, children: *[]}}}
+ * @type {{normalGroup: {label: string, value: string, children: *[]}, administrator: {label: string, value: string, children: (role.root|{value, label})[]}}}
  */
-export const groupAndRoleData = {
+export const group = {
 	normalGroup: {
 		label: '正常分组',
 		value: '2',
 		children: [role.normal, role.admin, role.root],
+	},
+	administrator: {
+		label: '超级管理员分组',
+		value: '1',
+		children: [role.root],
 	},
 };
 

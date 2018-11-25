@@ -7,11 +7,11 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 import {Button, Input, Table, Form, Select} from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
-import * as webAPI from '../../webAPI/index';
+import * as webAPI from '../../webAPI/authList';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {status, pagination} from 'constants/app/common';
-import styles from '../../scss/authList/index.scss';
+import * as enumCommon from 'constants/app/common';
+import styles from './authList.scss';
 
 const Option = Select.Option;
 const formItemLayout = {
@@ -32,7 +32,7 @@ class List extends React.PureComponent {
 	
 	state = {
 		currentPage: 1,
-		pageSize: pagination.pageSize,
+		pageSize: enumCommon.pagination.pageSize,
 		count: 10,
 		totalPages: 1,
 		selectedRowKeys: [],
@@ -67,7 +67,6 @@ class List extends React.PureComponent {
 				status,
 			}).then(info => {
 				this.setState({
-					isTableLoading: false,
 					currentPage,
 					pageSize,
 					status,
@@ -80,10 +79,7 @@ class List extends React.PureComponent {
 					this.resetFields();
 					callback && callback(info.data);
 				});
-			}).catch(info => {
-				this.setState({isTableLoading: false});
-				T.prompt.error(info.msg);
-			});
+			}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
 			
 		});
 	};
@@ -176,7 +172,7 @@ class List extends React.PureComponent {
 					});
 				},
 				render(text) {
-					return Object.values(status).find(value => value.value === text).label;
+					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},
 			},
 			{
@@ -238,12 +234,12 @@ class List extends React.PureComponent {
 	get pagination() {
 		const self = this;
 		return {
-			pageSizeOptions: pagination.pageSizeOptions,
+			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
 			showSizeChanger: true,
 			current: self.state.currentPage,
 			total: self.state.count,
 			pageSize: self.state.pageSize,
-			showQuickJumper: pagination.showQuickJumper,
+			showQuickJumper: enumCommon.pagination.showQuickJumper,
 			onChange(currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search, self.state.status);
 			},
@@ -261,12 +257,9 @@ class List extends React.PureComponent {
 				self.setState({isAdd: true}, () => {
 					webAPI.administratorAuthAdd(values).then(() => {
 						T.prompt.success('添加成功');
-						this.setState({isAdd: false}, () => this.getList(1, this.state.pageSize, this.state.search, this.state.status));
 						this.resetFields();
-					}).catch(info => {
-						this.setState({isAdd: false});
-						T.prompt.error(info.msg);
-					});
+						this.getList(1, this.state.pageSize, this.state.search, this.state.status);
+					}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isAdd: false}));
 				});
 			}
 		});

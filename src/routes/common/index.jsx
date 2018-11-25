@@ -4,15 +4,10 @@
 import EnumRouter from 'constants/enumRouter';
 import {AssembleRoute} from 'routes/routeTool';
 import Login from './routes/login';
-import Register from './routes/register';
 
 export default AssembleRoute([
 	{
 		path: EnumRouter.login,
 		component: Login,
-	},
-	{
-		path: EnumRouter.register,
-		component: Register,
 	},
 ]);

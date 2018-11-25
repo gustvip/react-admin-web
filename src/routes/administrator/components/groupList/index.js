@@ -5,11 +5,11 @@ import T from 'utils/t';
 import MainHeader from 'templates/toolComponents/mainHeader';
 import {Button, Input, Table, Form, Select} from 'antd';
 import enumAuth from 'constants/enumAuth';
-import * as webAPI from '../../webAPI/index';
+import * as webAPI from '../../webAPI/groupList';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {status, pagination} from 'constants/app/common';
-import styles from '../../scss/groupList/index.scss';
+import * as enumCommon from 'constants/app/common';
+import styles from './groupList.scss';
 
 const Option = Select.Option;
 const formItemLayout = {
@@ -30,7 +30,7 @@ class List extends React.PureComponent {
 	
 	state = {
 		currentPage: 1,
-		pageSize: pagination.pageSize,
+		pageSize: enumCommon.pagination.pageSize,
 		count: 10,
 		totalPages: 1,
 		selectedRowKeys: [],
@@ -38,13 +38,32 @@ class List extends React.PureComponent {
 		dataSource: [],
 		search: '',
 		
-		group: '1',
-		role: '3',
+		authValueData: [],
+		groupData: Object.values(enumCommon.group).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		group: enumCommon.group.administrator.value,
+		roleData: Object.values(enumCommon.role).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		role: enumCommon.role.root.value,
 		isAdd: false,
 		isTableLoading: false,
 	};
 	
 	componentDidMount() {
+		webAPI.administratorAuthList().then(info => {
+			this.setState({
+				authValueData: info.data.map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			});
+		}).catch(info => T.prompt.error(info.msg));
 		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
 	}
 	
@@ -57,34 +76,79 @@ class List extends React.PureComponent {
 	 * @param {function} [callback]
 	 */
 	getList = (currentPage, pageSize, search, group, role, callback) => {
-		this.setState({isTableLoading: true}, () => {
-			webAPI.administratorGroupList({
-				currentPage,
-				pageSize,
-				search,
-				group,
-				role,
-			}).then(info => {
-				this.setState({
-					isTableLoading: false,
-					currentPage,
-					pageSize,
+		if (group && role) {
+			this.setState({isTableLoading: true}, () => {
+				webAPI.administratorGroupList({
+					search,
 					group,
 					role,
-					count: info.data.count,
-					selectedRowKeys: [],
-					selectedRows: [],
-					search,
-					dataSource: info.data.data,
-				}, () => {
-					this.resetFields();
-					callback && callback(info.data);
-				});
-			}).catch(info => {
-				this.setState({isTableLoading: false});
-				T.prompt.error(info.msg);
+				}).then(info => {
+					this.setState({
+						authValue: info.data.map(value => value.value),
+						currentPage,
+						pageSize,
+						group,
+						role,
+						count: info.data.length,
+						selectedRowKeys: [],
+						selectedRows: [],
+						search,
+						dataSource: info.data,
+					}, () => {
+						this.resetFields();
+						callback && callback(info.data);
+					});
+				}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
 			});
+		}
+	};
+	
+	/**
+	 * 组变化
+	 * @param {string | undefined} group
+	 */
+	handleGroupChange = (group) => {
+		let roleData = [];
+		const hasData = Object.values(enumCommon.group).find(value => value.value === group);
+		if (hasData) {
+			roleData = hasData.children.map(value => ({
+				value: value.value,
+				label: value.label,
+			}));
+		}
+		this.setState({
+			authValue: [],
+			roleData,
+			group,
+			role: undefined,
 			
+			currentPage: 1,
+			selectedRowKeys: [],
+			selectedRows: [],
+			search: '',
+			dataSource: [],
+		}, () => {
+			this.resetFields();
+			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
+		});
+	};
+	
+	/**
+	 * 角色变化
+	 * @param {string | undefined} role
+	 */
+	handleRoleChange = (role) => {
+		this.setState({
+			role,
+			authValue: [],
+			
+			currentPage: 1,
+			selectedRowKeys: [],
+			selectedRows: [],
+			search: '',
+			dataSource: [],
+		}, () => {
+			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
 		});
 	};
 	
@@ -96,7 +160,11 @@ class List extends React.PureComponent {
 		const self = this;
 		T.prompt.confirm({
 			onOk() {
-				return webAPI.administratorGroupDelete({id: selectedRows.map(value => value.groupId)}).then(() => {
+				return webAPI.administratorGroupDelete({
+					authValue: selectedRows.map(value => value.value),
+					group: self.state.group,
+					role: self.state.role,
+				}).then(() => {
 					T.prompt.success('删除成功');
 					self.getList(1, self.state.pageSize, self.state.search, self.state.group, self.state.role);
 				}).catch(info => T.prompt.error(info.msg));
@@ -198,14 +266,14 @@ class List extends React.PureComponent {
 	get pagination() {
 		const self = this;
 		return {
-			pageSizeOptions: pagination.pageSizeOptions,
+			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
 			showSizeChanger: true,
 			current: self.state.currentPage,
 			total: self.state.count,
 			pageSize: self.state.pageSize,
-			showQuickJumper: pagination.showQuickJumper,
+			showQuickJumper: enumCommon.pagination.showQuickJumper,
 			onChange(currentPage, pageSize) {
-				self.getList(1, pageSize, self.state.search, self.state.group, self.state.role);
+				self.getList(currentPage, pageSize, self.state.search, self.state.group, self.state.role);
 			},
 			onShowSizeChange(currentPage, pageSize) {
 				self.getList(1, pageSize, self.state.search, self.state.group, self.state.role);
@@ -217,17 +285,12 @@ class List extends React.PureComponent {
 		e.preventDefault();
 		const self = this;
 		self.props.form.validateFields((err, values) => {
-			console.log(values);
 			if (!err) {
 				self.setState({isAdd: true}, () => {
-					webAPI.administratorAuthAdd(values).then(() => {
-						T.prompt.success('添加成功');
-						this.setState({isAdd: false}, () => this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role));
-						this.resetFields();
-					}).catch(info => {
-						this.setState({isAdd: false});
-						T.prompt.error(info.msg);
-					});
+					webAPI.administratorGroupDistribute(values).then(() => {
+						T.prompt.success('分配成功');
+						this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
+					}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isAdd: false}));
 				});
 			}
 		});
@@ -256,10 +319,11 @@ class List extends React.PureComponent {
 								],
 							})(
 								<Select
+									onChange={group => this.handleGroupChange(group)}
 									placeholder="请选择分组"
 								>
 									{
-										Object.values(status).map((value => {
+										this.state.groupData.map((value => {
 											return <Option key={value.value}>{value.label}</Option>;
 										}))
 									}
@@ -281,10 +345,11 @@ class List extends React.PureComponent {
 								],
 							})(
 								<Select
+									onChange={role => this.handleRoleChange(role)}
 									placeholder="请选择角色"
 								>
 									{
-										Object.values(status).map((value => {
+										this.state.roleData.map((value => {
 											return <Option key={value.value}>{value.label}</Option>;
 										}))
 									}
@@ -297,7 +362,7 @@ class List extends React.PureComponent {
 							{...formItemLayout}
 						>
 							{getFieldDecorator('authValue', {
-								initialValue: undefined,
+								initialValue: this.state.authValue,
 								rules: [
 									{
 										required: true,
@@ -308,11 +373,11 @@ class List extends React.PureComponent {
 								<Select
 									showSearch
 									allowClear
-									mode="tags"
+									mode="multiple"
 									placeholder="请选择权限值"
 								>
 									{
-										Object.values(status).map((value => {
+										this.state.authValueData.map((value => {
 											return <Option key={value.value}>{value.label}</Option>;
 										}))
 									}
@@ -345,6 +410,7 @@ class List extends React.PureComponent {
 					className={styles['operate-container']}
 				>
 					<Input.Search
+						value={this.state.search}
 						onChange={event => this.setState({search: event.target.value})}
 						placeholder="请搜索权限值"
 						onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role)}

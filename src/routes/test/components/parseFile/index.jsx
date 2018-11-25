@@ -3,7 +3,7 @@ import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
 import {Button, Input} from 'antd';
 import mime from 'mime';
-import styles from '../../scss/parseFile/index.scss';
+import styles from './parseFile.scss';
 
 export default class TestComponent extends React.PureComponent {
 	constructor() {

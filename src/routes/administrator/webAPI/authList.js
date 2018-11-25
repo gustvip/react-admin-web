@@ -6,8 +6,8 @@ import T from 'utils/t';
 
 /**
  * 获取权限枚举列表
- * @param {number | null | undefined} condition.currentPage
- * @param {number | null | undefined} condition.pageSize
+ * @param {number} condition.currentPage
+ * @param {number} condition.pageSize
  * @param {string} condition.search
  * @param {string | null | undefined} condition.status
  * @return {Promise}
@@ -44,21 +44,3 @@ export const administratorAuthRecover = (condition) => T.request.postJSON(enumAP
  * @return {Promise}
  */
 export const administratorAuthUpdate = (condition) => T.request.postJSON(enumAPI.administratorAuthUpdate, condition);
-
-/**
- * 获取组对应角色已有权限列表
- * @param {string} condition.group
- * @param {string} condition.role
- * @param {number} condition.currentPage
- * @param {number} condition.pageSize
- * @param {string} condition.search
- * @return {Promise}
- */
-export const administratorGroupList = (condition) => T.request.get(enumAPI.administratorGroupGroupAndRoleAuth, condition);
-
-/**
- * 删除组对应角色已有权限
- * @param {Array<Number>} condition.id
- * @return {Promise}
- */
-export const administratorGroupDelete = (condition) => T.request.del(enumAPI.administratorGroupDelete, condition);

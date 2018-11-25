@@ -13,7 +13,7 @@ import flowRight from 'lodash/flowRight';
 const _userAPI = api => window.ENV.apiDomain + api;
 
 /**
- * @type {{userLogin: *, userLoginOut: *, userAdd: *, userDelete: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, fileParseXlsx: *, fileParseCsv: *, fileParseXml: *, fileDownJson: *, administratorAuthDownload: *, administratorAuthList: *, administratorAuthAdd: *, administratorAuthDelete: *, administratorAuthRecover: *, administratorAuthUpdate: *, administratorGroupGroupAndRoleAuth: *}}
+ * @type {{userLogin: *, userLoginOut: *, userAdd: *, userDelete: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, fileParseXlsx: *, fileParseCsv: *, fileParseXml: *, fileDownJson: *, administratorAuthDownload: *, administratorAuthList: *, administratorAuthAdd: *, administratorAuthDelete: *, administratorAuthRecover: *, administratorAuthUpdate: *, administratorGroupGroupAndRoleAuth: *, administratorGroupDelete: *}}
  */
 const API = {
 	/*
@@ -21,15 +21,15 @@ const API = {
    | 用户相关API地址
    |----------------------------------------------------------------
  */
-	userLogin: _userAPI('/user/login'),
-	userLoginOut: _userAPI('/user/loginOut'),
-	userAdd: _userAPI('/user/add'),
-	userDelete: _userAPI('/user/delete'),
-	userDetail: _userAPI('/user/detail'),
-	userUpdateInfo: _userAPI('/user/updateInfo'),
-	userUpdatePassword: _userAPI('/user/updatePassword'),
-	userResetPassword: _userAPI('/user/resetPassword'),
-	userList: _userAPI('/user/list'),
+	userLogin: _userAPI('/user/login'), // 用户登陆
+	userLoginOut: _userAPI('/user/loginOut'), // 安全退出
+	userAdd: _userAPI('/user/add'), // 新增用户
+	userDelete: _userAPI('/user/delete'), // 删除用户
+	userDetail: _userAPI('/user/detail'), // 获取用户详情
+	userUpdateInfo: _userAPI('/user/updateInfo'), // 更新用户信息
+	userUpdatePassword: _userAPI('/user/updatePassword'), // 更新密码
+	userResetPassword: _userAPI('/user/resetPassword'), // 重置密码
+	userList: _userAPI('/user/list'), // 获取用户列表
 	
 	/*
    |----------------------------------------------------------------
@@ -54,5 +54,6 @@ const API = {
 	administratorAuthUpdate: _userAPI('/administrator/auth/update'), // 权限枚举更新
 	administratorGroupGroupAndRoleAuth: _userAPI('/administrator/group/groupAndRoleAuth'), // 组对应角色权限列表
 	administratorGroupDelete: _userAPI('/administrator/group/delete'), // 组对应角色权限删除
+	administratorGroupDistribute: _userAPI('/administrator/group/distribute'), // 组对应角色权限分配
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
