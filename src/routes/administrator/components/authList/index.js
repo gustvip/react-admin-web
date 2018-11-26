@@ -7,6 +7,7 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 import {Button, Input, Table, Form, Select} from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
+import {status} from 'constants/app/common';
 import * as webAPI from '../../webAPI/authList';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -40,7 +41,11 @@ class List extends React.PureComponent {
 		dataSource: [],
 		search: '',
 		status: undefined,
-		
+		statusValue: Object.values(status).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
 		authValue: '',
 		authLabel: '',
 		isAdd: false,
@@ -372,7 +377,8 @@ class List extends React.PureComponent {
 						placeholder="请选择状态"
 					>
 						{
-							Object.values(status).map((value => {
+							this.state.statusValue.map((value => {
+								console.log(value);
 								return <Option value={value.value} key={value.value}>{value.label}</Option>;
 							}))
 						}

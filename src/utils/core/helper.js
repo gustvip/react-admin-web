@@ -2,9 +2,7 @@ import get from 'lodash/get';
 import identity from 'lodash/identity';
 import each from 'lodash/each';
 import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
 import groupBy from 'lodash/groupBy';
-import toLength from 'lodash/toLength';
 import round from 'lodash/round';
 import toFinite from 'lodash/toFinite';
 import IsFinite from 'lodash/isFinite';
@@ -14,13 +12,25 @@ import classNames from 'classnames';
 import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
 
 class Helper {
+	/**
+	 * @param x
+	 * @return {{index: *, base: string}}
+	 */
 	getNumberBase(x) {
 		const baseCollection = ['B', 'K', 'M', 'G', 'T'];
-		const index = toLength(Math.log(toFinite(Math.abs(x))) / Math.log(1024));
-		return {
-			index,
-			base: index >= baseCollection.length ? baseCollection[baseCollection.length - 1] : baseCollection[index],
-		};
+		x = toFinite(Math.abs(x));
+		if (x < 1024) {
+			return {
+				index: 0,
+				base: baseCollection[0],
+			};
+		} else {
+			const index = Math.floor(Math.log(x) / Math.log(1024));
+			return {
+				index,
+				base: index >= baseCollection.length ? baseCollection[baseCollection.length - 1] : baseCollection[index],
+			};
+		}
 	}
 	
 	/**

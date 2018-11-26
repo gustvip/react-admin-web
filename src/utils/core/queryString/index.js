@@ -1,7 +1,6 @@
 /**
  * Created by joey 2018/10/01
  */
-import assign from 'lodash/assign';
 import decodeComponent from './decodeComponent';
 import strictUriEncode from './strictUriEncode';
 
@@ -128,7 +127,7 @@ export const extract = function extract(input) {
 };
 
 export const parse = function parse(input, options) {
-	options = assign({
+	options = Object.assign({
 		decode: true,
 		arrayFormat: 'none',
 	}, options);
@@ -178,7 +177,7 @@ export const stringify = function(obj, options) {
 		arrayFormat: 'none',
 	};
 	
-	options = assign(defaults, options);
+	options = Object.assign(defaults, options);
 	
 	if (options.sort === false) {
 		options.sort = () => {};

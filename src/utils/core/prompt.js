@@ -4,22 +4,18 @@
 
 import {Modal} from 'antd';
 import {message} from 'antd';
-
 import noop from 'lodash/noop';
-import merge from 'lodash/merge';
 
 class Prompt {
 	constructor() {
-		message.config({
-			duration: 2,
-		});
+		message.config({duration: 2});
 	}
 	
 	/**
 	 * 提示成功
 	 * @param {String} msg
 	 * @param {Number} duration
-	 * @param {Function} onClose
+	 * @param {Function} [onClose]
 	 */
 	success(msg, duration = 2, onClose = noop) {
 		message.success(msg, duration, onClose);
@@ -29,7 +25,7 @@ class Prompt {
 	 * 提示错误
 	 * @param {String} msg
 	 * @param {Number} duration
-	 * @param {Function} onClose
+	 * @param {Function} [onClose]
 	 */
 	error(msg, duration = 2, onClose = noop) {
 		message.error(msg, duration, onClose);
@@ -39,7 +35,7 @@ class Prompt {
 	 * 提示警告
 	 * @param {String} msg
 	 * @param {Number} duration
-	 * @param {Function} onClose
+	 * @param {Function} [onClose]
 	 */
 	warn(msg, duration = 2, onClose = noop) {
 		message.warn(msg, duration, onClose);
@@ -50,7 +46,7 @@ class Prompt {
 	 * @param {Object} options
 	 */
 	confirm(options = {}) {
-		options = merge({
+		options = Object.assign({
 			title: '确定删除吗？',
 			content: '', // Content可以是react节点实例
 			okText: '确定',

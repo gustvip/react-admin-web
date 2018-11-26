@@ -5,7 +5,6 @@ import axios from 'axios';
 import forOwn from 'lodash/forOwn';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
-import merge from 'lodash/merge';
 import transform from 'lodash/transform';
 
 /**
@@ -137,7 +136,7 @@ const _request = (options = {}) => {
  * @returns {Promise}
  */
 export function get(url, params = {}, options = {}) {
-	return _request(merge({
+	return _request(Object.assign({
 		url,
 		method: 'get',
 		params,
@@ -152,7 +151,7 @@ export function get(url, params = {}, options = {}) {
  * @returns {Promise}
  */
 export function post(url, data = {}, options = {}) {
-	return _request(merge({
+	return _request(Object.assign({
 		url,
 		method: 'post',
 		data: transform(data, (prev, value, key) => prev.append(key, value), new URLSearchParams()),
@@ -167,7 +166,7 @@ export function post(url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function postJSON(url, data = {}, options = {}) {
-	return _request(merge({
+	return _request(Object.assign({
 		url,
 		method: 'post',
 		data,
@@ -183,7 +182,7 @@ export function postJSON(url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
-	return _request(merge({
+	return _request(Object.assign({
 		url,
 		method: 'post',
 		data: objectToFormData(data),
@@ -199,7 +198,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
  * @returns {Promise}
  */
 export function del(url, data = {}, options = {}) {
-	return _request(merge({
+	return _request(Object.assign({
 		url,
 		method: 'delete',
 		data,
@@ -214,7 +213,7 @@ export function del(url, data = {}, options = {}) {
  * @returns {Promise}
  */
 export function put(url, data = {}, options = {}) {
-	return _request(merge({
+	return _request(Object.assign({
 		url,
 		method: 'put',
 		data,
@@ -280,7 +279,8 @@ export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
 
 /**
  * 并发执行多个请求
- * @returns {Promise.<*>}
+ * @param {Array | function} args
+ * @return {Promise<[any , any , any , any , any , any , any , any , any , any]>}
  */
 export function all(args) {
 	return Promise.all(Array.isArray(args) ? args : [].slice.call(arguments));

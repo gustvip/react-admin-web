@@ -129,7 +129,7 @@ class Auth {
 	
 	/**
 	 * 登录成功重定向
-	 * @param {Object} [history] react-router的history
+	 * @param {Object} history react-router的history
 	 * @param  {Object} [state] react-router的state
 	 */
 	loginSuccessRedirect(history, state) {

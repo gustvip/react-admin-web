@@ -2,10 +2,12 @@
 	'use strict';
 	var rootPath = '/pw/';
 	var apiDomain = 'http://localhost:8081';
+	var mockDomain = 'http://localhost:8081';
 	
 	Object.defineProperty(window, 'ENV', {
 		value: immutable({
 			apiDomain: apiDomain,         // api请求接口
+			mockDomain: mockDomain,         // mock的api请求接口
 			rootPath: rootPath,                       	// 路由的根路径
 			apiSuccessCode: 0,                          // api响应成功的code
 			apiFailCode: 900,                          // api响应失败的code
@@ -51,7 +53,6 @@
 		
 		return (function fn(_data) {
 			var result = _data;
-			
 			if (Array.isArray(_data)) {
 				result = [];
 				_data.forEach(function(value, key) {
@@ -71,7 +72,6 @@
 					}
 				}
 			}
-			
 			return result;
 		})(data);
 	}

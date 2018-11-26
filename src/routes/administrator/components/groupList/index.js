@@ -64,7 +64,9 @@ class List extends React.PureComponent {
 				})),
 			});
 		}).catch(info => T.prompt.error(info.msg));
-		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
+		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+			this.setState({authValue: data.map(value => value.value)});
+		});
 	}
 	
 	/**
@@ -84,7 +86,6 @@ class List extends React.PureComponent {
 					role,
 				}).then(info => {
 					this.setState({
-						authValue: info.data.map(value => value.value),
 						currentPage,
 						pageSize,
 						group,
@@ -94,10 +95,7 @@ class List extends React.PureComponent {
 						selectedRows: [],
 						search,
 						dataSource: info.data,
-					}, () => {
-						this.resetFields();
-						callback && callback(info.data);
-					});
+					}, () => callback && callback(info.data));
 				}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
 			});
 		}
@@ -129,7 +127,9 @@ class List extends React.PureComponent {
 			dataSource: [],
 		}, () => {
 			this.resetFields();
-			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
+			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+				this.setState({authValue: data.map(value => value.value)});
+			});
 		});
 	};
 	
@@ -148,7 +148,10 @@ class List extends React.PureComponent {
 			search: '',
 			dataSource: [],
 		}, () => {
-			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
+			this.resetFields();
+			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+				this.setState({authValue: data.map(value => value.value)});
+			});
 		});
 	};
 	
@@ -286,11 +289,16 @@ class List extends React.PureComponent {
 		const self = this;
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
-				self.setState({isAdd: true}, () => {
-					webAPI.administratorGroupDistribute(values).then(() => {
-						T.prompt.success('分配成功');
-						this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role);
-					}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isAdd: false}));
+				T.prompt.confirm({
+					onOk() {
+						return self.setState({isAdd: true}, () => {
+							webAPI.administratorGroupDistribute(values).then(() => {
+								T.prompt.success('分配成功');
+								self.getList(1, self.state.pageSize, self.state.search, self.state.group, self.state.role);
+							}).catch(info => T.prompt.error(info.msg)).finally(() => self.setState({isAdd: false}));
+						});
+					},
+					title: '确认分配权限吗?',
 				});
 			}
 		});

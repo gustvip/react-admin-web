@@ -1,14 +1,5 @@
 const os = require('os');
-
-function flattenDeep(array) {
-	const result = [];
-	!(function fn(_array) {
-		_array.forEach((value) => {
-			Array.isArray(value) ? fn(value) : result.push(value);
-		});
-	}(array));
-	return result;
-}
+const flattenDeep = require('lodash/flattenDeep');
 
 /**
  * 获取本机IPv4地址

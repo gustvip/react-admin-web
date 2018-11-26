@@ -7,7 +7,6 @@ import auth from 'utils/core/auth';
 import crypto from 'utils/core/crypto';
 import prompt from 'utils/core/prompt';
 import * as decorate from 'utils/core/decorate';
-
 import styles from './login.scss';
 import {Button, Input} from 'antd';
 import bg from './img/bg.jpeg';
