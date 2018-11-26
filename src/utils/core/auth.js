@@ -136,7 +136,7 @@ class Auth {
 		const urlParams = queryString.parse(window.location.search);
 		let redirectUrl = this.ENV.login.defaultRedirectUrl;
 		
-		if (helper.isObject(urlParams) && this.ENV.defaultQuery in urlParams) {
+		if (helper.isPureObject(urlParams) && this.ENV.defaultQuery in urlParams) {
 			redirectUrl = decodeURIComponent(urlParams[this.ENV.defaultQuery]);
 		}
 		

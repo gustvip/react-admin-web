@@ -7,13 +7,16 @@ import groupBy from 'lodash/groupBy';
 import toLength from 'lodash/toLength';
 import round from 'lodash/round';
 import toFinite from 'lodash/toFinite';
+import IsFinite from 'lodash/isFinite';
+import minBy from 'lodash/minBy';
+import maxBy from 'lodash/maxBy';
 import classNames from 'classnames';
 import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
 
 class Helper {
-	getNumberBase(x, radix = 1024) {
+	getNumberBase(x) {
 		const baseCollection = ['B', 'K', 'M', 'G', 'T'];
-		const index = toLength(Math.log(toFinite(Math.abs(x))) / Math.log(radix));
+		const index = toLength(Math.log(toFinite(Math.abs(x))) / Math.log(1024));
 		return {
 			index,
 			base: index >= baseCollection.length ? baseCollection[baseCollection.length - 1] : baseCollection[index],
@@ -33,15 +36,19 @@ class Helper {
 	/**
 	 * 将[{},{}...]转化为tree的数据结构
 	 * @param {Array} data
-	 * @param {Number} levelStart 开始的等级
 	 * @param {string} levelName 等级的key
 	 * @param {string} parentName 指向parent的key
 	 * @param {string} ownName 指向own的key
 	 * @param {string} [childrenName] 生成children的key
 	 * @return {Array}
 	 */
-	formatTreeData(data, levelStart, levelName, parentName, ownName, childrenName = 'children') {
+	formatTreeData(data, levelName, parentName, ownName, childrenName = 'children') {
 		const result = [];
+		if (!data.length) {
+			return result;
+		}
+		const minLevel = minBy(data, levelName)[levelName];
+		let maxLevel = maxBy(data, levelName)[levelName];
 		data = groupBy(
 			data.map(value => ({
 				...value,
@@ -50,14 +57,13 @@ class Helper {
 			levelName,
 		);
 		
-		let index = Object.keys(data).length + levelStart;
-		while (--index >= levelStart) {
-			let i = data[index];
+		while (maxLevel >= minLevel) {
+			let i = data[maxLevel];
 			if (i) {
-				if (index === levelStart) {
+				if (maxLevel === minLevel) {
 					i.forEach(value => result.push(value));
 				} else {
-					const j = data[index - 1];
+					const j = data[maxLevel - 1];
 					if (j) {
 						each(
 							groupBy(i, parentName),
@@ -71,6 +77,7 @@ class Helper {
 					}
 				}
 			}
+			--maxLevel;
 		}
 		return result;
 	}
@@ -136,11 +143,11 @@ class Helper {
 		const nowValue = get(now, property);
 		if (prevValue < nowValue) {
 			return -1;
-		}
-		if (prevValue > nowValue) {
+		} else if (prevValue > nowValue) {
 			return 1;
+		} else {
+			return 0;
 		}
-		return 0;
 	}
 	
 	/**
@@ -153,7 +160,7 @@ class Helper {
 		const self = this;
 		return (function fn(_data) {
 			let result = _data;
-			if (self.isObject(_data) || Array.isArray(_data)) {
+			if (self.isPureObject(_data) || Array.isArray(_data)) {
 				result = Array.isArray(_data) ? [] : {};
 				each(_data, (value, key) => {
 					Object.defineProperty(result, key, {
@@ -182,7 +189,7 @@ class Helper {
 	 * @return {String}
 	 */
 	showValue(val, defaultVal = '-') {
-		return (this.checkString(val) || this.isUsefulNumber(val)) ? val : defaultVal;
+		return (this.checkString(val) || IsFinite(val)) ? val : defaultVal;
 	}
 	
 	/**
@@ -208,17 +215,8 @@ class Helper {
 	 * @param x
 	 * @return {boolean}
 	 */
-	isObject(x) {
+	isPureObject(x) {
 		return Object.prototype.toString.call(x) === '[object Object]';
-	}
-	
-	/**
-	 * 检测不为NaN、Infinity、-Infinity的Number
-	 * @param {*} x
-	 * @return {Boolean}
-	 */
-	isUsefulNumber(x) {
-		return isNumber(x) && isFinite(x);
 	}
 	
 	/**
@@ -270,18 +268,6 @@ class Helper {
 			}(data, array.slice()));
 		}
 		return array;
-	}
-	
-	/**
-	 * 浮点型保留小数
-	 * @param {*} num 要转化的数字
-	 * @param {Number} fixNum 小数位数
-	 * @param {String} defaultVal 格式化错误的默认值
-	 * @return {String}
-	 */
-	toFixed(num, fixNum = 2, defaultVal = '-') {
-		num = Number(num);
-		return !isFinite(num) ? defaultVal : num.toFixed(fixNum);
 	}
 }
 

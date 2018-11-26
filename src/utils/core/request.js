@@ -3,56 +3,36 @@
  */
 import axios from 'axios';
 import forOwn from 'lodash/forOwn';
+import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
 import merge from 'lodash/merge';
 import transform from 'lodash/transform';
 
 /**
  * 将对象转化为FormData数据格式
- * @param {Object} obj
- * @param {Object} [form]
+ * @param {Object | Array} obj
+ * @param {FormData} [form]
  * @param {String} [namespace]
- * @returns {*|FormData}
+ * @returns {FormData}
  */
 function objectToFormData(obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
-	if (Array.isArray(obj)) {
-		obj.forEach((value, index) => {
-			if (namespace) {
-				formKey = `${namespace}[${index}]`;
-			} else {
-				formKey = `[${index}]`;
-			}
-			
-			if (typeof value === 'object' && !(value instanceof File)) {
-				objectToFormData(value, fd, formKey);
-			} else if (Array.isArray(value)) {
-				objectToFormData(value, fd, formKey);
-			} else {
-				fd.append(formKey, value);
-			}
-		});
-	} else if (typeof obj === 'object') {
-		for (var property in obj) {
-			if (Object.prototype.hasOwnProperty.call(obj, property)) {
-				if (namespace) {
-					formKey = `${namespace}[${property}]`;
-				} else {
-					formKey = property;
-				}
-				
-				if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-					objectToFormData(obj[property], fd, formKey);
-				} else if (Array.isArray(obj[property])) {
-					objectToFormData(obj[property], fd, formKey);
-				} else {
-					fd.append(formKey, obj[property]);
-				}
-				
-			}
+	forEach(obj, (value, property) => {
+		if (namespace) {
+			formKey = `${namespace}[${property}]`;
+		} else {
+			formKey = Array.isArray(obj) ? `[${property}]` : property + '';
 		}
-	}
+		
+		if (typeof value === 'object' && !(value instanceof File)) {
+			objectToFormData(value, fd, formKey);
+		} else if (Array.isArray(value)) {
+			objectToFormData(value, fd, formKey);
+		} else {
+			fd.append(formKey, value);
+		}
+	});
 	
 	return fd;
 }
@@ -249,14 +229,19 @@ export function put(url, data = {}, options = {}) {
  * @return {HTMLElement}
  */
 export function form(url, property = {}, params = {}) {
-	property = merge({
+	property = Object.assign({
 		enctype: 'application/x-www-form-urlencoded',
 		method: 'POST',
 		target: '_blank',
 		action: url,
 	}, property);
-	
-	const formElement = document.createElement('form');
+	const formId = '__render-form-dom-id__';
+	let formElement = document.querySelector('#' + formId);
+	if (formElement) {
+		document.body.removeChild(formElement);
+	}
+	formElement = document.createElement('form');
+	formElement.id = formId;
 	formElement.style.display = 'none';
 	
 	forOwn(property, (value, key) => {
@@ -276,29 +261,12 @@ export function form(url, property = {}, params = {}) {
 }
 
 /**
- * 读取blob
- * @param {Blob} blob
- * @param {function} [successCallback]
- * @param {function} [failCallback]
- */
-export const readBlob = function(blob, successCallback, failCallback) {
-	const fileReader = new FileReader();
-	fileReader.readAsDataURL(blob);
-	fileReader.onload = function(event) {
-		successCallback && successCallback(event);
-	};
-	fileReader.onerror = function(event) {
-		failCallback && failCallback(event);
-	};
-};
-
-/**
  * 下载文件
  * @param {string} url
- * @param {string} fileName
+ * @param {string} [fileName]
  */
-export const downLoadUrl = function(url, fileName) {
-	const id = '__read-dnd-down-image-id__';
+export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
+	const id = '__read-and-down-image-id__';
 	let newFile = document.querySelector('#' + id);
 	if (!newFile) {
 		newFile = document.createElement('a');
@@ -306,7 +274,7 @@ export const downLoadUrl = function(url, fileName) {
 		document.body.appendChild(newFile);
 	}
 	newFile.href = url;
-	newFile.download = fileName ? fileName : Date.now().toString(10);
+	newFile.download = fileName;
 	newFile.click();
 };
 
