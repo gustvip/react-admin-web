@@ -31,7 +31,7 @@ export const role = {
 };
 
 /**
- * @type {{normalGroup: {label: string, value: string, children: *[]}, administrator: {label: string, value: string, children: (role.root|{value, label})[]}}}
+ * @type {{normalGroup: {label: string, value: string, children: *[]}, administrator: {label: string, value: string, children: (role.root|{value, label})[]}, touristGroup: {label: string, value: string, children: (role.normal|{value, label})[]}}}
  */
 export const group = {
 	normalGroup: {
@@ -43,6 +43,11 @@ export const group = {
 		label: '超级管理员分组',
 		value: '1',
 		children: [role.root],
+	},
+	touristGroup: {
+		label: '游客',
+		value: '3',
+		children: [role.normal],
 	},
 };
 

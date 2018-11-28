@@ -1,13 +1,16 @@
 /**
  * Created by joey 2018/02/20
  */
-import isPlainObject from 'lodash/isPlainObject';
 import isString from 'lodash/isString';
 import isNumber from 'lodash/isNumber';
 import isBoolean from 'lodash/isBoolean';
 import fowOwn from 'lodash/forOwn';
 import toInteger from 'lodash/toInteger';
 import isInteger from 'lodash/isInteger';
+
+function isPureObject(x) {
+	return Object.prototype.toString.call(x) === '[object Object]';
+}
 
 // 无限期
 var NO_EXPIRE = 0;
@@ -16,11 +19,11 @@ var STORAGE_KEY = '__STORAGE__';
 // 临时存储的变量
 var storageValue = (function() {
 	var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-	return isPlainObject(result) ? result : {};
+	return isPureObject(result) ? result : {};
 }());
 
 function canJSON(x) {
-	return isString(x) || isNumber(x) || isPlainObject(x) || Array.isArray(x) || isBoolean(x);
+	return isString(x) || isNumber(x) || isPureObject(x) || Array.isArray(x) || isBoolean(x);
 }
 
 /**
@@ -56,7 +59,7 @@ function length() {
  */
 function clearExpired() {
 	fowOwn(storageValue, function(value, key) {
-		if (!isPlainObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
+		if (!isPureObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
 			delete storageValue[key];
 		}
 	});

@@ -3,14 +3,14 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Form, Input, Modal} from 'antd';
-import regExpHelper from 'utils/core/regexp';
-import crypto from 'utils/core/crypto';
+import {Form, Modal, Select} from 'antd';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
+import * as enumCommon from 'constants/app/common';
 
 import isFunction from 'lodash/isFunction';
 
+const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
@@ -22,7 +22,7 @@ const formItemLayout = {
 	},
 };
 
-class UpdatePasswordModal extends React.PureComponent {
+class UpdateGroupAndRoleModal extends React.PureComponent {
 	static propTypes = {
 		form: PropTypes.object.isRequired,
 		successCallback: PropTypes.func,
@@ -35,6 +35,46 @@ class UpdatePasswordModal extends React.PureComponent {
 	state = {
 		showModal: true,
 		loading: false,
+		groupData: Object.values(enumCommon.group).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		group: undefined,
+		roleData: Object.values(enumCommon.role).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		role: undefined,
+	};
+	
+	/**
+	 * 组变化
+	 * @param {string | undefined} group
+	 */
+	handleGroupChange = (group) => {
+		let roleData = [];
+		const hasData = Object.values(enumCommon.group).find(value => value.value === group);
+		if (hasData) {
+			roleData = hasData.children.map(value => ({
+				value: value.value,
+				label: value.label,
+			}));
+		}
+		this.setState({
+			roleData,
+			group,
+			role: undefined,
+		}, () => this.props.form.resetFields());
+	};
+	
+	/**
+	 * 角色变化
+	 * @param {string | undefined} role
+	 */
+	handleRoleChange = (role) => {
+		this.setState({role});
 	};
 	
 	handleSubmit = () => {
@@ -42,12 +82,10 @@ class UpdatePasswordModal extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				self.setState({loading: true}, () => {
-					const {oldPassword, newPassword} = values;
 					const userId = self.props.userId;
-					request.postJSON(enumAPI.userUpdatePassword, {
+					request.postJSON(enumAPI.userUpdateGroupAndRole, {
 						userId,
-						oldPassword: crypto.hmacSHA512(oldPassword, oldPassword),
-						newPassword: crypto.hmacSHA512(newPassword, newPassword),
+						...values,
 					}).then(() => {
 						self.setState({showModal: false}, () => {
 							isFunction(self.props.successCallback) && self.props.successCallback();
@@ -58,14 +96,6 @@ class UpdatePasswordModal extends React.PureComponent {
 				});
 			}
 		});
-	};
-	
-	handleConfirmPassword = (rule, value, callback) => {
-		if (value && value !== this.props.form.getFieldValue('newPassword')) {
-			callback('两次输入的密码不一致');
-		} else {
-			callback();
-		}
 	};
 	
 	render() {
@@ -89,60 +119,55 @@ class UpdatePasswordModal extends React.PureComponent {
 					onSubmit={this.handleSubmit}
 				>
 					<Form.Item
-						label="原始密码"
+						label="组"
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator('oldPassword', {
+						{getFieldDecorator('group', {
+							initialValue: this.state.group,
 							rules: [
 								{
 									required: true,
-									message: '请填写原始密码',
-								},
-								{
-									pattern: regExpHelper.password(),
-									message: '密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一',
+									message: '请选择分组',
 								},
 							],
 						})(
-							<Input type="password" placeholder="请填写原始密码"/>,
+							<Select
+								onChange={group => this.handleGroupChange(group)}
+								placeholder="请选择分组"
+							>
+								{
+									this.state.groupData.map((value => {
+										return <Option key={value.value}>{value.label}</Option>;
+									}))
+								}
+							</Select>,
 						)}
 					</Form.Item>
 					<Form.Item
-						label="新密码"
+						label="角色"
 						hasFeedback
 						{...formItemLayout}
 					>
-						{getFieldDecorator('newPassword', {
+						{getFieldDecorator('role', {
+							initialValue: this.state.role,
 							rules: [
 								{
 									required: true,
-									message: '请填写新密码',
-								},
-								{
-									pattern: regExpHelper.password(),
-									message: '密码长度大于等6小于等于16。不能有空格。必须是数字、字母、下划线之一',
+									message: '请选择角色',
 								},
 							],
 						})(
-							<Input type="password" placeholder="请填写新密码"/>,
-						)}
-					</Form.Item>
-					<Form.Item
-						label="确认密码"
-						hasFeedback
-						{...formItemLayout}
-					>
-						{getFieldDecorator('confirmNewPassword', {
-							rules: [
+							<Select
+								onChange={role => this.handleRoleChange(role)}
+								placeholder="请选择角色"
+							>
 								{
-									required: true,
-									message: '请再次填写新密码',
-								},
-								{validator: this.handleConfirmPassword},
-							],
-						})(
-							<Input type="password" placeholder="请再次填写新密码"/>,
+									this.state.roleData.map((value => {
+										return <Option key={value.value}>{value.label}</Option>;
+									}))
+								}
+							</Select>,
 						)}
 					</Form.Item>
 				</Form>
@@ -151,4 +176,4 @@ class UpdatePasswordModal extends React.PureComponent {
 	}
 }
 
-export default Form.create()(UpdatePasswordModal);
+export default Form.create()(UpdateGroupAndRoleModal);

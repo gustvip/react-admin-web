@@ -28,6 +28,7 @@ const API = {
 	userUpdatePassword: _proxyAPI('/user/updatePassword'), // 更新密码
 	userResetPassword: _proxyAPI('/user/resetPassword'), // 重置密码
 	userList: _proxyAPI('/user/list'), // 获取用户列表
+	userUpdateGroupAndRole: _proxyAPI('/user/updateGroupAndRole'), // 更改角色和组
 	
 	/*
    |----------------------------------------------------------------

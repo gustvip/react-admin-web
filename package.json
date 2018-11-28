@@ -46,6 +46,7 @@
 		"babel-preset-stage-0": "^6.24.1",
 		"bundle-loader": "^0.5.5",
 		"cli-color": "^1.4.0",
+		"compression-webpack-plugin": "^2.0.0",
 		"copy-webpack-plugin": "^4.5.1",
 		"cross-env": "^5.2.0",
 		"css-loader": "^1.0.0",
@@ -66,7 +67,7 @@
 		"less": "3.8.1",
 		"less-loader": "^4.0.5",
 		"lint-staged": "^8.0.4",
-		"mini-css-extract-plugin": "^0.4.0",
+		"mini-css-extract-plugin": "^0.4.5",
 		"node-sass": "^4.9.3",
 		"optimize-css-assets-webpack-plugin": "^5.0.0",
 		"papaparse": "^4.6.0",
@@ -87,12 +88,12 @@
 		"uglifyjs-webpack-plugin": "2.0.1",
 		"url-loader": "^1.1.1",
 		"vtk.js": "^7.8.4",
-		"webpack": "^4.25.1",
+		"webpack": "^4.26.1",
 		"webpack-bundle-analyzer": "3.0.2",
 		"webpack-cli": "^3.1.0",
 		"webpack-dev-server": "^3.1.10",
 		"webpack-merge": "^4.1.4",
-		"webpackbar": "^3.0.3"
+		"webpackbar": "^3.1.3"
 	},
 	"scripts": {
 		"test": "jest --config jest.js --color",

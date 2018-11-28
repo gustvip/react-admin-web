@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
-
+const compressionPlugin = require('compression-webpack-plugin');
 const resourceBaseName = require('./util').resourceBaseName;
 
 module.exports = merge(baseConfig, {
@@ -44,6 +44,7 @@ module.exports = merge(baseConfig, {
 			new optimizeCssAssetsPlugin(),
 		],
 	},
+	
 	module: {
 		rules: [
 			{
@@ -94,4 +95,17 @@ module.exports = merge(baseConfig, {
 			},
 		],
 	},
+	
+	plugins: [
+		new compressionPlugin({
+			test: /(\.js$)|(\.css$)/,
+			cache: true,
+			algorithm: 'gzip',
+			compressionOptions: {
+				level: 9,
+				threshold: 0,
+				minRatio: .8,
+			},
+		}),
+	],
 });

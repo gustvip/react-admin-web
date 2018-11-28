@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import styles from './list.scss';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
+import UpdateGroupAndRoleModal from 'templates/toolComponents/updateGroupAndRoleModal';
+import AddUserModal from 'templates/toolComponents/addUserModal';
 
 const Option = Select.Option;
 export default class List extends React.PureComponent {
@@ -19,42 +21,45 @@ export default class List extends React.PureComponent {
 		router: PropTypes.object.isRequired,
 	};
 	
-	state = {
-		currentPage: 1,
-		pageSize: enumCommon.pagination.pageSize,
-		count: 10,
-		totalPages: 1,
-		dataSource: [],
-		selectedRowKeys: [],
-		selectedRows: [],
-		search: '',
-		
-		groupData: Object.values(enumCommon.group).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
-		group: undefined,
-		roleData: Object.values(enumCommon.role).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
-		role: undefined,
-		statusData: Object.values(enumCommon.status).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
-		status: undefined,
-		sexData: Object.values(enumCommon.userSex).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
-		sex: undefined,
-		isTableLoading: false,
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentPage: 1,
+			pageSize: enumCommon.pagination.pageSize,
+			count: 10,
+			totalPages: 1,
+			dataSource: [],
+			selectedRowKeys: [],
+			selectedRows: [],
+			search: '',
+			
+			groupData: Object.values(enumCommon.group).
+				map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			group: undefined,
+			roleData: Object.values(enumCommon.role).
+				map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			role: undefined,
+			statusData: Object.values(enumCommon.status).
+				map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			status: undefined,
+			sexData: Object.values(enumCommon.userSex).
+				map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			sex: undefined,
+			isTableLoading: false,
+		};
+	}
 	
 	componentDidMount() {
 		this.getList({
@@ -194,10 +199,25 @@ export default class List extends React.PureComponent {
 		});
 	};
 	
-	/**
-	 * 编辑
-	 * @param {Object} record
-	 */
+	handleAddUser = () => {
+		T.helper.renderModal(
+			<AddUserModal
+				successCallback={() => {
+					T.prompt.success('增加成功');
+					this.getList({
+						currentPage: this.state.currentPage,
+						pageSize: this.state.pageSize,
+						search: this.state.search,
+						group: this.state.group,
+						role: this.state.role,
+						status: this.state.status,
+						sex: this.state.status,
+					});
+				}}
+				failCallback={(info) => T.prompt.error(info.msg)}
+			/>,
+		);
+	};
 	handleEdit = (record) => {
 		T.helper.renderModal(
 			<UpdateUserInfoModal
@@ -219,10 +239,6 @@ export default class List extends React.PureComponent {
 		);
 	};
 	
-	/**
-	 * 更新密码
-	 * @param {Object} record
-	 */
 	handleUpdatePassword = (record) => {
 		T.helper.renderModal(
 			<UpdatePasswordModal
@@ -244,20 +260,34 @@ export default class List extends React.PureComponent {
 		);
 	};
 	
-	/**
-	 * 重置密码
-	 * @param {Object} record
-	 */
 	handleResetPassword = (record) => {
-	
+		T.prompt.confirm({
+			onOk() {
+				T.auth.resetUserPassword(record.userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
+			},
+			title: '确认重置密码码？',
+		});
 	};
 	
-	/**
-	 * 更新组和角色
-	 * @param {Object} record
-	 */
 	handleEditGroupAndRole = (record) => {
-	
+		T.helper.renderModal(
+			<UpdateGroupAndRoleModal
+				userId={record.userId}
+				successCallback={() => {
+					T.prompt.success('更新成功');
+					this.getList({
+						currentPage: this.state.currentPage,
+						pageSize: this.state.pageSize,
+						search: this.state.search,
+						group: this.state.group,
+						role: this.state.role,
+						status: this.state.status,
+						sex: this.state.status,
+					});
+				}}
+				failCallback={(info) => T.prompt.error(info.msg)}
+			/>,
+		);
 	};
 	
 	get columns() {
@@ -440,6 +470,15 @@ export default class List extends React.PureComponent {
 		const self = this;
 		return (
 			<React.Fragment>
+				<MainHeader
+				>
+					<Button
+						type="primary"
+						onClick={() => this.handleAddUser()}
+					>
+						新增用户
+					</Button>
+				</MainHeader>
 				<MainHeader
 				>
 					<Input.Search
