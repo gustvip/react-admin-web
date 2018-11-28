@@ -29,6 +29,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 	static propTypes = {
 		form: PropTypes.object.isRequired,
 		successCallback: PropTypes.func,
+		failCallback: PropTypes.func,
 		userId: PropTypes.number.isRequired,
 		className: PropTypes.string,
 		option: PropTypes.object,
@@ -63,25 +64,17 @@ class UpdateUserInfoModal extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				self.setState({loading: true}, () => {
-					const {userName, userEmail, userPhone, userSex, name, userDescription} = values;
 					const userId = self.props.userId;
-					
 					request.postJSON(enumAPI.userUpdateInfo, {
 						userId,
-						userName,
-						userEmail,
-						userPhone,
-						userSex,
-						name,
-						userDescription,
+						...values,
 					}).then(() => {
 						self.setState({showModal: false}, () => {
 							isFunction(self.props.successCallback) && self.props.successCallback();
 						});
 					}).catch(info => {
-						prompt.error(info.msg);
-						self.setState({loading: false});
-					});
+						isFunction(self.props.failCallback) && self.props.failCallback(info);
+					}).finally(() => self.setState({loading: false}));
 				});
 			}
 		});
@@ -214,23 +207,6 @@ class UpdateUserInfoModal extends React.PureComponent {
 									})
 								}
 							</RadioGroup>,
-						)}
-					</Form.Item>
-					<Form.Item
-						label="描述"
-						{...formItemLayout}
-					>
-						{getFieldDecorator('userDescription', {
-							initialValue: this.state.userDescription,
-							rules: [
-								{required: false},
-								{
-									max: 50,
-									message: '描述不能超过50字',
-								},
-							],
-						})(
-							<Input.TextArea placeholder="请填写描述"/>,
 						)}
 					</Form.Item>
 				</Form>

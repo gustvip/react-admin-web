@@ -2,15 +2,18 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import {Button, Input, Table} from 'antd';
-import enumAuth from '../../../../constants/enumAuth';
+import {Button, Input, Table, Select} from 'antd';
+import * as enumCommon from 'constants/app/common';
+import enumAuth from 'constants/enumAuth';
 import MainHeader from 'templates/toolComponents/mainHeader';
 import * as webAPI from '../../webAPI/list';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {userSex, role, status} from 'constants/app/common';
 import styles from './list.scss';
+import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
+import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
 
+const Option = Select.Option;
 export default class List extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
@@ -18,36 +21,90 @@ export default class List extends React.PureComponent {
 	
 	state = {
 		currentPage: 1,
-		pageSize: 10,
+		pageSize: enumCommon.pagination.pageSize,
 		count: 10,
 		totalPages: 1,
 		dataSource: [],
 		selectedRowKeys: [],
 		selectedRows: [],
 		search: '',
+		
+		groupData: Object.values(enumCommon.group).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		group: undefined,
+		roleData: Object.values(enumCommon.role).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		role: undefined,
+		statusData: Object.values(enumCommon.status).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		status: undefined,
+		sexData: Object.values(enumCommon.userSex).
+			map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
+		sex: undefined,
+		isTableLoading: false,
 	};
 	
 	componentDidMount() {
-		this.getList(1, this.state.pageSize, this.state.search);
+		this.getList({
+			currentPage: 1,
+			pageSize: this.state.pageSize,
+			search: this.state.search,
+			group: this.state.group,
+			role: this.state.role,
+			status: this.state.status,
+			sex: this.state.sex,
+		});
 	}
 	
-	getList = (currentPage, pageSize, search) => {
-		webAPI.getUserList({
-			currentPage,
-			pageSize,
-			search,
-		}).then(info => {
-			this.setState({
-				search,
-				currentPage,
-				pageSize: info.data.pageSize,
-				count: info.data.count,
-				totalPages: info.data.totalPages,
-				dataSource: info.data.data,
-				selectedRowKeys: [],
-				selectedRows: [],
-			});
-		}).catch(info => T.prompt.error(info.msg));
+	/**
+	 * @param {number} condition.currentPage
+	 * @param {number} condition.pageSize
+	 * @param {string} condition.search
+	 * @param {string | undefined} condition.group
+	 * @param {string | undefined} condition.role
+	 * @param {string | undefined} condition.status
+	 * @param {string | undefined} condition.sex
+	 */
+	getList = (condition) => {
+		this.setState({isTableLoading: true}, () => {
+			webAPI.getUserList({
+				currentPage: condition.currentPage,
+				pageSize: condition.pageSize,
+				search: condition.search,
+				group: condition.group,
+				role: condition.role,
+				status: condition.status,
+				sex: condition.sex,
+			}).then(info => {
+				this.setState({
+					currentPage: condition.currentPage,
+					pageSize: info.data.pageSize,
+					search: condition.search,
+					group: condition.group,
+					role: condition.role,
+					status: condition.status,
+					sex: condition.sex,
+					
+					count: info.data.count,
+					totalPages: info.data.totalPages,
+					dataSource: info.data.data,
+					selectedRowKeys: [],
+					selectedRows: [],
+				});
+			}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
+		});
 	};
 	
 	handleDelete = () => {
@@ -55,64 +112,279 @@ export default class List extends React.PureComponent {
 		T.prompt.confirm({
 			onOk() {
 				webAPI.deleteUser({userId: self.state.selectedRows.map(value => value.userId)}).
-					then(() => self.getList(1, self.state.pageSize, self.state.search)).
+					then(() => self.getList({
+						currentPage: 1,
+						pageSize: self.state.pageSize,
+						search: self.state.search,
+						group: self.state.group,
+						role: self.state.role,
+						status: self.state.status,
+						sex: self.state.sex,
+					})).
 					catch(info => T.prompt.error(info.msg));
 			},
 		});
 	};
 	
+	handleRecover = () => {
+		const self = this;
+		T.prompt.confirm({
+			onOk() {
+				webAPI.userRecover({userId: self.state.selectedRows.map(value => value.userId)}).
+					then(() => self.getList({
+						currentPage: 1,
+						pageSize: self.state.pageSize,
+						search: self.state.search,
+						group: self.state.group,
+						role: self.state.role,
+						status: self.state.status,
+						sex: self.state.sex,
+					})).
+					catch(info => T.prompt.error(info.msg));
+			},
+			title: '确认恢复吗?',
+		});
+	};
+	
+	handleGroupChange = (group) => {
+		this.getList({
+			currentPage: this.state.currentPage,
+			pageSize: this.state.pageSize,
+			search: this.state.search,
+			group,
+			role: this.state.role,
+			status: this.state.status,
+			sex: this.state.sex,
+		});
+	};
+	
+	handleRoleChange = (role) => {
+		this.getList({
+			currentPage: this.state.currentPage,
+			pageSize: this.state.pageSize,
+			search: this.state.search,
+			group: this.state.group,
+			role,
+			status: this.state.status,
+			sex: this.state.sex,
+		});
+	};
+	
+	handleStatusChange = (status) => {
+		this.getList({
+			currentPage: this.state.currentPage,
+			pageSize: this.state.pageSize,
+			search: this.state.search,
+			group: this.state.group,
+			role: this.state.role,
+			status,
+			sex: this.state.sex,
+		});
+	};
+	
+	handleSexChange = (sex) => {
+		this.getList({
+			currentPage: this.state.currentPage,
+			pageSize: this.state.pageSize,
+			search: this.state.search,
+			group: this.state.group,
+			role: this.state.role,
+			status: this.state.status,
+			sex,
+		});
+	};
+	
+	/**
+	 * 编辑
+	 * @param {Object} record
+	 */
+	handleEdit = (record) => {
+		T.helper.renderModal(
+			<UpdateUserInfoModal
+				userId={record.userId}
+				successCallback={() => {
+					T.prompt.success('更新成功');
+					this.getList({
+						currentPage: this.state.currentPage,
+						pageSize: this.state.pageSize,
+						search: this.state.search,
+						group: this.state.group,
+						role: this.state.role,
+						status: this.state.status,
+						sex: this.state.status,
+					});
+				}}
+				failCallback={(info) => T.prompt.error(info.msg)}
+			/>,
+		);
+	};
+	
+	/**
+	 * 更新密码
+	 * @param {Object} record
+	 */
+	handleUpdatePassword = (record) => {
+		T.helper.renderModal(
+			<UpdatePasswordModal
+				userId={record.userId}
+				successCallback={() => {
+					T.prompt.success('更新成功');
+					this.getList({
+						currentPage: this.state.currentPage,
+						pageSize: this.state.pageSize,
+						search: this.state.search,
+						group: this.state.group,
+						role: this.state.role,
+						status: this.state.status,
+						sex: this.state.status,
+					});
+				}}
+				failCallback={(info) => T.prompt.error(info.msg)}
+			/>,
+		);
+	};
+	
+	/**
+	 * 重置密码
+	 * @param {Object} record
+	 */
+	handleResetPassword = (record) => {
+	
+	};
+	
+	/**
+	 * 更新组和角色
+	 * @param {Object} record
+	 */
+	handleEditGroupAndRole = (record) => {
+	
+	};
+	
 	get columns() {
+		const self = this;
 		return [
 			{
-				title: '姓名',
-				dataIndex: 'name',
-			},
-			{
-				title: '性别',
-				dataIndex: 'userSex',
+				title: 'group',
+				dataIndex: 'group',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'group',
+					});
+				},
 				render(text) {
-					return Object.values(userSex).find(value => value.value === text).label;
+					return Object.values(enumCommon.group).find(value => value.value === text).label;
 				},
 			},
 			{
-				title: '描述',
-				dataIndex: 'userDescription',
+				title: 'role',
+				dataIndex: 'role',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'role',
+					});
+				},
+				render(text) {
+					return Object.values(enumCommon.role).find(value => value.value === text).label;
+				},
 			},
 			{
-				title: '名称',
-				dataIndex: 'userName',
-			},
-			{
-				title: '邮箱',
-				dataIndex: 'userEmail',
-			},
-			{
-				title: '电话',
-				dataIndex: 'userPhone',
-			},
-			{
-				title: '状态',
+				title: 'status',
 				dataIndex: 'status',
 				render(text) {
-					return Object.values(status).find(value => value.value === text).label;
+					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},
 			},
 			{
-				title: '用户类型',
-				dataIndex: 'role',
+				title: 'userSex',
+				dataIndex: 'userSex',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'userSex',
+					});
+				},
 				render(text) {
-					return Object.values(role).find(value => value.value === text).label;
+					return Object.values(enumCommon.userSex).find(value => value.value === text).label;
 				},
 			},
 			{
-				title: '创建时间',
-				dataIndex: 'createdAt',
-				render: val => new Date(val).toLocaleString(),
+				title: 'userName',
+				dataIndex: 'userName',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'userName',
+					});
+				},
 			},
 			{
-				title: '更新时间',
-				dataIndex: 'updatedAt',
-				render: val => new Date(val).toLocaleString(),
+				title: 'userEmail',
+				dataIndex: 'userEmail',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'userEmail',
+					});
+				},
+			},
+			{
+				title: 'userPhone',
+				dataIndex: 'userPhone',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'userPhone',
+					});
+				},
+			},
+			{
+				title: '操作',
+				render(text, record) {
+					return (
+						<React.Fragment>
+							<Button
+								size="small"
+								className="base-gap"
+								type="primary"
+								onClick={() => self.handleEdit(record)}
+							>
+								编辑
+							</Button>
+							<Button
+								size="small"
+								className="base-gap"
+								type="primary"
+								onClick={() => self.handleEditGroupAndRole(record)}
+							>
+								组和角色
+							</Button>
+							<Button
+								size="small"
+								className="base-gap"
+								type="primary"
+								onClick={() => self.handleUpdatePassword(record)}
+							>
+								更改密码
+							</Button>
+							<Button
+								size="small"
+								className="base-gap"
+								type="primary"
+								onClick={() => self.handleResetPassword(record)}
+							>
+								重置密码
+							</Button>
+						</React.Fragment>
+					);
+				},
 			},
 		];
 	}
@@ -120,12 +392,33 @@ export default class List extends React.PureComponent {
 	get pagination() {
 		const self = this;
 		return {
+			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
+			showSizeChanger: true,
 			current: self.state.currentPage,
 			total: self.state.count,
 			pageSize: self.state.pageSize,
-			showQuickJumper: false,
+			showQuickJumper: enumCommon.pagination.showQuickJumper,
 			onChange(currentPage, pageSize) {
-				self.getList(currentPage, pageSize, self.state.search);
+				self.getList({
+					currentPage,
+					pageSize,
+					search: self.state.search,
+					group: self.state.group,
+					role: self.state.role,
+					status: self.state.status,
+					sex: self.state.sex,
+				});
+			},
+			onShowSizeChange(currentPage, pageSize) {
+				self.getList({
+					currentPage: 1,
+					pageSize,
+					search: self.state.search,
+					group: self.state.group,
+					role: self.state.role,
+					status: self.state.status,
+					sex: self.state.sex,
+				});
 			},
 		};
 	}
@@ -149,24 +442,90 @@ export default class List extends React.PureComponent {
 			<React.Fragment>
 				<MainHeader
 				>
-					<React.Fragment>
-						<Button
-							disabled={this.state.selectedRows.length === 0}
-							type="primary"
-							onClick={() => this.handleDelete()}
-						>
-							删除
-						</Button>
-						<Input.Search
-							style={{width: 'auto'}}
-							onChange={event => this.setState({search: event.target.value})}
-							placeholder="请搜索"
-							onSearch={() => this.getList(1, this.state.pageSize, this.state.search)}
-						/>
-					</React.Fragment>
+					<Input.Search
+						style={{width: 150}}
+						onChange={event => this.setState({search: event.target.value})}
+						placeholder="请搜索"
+						onSearch={() => self.getList({
+							currentPage: self.state.currentPage,
+							pageSize: self.state.pageSize,
+							search: self.state.search,
+							group: self.state.group,
+							role: self.state.role,
+							status: self.state.status,
+							sex: self.state.sex,
+						})}
+					/>
+					<Select
+						allowClear
+						value={this.state.group}
+						style={{width: 150}}
+						onChange={group => this.handleGroupChange(group)}
+						placeholder="请选择分组"
+					>
+						{
+							this.state.groupData.map((value => {
+								return <Option key={value.value}>{value.label}</Option>;
+							}))
+						}
+					</Select>
+					<Select
+						allowClear
+						style={{width: 150}}
+						value={this.state.role}
+						onChange={role => this.handleRoleChange(role)}
+						placeholder="请选择角色"
+					>
+						{
+							this.state.roleData.map((value => {
+								return <Option key={value.value}>{value.label}</Option>;
+							}))
+						}
+					</Select>
+					<Select
+						allowClear
+						style={{width: 150}}
+						value={this.state.status}
+						onChange={status => this.handleStatusChange(status)}
+						placeholder="请选择状态"
+					>
+						{
+							this.state.statusData.map((value => {
+								return <Option key={value.value}>{value.label}</Option>;
+							}))
+						}
+					</Select>
+					<Select
+						allowClear
+						style={{width: 150}}
+						value={this.state.sex}
+						onChange={sex => this.handleSexChange(sex)}
+						placeholder="请选择性别"
+					>
+						{
+							this.state.sexData.map((value => {
+								return <Option key={value.value}>{value.label}</Option>;
+							}))
+						}
+					</Select>
+					<Button
+						disabled={this.state.selectedRows.length === 0}
+						type="primary"
+						onClick={() => this.handleDelete()}
+					>
+						删除
+					</Button>
+					<Button
+						disabled={this.state.selectedRows.length === 0}
+						type="primary"
+						onClick={() => this.handleRecover()}
+					>
+						恢复
+					</Button>
 				</MainHeader>
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table
+						loading={this.state.isTableLoading}
 						size="middle"
 						dataSource={self.state.dataSource.map(value => ({
 							...value,

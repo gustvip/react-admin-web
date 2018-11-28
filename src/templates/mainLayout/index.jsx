@@ -206,6 +206,15 @@ export class HeaderLayout extends React.PureComponent {
 		);
 	};
 	
+	handleResetPassword = (userId) => {
+		T.prompt.confirm({
+			onOk() {
+				T.auth.resetUserPassword(userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
+			},
+			title: '确认重置密码码？',
+		});
+	};
+	
 	getUserManage = () => {
 		const userInfo = T.auth.getUserDetailStorageValue();
 		const menu = (
@@ -232,12 +241,7 @@ export class HeaderLayout extends React.PureComponent {
 					修改密码
 				</Menu.Item>
 				<Menu.Item
-					onClick={() => T.prompt.confirm({
-						onOk() {
-							T.auth.resetUserPassword(get(userInfo, 'userId'), noop, (info) => T.prompt.error(info.msg));
-						},
-						title: '确认重置密码码？',
-					})}
+					onClick={() => this.handleResetPassword(get(userInfo, 'userId'))}
 					key={uniqueId()}
 				>
 					重置密码

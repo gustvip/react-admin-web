@@ -181,30 +181,6 @@ class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'createdAt',
-				dataIndex: 'createdAt',
-				render: val => new Date(val).toLocaleString(),
-				sorter(prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'createdAt',
-					});
-				},
-			},
-			{
-				title: 'updatedAt',
-				dataIndex: 'updatedAt',
-				render: val => new Date(val).toLocaleString(),
-				sorter(prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'updatedAt',
-					});
-				},
-			},
-			{
 				title: '操作',
 				render(test, record) {
 					return (
@@ -378,7 +354,6 @@ class List extends React.PureComponent {
 					>
 						{
 							this.state.statusValue.map((value => {
-								console.log(value);
 								return <Option value={value.value} key={value.value}>{value.label}</Option>;
 							}))
 						}

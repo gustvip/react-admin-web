@@ -22,6 +22,7 @@ const API = {
 	userLoginOut: _proxyAPI('/user/loginOut'), // 安全退出
 	userAdd: _proxyAPI('/user/add'), // 新增用户
 	userDelete: _proxyAPI('/user/delete'), // 删除用户
+	userRecover: _proxyAPI('/user/recover'), // 恢复用户
 	userDetail: _proxyAPI('/user/detail'), // 获取用户详情
 	userUpdateInfo: _proxyAPI('/user/updateInfo'), // 更新用户信息
 	userUpdatePassword: _proxyAPI('/user/updatePassword'), // 更新密码

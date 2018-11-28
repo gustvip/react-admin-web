@@ -27,6 +27,7 @@ class UpdatePasswordModal extends React.PureComponent {
 	static propTypes = {
 		form: PropTypes.object.isRequired,
 		successCallback: PropTypes.func,
+		failCallback: PropTypes.func,
 		userId: PropTypes.number.isRequired,
 		className: PropTypes.string,
 		option: PropTypes.object,
@@ -53,9 +54,8 @@ class UpdatePasswordModal extends React.PureComponent {
 							isFunction(self.props.successCallback) && self.props.successCallback();
 						});
 					}).catch(info => {
-						prompt.error(info.msg);
-						self.setState({loading: false});
-					});
+						isFunction(self.props.successCallback) && self.props.successCallback(info);
+					}).finally(() => self.setState({loading: false}));
 				});
 			}
 		});

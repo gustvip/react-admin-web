@@ -185,6 +185,9 @@ class List extends React.PureComponent {
 			{
 				title: 'group',
 				dataIndex: 'group',
+				render(text) {
+					return Object.values(enumCommon.group).find(value => value.value === text).label;
+				},
 				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
@@ -196,6 +199,9 @@ class List extends React.PureComponent {
 			{
 				title: 'role',
 				dataIndex: 'role',
+				render(text) {
+					return Object.values(enumCommon.role).find(value => value.value === text).label;
+				},
 				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
@@ -223,30 +229,6 @@ class List extends React.PureComponent {
 						prev,
 						now,
 						property: 'label',
-					});
-				},
-			},
-			{
-				title: 'createdAt',
-				dataIndex: 'createdAt',
-				render: val => new Date(val).toLocaleString(),
-				sorter(prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'createdAt',
-					});
-				},
-			},
-			{
-				title: 'updatedAt',
-				dataIndex: 'updatedAt',
-				render: val => new Date(val).toLocaleString(),
-				sorter(prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'updatedAt',
 					});
 				},
 			},
