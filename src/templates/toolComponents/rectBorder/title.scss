@@ -1,0 +1,90 @@
+@import "baseStyleVarity";
+
+$w: 16px;
+$h: 8px;
+$line-width: 2px;
+
+.container {
+	padding: $base-btn-gap;
+	position: relative;
+	.left-top {
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: $w;
+			height: $line-width;
+			background-color: $base-primary-color;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: $h;
+			width: $line-width;
+			background-color: $base-primary-color;
+		}
+	}
+	.left-bottom {
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: $w;
+			height: $line-width;
+			background-color: $base-primary-color;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: $h;
+			width: $line-width;
+			background-color: $base-primary-color;
+		}
+	}
+	.right-top {
+		&::before {
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: $w;
+			height: $line-width;
+			background-color: $base-primary-color;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: $h;
+			width: $line-width;
+			background-color: $base-primary-color;
+		}
+	}
+	.right-bottom {
+		&::before {
+			content: "";
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			width: $w;
+			height: $line-width;
+			background-color: $base-primary-color;
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			height: $h;
+			width: $line-width;
+			background-color: $base-primary-color;
+		}
+	}
+}
