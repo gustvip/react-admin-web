@@ -43,7 +43,6 @@ class UpdateUserInfoModal extends React.PureComponent {
 				userPhone: info.data.userPhone,
 				userSex: info.data.userSex,
 				name: info.data.name,
-				userDescription: info.data.userDescription,
 			});
 		}).catch(info => prompt.error(info.msg));
 	}
@@ -56,7 +55,6 @@ class UpdateUserInfoModal extends React.PureComponent {
 		userPhone: '',
 		userSex: '',
 		name: '',
-		userDescription: '',
 	};
 	
 	handleSubmit = () => {

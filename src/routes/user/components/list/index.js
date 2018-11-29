@@ -26,7 +26,7 @@ export default class List extends React.PureComponent {
 		this.state = {
 			currentPage: 1,
 			pageSize: enumCommon.pagination.pageSize,
-			count: 10,
+			count: enumCommon.pagination.pageSize,
 			totalPages: 1,
 			dataSource: [],
 			selectedRowKeys: [],
@@ -109,6 +109,18 @@ export default class List extends React.PureComponent {
 					selectedRows: [],
 				});
 			}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
+		});
+	};
+	
+	handleSearch = () => {
+		this.getList({
+			currentPage: this.state.currentPage,
+			pageSize: this.state.pageSize,
+			search: this.state.search,
+			group: this.state.group,
+			role: this.state.role,
+			status: this.state.status,
+			sex: this.state.sex,
 		});
 	};
 	
@@ -485,15 +497,7 @@ export default class List extends React.PureComponent {
 						style={{width: 150}}
 						onChange={event => this.setState({search: event.target.value})}
 						placeholder="请搜索"
-						onSearch={() => self.getList({
-							currentPage: self.state.currentPage,
-							pageSize: self.state.pageSize,
-							search: self.state.search,
-							group: self.state.group,
-							role: self.state.role,
-							status: self.state.status,
-							sex: self.state.sex,
-						})}
+						onSearch={() => this.handleSearch()}
 					/>
 					<Select
 						allowClear

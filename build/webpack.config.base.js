@@ -120,7 +120,7 @@ module.exports = {
 	module: {
 		rules: [
 			...staticResource,
-			// ...vtkRules,
+			...vtkRules,
 			
 			{
 				test: /\.css$/,

@@ -34,7 +34,7 @@ class List extends React.PureComponent {
 	state = {
 		currentPage: 1,
 		pageSize: enumCommon.pagination.pageSize,
-		count: 10,
+		count: enumCommon.pagination.pageSize,
 		totalPages: 1,
 		selectedRowKeys: [],
 		selectedRows: [],
