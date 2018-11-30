@@ -9,23 +9,23 @@
 	},
 	"bPlatformCategoryTestParseFile": {
 		"value": "bPlatformCategoryTestParseFile",
-		"label": "测试文件解析"
+		"label": "文件解析"
 	},
 	"bPlatformCategoryTestDemo": {
 		"value": "bPlatformCategoryTestDemo",
-		"label": "测试API的demo"
+		"label": "demo"
 	},
 	"bPlatformCategoryUserList": {
 		"value": "bPlatformCategoryUserList",
-		"label": "用户管理列表"
+		"label": "列表"
 	},
 	"bPlatformCategoryAdministratorGroupList": {
 		"value": "bPlatformCategoryAdministratorGroupList",
-		"label": "超级管理员权限分配"
+		"label": "权限分配"
 	},
 	"bPlatformCategoryAdministratorAuthList": {
 		"value": "bPlatformCategoryAdministratorAuthList",
-		"label": "超级管理员权限列表"
+		"label": "权限列表"
 	},
 	"bPlatformCategoryAdministrator": {
 		"value": "bPlatformCategoryAdministrator",

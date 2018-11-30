@@ -5,11 +5,12 @@ import helper from 'utils/core/helper';
 import flowRight from 'lodash/flowRight';
 
 /**
- * @type {{rootPath: string, login: string, testDemo: string, testParseFile: string, userList: string, administratorAuthList: string, administratorGroupList: string}}
+ * @type {{rootPath: string, login: string, noPermit: string, testDemo: string, testParseFile: string, userList: string, administratorAuthList: string, administratorGroupList: string}}
  */
 const enumRouter = {
 	rootPath: '',
 	login: 'login',
+	noPermit: 'noPermit',
 	testDemo: 'test/demo',
 	testParseFile: 'test/parseFile',
 	

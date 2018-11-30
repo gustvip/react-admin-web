@@ -17,7 +17,6 @@ import isEqual from 'lodash/isEqual';
 import flowRight from 'lodash/flowRight';
 import get from 'lodash/get';
 import uniqueId from 'lodash/uniqueId';
-import noop from 'lodash/noop';
 
 /**
  * 获取图标字体
@@ -59,44 +58,48 @@ class SiderMenu extends React.PureComponent {
 	getMenu = (data, locationPathname, openKeys = []) => {
 		const self = this;
 		openKeys = Array.isArray(openKeys) ? openKeys : [];
-		if (T.helper.checkArray(data)) {
-			return data.map((item) => {
-				const defaultOpenKeys = [].concat(openKeys);
-				if (!T.helper.checkArray(item.children)) {
-					/**
-					 * 判断children是为长度大于0的数组
-					 * 是则返回submenu
-					 * 不是返回menu.Item
-					 * 绑定Submenu的click事件---menu.Item不需要(已经跳转到对应的url---组件卸载---组件渲染)
-					 * 是否需要添加图标字体
-					 * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
-					 */
-					return (
-						<Menu.Item key={item.id} className={T.classNames({active: item.url[0] === locationPathname})}>
-							<Link to={item.url[0]}>
-								<span>{getIcon(item.icon)}<span>{item.label}</span></span>
-							</Link>
-						</Menu.Item>
-					);
-				}
+		return data.filter(value => {
+			if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
+				return T.auth.hasAuth(value.auth);
+			} else {
+				return true;
+			}
+		}).map((item) => {
+			const defaultOpenKeys = [].concat(openKeys);
+			if (!T.helper.checkArray(item.children)) {
 				/**
-				 * 设置可能的defaulOpenKeys
-				 * 绑定Submenu的onClick事件
-				 * 将子defaultOpenKeys传下去
-				 * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
+				 * 判断children是为长度大于0的数组
+				 * 是则返回submenu
+				 * 不是返回menu.Item
+				 * 绑定Submenu的click事件---menu.Item不需要(已经跳转到对应的url---组件卸载---组件渲染)
+				 * 是否需要添加图标字体
+				 * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
 				 */
-				defaultOpenKeys.push(item.id);
 				return (
-					<Menu.SubMenu
-						key={item.id}
-						title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
-						onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
-					>
-						{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
-					</Menu.SubMenu>
+					<Menu.Item key={item.id} className={T.classNames({active: get(item, 'url[0]') === locationPathname})}>
+						<Link to={get(item, 'url[0]')}>
+							<span>{getIcon(item.icon)}<span>{item.label}</span></span>
+						</Link>
+					</Menu.Item>
 				);
-			});
-		}
+			}
+			/**
+			 * 设置可能的defaulOpenKeys
+			 * 绑定Submenu的onClick事件
+			 * 将子defaultOpenKeys传下去
+			 * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
+			 */
+			defaultOpenKeys.push(item.id);
+			return (
+				<Menu.SubMenu
+					key={item.id}
+					title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
+					onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
+				>
+					{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
+				</Menu.SubMenu>
+			);
+		});
 	};
 	
 	/**
@@ -164,17 +167,18 @@ export class HeaderLayout extends React.PureComponent {
 	
 	getTopRoute = () => {
 		const self = this;
+		const initialValue = get(EnumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1), 'url[0]');
 		return (
 			<div className={styles['drop-down-menu-container']}>
 				<Select
 					onChange={value => self.context.router.history.push(value)}
-					value={EnumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1).url[0]}
+					value={initialValue}
 				>
 					{
-						EnumMenus.map((item, index) => {
+						EnumMenus.map((value) => {
 							return (
-								<Select.Option key={index} value={item.url[0]}>
-									<Link to={item.url[0]}>{item.label}</Link>
+								<Select.Option key={value.id} value={get(value, 'url[0]')}>
+									<Link to={get(value, 'url[0]')}>{value.label}</Link>
 								</Select.Option>
 							);
 						})
@@ -189,15 +193,21 @@ export class HeaderLayout extends React.PureComponent {
 		return (
 			<div className={styles['category-menu-container']}>
 				{
-					getCategoryRoute(self.locationPathname).map((item, index) => {
+					getCategoryRoute(self.locationPathname).filter(value => {
+						if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
+							return T.auth.hasAuth(value.auth);
+						} else {
+							return true;
+						}
+					}).map((value) => {
 						return (
 							<Link
-								className={T.helper.classNames('')({[styles.active]: item.url.indexOf(self.locationPathname) !== -1})}
-								key={index}
-								to={item.url[0]}
+								className={T.helper.classNames('')({[styles.active]: value.url.indexOf(self.locationPathname) !== -1})}
+								key={value.id}
+								to={get(value, 'url[0]')}
 							>
-								{getIcon(item.icon)}
-								{item.label}
+								{getIcon(value.icon)}
+								{value.label}
 							</Link>
 						);
 					})
@@ -277,7 +287,6 @@ export class HeaderLayout extends React.PureComponent {
 						{/* <div className={styles["logo-container"]}>logo</div>*/}
 						
 						{/* 一级路由 */}
-						{this.getTopRoute()}
 						
 						{/* 分类路由 */}
 						{this.getCategoryRoute()}

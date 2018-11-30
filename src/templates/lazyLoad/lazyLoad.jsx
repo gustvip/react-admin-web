@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {STORE_INJECT} from 'store.js';
 import {Spin} from 'antd';
 import auth from 'utils/core/auth';
+import enumRouter from 'constants/enumRouter';
 
 /**
  * 定义注入的reducer
@@ -26,6 +27,7 @@ export default class LazyLoadTpl extends React.PureComponent {
 				reducer: PropTypes.func.isRequired,
 			}).isRequired,
 		),
+		auth: PropTypes.string,
 	};
 	
 	state = {
@@ -40,11 +42,11 @@ export default class LazyLoadTpl extends React.PureComponent {
 				`${login.loginUrl}?${defaultQuery}=${encodeURIComponent(window.location.pathname)}`,
 				self.context.router.route.location.state,
 			);
+		} else if (self.props.auth && !auth.hasAuth(self.props.auth)) {
+			self.context.router.history.push(enumRouter.noPermit);
 		} else if (!self.state.Component) {
 			self.props.lazyLoader(Component => {
-				self.setState({
-					Component: Component.default,
-				});
+				self.setState({Component: Component.default});
 			});
 		}
 	}
@@ -52,7 +54,6 @@ export default class LazyLoadTpl extends React.PureComponent {
 	render() {
 		const self = this;
 		const Component = self.state.Component;
-		
 		if (Component) {
 			if (Array.isArray(self.props.reducers) && self.props.reducers.length > 0) {
 				self.context.store.dispatch(injectReducers(self.props.reducers));

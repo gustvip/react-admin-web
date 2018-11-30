@@ -52,7 +52,6 @@ class Login extends React.PureComponent {
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
 					(info) => {
-						console.log(info);
 						self.setState({loading: false});
 						prompt.error(info.msg);
 					},

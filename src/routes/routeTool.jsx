@@ -20,31 +20,18 @@ import flattenDeep from 'lodash/flattenDeep';
 export const DefaultLayout = ({component: Component, layout: LayoutComponent, reducers, auth, ...rest}) => {
 	const LazyComponent = lazyLoad(Component);
 	LayoutComponent = LayoutComponent ? LayoutComponent : DefaultLayoutComponent;
-	if (auth && !Auth.hasAuth(auth)) {
-		return (
-			<Route
-				key={rest.path}
-				{...rest}
-				exact
-				render={() => (
-					<Exception/>
-				)}
-			/>
-		);
-	} else {
-		return (
-			<Route
-				key={rest.path}
-				{...rest}
-				exact
-				render={() => (
-					<LayoutComponent>
-						<LazyComponent reducers={reducers}/>
-					</LayoutComponent>
-				)}
-			/>
-		);
-	}
+	return (
+		<Route
+			key={rest.path}
+			{...rest}
+			exact
+			render={() => (
+				<LayoutComponent>
+					<LazyComponent reducers={reducers} auth={auth}/>
+				</LayoutComponent>
+			)}
+		/>
+	);
 };
 
 /**
