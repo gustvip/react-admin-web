@@ -1,4 +1,24 @@
 {
+	"bPlatformCategoryTest": {
+		"value": "bPlatformCategoryTest",
+		"label": "测试"
+	},
+	"bPlatformCategoryUser": {
+		"value": "bPlatformCategoryUser",
+		"label": "用户管理"
+	},
+	"bPlatformCategoryTestParseFile": {
+		"value": "bPlatformCategoryTestParseFile",
+		"label": "测试文件解析"
+	},
+	"bPlatformCategoryTestDemo": {
+		"value": "bPlatformCategoryTestDemo",
+		"label": "测试API的demo"
+	},
+	"bPlatformCategoryUserList": {
+		"value": "bPlatformCategoryUserList",
+		"label": "用户管理列表"
+	},
 	"bPlatformCategoryAdministratorGroupList": {
 		"value": "bPlatformCategoryAdministratorGroupList",
 		"label": "超级管理员权限分配"

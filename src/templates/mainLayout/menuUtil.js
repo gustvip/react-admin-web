@@ -31,7 +31,13 @@ export const EnumMenus = (() => {
 		let resultChildren = [];
 		
 		if (Array.isArray(children) && children.length) {
-			resultChildren = children.map((item) => {
+			resultChildren = children.filter(value => {
+				if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
+					return T.auth.hasAuth(value.auth);
+				} else {
+					return true;
+				}
+			}).map((item) => {
 				if (Array.isArray(item.children) && item.children.length) {
 					const result = formatData(item.children);
 					resultUrl = resultUrl.concat(result.resultUrl);
@@ -76,7 +82,13 @@ export const EnumMenus = (() => {
 		};
 	};
 	
-	const menuData = EnumDefaultMenus.map((item) => {
+	const menuData = EnumDefaultMenus.filter(value => {
+		if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
+			return T.auth.hasAuth(value.auth);
+		} else {
+			return true;
+		}
+	}).map((item) => {
 		const result = formatData(item.children);
 		/**
 		 * Url和category的映射

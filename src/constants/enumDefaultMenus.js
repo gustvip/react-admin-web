@@ -5,6 +5,7 @@
 import helper from 'utils/core/helper';
 import EnumRouter from './enumRouter';
 import uniqueId from 'lodash/uniqueId';
+import enumAuth from 'constants/enumAuth';
 
 /**
  * Icon 类型
@@ -17,17 +18,20 @@ export const EnumIconTypes = helper.immutable({
 
 export default helper.immutable([
 	{
+		auth: enumAuth.bPlatform.value,
 		label: '大栏目',
 		value: 'data_platform',
 		url: EnumRouter.administratorAuthList,
 		id: uniqueId(),
 		children: [
 			{
+				auth: enumAuth.bPlatformCategory.value,
 				label: '小栏目',
 				url: EnumRouter.administratorAuthList,
 				id: uniqueId(),
 				children: [
 					{
+						auth: enumAuth.bPlatformCategoryAdministrator.value,
 						label: '超级管理员',
 						url: EnumRouter.administratorAuthList,
 						icon: {
@@ -37,6 +41,7 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
+								auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 								label: '权限枚举',
 								url: EnumRouter.administratorAuthList,
 								icon: {
@@ -47,6 +52,7 @@ export default helper.immutable([
 								children: [],
 							},
 							{
+								auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
 								label: '权限分配',
 								url: EnumRouter.administratorGroupList,
 								icon: {
@@ -59,6 +65,7 @@ export default helper.immutable([
 						],
 					},
 					{
+						auth: enumAuth.bPlatformCategoryUser.value,
 						label: '用户管理',
 						url: EnumRouter.userList,
 						icon: {
@@ -68,6 +75,7 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
+								auth: enumAuth.bPlatformCategoryUserList.value,
 								label: '用户列表',
 								url: EnumRouter.userList,
 								icon: {
@@ -80,6 +88,7 @@ export default helper.immutable([
 						],
 					},
 					{
+						auth: enumAuth.bPlatformCategoryTest.value,
 						label: 'API测试',
 						url: EnumRouter.testDemo,
 						icon: {
@@ -89,6 +98,7 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
+								auth: enumAuth.bPlatformCategoryTestDemo.value,
 								label: '练习API',
 								url: EnumRouter.testDemo,
 								icon: {
@@ -99,6 +109,7 @@ export default helper.immutable([
 								children: [],
 							},
 							{
+								auth: enumAuth.bPlatformCategoryTestParseFile.value,
 								label: '解析文件',
 								url: EnumRouter.testParseFile,
 								icon: {
