@@ -285,6 +285,8 @@ export default class List extends React.PureComponent {
 		T.helper.renderModal(
 			<UpdateGroupAndRoleModal
 				userId={record.userId}
+				group={record.group}
+				role={record.role}
 				successCallback={() => {
 					T.prompt.success('更新成功');
 					this.getList({

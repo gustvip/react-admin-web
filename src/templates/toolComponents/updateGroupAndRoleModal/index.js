@@ -28,26 +28,31 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 		successCallback: PropTypes.func,
 		failCallback: PropTypes.func,
 		userId: PropTypes.number.isRequired,
+		group: PropTypes.string.isRequired,
+		role: PropTypes.string.isRequired,
 		className: PropTypes.string,
 		option: PropTypes.object,
 	};
 	
-	state = {
-		showModal: true,
-		loading: false,
-		groupData: Object.values(enumCommon.group).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
-		group: undefined,
-		roleData: Object.values(enumCommon.role).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
-		role: undefined,
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			showModal: true,
+			loading: false,
+			groupData: Object.values(enumCommon.group).
+				map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			group: props.group,
+			roleData: Object.values(enumCommon.role).
+				map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			role: props.role,
+		};
+	}
 	
 	/**
 	 * 组变化

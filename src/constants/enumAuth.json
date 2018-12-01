@@ -1,42 +1,66 @@
 {
+	"sAdministratorAuthUpdate": {
+		"value": "sAdministratorAuthUpdate",
+		"label": "s更新权限枚举"
+	},
+	"sAdministratorAuthRecover": {
+		"value": "sAdministratorAuthRecover",
+		"label": "s恢复权限枚举"
+	},
+	"sAdministratorAuthDelete": {
+		"value": "sAdministratorAuthDelete",
+		"label": "s删除权限枚举"
+	},
+	"sAdministratorAuthAdd": {
+		"value": "sAdministratorAuthAdd",
+		"label": "s添加权限枚举"
+	},
+	"sAdministratorAuthList": {
+		"value": "sAdministratorAuthList",
+		"label": "s获取权限枚举列表"
+	},
+	"sAdministratorAuthDownload": {
+		"value": "sAdministratorAuthDownload",
+		"label": "s下载权限枚举json"
+	},
 	"bPlatformCategoryTest": {
 		"value": "bPlatformCategoryTest",
-		"label": "测试"
+		"label": "b测试"
 	},
 	"bPlatformCategoryUser": {
 		"value": "bPlatformCategoryUser",
-		"label": "用户管理"
+		"label": "b用户管理"
 	},
 	"bPlatformCategoryTestParseFile": {
 		"value": "bPlatformCategoryTestParseFile",
-		"label": "文件解析"
+		"label": "b测试文件解析"
 	},
 	"bPlatformCategoryTestDemo": {
 		"value": "bPlatformCategoryTestDemo",
-		"label": "demo"
+		"label": "b测试demo"
 	},
 	"bPlatformCategoryUserList": {
 		"value": "bPlatformCategoryUserList",
-		"label": "列表"
+		"label": "b用户列表"
 	},
 	"bPlatformCategoryAdministratorGroupList": {
 		"value": "bPlatformCategoryAdministratorGroupList",
-		"label": "权限分配"
+		"label": "b超级管理员权限分配"
 	},
 	"bPlatformCategoryAdministratorAuthList": {
 		"value": "bPlatformCategoryAdministratorAuthList",
-		"label": "权限列表"
+		"label": "b超级管理员权限列表"
 	},
 	"bPlatformCategoryAdministrator": {
 		"value": "bPlatformCategoryAdministrator",
-		"label": "超级管理员"
+		"label": "b超级管理员"
 	},
 	"bPlatformCategory": {
 		"value": "bPlatformCategory",
-		"label": "栏目"
+		"label": "b栏目"
 	},
 	"bPlatform": {
 		"value": "bPlatform",
-		"label": "平台"
+		"label": "b平台"
 	}
 }

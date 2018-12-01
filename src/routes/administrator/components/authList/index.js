@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
 import styles from './authList.scss';
 
+const {AuthComponent} = T;
 const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
@@ -185,13 +186,15 @@ class List extends React.PureComponent {
 				render(test, record) {
 					return (
 						<React.Fragment>
-							<Button
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleEdit(record)}
-							>
-								编辑
-							</Button>
+							<AuthComponent auth={enumAuth.sAdministratorAuthUpdate.value}>
+								<Button
+									className="base-gap"
+									type="primary"
+									onClick={() => self.handleEdit(record)}
+								>
+									编辑
+								</Button>
+							</AuthComponent>
 						</React.Fragment>
 					);
 				},
@@ -257,13 +260,15 @@ class List extends React.PureComponent {
 				<MainHeader
 				>
 					<React.Fragment>
-						<Button
-							className="base-gap"
-							onClick={() => this.handleDownloadAuth()}
-							type="primary"
-						>
-							下载权限
-						</Button>
+						<AuthComponent auth={enumAuth.sAdministratorAuthDownload.value}>
+							<Button
+								className="base-gap"
+								onClick={() => this.handleDownloadAuth()}
+								type="primary"
+							>
+								下载权限
+							</Button>
+						</AuthComponent>
 					</React.Fragment>
 				</MainHeader>
 				<div className={styles['form-container']}>
@@ -327,51 +332,61 @@ class List extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<Button
-								htmlType="submit"
-								className="base-gap"
-								loading={this.state.isAdd}
-								type="primary"
-							>
-								添加权限
-							</Button>
+							<AuthComponent auth={enumAuth.sAdministratorAuthAdd.value}>
+								<Button
+									htmlType="submit"
+									className="base-gap"
+									loading={this.state.isAdd}
+									type="primary"
+								>
+									添加权限
+								</Button>
+							</AuthComponent>
 						</Form.Item>
 					</Form>
 				</div>
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<Input.Search
-						onChange={event => this.setState({search: event.target.value})}
-						placeholder="请搜索权限值或者描述"
-						onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.status)}
-					/>
-					<Select
-						allowClear
-						onChange={statusValue => this.getList(1, this.state.pageSize, this.state.search, statusValue)}
-						value={this.state.status}
-						placeholder="请选择状态"
-					>
-						{
-							this.state.statusValue.map((value => {
-								return <Option value={value.value} key={value.value}>{value.label}</Option>;
-							}))
-						}
-					</Select>
-					<Button
-						type="primary"
-						disabled={this.state.selectedRows.length <= 0}
-						onClick={() => this.handleDelete(this.state.selectedRows)}
-					>
-						删除
-					</Button>
-					<Button
-						type="primary"
-						disabled={this.state.selectedRows.length <= 0}
-						onClick={() => this.handleRecover(this.state.selectedRows)}
-					>
-						恢复
-					</Button>
+					<AuthComponent auth={enumAuth.sAdministratorAuthList.value}>
+						<Input.Search
+							onChange={event => this.setState({search: event.target.value})}
+							placeholder="请搜索权限值或者描述"
+							onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.status)}
+						/>
+					</AuthComponent>
+					<AuthComponent auth={enumAuth.sAdministratorAuthList.value}>
+						<Select
+							allowClear
+							onChange={statusValue => this.getList(1, this.state.pageSize, this.state.search, statusValue)}
+							value={this.state.status}
+							placeholder="请选择状态"
+						>
+							{
+								this.state.statusValue.map((value => {
+									return <Option value={value.value} key={value.value}>{value.label}</Option>;
+								}))
+							}
+						</Select>
+					</AuthComponent>
+					<AuthComponent auth={enumAuth.sAdministratorAuthDelete.value}>
+						<Button
+							type="primary"
+							disabled={this.state.selectedRows.length <= 0}
+							onClick={() => this.handleDelete(this.state.selectedRows)}
+						>
+							删除
+						</Button>
+					</AuthComponent>
+					<AuthComponent auth={enumAuth.sAdministratorAuthRecover.value}>
+						<Button
+							type="primary"
+							disabled={this.state.selectedRows.length <= 0}
+							onClick={() => this.handleRecover(this.state.selectedRows)}
+						>
+							恢复
+						</Button>
+					</AuthComponent>
 				</MainHeader>
 				
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>

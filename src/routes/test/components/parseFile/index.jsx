@@ -5,6 +5,8 @@ import {Button, Input} from 'antd';
 import mime from 'mime';
 import styles from './parseFile.scss';
 
+import camelCase from 'lodash/camelCase';
+
 export default class TestComponent extends React.PureComponent {
 	constructor() {
 		super();
@@ -14,6 +16,7 @@ export default class TestComponent extends React.PureComponent {
 		this.container = null;
 		this.state = {
 			mime: '',
+			camelCase: '',
 		};
 	}
 	
@@ -93,10 +96,21 @@ export default class TestComponent extends React.PureComponent {
 					<Input
 						value={this.state.mime}
 						onChange={event => this.setState({mime: event.target.value})}
-						placeholder="请输入文件后缀"
+						placeholder="mime-type"
 					/>
 					<div className="content">
 						{mime.getType(this.state.mime)}
+					</div>
+				</div>
+				<div className="mime-container">
+					<Input
+						value={this.state.camelCase}
+						onBlur={event => this.setState({camelCase: camelCase(event.target.value)})}
+						onChange={event => this.setState({camelCase: event.target.value})}
+						placeholder="camelCase"
+					/>
+					<div className="content">
+						{this.state.camelCase}
 					</div>
 				</div>
 			</div>

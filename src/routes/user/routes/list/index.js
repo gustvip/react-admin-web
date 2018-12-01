@@ -27,4 +27,4 @@ const mapDispatchToProps = (dispatch) => {
  */
 const ListComponent = connect(mapStateToProps, mapDispatchToProps)(Index);
 
-export default () => <ListComponent/>;
+export default (props) => <ListComponent {...props}/>;

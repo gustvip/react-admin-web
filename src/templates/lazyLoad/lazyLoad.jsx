@@ -54,11 +54,12 @@ export default class LazyLoadTpl extends React.PureComponent {
 	render() {
 		const self = this;
 		const Component = self.state.Component;
+		const {auth, reducers, lazyLoader, ...rest} = self.props;
 		if (Component) {
 			if (Array.isArray(self.props.reducers) && self.props.reducers.length > 0) {
 				self.context.store.dispatch(injectReducers(self.props.reducers));
 			}
-			return <Component {...self.props}/>;
+			return <Component {...rest} auth={auth}/>;
 		}
 		return <Spin size="large"/>;
 	}

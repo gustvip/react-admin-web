@@ -21,13 +21,13 @@ export default helper.immutable([
 		auth: enumAuth.bPlatform.value,
 		label: '大栏目',
 		value: 'data_platform',
-		url: EnumRouter.administratorAuthList,
+		url: EnumRouter.testDemo,
 		id: uniqueId(),
 		children: [
 			{
 				auth: enumAuth.bPlatformCategory.value,
 				label: '小栏目',
-				url: EnumRouter.administratorAuthList,
+				url: EnumRouter.testDemo,
 				id: uniqueId(),
 				children: [
 					{

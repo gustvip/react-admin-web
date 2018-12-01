@@ -34,7 +34,11 @@ export const EnumMenus = (() => {
 			resultChildren = children.map((item) => {
 				if (Array.isArray(item.children) && item.children.length) {
 					const result = formatData(item.children);
-					resultUrl = resultUrl.concat(result.resultUrl);
+					resultUrl = resultUrl.concat(result.resultUrl).concat(Array.isArray(item.url)
+						? item.url
+						: isString(item.url)
+							? [item.url]
+							: []);
 					
 					return Object.assign(
 						{},
