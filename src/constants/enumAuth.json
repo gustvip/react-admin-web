@@ -1,27 +1,55 @@
 {
+	"sAdministratorGroupDistribute": {
+		"value": "sAdministratorGroupDistribute",
+		"label": "s分配组对应角色的权限"
+	},
+	"sAdministratorGroupDelete": {
+		"value": "sAdministratorGroupDelete",
+		"label": "s删除组对应角色的权限"
+	},
+	"sAdministratorGroupGroupAndRoleAuth": {
+		"value": "sAdministratorGroupGroupAndRoleAuth",
+		"label": "s获取组对应角色的权限"
+	},
+	"sFileDownJson": {
+		"value": "sFileDownJson",
+		"label": "s下载json文件"
+	},
+	"sFileParseXml": {
+		"value": "sFileParseXml",
+		"label": "s解析xml文件"
+	},
+	"sFileParseCsv": {
+		"value": "sFileParseCsv",
+		"label": "s解析csv文件"
+	},
+	"sFileParseXlsx": {
+		"value": "sFileParseXlsx",
+		"label": "s解析xlsx文件"
+	},
 	"sAdministratorAuthUpdate": {
 		"value": "sAdministratorAuthUpdate",
-		"label": "s更新权限枚举"
+		"label": "s权限枚举更新"
 	},
 	"sAdministratorAuthRecover": {
 		"value": "sAdministratorAuthRecover",
-		"label": "s恢复权限枚举"
+		"label": "s权限枚举恢复"
 	},
 	"sAdministratorAuthDelete": {
 		"value": "sAdministratorAuthDelete",
-		"label": "s删除权限枚举"
+		"label": "s权限枚举删除"
 	},
 	"sAdministratorAuthAdd": {
 		"value": "sAdministratorAuthAdd",
-		"label": "s添加权限枚举"
+		"label": "s权限枚举添加"
 	},
 	"sAdministratorAuthList": {
 		"value": "sAdministratorAuthList",
-		"label": "s获取权限枚举列表"
+		"label": "s权限枚举列表"
 	},
 	"sAdministratorAuthDownload": {
 		"value": "sAdministratorAuthDownload",
-		"label": "s下载权限枚举json"
+		"label": "s权限枚举json下载"
 	},
 	"bPlatformCategoryTest": {
 		"value": "bPlatformCategoryTest",
@@ -41,7 +69,7 @@
 	},
 	"bPlatformCategoryUserList": {
 		"value": "bPlatformCategoryUserList",
-		"label": "b用户列表"
+		"label": "b用户管理列表"
 	},
 	"bPlatformCategoryAdministratorGroupList": {
 		"value": "bPlatformCategoryAdministratorGroupList",

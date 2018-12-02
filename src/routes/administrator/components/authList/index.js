@@ -257,10 +257,10 @@ class List extends React.PureComponent {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
-				<MainHeader
-				>
-					<React.Fragment>
-						<AuthComponent auth={enumAuth.sAdministratorAuthDownload.value}>
+				<AuthComponent auth={enumAuth.sAdministratorAuthDownload.value}>
+					<MainHeader
+					>
+						<React.Fragment>
 							<Button
 								className="base-gap"
 								onClick={() => this.handleDownloadAuth()}
@@ -268,9 +268,9 @@ class List extends React.PureComponent {
 							>
 								下载权限
 							</Button>
-						</AuthComponent>
-					</React.Fragment>
-				</MainHeader>
+						</React.Fragment>
+					</MainHeader>
+				</AuthComponent>
 				<div className={styles['form-container']}>
 					<Form
 						onSubmit={this.handleSubmit}

@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
 import styles from './groupList.scss';
 
+const {AuthComponent} = T;
 const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
@@ -40,17 +41,18 @@ class List extends React.PureComponent {
 		
 		authValueData: [],
 		groupData: Object.values(enumCommon.group).
+			filter(value => value.value !== enumCommon.group.administrator.value).
 			map(value => ({
 				value: value.value,
 				label: value.label,
 			})),
-		group: enumCommon.group.administrator.value,
+		group: undefined,
 		roleData: Object.values(enumCommon.role).
 			map(value => ({
 				value: value.value,
 				label: value.label,
 			})),
-		role: enumCommon.role.root.value,
+		role: undefined,
 		isAdd: false,
 		isTableLoading: false,
 	};
@@ -385,33 +387,39 @@ class List extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<Button
-								htmlType="submit"
-								className="base-gap"
-								loading={this.state.isAdd}
-								type="primary"
-							>
-								分配权限
-							</Button>
+							<AuthComponent auth={enumAuth.sAdministratorGroupDistribute.value}>
+								<Button
+									htmlType="submit"
+									className="base-gap"
+									loading={this.state.isAdd}
+									type="primary"
+								>
+									分配权限
+								</Button>
+							</AuthComponent>
 						</Form.Item>
 					</Form>
 				</div>
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<Input.Search
-						value={this.state.search}
-						onChange={event => this.setState({search: event.target.value})}
-						placeholder="请搜索权限值"
-						onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role)}
-					/>
-					<Button
-						type="primary"
-						disabled={this.state.selectedRows.length <= 0}
-						onClick={() => this.handleDelete(this.state.selectedRows)}
-					>
-						删除
-					</Button>
+					<AuthComponent auth={enumAuth.sAdministratorGroupGroupAndRoleAuth.value}>
+						<Input.Search
+							value={this.state.search}
+							onChange={event => this.setState({search: event.target.value})}
+							placeholder="请搜索权限值"
+							onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role)}
+						/>
+					</AuthComponent>
+					<AuthComponent auth={enumAuth.sAdministratorGroupDelete.value}>
+						<Button
+							type="primary"
+							disabled={this.state.selectedRows.length <= 0}
+							onClick={() => this.handleDelete(this.state.selectedRows)}
+						>
+							删除
+						</Button>
+					</AuthComponent>
 				</MainHeader>
 				
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>

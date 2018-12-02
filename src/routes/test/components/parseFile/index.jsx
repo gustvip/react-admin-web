@@ -4,8 +4,11 @@ import enumAPI from 'constants/enumAPI';
 import {Button, Input} from 'antd';
 import mime from 'mime';
 import styles from './parseFile.scss';
+import enumAuth from 'constants/enumAuth';
 
 import camelCase from 'lodash/camelCase';
+
+const {AuthComponent} = T;
 
 export default class TestComponent extends React.PureComponent {
 	constructor() {
@@ -44,54 +47,60 @@ export default class TestComponent extends React.PureComponent {
 				className={T.classNames(styles['main-container'], 'flex-column-grow')}
 				ref={container => this.container = container}
 			>
-				<div className="xml-container">
-					<Button
-						onClick={() => this.xmlContainer.click()}
-						type="primary"
-					>
-						解析xml
-					</Button>
-					<input
-						style={{display: 'none'}}
-						ref={xmlContainer => this.xmlContainer = xmlContainer}
-						multiple={false}
-						accept="text/xml"
-						type="file"
-						onChange={(e) => e.target.files && this.handleParseXml(e.target.files[0])}
-					/>
-				</div>
-				<div className="xlsx-container">
-					<Button
-						onClick={() => this.xlsxContainer.click()}
-						type="primary"
-					>
-						解析xlsx
-					</Button>
-					<input
-						style={{display: 'none'}}
-						ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
-						multiple={false}
-						accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-						type="file"
-						onChange={(e) => e.target.files && this.handleParseXlsx(e.target.files[0])}
-					/>
-				</div>
-				<div className="csv-container">
-					<Button
-						onClick={() => this.csvContainer.click()}
-						type="primary"
-					>
-						解析csv
-					</Button>
-					<input
-						style={{display: 'none'}}
-						ref={csvContainer => this.csvContainer = csvContainer}
-						multiple={false}
-						accept="text/csv"
-						type="file"
-						onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
-					/>
-				</div>
+				<AuthComponent auth={enumAuth.sFileParseXml.value}>
+					<div className="xml-container">
+						<Button
+							onClick={() => this.xmlContainer.click()}
+							type="primary"
+						>
+							解析xml
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={xmlContainer => this.xmlContainer = xmlContainer}
+							multiple={false}
+							accept="text/xml"
+							type="file"
+							onChange={(e) => e.target.files && this.handleParseXml(e.target.files[0])}
+						/>
+					</div>
+				</AuthComponent>
+				<AuthComponent auth={enumAuth.sFileParseXlsx.value}>
+					<div className="xlsx-container">
+						<Button
+							onClick={() => this.xlsxContainer.click()}
+							type="primary"
+						>
+							解析xlsx
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
+							multiple={false}
+							accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+							type="file"
+							onChange={(e) => e.target.files && this.handleParseXlsx(e.target.files[0])}
+						/>
+					</div>
+				</AuthComponent>
+				<AuthComponent auth={enumAuth.sFileParseCsv.value}>
+					<div className="csv-container">
+						<Button
+							onClick={() => this.csvContainer.click()}
+							type="primary"
+						>
+							解析csv
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={csvContainer => this.csvContainer = csvContainer}
+							multiple={false}
+							accept="text/csv"
+							type="file"
+							onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
+						/>
+					</div>
+				</AuthComponent>
 				<div className="mime-container">
 					<Input
 						value={this.state.mime}
