@@ -1,0 +1,19 @@
+@import "baseStyleVarity";
+
+.content-container {
+	.item {
+		margin: $base-btn-gap;
+		display: flex;
+		align-items: center;
+		.description {
+			text-align: right;
+			width: 100px;
+			font-size: $base-font-title-size;
+			color: $base-font-title-color;
+		}
+		.value {
+			font-size: $base-font-content-size;
+			color: $base-font-content-color;
+		}
+	}
+}

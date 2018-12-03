@@ -12,6 +12,7 @@ import * as React from 'react';
 import Link from 'react-router-dom/Link';
 import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
+import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
 
 import isEqual from 'lodash/isEqual';
 import flowRight from 'lodash/flowRight';
@@ -238,11 +239,19 @@ export class HeaderLayout extends React.PureComponent {
 				<Menu.Divider/>
 				<Menu.Item
 					onClick={() => T.helper.renderModal(
+						<LookUpUserInfoModal userId={get(userInfo, 'userId')}/>,
+					)}
+					key={uniqueId()}
+				>
+					个人中心
+				</Menu.Item>
+				<Menu.Item
+					onClick={() => T.helper.renderModal(
 						<UpdateUserInfoModal userId={get(userInfo, 'userId')}/>,
 					)}
 					key={uniqueId()}
 				>
-					修改信息
+					编辑
 				</Menu.Item>
 				<Menu.Item
 					onClick={() => T.helper.renderModal(<UpdatePasswordModal userId={get(userInfo, 'userId')}/>)}

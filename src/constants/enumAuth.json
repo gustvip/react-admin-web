@@ -1,4 +1,24 @@
 {
+	"sUserUpdateGroupAndRole": {
+		"value": "sUserUpdateGroupAndRole",
+		"label": "s用户更新组和角色"
+	},
+	"sUserRecover": {
+		"value": "sUserRecover",
+		"label": "s用户恢复"
+	},
+	"sUserDelete": {
+		"value": "sUserDelete",
+		"label": "s用户删除"
+	},
+	"sUserAdd": {
+		"value": "sUserAdd",
+		"label": "s用户新增"
+	},
+	"sUserList": {
+		"value": "sUserList",
+		"label": "s用户列表"
+	},
 	"sAdministratorGroupDistribute": {
 		"value": "sAdministratorGroupDistribute",
 		"label": "s分配组对应角色的权限"

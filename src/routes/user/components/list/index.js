@@ -11,7 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './list.scss';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
-import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
+import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
 import UpdateGroupAndRoleModal from 'templates/toolComponents/updateGroupAndRoleModal';
 import AddUserModal from 'templates/toolComponents/addUserModal';
 
@@ -124,6 +124,14 @@ export default class List extends React.PureComponent {
 		});
 	};
 	
+	handleLookUp = (record) => {
+		T.helper.renderModal(
+			<LookUpUserInfoModal
+				userId={record.userId}
+			/>,
+		);
+	};
+	
 	handleDelete = () => {
 		const self = this;
 		T.prompt.confirm({
@@ -233,27 +241,6 @@ export default class List extends React.PureComponent {
 	handleEdit = (record) => {
 		T.helper.renderModal(
 			<UpdateUserInfoModal
-				userId={record.userId}
-				successCallback={() => {
-					T.prompt.success('更新成功');
-					this.getList({
-						currentPage: this.state.currentPage,
-						pageSize: this.state.pageSize,
-						search: this.state.search,
-						group: this.state.group,
-						role: this.state.role,
-						status: this.state.status,
-						sex: this.state.status,
-					});
-				}}
-				failCallback={(info) => T.prompt.error(info.msg)}
-			/>,
-		);
-	};
-	
-	handleUpdatePassword = (record) => {
-		T.helper.renderModal(
-			<UpdatePasswordModal
 				userId={record.userId}
 				successCallback={() => {
 					T.prompt.success('更新成功');
@@ -398,6 +385,14 @@ export default class List extends React.PureComponent {
 								size="small"
 								className="base-gap"
 								type="primary"
+								onClick={() => self.handleLookUp(record)}
+							>
+								查看
+							</Button>
+							<Button
+								size="small"
+								className="base-gap"
+								type="primary"
 								onClick={() => self.handleEdit(record)}
 							>
 								编辑
@@ -409,14 +404,6 @@ export default class List extends React.PureComponent {
 								onClick={() => self.handleEditGroupAndRole(record)}
 							>
 								组和角色
-							</Button>
-							<Button
-								size="small"
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleUpdatePassword(record)}
-							>
-								更改密码
 							</Button>
 							<Button
 								size="small"
