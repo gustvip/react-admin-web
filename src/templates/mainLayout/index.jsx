@@ -254,7 +254,7 @@ export class HeaderLayout extends React.PureComponent {
 					编辑
 				</Menu.Item>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(<UpdatePasswordModal userId={get(userInfo, 'userId')}/>)}
+					onClick={() => T.helper.renderModal(<UpdatePasswordModal/>)}
 					key={uniqueId()}
 				>
 					修改密码

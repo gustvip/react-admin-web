@@ -1,4 +1,12 @@
 {
+	"sUserResetPassword": {
+		"value": "sUserResetPassword",
+		"label": "s用户重置密码"
+	},
+	"sUserUpdateInfo": {
+		"value": "sUserUpdateInfo",
+		"label": "s用户更新信息"
+	},
 	"sUserUpdateGroupAndRole": {
 		"value": "sUserUpdateGroupAndRole",
 		"label": "s用户更新组和角色"

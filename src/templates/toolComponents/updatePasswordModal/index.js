@@ -27,7 +27,6 @@ class UpdatePasswordModal extends React.PureComponent {
 		form: PropTypes.object.isRequired,
 		successCallback: PropTypes.func,
 		failCallback: PropTypes.func,
-		userId: PropTypes.number.isRequired,
 		className: PropTypes.string,
 		option: PropTypes.object,
 	};
@@ -43,9 +42,7 @@ class UpdatePasswordModal extends React.PureComponent {
 			if (!err) {
 				self.setState({loading: true}, () => {
 					const {oldPassword, newPassword} = values;
-					const userId = self.props.userId;
 					request.postJSON(enumAPI.userUpdatePassword, {
-						userId,
 						oldPassword: crypto.hmacSHA512(oldPassword, oldPassword),
 						newPassword: crypto.hmacSHA512(newPassword, newPassword),
 					}).then(() => {

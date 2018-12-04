@@ -15,6 +15,7 @@ import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
 import UpdateGroupAndRoleModal from 'templates/toolComponents/updateGroupAndRoleModal';
 import AddUserModal from 'templates/toolComponents/addUserModal';
 
+const {AuthComponent} = T;
 const Option = Select.Option;
 export default class List extends React.PureComponent {
 	static contextTypes = {
@@ -34,6 +35,7 @@ export default class List extends React.PureComponent {
 			search: '',
 			
 			groupData: Object.values(enumCommon.group).
+				filter(value => value.value !== enumCommon.group.administrator.value).
 				map(value => ({
 					value: value.value,
 					label: value.label,
@@ -389,30 +391,36 @@ export default class List extends React.PureComponent {
 							>
 								查看
 							</Button>
-							<Button
-								size="small"
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleEdit(record)}
-							>
-								编辑
-							</Button>
-							<Button
-								size="small"
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleEditGroupAndRole(record)}
-							>
-								组和角色
-							</Button>
-							<Button
-								size="small"
-								className="base-gap"
-								type="primary"
-								onClick={() => self.handleResetPassword(record)}
-							>
-								重置密码
-							</Button>
+							<AuthComponent auth={enumAuth.sUserUpdateInfo.value}>
+								<Button
+									size="small"
+									className="base-gap"
+									type="primary"
+									onClick={() => self.handleEdit(record)}
+								>
+									编辑
+								</Button>
+							</AuthComponent>
+							<AuthComponent auth={enumAuth.sUserUpdateGroupAndRole.value}>
+								<Button
+									size="small"
+									className="base-gap"
+									type="primary"
+									onClick={() => self.handleEditGroupAndRole(record)}
+								>
+									组和角色
+								</Button>
+							</AuthComponent>
+							<AuthComponent auth={enumAuth.sUserResetPassword.value}>
+								<Button
+									size="small"
+									className="base-gap"
+									type="primary"
+									onClick={() => self.handleResetPassword(record)}
+								>
+									重置密码
+								</Button>
+							</AuthComponent>
 						</React.Fragment>
 					);
 				},
@@ -471,15 +479,17 @@ export default class List extends React.PureComponent {
 		const self = this;
 		return (
 			<React.Fragment>
-				<MainHeader
-				>
-					<Button
-						type="primary"
-						onClick={() => this.handleAddUser()}
+				<AuthComponent auth={enumAuth.sUserAdd.value}>
+					<MainHeader
 					>
-						新增用户
-					</Button>
-				</MainHeader>
+						<Button
+							type="primary"
+							onClick={() => this.handleAddUser()}
+						>
+							新增用户
+						</Button>
+					</MainHeader>
+				</AuthComponent>
 				<MainHeader
 				>
 					<Input.Search
@@ -488,19 +498,21 @@ export default class List extends React.PureComponent {
 						placeholder="请搜索"
 						onSearch={() => this.handleSearch()}
 					/>
-					<Select
-						allowClear
-						value={this.state.group}
-						style={{width: 150}}
-						onChange={group => this.handleGroupChange(group)}
-						placeholder="请选择分组"
-					>
-						{
-							this.state.groupData.map((value => {
-								return <Option key={value.value}>{value.label}</Option>;
-							}))
-						}
-					</Select>
+					<AuthComponent auth={enumAuth.sAdministratorGroupDelete.value}>
+						<Select
+							allowClear
+							value={this.state.group}
+							style={{width: 150}}
+							onChange={group => this.handleGroupChange(group)}
+							placeholder="请选择分组"
+						>
+							{
+								this.state.groupData.map((value => {
+									return <Option key={value.value}>{value.label}</Option>;
+								}))
+							}
+						</Select>
+					</AuthComponent>
 					<Select
 						allowClear
 						style={{width: 150}}
@@ -540,20 +552,24 @@ export default class List extends React.PureComponent {
 							}))
 						}
 					</Select>
-					<Button
-						disabled={this.state.selectedRows.length === 0}
-						type="primary"
-						onClick={() => this.handleDelete()}
-					>
-						删除
-					</Button>
-					<Button
-						disabled={this.state.selectedRows.length === 0}
-						type="primary"
-						onClick={() => this.handleRecover()}
-					>
-						恢复
-					</Button>
+					<AuthComponent auth={enumAuth.sUserDelete.value}>
+						<Button
+							disabled={this.state.selectedRows.length === 0}
+							type="primary"
+							onClick={() => this.handleDelete()}
+						>
+							删除
+						</Button>
+					</AuthComponent>
+					<AuthComponent auth={enumAuth.sUserRecover.value}>
+						<Button
+							disabled={this.state.selectedRows.length === 0}
+							type="primary"
+							onClick={() => this.handleRecover()}
+						>
+							恢复
+						</Button>
+					</AuthComponent>
 				</MainHeader>
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table

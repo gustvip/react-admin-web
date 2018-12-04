@@ -73,4 +73,11 @@ $base-border-radius: 4px;
 		flex-direction: column;
 		flex-grow: 1;
 	}
+
+	/* 一行显示文字 */
+	.text-overflow-ellipsis {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
 }
