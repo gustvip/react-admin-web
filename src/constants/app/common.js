@@ -78,3 +78,7 @@ export const pagination = {
 	showQuickJumper: true,
 };
 
+/**
+ * @type {string}
+ */
+export const initialPassword = '123456';

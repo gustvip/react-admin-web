@@ -58,7 +58,7 @@ class AddUserModal extends React.PureComponent {
 							isFunction(self.props.successCallback) && self.props.successCallback();
 						});
 					}).catch(info => {
-						isFunction(self.props.successCallback) && self.props.successCallback(info);
+						isFunction(self.props.failCallback) && self.props.failCallback(info);
 						self.setState({loading: false});
 					});
 				});

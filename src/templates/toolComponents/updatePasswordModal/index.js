@@ -23,12 +23,17 @@ const formItemLayout = {
 };
 
 class UpdatePasswordModal extends React.PureComponent {
+	static defaultProps = {
+		className: '',
+		option: {},
+	};
+	
 	static propTypes = {
-		form: PropTypes.object.isRequired,
-		successCallback: PropTypes.func,
-		failCallback: PropTypes.func,
 		className: PropTypes.string,
+		failCallback: PropTypes.func,
+		form: PropTypes.object.isRequired,
 		option: PropTypes.object,
+		successCallback: PropTypes.func,
 	};
 	
 	state = {
@@ -50,7 +55,7 @@ class UpdatePasswordModal extends React.PureComponent {
 							isFunction(self.props.successCallback) && self.props.successCallback();
 						});
 					}).catch(info => {
-						isFunction(self.props.successCallback) && self.props.successCallback(info);
+						isFunction(self.props.failCallback) && self.props.failCallback(info);
 					}).finally(() => self.setState({loading: false}));
 				});
 			}

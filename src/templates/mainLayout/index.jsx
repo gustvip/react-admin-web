@@ -5,6 +5,7 @@ import T from 'utils/t';
 import PropTypes from 'prop-types';
 import {EnumIconTypes} from 'constants/enumDefaultMenus';
 import enumRouter from 'constants/enumRouter';
+import * as enumCommon from 'constants/app/common';
 import {Select, Menu, Icon, Layout, Dropdown} from 'antd';
 import styles from './mainLayout.scss';
 import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from './menuUtil';
@@ -223,6 +224,7 @@ export class HeaderLayout extends React.PureComponent {
 				T.auth.resetUserPassword(userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码码？',
+			content: `密码将重置为${enumCommon.initialPassword}`,
 		});
 	};
 	
@@ -247,14 +249,23 @@ export class HeaderLayout extends React.PureComponent {
 				</Menu.Item>
 				<Menu.Item
 					onClick={() => T.helper.renderModal(
-						<UpdateUserInfoModal userId={get(userInfo, 'userId')}/>,
+						<UpdateUserInfoModal
+							successCallback={() => T.prompt.success('修改成功')}
+							failCallback={info => T.prompt.error(info.msg)}
+							userId={get(userInfo, 'userId')}
+						/>,
 					)}
 					key={uniqueId()}
 				>
 					编辑
 				</Menu.Item>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(<UpdatePasswordModal/>)}
+					onClick={() => T.helper.renderModal(
+						<UpdatePasswordModal
+							successCallback={() => T.prompt.success('修改成功')}
+							failCallback={info => T.prompt.error(info.msg)}
+						/>,
+					)}
 					key={uniqueId()}
 				>
 					修改密码

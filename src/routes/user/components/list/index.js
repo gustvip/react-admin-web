@@ -267,6 +267,7 @@ export default class List extends React.PureComponent {
 				T.auth.resetUserPassword(record.userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码码？',
+			content: `密码将重置为${enumCommon.initialPassword}`,
 		});
 	};
 	
