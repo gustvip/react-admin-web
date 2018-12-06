@@ -7,7 +7,6 @@ export default class TestComponent extends React.PureComponent {
 	}
 	
 	componentDidMount() {
-	
 	}
 	
 	xhrDemo = () => {

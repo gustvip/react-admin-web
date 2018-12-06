@@ -62,6 +62,7 @@ const eslintrc = {
 		'jsx-a11y/anchor-is-valid': 0,
 		'jsx-quotes': 2,
 		
+		'curly': 2,
 		'no-mixed-spaces-and-tabs': 2,
 		'no-prototype-builtins': 2,
 		'camelcase': 1,
@@ -105,6 +106,8 @@ const eslintrc = {
 				maxEOF: 1,
 				maxBOF: 1,
 			}],
+		
+		'wrap-iife': 2,
 		'no-caller': 2,
 		'no-useless-escape': 0,
 		'default-case': 2,
