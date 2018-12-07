@@ -139,15 +139,18 @@ export default class List extends React.PureComponent {
 		T.prompt.confirm({
 			onOk() {
 				webAPI.deleteUser({userId: self.state.selectedRows.map(value => value.userId)}).
-					then(() => self.getList({
-						currentPage: 1,
-						pageSize: self.state.pageSize,
-						search: self.state.search,
-						group: self.state.group,
-						role: self.state.role,
-						status: self.state.status,
-						sex: self.state.sex,
-					})).
+					then(() => {
+						T.prompt.success('删除成功');
+						self.getList({
+							currentPage: 1,
+							pageSize: self.state.pageSize,
+							search: self.state.search,
+							group: self.state.group,
+							role: self.state.role,
+							status: self.state.status,
+							sex: self.state.sex,
+						});
+					}).
 					catch(info => T.prompt.error(info.msg));
 			},
 		});
@@ -158,15 +161,18 @@ export default class List extends React.PureComponent {
 		T.prompt.confirm({
 			onOk() {
 				webAPI.userRecover({userId: self.state.selectedRows.map(value => value.userId)}).
-					then(() => self.getList({
-						currentPage: 1,
-						pageSize: self.state.pageSize,
-						search: self.state.search,
-						group: self.state.group,
-						role: self.state.role,
-						status: self.state.status,
-						sex: self.state.sex,
-					})).
+					then(() => {
+						T.prompt.success('恢复成功');
+						self.getList({
+							currentPage: 1,
+							pageSize: self.state.pageSize,
+							search: self.state.search,
+							group: self.state.group,
+							role: self.state.role,
+							status: self.state.status,
+							sex: self.state.sex,
+						});
+					}).
 					catch(info => T.prompt.error(info.msg));
 			},
 			title: '确认恢复吗?',

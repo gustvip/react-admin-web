@@ -291,7 +291,7 @@ export class HeaderLayout extends React.PureComponent {
 			>
 				<Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
 					<span>
-						hi {get(userInfo, 'name')}<Icon type="down"/>
+						操作&nbsp;&nbsp;&nbsp;&nbsp;<Icon type="down"/>
 					</span>
 				</Dropdown>
 			</section>
