@@ -15,11 +15,9 @@ export default function _baseSlice(data: arrayLikeType, startIndex?: number, end
 	endIndex = isUndefined(endIndex) ? k : toInteger(endIndex);
 	endIndex = endIndex < 0 ? Math.max(k + endIndex, 0) : Math.min(endIndex, k);
 	
-	if (0 <= startIndex && startIndex < endIndex) {
-		while (endIndex - startIndex > 0) {
-			s.push(data[startIndex]);
-			++startIndex;
-		}
+	while (endIndex > startIndex) {
+		s.push(data[startIndex]);
+		++startIndex;
 	}
 	return s;
 }

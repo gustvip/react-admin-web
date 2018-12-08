@@ -70,8 +70,9 @@ $base-border-radius: 4px;
 
 	/* 一行显示文字 */
 	.text-overflow-ellipsis {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		word-break: keep-all;
+		white-space: pre;
 	}
 }

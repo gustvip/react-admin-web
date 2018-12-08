@@ -2,6 +2,7 @@
  * Created by joey on 17-8-30.
  */
 import enumRouter from 'constants/enumRouter';
+import propTypes from 'prop-types';
 import regExp from 'utils/core/regExp';
 import auth from 'utils/core/auth';
 import crypto from 'utils/core/crypto';
@@ -11,8 +12,11 @@ import styles from './login.scss';
 import {Button, Input} from 'antd';
 import bg from './img/bg.jpeg';
 
-@decorate.contextTypes('router')
-class Login extends React.PureComponent {
+export default class Login extends React.PureComponent {
+	static contextTypes = {
+		router: propTypes.object.isRequired,
+	};
+	
 	constructor() {
 		super();
 		this.state = {
@@ -95,5 +99,3 @@ class Login extends React.PureComponent {
 		);
 	}
 }
-
-export default Login;

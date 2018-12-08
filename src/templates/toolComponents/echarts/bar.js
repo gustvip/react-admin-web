@@ -1,7 +1,14 @@
 import PropTypes from 'prop-types';
 import Chart from './index';
-import _ from 'lodash';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
 import React from 'react';
+
+import random from 'lodash/random';
+import max from 'lodash/max';
+import toFinite from 'lodash/toFinite';
 
 export default class Bar extends React.PureComponent {
 	constructor(props) {
@@ -10,11 +17,11 @@ export default class Bar extends React.PureComponent {
 	}
 	
 	get defaultOption() {
-		const min = 100;
-		const max = 500;
+		const minStep = 100;
+		const maxStep = 500;
 		const province = ['台湾', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '上海', '重庆', '香港', '澳门'];
-		const data = province.map(() => _.random(min, max));
-		const maxValue = _.max(data);
+		const data = province.map(() => random(minStep, maxStep));
+		const maxValue = max(data);
 		return {
 			color: [
 				{
@@ -38,7 +45,7 @@ export default class Bar extends React.PureComponent {
 				backgroundColor: '#485465',
 				trigger: 'item',
 				formatter(item) {
-					return `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f2f26d;"></span>${_.toFinite(item.value).toLocaleString()}条`;
+					return `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#f2f26d;"></span>${toFinite(item.value).toLocaleString()}条`;
 				},
 			},
 			grid: {

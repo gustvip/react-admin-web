@@ -4,6 +4,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import enumAPI from 'constants/enumAPI';
+import * as enumCommon from 'constants/app/common';
 import * as queryString from './queryString';
 import helper from './helper';
 import localStorage from './localStorage';
@@ -79,6 +80,30 @@ class Auth {
 	 */
 	getUserInfoStorageValue() {
 		return localStorage.getItem(this.ENV.localStorage.userInfo.key);
+	}
+	
+	/**
+	 * 是否为administrator
+	 * @returns {Boolean}
+	 */
+	isAdministrator() {
+		return this.getUserDetailStorageValue().group === enumCommon.group.administrator.value;
+	}
+	
+	/**
+	 * 是否为root
+	 * @returns {Boolean}
+	 */
+	isRoot() {
+		return this.getUserDetailStorageValue().role === enumCommon.role.root.value;
+	}
+	
+	/**
+	 * 是否为admin
+	 * @returns {Boolean}
+	 */
+	isAdmin() {
+		return this.getUserDetailStorageValue().role === enumCommon.role.admin.value;
 	}
 	
 	/**

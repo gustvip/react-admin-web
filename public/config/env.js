@@ -21,8 +21,7 @@
 				defaultRedirectUrl: rootPath + 'test/demo',  // 登录成功默认重定向的url
 				loginUrl: rootPath + 'login',                   // 登录页面url
 				noCheckIsLoginRoutes: [    						// 不需要验证是否登录的路由配置
-					rootPath + 'login',
-					rootPath + 'register',
+					rootPath + 'login'
 				],
 			},
 			

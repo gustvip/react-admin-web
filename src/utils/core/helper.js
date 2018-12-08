@@ -13,7 +13,7 @@ import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
 
 class Helper {
 	/**
-	 * @param x
+	 * @param {*} x
 	 * @return {{index: *, base: string}}
 	 */
 	getNumberBase(x) {
@@ -25,10 +25,11 @@ class Helper {
 				base: baseCollection[0],
 			};
 		} else {
-			const index = Math.floor(Math.log(x) / Math.log(1024));
+			let index = Math.floor(Math.log(x) / Math.log(1024));
+			index = index >= baseCollection.length ? baseCollection.length - 1 : index;
 			return {
 				index,
-				base: index >= baseCollection.length ? baseCollection[baseCollection.length - 1] : baseCollection[index],
+				base: baseCollection[index],
 			};
 		}
 	}
@@ -40,7 +41,7 @@ class Helper {
 	 */
 	autoToSize(x, w = 2) {
 		const base = this.getNumberBase(x);
-		return round(toFinite(Math.abs(x)) / Math.pow(1024, base.index), w) + base.base;
+		return round(toFinite(x) / Math.pow(1024, base.index), w) + base.base;
 	}
 	
 	/**
@@ -53,9 +54,8 @@ class Helper {
 	 * @return {Array}
 	 */
 	formatTreeData(data, levelName, parentName, ownName, childrenName = 'children') {
-		const result = [];
 		if (!data.length) {
-			return result;
+			return [];
 		}
 		const minLevel = minBy(data, levelName)[levelName];
 		let maxLevel = maxBy(data, levelName)[levelName];
@@ -67,29 +67,23 @@ class Helper {
 			levelName,
 		);
 		
-		while (maxLevel >= minLevel) {
+		while (maxLevel > minLevel) {
 			let i = data[maxLevel];
-			if (i) {
-				if (maxLevel === minLevel) {
-					i.forEach(value => result.push(value));
-				} else {
-					const j = data[maxLevel - 1];
-					if (j) {
-						each(
-							groupBy(i, parentName),
-							(value, key) => {
-								const k = j.findIndex(value => value[ownName] === key);
-								if (k !== -1) {
-									j[k][childrenName] = j[k][childrenName].concat(value);
-								}
-							},
-						);
-					}
-				}
+			const j = data[maxLevel - 1];
+			if (i && j) {
+				each(
+					groupBy(i, parentName),
+					(value, key) => {
+						const k = j.findIndex(value => value[ownName] === key);
+						if (k !== -1) {
+							j[k][childrenName] = j[k][childrenName].concat(value);
+						}
+					},
+				);
 			}
 			--maxLevel;
 		}
-		return result;
+		return data[maxLevel];
 	}
 	
 	/**
@@ -203,7 +197,7 @@ class Helper {
 	}
 	
 	/**
-	 * 检测长度大于0的数组或者类数组对象---Array,nodeList
+	 * 检测长度大于0的数组或者类数组对象---Array
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
@@ -234,16 +228,16 @@ class Helper {
 	 * @param {String} x
 	 */
 	removeTrailingSlash(x) {
-		return /\/$/.test(x) ? x.slice(0, x.length - 1) : x;
+		return x.replace(/\/*$/g, '');
 	}
 	
 	/**
 	 * 去除字符串的空白
 	 * @param {String} x
-	 * @return {* || String}
+	 * @return {String}
 	 */
 	removeBlank(x) {
-		return isString(x) ? x.replace(/\s/g, '') : x;
+		return x.replace(/\s/g, '');
 	}
 	
 	/**
@@ -255,6 +249,7 @@ class Helper {
 	 * @return {Array}
 	 */
 	findPath(data, stopValue, property, callback) {
+		const self = this;
 		let tag = false;
 		let array = [];
 		if (Array.isArray(data)) {
@@ -272,7 +267,7 @@ class Helper {
 						array = rowArray;
 						tag = true;
 					} else {
-						Array.isArray(rowData.children) && rowData.children.length && fn(rowData.children, rowArray.slice());
+						self.checkArray(rowData.children) && fn(rowData.children, rowArray.slice());
 					}
 				}
 			}(data, array.slice()));

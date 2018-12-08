@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import Chart from './index';
-import _ from 'lodash';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/legend';
 import React from 'react';
+
+import random from 'lodash/random';
+import toFinite from 'lodash/toFinite';
 
 export default class Pie extends React.PureComponent {
 	constructor(props) {
@@ -14,23 +20,23 @@ export default class Pie extends React.PureComponent {
 		const max = 500;
 		const dataSource = [
 			{
-				value: _.random(min, max),
+				value: random(min, max),
 				name: '工程招投标',
 			},
 			{
-				value: _.random(min, max),
+				value: random(min, max),
 				name: '政府采购',
 			},
 			{
-				value: _.random(min, max),
+				value: random(min, max),
 				name: '土地以使用权出让',
 			},
 			{
-				value: _.random(min, max),
+				value: random(min, max),
 				name: '矿业权出让',
 			},
 			{
-				value: _.random(min, max),
+				value: random(min, max),
 				name: '国有产权',
 			},
 		];
@@ -42,7 +48,7 @@ export default class Pie extends React.PureComponent {
 				backgroundColor: '#485465',
 				trigger: 'item',
 				formatter(item) {
-					return `${item.marker}${_.toFinite(item.value).toLocaleString()}条`;
+					return `${item.marker}${toFinite(item.value).toLocaleString()}条`;
 				},
 			},
 			legend: {

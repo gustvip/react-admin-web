@@ -83,8 +83,9 @@ export default class List extends React.PureComponent {
 	 * @param {string | undefined} condition.role
 	 * @param {string | undefined} condition.status
 	 * @param {string | undefined} condition.sex
+	 * @param {function} [callback]
 	 */
-	getList = (condition) => {
+	getList = (condition, callback) => {
 		this.setState({isTableLoading: true}, () => {
 			webAPI.getUserList({
 				currentPage: condition.currentPage,
@@ -109,6 +110,8 @@ export default class List extends React.PureComponent {
 					dataSource: info.data.data,
 					selectedRowKeys: [],
 					selectedRows: [],
+				}, () => {
+					callback && callback(info.data);
 				});
 			}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
 		});
@@ -246,6 +249,7 @@ export default class List extends React.PureComponent {
 			/>,
 		);
 	};
+	
 	handleEdit = (record) => {
 		T.helper.renderModal(
 			<UpdateUserInfoModal
@@ -304,7 +308,7 @@ export default class List extends React.PureComponent {
 		const self = this;
 		return [
 			{
-				title: 'group',
+				title: '组',
 				dataIndex: 'group',
 				sorter(prev, now) {
 					return T.helper.sort({
@@ -318,7 +322,7 @@ export default class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'role',
+				title: '角色',
 				dataIndex: 'role',
 				sorter(prev, now) {
 					return T.helper.sort({
@@ -332,14 +336,14 @@ export default class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'status',
+				title: '状态',
 				dataIndex: 'status',
 				render(text) {
 					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},
 			},
 			{
-				title: 'userSex',
+				title: '性别',
 				dataIndex: 'userSex',
 				sorter(prev, now) {
 					return T.helper.sort({
@@ -353,7 +357,7 @@ export default class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'userName',
+				title: '名称',
 				dataIndex: 'userName',
 				sorter(prev, now) {
 					return T.helper.sort({
@@ -364,7 +368,7 @@ export default class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'userEmail',
+				title: '邮箱',
 				dataIndex: 'userEmail',
 				sorter(prev, now) {
 					return T.helper.sort({
@@ -375,7 +379,7 @@ export default class List extends React.PureComponent {
 				},
 			},
 			{
-				title: 'userPhone',
+				title: '手机',
 				dataIndex: 'userPhone',
 				sorter(prev, now) {
 					return T.helper.sort({
@@ -415,7 +419,7 @@ export default class List extends React.PureComponent {
 									type="primary"
 									onClick={() => self.handleEditGroupAndRole(record)}
 								>
-									组和角色
+									角色管理
 								</Button>
 							</AuthComponent>
 							<AuthComponent auth={enumAuth.sUserResetPassword.value}>
@@ -505,21 +509,23 @@ export default class List extends React.PureComponent {
 						placeholder="请搜索"
 						onSearch={() => this.handleSearch()}
 					/>
-					<AuthComponent auth={enumAuth.sAdministratorGroupDelete.value}>
-						<Select
-							allowClear
-							value={this.state.group}
-							style={{width: 150}}
-							onChange={group => this.handleGroupChange(group)}
-							placeholder="请选择分组"
-						>
-							{
-								this.state.groupData.map((value => {
-									return <Option key={value.value}>{value.label}</Option>;
-								}))
-							}
-						</Select>
-					</AuthComponent>
+					{
+						T.auth.isAdministrator() && (
+							<Select
+								allowClear
+								value={this.state.group}
+								style={{width: 150}}
+								onChange={group => this.handleGroupChange(group)}
+								placeholder="请选择分组"
+							>
+								{
+									this.state.groupData.map((value => {
+										return <Option key={value.value}>{value.label}</Option>;
+									}))
+								}
+							</Select>
+						)
+					}
 					<Select
 						allowClear
 						style={{width: 150}}
