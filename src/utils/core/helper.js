@@ -60,10 +60,10 @@ class Helper {
 		const minLevel = minBy(data, levelName)[levelName];
 		let maxLevel = maxBy(data, levelName)[levelName];
 		data = groupBy(
-			data.map(value => ({
-				...value,
-				[childrenName]: [],
-			})),
+			data.map(value => {
+				value[childrenName] = Array.isArray(value[childrenName]) ? value[childrenName] : [];
+				return value;
+			}),
 			levelName,
 		);
 		

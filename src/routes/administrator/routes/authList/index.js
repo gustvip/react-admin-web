@@ -5,26 +5,14 @@
 import {connect} from 'react-redux';
 import Index from '../../components/authList/index';
 
-/**
- * 映射props
- * @param state
- * @param ownProps
- */
 const mapStateToProps = (state, ownProps) => {
 	return {...ownProps};
 };
 
-/**
- * 映射所有的actions
- * @param dispatch
- */
 const mapDispatchToProps = (dispatch) => {
 	return {dispatch};
 };
 
-/**
- * 连接组件
- */
 const ListComponent = connect(mapStateToProps, mapDispatchToProps)(Index);
 
-export default () => <ListComponent/>;
+export default (props) => <ListComponent {...props}/>;

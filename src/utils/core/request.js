@@ -236,12 +236,12 @@ export function form(url, property = {}, params = {}) {
 	}, property);
 	const formId = '__render-form-dom-id__';
 	let formElement = document.querySelector('#' + formId);
-	if (!formElement) {
-		formElement = document.createElement('form');
-		formElement.id = formId;
-		formElement.style.display = 'none';
+	if (formElement) {
+		document.body.removeChild(formElement);
 	}
-	document.body.removeChild(formElement);
+	formElement = document.createElement('form');
+	formElement.id = formId;
+	formElement.style.display = 'none';
 	
 	forOwn(property, (value, key) => {
 		formElement.setAttribute(key, value);
@@ -267,13 +267,15 @@ export function form(url, property = {}, params = {}) {
 export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
 	const id = '__read-and-down-image-id__';
 	let newLink = document.querySelector('#' + id);
-	if (!newLink) {
-		newLink = document.createElement('a');
-		newLink.id = id;
-		document.body.appendChild(newLink);
+	if (newLink) {
+		document.body.removeChild(newLink);
 	}
+	
+	newLink = document.createElement('a');
+	newLink.id = id;
 	newLink.href = url;
 	newLink.download = fileName;
+	document.body.appendChild(newLink);
 	newLink.click();
 };
 

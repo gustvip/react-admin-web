@@ -37,6 +37,7 @@ module.exports = merge(baseConfig, {
 						// 提取出出现多次但是没有定义成变量去引用的静态值
 						reduce_vars: true,
 						
+						// 注意开启这---可能会导致打包出错---典型错误:Refference Error t is not defined
 						comparisons: true,
 					},
 				},
@@ -48,7 +49,7 @@ module.exports = merge(baseConfig, {
 	module: {
 		rules: [
 			{
-				test: /\.(png|jpg|gif|jpeg|svg)$/,
+				test: /\.(png|jpg|gif|jpeg|svg)(\?.*)?$/,
 				use: [
 					{
 						loader: 'url-loader',
@@ -98,7 +99,7 @@ module.exports = merge(baseConfig, {
 	
 	plugins: [
 		new compressionPlugin({
-			test: /(\.js$)|(\.css$)/,
+			test: /\.(js|css)$/,
 			cache: true,
 			algorithm: 'gzip',
 			compressionOptions: {

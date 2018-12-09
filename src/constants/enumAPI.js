@@ -10,14 +10,14 @@ const _proxyAPI = api => window.ENV.apiDomain + api;
 const _mockAPI = api => window.ENV.mockDomain + api;
 
 /**
- * @type {{userLogin: *, userLoginOut: *, userAdd: *, userDelete: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, fileParseXlsx: *, fileParseCsv: *, fileParseXml: *, fileDownJson: *, administratorAuthDownload: *, administratorAuthList: *, administratorAuthAdd: *, administratorAuthDelete: *, administratorAuthRecover: *, administratorAuthUpdate: *, administratorGroupGroupAndRoleAuth: *, administratorGroupDelete: *}}
+ * @type {{userLogin: *, userLoginOut: *, userAdd: *, userDelete: *, userRecover: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, userUpdateGroupAndRole: *, fileParseXlsx: *, fileParseCsv: *, fileParseXml: *, fileDownJson: *, administratorAuthDownload: *, administratorAuthList: *, administratorAuthAdd: *, administratorAuthDelete: *, administratorAuthRecover: *, administratorAuthUpdate: *, administratorGroupGroupAndRoleAuth: *, administratorGroupDelete: *, administratorGroupDistribute: *}}
  */
 const API = {
 	/*
    |----------------------------------------------------------------
    | 用户相关API地址
    |----------------------------------------------------------------
- */
+  */
 	userLogin: _proxyAPI('/user/login'), // 用户登陆
 	userLoginOut: _proxyAPI('/user/loginOut'), // 安全退出
 	userAdd: _proxyAPI('/user/add'), // 新增用户
@@ -34,7 +34,7 @@ const API = {
    |----------------------------------------------------------------
    | 文件相关API地址
    |----------------------------------------------------------------
- */
+  */
 	fileParseXlsx: _proxyAPI('/file/parseXlsx'), // 解析xlsx文件
 	fileParseCsv: _proxyAPI('/file/parseCsv'), // 解析csv文件
 	fileParseXml: _proxyAPI('/file/parseXml'), // 解析xml文件
@@ -44,7 +44,7 @@ const API = {
    |----------------------------------------------------------------
    | 超级管理员相关API地址
    |----------------------------------------------------------------
- */
+  */
 	administratorAuthDownload: _proxyAPI('/administrator/auth/download'), // 权限json下载
 	administratorAuthList: _proxyAPI('/administrator/auth/list'), // 权限枚举列表
 	administratorAuthAdd: _proxyAPI('/administrator/auth/add'), // 权限枚举新增

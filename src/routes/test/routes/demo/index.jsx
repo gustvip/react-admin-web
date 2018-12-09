@@ -17,8 +17,5 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-/**
- * 连接组件
- */
 const DemoComponent = connect(mapStateToProps, mapDispatchToProps)(Demo);
-export default () => <DemoComponent/>;
+export default (props) => <DemoComponent {...props}/>;

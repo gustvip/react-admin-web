@@ -9,24 +9,30 @@ import flowRight from 'lodash/flowRight';
  */
 const enumRouter = {
 	rootPath: '',
-	login: 'login',
-	noPermit: 'noPermit',
-	testDemo: 'test/demo',
-	testParseFile: 'test/parseFile',
+	login: 'login', // 登陆
+	noPermit: 'noPermit', // 无权限
+	
+	/*
+   |-----------------------------------------------
+   | 测试-相关的路由
+   |-----------------------------------------------
+  */
+	testDemo: 'test/demo', // demo
+	testParseFile: 'test/parseFile', // 解析文件
 	
 	/*
 	 |-----------------------------------------------
 	 | 用户-相关的路由
 	 |-----------------------------------------------
 	 */
-	userList: 'user/list',
+	userList: 'user/list', // 用户列表
 	
 	/*
 	 |-----------------------------------------------
 	 | 超级管理员-相关的路由
 	 |-----------------------------------------------
 	 */
-	administratorAuthList: 'administrator/authList',
-	administratorGroupList: 'administrator/groupList',
+	administratorAuthList: 'administrator/authList', // 权限列表
+	administratorGroupList: 'administrator/groupList', // 分配权限列表
 };
 export default helper.immutable(enumRouter, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

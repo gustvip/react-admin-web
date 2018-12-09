@@ -7,7 +7,7 @@ const webpackBar = require('webpackbar');
 const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rules;
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// 页面入口文件,使用异步加载方式
+// 页面入口文件,使用异步加载方式---bundle-loader
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.([jt]sx?))$/ig;
 const excludeRegex = require('./util').excludeRegex;
 const resourceBaseName = require('./util').resourceBaseName;
@@ -15,24 +15,16 @@ const customAntStyle = require('./util').customAntStyle;
 
 const staticResource = [
 	{
-		test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000&minetype=application/font-woff`,
-	},
-	{
-		test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10&minetype=application/font-woff`,
-	},
-	{
-		test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10&minetype=application/octet-stream`,
-	},
-	{
-		test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]`,
+		test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
 		test: /\.(txt|doc|docx|swf)$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]`,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
+	},
+	{
+		test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
 		test: /\.(csv|tsv)$/,
@@ -41,6 +33,8 @@ const staticResource = [
 ];
 
 module.exports = {
+	devtool: 'cheap-module-source-map',	// cheap-module-source-map,cheap-module-eval-source-map
+	
 	optimization: {
 		splitChunks: {
 			chunks: 'all',
@@ -142,6 +136,8 @@ module.exports = {
 						options: {
 							sourceMap: true,
 							modules: true,
+							import: true,
+							url: true,
 							localIdentName: '[name][hash:base64]',
 						},
 					},
