@@ -223,15 +223,15 @@ export function put(url, data = {}, options = {}) {
 /**
  * 发送一个form请求
  * @param {String} url
- * @param {Object} property 表单属性
- * @param {Object} params 请求参数
+ * @param {Object} [property] 表单属性
+ * @param {Object} [params] 请求参数
  * @return {HTMLElement}
  */
 export function form(url, property = {}, params = {}) {
 	property = Object.assign({
 		enctype: 'application/x-www-form-urlencoded',
 		method: 'POST',
-		target: '_blank',
+		target: '_self',
 		action: url,
 	}, property);
 	const formId = '__render-form-dom-id__';
@@ -256,28 +256,9 @@ export function form(url, property = {}, params = {}) {
 	});
 	
 	document.body.appendChild(formElement);
-	return formElement;
+	formElement.submit();
+	document.body.removeChild(formElement);
 }
-
-/**
- * 下载文件
- * @param {string} url
- * @param {string} [fileName]
- */
-export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
-	const id = '__read-and-down-image-id__';
-	let newLink = document.querySelector('#' + id);
-	if (newLink) {
-		document.body.removeChild(newLink);
-	}
-	
-	newLink = document.createElement('a');
-	newLink.id = id;
-	newLink.href = url;
-	newLink.download = fileName;
-	document.body.appendChild(newLink);
-	newLink.click();
-};
 
 /**
  * 并发执行多个请求
