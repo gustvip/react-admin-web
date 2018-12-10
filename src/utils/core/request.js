@@ -261,6 +261,28 @@ export function form(url, property = {}, params = {}) {
 }
 
 /**
+ * 下载文件
+ * @param {string} url
+ * @param {string} [fileName]
+ */
+export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
+	const id = '__read-and-down-image-id__';
+	let newLink = document.querySelector('#' + id);
+	if (newLink) {
+		document.body.removeChild(newLink);
+	}
+	
+	newLink = document.createElement('a');
+	newLink.id = id;
+	newLink.target = '_self';
+	newLink.href = url;
+	newLink.download = fileName;
+	document.body.appendChild(newLink);
+	newLink.click();
+	document.body.removeChild(newLink);
+};
+
+/**
  * 并发执行多个请求
  * @param {Array | function} args
  * @return {Promise<[any , any , any , any , any , any , any , any , any , any]>}
