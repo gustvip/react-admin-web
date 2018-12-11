@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * @description webpack 生产环境的打包基本配置
  */

@@ -65,7 +65,7 @@ const eslintrc = {
 		'curly': 2,
 		'no-mixed-spaces-and-tabs': 2,
 		'no-prototype-builtins': 2,
-		'camelcase': 1,
+		'camelcase': 2,
 		'indent': [
 			2,
 			'tab',

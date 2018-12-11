@@ -63,7 +63,13 @@ const webpackConfigProd = merge(prodConfig, {
 		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, '../public/config/env.js'),
-				to: path.join(conf.webPath, 'config'),
+				to: path.join(conf.webPath, 'config/env.js'),
+			},
+		]),
+		new copyWebpackPlugin([
+			{
+				from: path.join(__dirname, '../public/config/env.js'),
+				to: path.join(conf.webPath, 'config/env.production.js'),
 			},
 		]),
 		

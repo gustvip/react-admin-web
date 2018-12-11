@@ -83,7 +83,7 @@ class Helper {
 			}
 			--maxLevel;
 		}
-		return data[maxLevel];
+		return data[minLevel];
 	}
 	
 	/**

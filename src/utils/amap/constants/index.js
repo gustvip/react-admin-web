@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Created by joey on 2018/02/27
  */
