@@ -1,6 +1,6 @@
 {
 	"name": "react-admin-web",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"author": "zhouhaifei <zhouhaifei1994@sina.com>",
 	"description": "react-admin-web",
 	"main": "src/index.js",
@@ -134,11 +134,11 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/air-supply94/react-demo.git"
+		"url": "https://github.com/air-supply94/react-admin-web.git"
 	},
 	"bugs": {
-		"url": "https://github.com/air-supply94/react-demo/issues"
+		"url": "https://github.com/air-supply94/react-admin-web/issues"
 	},
-	"homepage": "https://github.com/air-supply94/react-demo",
+	"homepage": "https://github.com/air-supply94/react-admin-web",
 	"license": "MIT"
 }
