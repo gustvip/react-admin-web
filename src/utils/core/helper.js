@@ -9,14 +9,14 @@ import IsFinite from 'lodash/isFinite';
 import minBy from 'lodash/minBy';
 import maxBy from 'lodash/maxBy';
 import classNames from 'classnames';
-import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
+import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
 
 class Helper {
 	/**
 	 * @param {*} x
 	 * @return {{index: *, base: string}}
 	 */
-	getNumberBase(x) {
+	getNumberBase (x) {
 		const baseCollection = ['B', 'K', 'M', 'G', 'T'];
 		x = toFinite(Math.abs(x));
 		if (x < 1024) {
@@ -39,7 +39,7 @@ class Helper {
 	 * @param w 保留小数位数
 	 * @returns {string}
 	 */
-	autoToSize(x, w = 2) {
+	autoToSize (x, w = 2) {
 		const base = this.getNumberBase(x);
 		return round(toFinite(x) / Math.pow(1024, base.index), w) + base.base;
 	}
@@ -53,7 +53,7 @@ class Helper {
 	 * @param {string} [childrenName] 生成children的key
 	 * @return {Array}
 	 */
-	formatTreeData(data, levelName, parentName, ownName, childrenName = 'children') {
+	formatTreeData (data, levelName, parentName, ownName, childrenName = 'children') {
 		if (!data.length) {
 			return [];
 		}
@@ -81,7 +81,7 @@ class Helper {
 					},
 				);
 			}
-			--maxLevel;
+			maxLevel--;
 		}
 		return data[minLevel];
 	}
@@ -90,7 +90,7 @@ class Helper {
 	 * 渲染弹出窗Modal
 	 * @param {ReactElement} component react组件
 	 */
-	renderModal(component) {
+	renderModal (component) {
 		const domId = '__render-modal-dom-id__';
 		const oldDomElement = document.querySelector('#' + domId);
 		if (oldDomElement) {
@@ -109,7 +109,7 @@ class Helper {
 	 * @param {number} radix
 	 * @return {string}
 	 */
-	uuid(len, radix) {
+	uuid (len, radix) {
 		var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 		var uuid = [];
 		var i;
@@ -142,7 +142,7 @@ class Helper {
 	 * @param {String} property
 	 * @return {number}
 	 */
-	sort({prev, now, property} = {}) {
+	sort ({prev, now, property} = {}) {
 		const prevValue = get(prev, property);
 		const nowValue = get(now, property);
 		if (prevValue < nowValue) {
@@ -160,9 +160,9 @@ class Helper {
 	 * @param {Boolean} enumerable 属性是否可以枚举
 	 * @return {*}
 	 */
-	immutable(data, callback = identity, enumerable = true) {
+	immutable (data, callback = identity, enumerable = true) {
 		const self = this;
-		return (function fn(_data) {
+		return (function fn (_data) {
 			let result = _data;
 			if (self.isPureObject(_data) || Array.isArray(_data)) {
 				result = Array.isArray(_data) ? [] : {};
@@ -182,7 +182,7 @@ class Helper {
 	 * @param {*} basisClass 不是字符串，默认为iconfont,不想加传递''
 	 * @return {Function}
 	 */
-	classNames(basisClass) {
+	classNames (basisClass) {
 		return (...rest) => classNames(isString(basisClass) ? basisClass : 'iconfont', ...rest);
 	}
 	
@@ -192,7 +192,7 @@ class Helper {
 	 * @param {String}    defaultVal  不满足条件的默认值
 	 * @return {String}
 	 */
-	showValue(val, defaultVal = '-') {
+	showValue (val, defaultVal = '-') {
 		return (this.checkString(val) || IsFinite(val)) ? val : defaultVal;
 	}
 	
@@ -201,7 +201,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	checkArray(x) {
+	checkArray (x) {
 		return Array.isArray(x) && x.length > 0;
 	}
 	
@@ -210,7 +210,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	checkString(x) {
+	checkString (x) {
 		return isString(x) && x.trim().length > 0;
 	}
 	
@@ -219,7 +219,7 @@ class Helper {
 	 * @param x
 	 * @return {boolean}
 	 */
-	isPureObject(x) {
+	isPureObject (x) {
 		return Object.prototype.toString.call(x) === '[object Object]';
 	}
 	
@@ -227,7 +227,7 @@ class Helper {
 	 * 去除尾部下划线
 	 * @param {String} x
 	 */
-	removeTrailingSlash(x) {
+	removeTrailingSlash (x) {
 		return x.replace(/\/*$/g, '');
 	}
 	
@@ -236,8 +236,8 @@ class Helper {
 	 * @param {String} x
 	 * @return {String}
 	 */
-	removeBlank(x) {
-		return x.replace(/\s/g, '');
+	removeBlank (x) {
+		return x.replace(/\s|\ufeff/g, '');
 	}
 	
 	/**
@@ -248,21 +248,17 @@ class Helper {
 	 * @param {function} [callback]
 	 * @return {Array}
 	 */
-	findPath(data, stopValue, property, callback) {
+	findPath (data, stopValue, property, callback) {
 		const self = this;
 		let tag = false;
 		let array = [];
 		if (Array.isArray(data)) {
-			(function fn(_data, _array) {
+			(function fn (_data, _array) {
 				let index = -1;
 				while (!tag && ++index < _data.length) {
 					const rowData = _data[index];
 					const rowArray = _array.slice();
-					if (callback) {
-						rowArray.push(callback(rowData));
-					} else {
-						rowArray.push(rowData[property]);
-					}
+					rowArray.push(callback ? callback(rowData) : rowData[property]);
 					if (rowData[property] === stopValue) {
 						array = rowArray;
 						tag = true;

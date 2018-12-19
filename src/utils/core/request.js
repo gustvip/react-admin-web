@@ -2,6 +2,7 @@
  * Created by joey on 2018/2/19
  */
 import axios from 'axios';
+import axiosUtils from 'axios/lib/utils';
 import forOwn from 'lodash/forOwn';
 import forEach from 'lodash/forEach';
 import noop from 'lodash/noop';
@@ -14,7 +15,7 @@ import transform from 'lodash/transform';
  * @param {String} [namespace]
  * @returns {FormData}
  */
-function objectToFormData(obj, form, namespace) {
+function objectToFormData (obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
 	forEach(obj, (value, property) => {
@@ -24,7 +25,7 @@ function objectToFormData(obj, form, namespace) {
 			formKey = Array.isArray(obj) ? `[${property}]` : property + '';
 		}
 		
-		if (typeof value === 'object' && !(value instanceof File)) {
+		if (typeof value === 'object' && !axiosUtils.isFile(value) && !axiosUtils.isBlob(value)) {
 			objectToFormData(value, fd, formKey);
 		} else if (Array.isArray(value)) {
 			objectToFormData(value, fd, formKey);
@@ -42,11 +43,11 @@ function objectToFormData(obj, form, namespace) {
  */
 Promise._unhandledRejectionFn = noop;
 
-const singleton = (function() {
+const singleton = (function () {
 	let instantiated;
 	const baseURL = ENV.apiDomain;
 	
-	function init() {
+	function init () {
 		const instance = axios.create({
 			baseURL,
 			
@@ -66,18 +67,18 @@ const singleton = (function() {
 		/**
 		 * 请求的拦截
 		 */
-		instance.interceptors.request.use(function(config) {
+		instance.interceptors.request.use(function (config) {
 			return config;
-		}, function(error) {
+		}, function (error) {
 			return Promise.reject(error);
 		});
 		
 		/**
 		 * 响应的拦截
 		 */
-		instance.interceptors.response.use(function(response) {
+		instance.interceptors.response.use(function (response) {
 			return response;
-		}, function(error) {
+		}, function (error) {
 			return Promise.reject(error);
 		});
 		
@@ -85,7 +86,7 @@ const singleton = (function() {
 	}
 	
 	return {
-		getInstance() {
+		getInstance () {
 			return instantiated ? instantiated : instantiated = init();
 		},
 	};
@@ -135,7 +136,7 @@ const _request = (options = {}) => {
  * @param {Object} options
  * @returns {Promise}
  */
-export function get(url, params = {}, options = {}) {
+export function get (url, params = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'get',
@@ -150,7 +151,7 @@ export function get(url, params = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function post(url, data = {}, options = {}) {
+export function post (url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'post',
@@ -165,7 +166,7 @@ export function post(url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function postJSON(url, data = {}, options = {}) {
+export function postJSON (url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'post',
@@ -181,7 +182,7 @@ export function postJSON(url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
+export function upload (url, data = {}, options = {}, onUploadProgress = noop) {
 	return _request(Object.assign({
 		url,
 		method: 'post',
@@ -197,7 +198,7 @@ export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function del(url, data = {}, options = {}) {
+export function del (url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'delete',
@@ -212,7 +213,7 @@ export function del(url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function put(url, data = {}, options = {}) {
+export function put (url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'put',
@@ -227,20 +228,15 @@ export function put(url, data = {}, options = {}) {
  * @param {Object} [params] 请求参数
  * @return {HTMLElement}
  */
-export function form(url, property = {}, params = {}) {
+export function form (url, property = {}, params = {}) {
 	property = Object.assign({
 		enctype: 'application/x-www-form-urlencoded',
 		method: 'POST',
 		target: '_self',
 		action: url,
 	}, property);
-	const formId = '__render-form-dom-id__';
-	let formElement = document.querySelector('#' + formId);
-	if (formElement) {
-		document.body.removeChild(formElement);
-	}
-	formElement = document.createElement('form');
-	formElement.id = formId;
+	
+	const formElement = document.createElement('form');
 	formElement.style.display = 'none';
 	
 	forOwn(property, (value, key) => {
@@ -265,15 +261,8 @@ export function form(url, property = {}, params = {}) {
  * @param {string} url
  * @param {string} [fileName]
  */
-export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
-	const id = '__read-and-down-image-id__';
-	let newLink = document.querySelector('#' + id);
-	if (newLink) {
-		document.body.removeChild(newLink);
-	}
-	
-	newLink = document.createElement('a');
-	newLink.id = id;
+export const downLoadUrl = function (url, fileName = Date.now().toString(10)) {
+	const newLink = document.createElement('a');
 	newLink.target = '_self';
 	newLink.href = url;
 	newLink.download = fileName;
@@ -287,6 +276,6 @@ export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
  * @param {Array | function} args
  * @return {Promise<[any , any , any , any , any , any , any , any , any , any]>}
  */
-export function all(args) {
+export function all (args) {
 	return Promise.all(Array.isArray(args) ? args : [].slice.call(arguments));
 }
