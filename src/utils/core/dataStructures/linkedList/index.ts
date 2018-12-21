@@ -2,10 +2,8 @@ import LinkedListNode from './linkedListNode';
 import Comparator from '../../utils/comparator/index';
 import isFunction from '../../utils/isFunction/index';
 import isPureObject from '../../utils/isPureObject/index';
-import map from '../../utils/map/index';
 import isArray from '../../utils/isArray/index';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
-import { compareFunctionType } from '../../utils/@types';
+import {compareFunctionType} from '../../utils/@types';
 
 class LinkedList {
 	constructor(comparatorFunction?: compareFunctionType) {
@@ -27,7 +25,7 @@ class LinkedList {
 	};
 	
 	public toString(callback?: any): string {
-		return map(this.toArray(), function(node: LinkedListNode) {
+		return this.toArray().map(function (node: LinkedListNode) {
 			return node.toString(callback);
 		}).toString();
 	};
@@ -46,7 +44,7 @@ class LinkedList {
 	public fromArray(values?: any[] | any): this {
 		var self = this;
 		if (isArray(values)) {
-			_arrayLikeForEach(values, function(value) {
+			values.forEach(function (value) {
 				self.append(value);
 			});
 		}
@@ -161,7 +159,7 @@ class LinkedList {
 	};
 	
 	public has(value?: any): boolean {
-		return !!this.find({ value: value });
+		return !!this.find({value: value});
 	};
 	
 	public isEmpty(): boolean {

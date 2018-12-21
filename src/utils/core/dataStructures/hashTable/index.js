@@ -1,16 +1,13 @@
 import doubleLinkedList from '../doubleLinkedList/index';
 import toLength from '../../utils/toLength/index';
-import map from '../../utils/map/index';
-import reduce from '../../utils/reduce/index';
-import keys from '../../utils/keys/index';
 import isUndefined from '../../utils/isUndefined/index';
 
 /**
  * @param {number} hashTableSize
  */
-function HashTable(hashTableSize) {
+function HashTable (hashTableSize) {
 	hashTableSize = isUndefined(hashTableSize) ? 32 : toLength(hashTableSize);
-	this.buckets = map(new Array(hashTableSize), function() {
+	this.buckets = new Array(hashTableSize).fill().map(function () {
 		return new doubleLinkedList();
 	});
 	this.keys = {};
@@ -20,10 +17,10 @@ function HashTable(hashTableSize) {
  * @param {string} key
  * @return {number}
  */
-HashTable.prototype.hash = function hash(key) {
-	var hash = reduce(
+HashTable.prototype.hash = function hash (key) {
+	var hash = [].reduce.call(
 		key,
-		function(hashAccumulator, keySymbol) {
+		function (hashAccumulator, keySymbol) {
 			return hashAccumulator + keySymbol.charCodeAt(0);
 		},
 		0,
@@ -35,12 +32,12 @@ HashTable.prototype.hash = function hash(key) {
  * @param {string} key
  * @param {*} value
  */
-HashTable.prototype.set = function set(key, value) {
+HashTable.prototype.set = function set (key, value) {
 	var keyHash = this.hash(key);
 	this.keys[key] = keyHash;
 	var doubleLinkedList = this.buckets[keyHash];
 	var node = doubleLinkedList.find({
-		callback: function(nodeValue) {
+		callback: function (nodeValue) {
 			return nodeValue.key === key;
 		},
 	});
@@ -59,12 +56,12 @@ HashTable.prototype.set = function set(key, value) {
  * @param {string} key
  * @return {*}
  */
-HashTable.prototype.delete = function(key) {
+HashTable.prototype.delete = function (key) {
 	var keyHash = this.hash(key);
 	delete this.keys[key];
 	var doubleLinkedList = this.buckets[keyHash];
 	var node = doubleLinkedList.find({
-		callback: function(nodeValue) {
+		callback: function (nodeValue) {
 			return nodeValue.key === key;
 		},
 	});
@@ -80,10 +77,10 @@ HashTable.prototype.delete = function(key) {
  * @param {string} key
  * @return {*}
  */
-HashTable.prototype.get = function get(key) {
+HashTable.prototype.get = function get (key) {
 	var doubleLinkedList = this.buckets[this.hash(key)];
 	var node = doubleLinkedList.find({
-		callback: function(nodeValue) {
+		callback: function (nodeValue) {
 			return nodeValue.key === key;
 		},
 	});
@@ -95,18 +92,18 @@ HashTable.prototype.get = function get(key) {
  * @param {string} key
  * @return {*}
  */
-HashTable.prototype.has = function has(key) {
+HashTable.prototype.has = function has (key) {
 	return Object.prototype.hasOwnProperty.call(this.keys, key);
 };
 
 /**
  * @return {string[]}
  */
-HashTable.prototype.getKeys = function getKeys() {
-	return keys(this.keys);
+HashTable.prototype.getKeys = function getKeys () {
+	return Object.keys(this.keys);
 };
 
-function hashTable(hashTableSize) {
+function hashTable (hashTableSize) {
 	return new HashTable(hashTableSize);
 }
 

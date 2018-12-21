@@ -3,14 +3,13 @@
  */
 import Comparator from '../../utils/comparator/index';
 import isUndefined from '../../utils/isUndefined/index';
-import findIndex from '../../utils/findIndex/index';
 import swap from '../../utils/swap/index';
 
 /**
  * @constructs Heap
  * @param {Function} [comparatorFunction]
  */
-function Heap(comparatorFunction) {
+function Heap (comparatorFunction) {
 	this.heapContainer = [];
 	this.compare = new Comparator(comparatorFunction);
 }
@@ -19,7 +18,7 @@ function Heap(comparatorFunction) {
  * @param {number} parentIndex
  * @return {number}
  */
-Heap.prototype.getLeftChildIndex = function getLeftChildIndex(parentIndex) {
+Heap.prototype.getLeftChildIndex = function getLeftChildIndex (parentIndex) {
 	return 2 * parentIndex + 1;
 };
 
@@ -27,7 +26,7 @@ Heap.prototype.getLeftChildIndex = function getLeftChildIndex(parentIndex) {
  * @param {number} parentIndex
  * @return {number}
  */
-Heap.prototype.getRightChildIndex = function getRightChildIndex(parentIndex) {
+Heap.prototype.getRightChildIndex = function getRightChildIndex (parentIndex) {
 	return 2 * parentIndex + 2;
 };
 
@@ -35,7 +34,7 @@ Heap.prototype.getRightChildIndex = function getRightChildIndex(parentIndex) {
  * @param {number} childIndex
  * @return {number}
  */
-Heap.prototype.getParentIndex = function getParentIndex(childIndex) {
+Heap.prototype.getParentIndex = function getParentIndex (childIndex) {
 	return Math.floor((childIndex - 1) / 2);
 };
 
@@ -43,7 +42,7 @@ Heap.prototype.getParentIndex = function getParentIndex(childIndex) {
  * @param {number} childIndex
  * @return {boolean}
  */
-Heap.prototype.hasParent = function hasParent(childIndex) {
+Heap.prototype.hasParent = function hasParent (childIndex) {
 	return this.getParentIndex(childIndex) >= 0;
 };
 
@@ -51,7 +50,7 @@ Heap.prototype.hasParent = function hasParent(childIndex) {
  * @param {number} parentIndex
  * @return {number}
  */
-Heap.prototype.hasLeftChild = function hasLeftChild(parentIndex) {
+Heap.prototype.hasLeftChild = function hasLeftChild (parentIndex) {
 	return this.getLeftChildIndex(parentIndex) < this.heapContainer.length;
 };
 
@@ -59,7 +58,7 @@ Heap.prototype.hasLeftChild = function hasLeftChild(parentIndex) {
  * @param {number} parentIndex
  * @return {number}
  */
-Heap.prototype.hasRightChild = function hasRightChild(parentIndex) {
+Heap.prototype.hasRightChild = function hasRightChild (parentIndex) {
 	return this.getRightChildIndex(parentIndex) < this.heapContainer.length;
 };
 
@@ -67,7 +66,7 @@ Heap.prototype.hasRightChild = function hasRightChild(parentIndex) {
  * @param {number} parentIndex
  * @return {*}
  */
-Heap.prototype.leftChild = function leftChild(parentIndex) {
+Heap.prototype.leftChild = function leftChild (parentIndex) {
 	return this.heapContainer[this.getLeftChildIndex(parentIndex)];
 };
 
@@ -75,7 +74,7 @@ Heap.prototype.leftChild = function leftChild(parentIndex) {
  * @param {number} parentIndex
  * @return {*}
  */
-Heap.prototype.rightChild = function rightChild(parentIndex) {
+Heap.prototype.rightChild = function rightChild (parentIndex) {
 	return this.heapContainer[this.getRightChildIndex(parentIndex)];
 };
 
@@ -83,14 +82,14 @@ Heap.prototype.rightChild = function rightChild(parentIndex) {
  * @param {number} childIndex
  * @return {*}
  */
-Heap.prototype.parent = function parent(childIndex) {
+Heap.prototype.parent = function parent (childIndex) {
 	return this.heapContainer[this.getParentIndex(childIndex)];
 };
 
 /**
  * @return {*}
  */
-Heap.prototype.peek = function peek() {
+Heap.prototype.peek = function peek () {
 	if (this.isEmpty()) {
 		return undefined;
 	}
@@ -100,7 +99,7 @@ Heap.prototype.peek = function peek() {
 /**
  * @return {*}
  */
-Heap.prototype.poll = function poll() {
+Heap.prototype.poll = function poll () {
 	if (this.isEmpty()) {
 		return undefined;
 	} else if (this.heapContainer.length === 1) {
@@ -117,7 +116,7 @@ Heap.prototype.poll = function poll() {
  * @param {*} item
  * @return {Heap}
  */
-Heap.prototype.add = function add(item) {
+Heap.prototype.add = function add (item) {
 	this.heapContainer.push(item);
 	this.heapifyUp();
 	return this;
@@ -128,7 +127,7 @@ Heap.prototype.add = function add(item) {
  * @param {Comparator} [comparator]
  * @return {Heap}
  */
-Heap.prototype.remove = function remove(item, comparator) {
+Heap.prototype.remove = function remove (item, comparator) {
 	var removeIndex = this.findIndex(item, comparator);
 	while (removeIndex !== -1) {
 		if (removeIndex === this.heapContainer.length - 1) {
@@ -153,9 +152,9 @@ Heap.prototype.remove = function remove(item, comparator) {
  * @param {*} [fromIndex]
  * @return {Number}
  */
-Heap.prototype.findIndex = function find(item, comparator, fromIndex) {
+Heap.prototype.findIndex = function find (item, comparator, fromIndex) {
 	comparator = comparator || this.compare;
-	return findIndex(this.heapContainer, function(value) {
+	return this.heapContainer.findIndex(function (value) {
 		return comparator.equal(item, value);
 	}, fromIndex);
 };
@@ -163,21 +162,21 @@ Heap.prototype.findIndex = function find(item, comparator, fromIndex) {
 /**
  * @return {boolean}
  */
-Heap.prototype.isEmpty = function isEmpty() {
+Heap.prototype.isEmpty = function isEmpty () {
 	return !this.heapContainer.length;
 };
 
 /**
  * @return {string}
  */
-Heap.prototype.toString = function toString() {
+Heap.prototype.toString = function toString () {
 	return this.heapContainer.toString();
 };
 
 /**
  * @param {number} [customStartIndex]
  */
-Heap.prototype.heapifyUp = function heapifyUp(customStartIndex) {
+Heap.prototype.heapifyUp = function heapifyUp (customStartIndex) {
 	customStartIndex = isUndefined(customStartIndex) ? this.heapContainer.length - 1 : customStartIndex;
 	while (this.hasParent(customStartIndex) && !this.pairIsInCorrectOrder(this.parent(customStartIndex), this.heapContainer[customStartIndex])) {
 		swap(this.heapContainer, customStartIndex, this.getParentIndex(customStartIndex));
@@ -188,7 +187,7 @@ Heap.prototype.heapifyUp = function heapifyUp(customStartIndex) {
 /**
  * @param {number} [customStartIndex]
  */
-Heap.prototype.heapifyDown = function heapifyDown(customStartIndex) {
+Heap.prototype.heapifyDown = function heapifyDown (customStartIndex) {
 	customStartIndex = isUndefined(customStartIndex) ? 0 : customStartIndex;
 	var nextIndex = null;
 	while (this.hasLeftChild(customStartIndex)) {

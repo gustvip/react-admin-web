@@ -64,24 +64,6 @@ const singleton = (function () {
 			},
 		});
 		
-		/**
-		 * 请求的拦截
-		 */
-		instance.interceptors.request.use(function (config) {
-			return config;
-		}, function (error) {
-			return Promise.reject(error);
-		});
-		
-		/**
-		 * 响应的拦截
-		 */
-		instance.interceptors.response.use(function (response) {
-			return response;
-		}, function (error) {
-			return Promise.reject(error);
-		});
-		
 		return instance;
 	}
 	

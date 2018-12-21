@@ -2,8 +2,6 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
-import isArray from '../../utils/isArray/index';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 function compareFunction(a, b) {
 	if (a.key === b.key) {
@@ -20,12 +18,12 @@ class Map {
 		var self = this;
 		this.doubleLinkedList = new DoubleLinkedList(compareFunction);
 		if (object instanceof Map) {
-			object.forEach(function(value, key) {
+			object.forEach(function (value, key) {
 				self.set(key, value);
 			});
-		} else if (isArray(object)) {
-			_arrayLikeForEach(object, function(value) {
-				if (isArray(value)) {
+		} else if (Array.isArray(object)) {
+			object.forEach(function (value) {
+				if (Array.isArray(value)) {
 					self.set(value[0], value[1]);
 				}
 			});
@@ -34,13 +32,13 @@ class Map {
 	}
 	
 	public delete(key?: any): this {
-		this.doubleLinkedList.delete({ key: key });
+		this.doubleLinkedList.delete({key: key});
 		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
 	public set(key?: any, value?: any): this {
-		var oldNode = this.doubleLinkedList.find({ value: { key: key } });
+		var oldNode = this.doubleLinkedList.find({value: {key: key}});
 		if (oldNode) {
 			oldNode.value.value = value;
 		} else {
@@ -98,12 +96,12 @@ class Map {
 	};
 	
 	public get(key?: any): any {
-		var result = this.doubleLinkedList.find({ value: { key: key } });
+		var result = this.doubleLinkedList.find({value: {key: key}});
 		return result ? result.value.value : undefined;
 	};
 	
 	public has(key?: any): boolean {
-		return !!this.doubleLinkedList.find({ value: { key: key } });
+		return !!this.doubleLinkedList.find({value: {key: key}});
 	};
 }
 

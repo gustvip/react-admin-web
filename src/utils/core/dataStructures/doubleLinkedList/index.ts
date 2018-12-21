@@ -2,10 +2,7 @@ import DoubleLinkedListNode from './doubleLinkedListNode';
 import Comparator from '../../utils/comparator/index';
 import isFunction from '../../utils/isFunction/index';
 import isPureObject from '../../utils/isPureObject/index';
-import isArray from '../../utils/isArray/index';
-import map from '../../utils/map/index';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
-import { compareFunctionType } from '../../utils/@types';
+import {compareFunctionType} from '../../utils/@types';
 
 class DoubleLinkedList {
 	constructor(comparatorFunction?: compareFunctionType) {
@@ -27,7 +24,7 @@ class DoubleLinkedList {
 	};
 	
 	public toString(callback?: any): string {
-		return map(this.toArray(), function(node: DoubleLinkedListNode) {
+		return this.toArray().map(function (node: DoubleLinkedListNode) {
 			return node.toString(callback);
 		}).toString();
 	};
@@ -45,8 +42,8 @@ class DoubleLinkedList {
 	
 	public fromArray(values?: any[] | any): this {
 		var self = this;
-		if (isArray(values)) {
-			_arrayLikeForEach(values, function(value) {
+		if (Array.isArray(values)) {
+			values.forEach(function (value) {
 				self.append(value);
 			});
 		}
@@ -160,7 +157,7 @@ class DoubleLinkedList {
 	};
 	
 	public has(value?: any): boolean {
-		return !!this.find({ value: value });
+		return !!this.find({value: value});
 	};
 	
 	public isEmpty(): boolean {

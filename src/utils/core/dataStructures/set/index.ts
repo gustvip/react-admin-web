@@ -3,7 +3,6 @@
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
 import isArray from '../../utils/isArray/index';
-import _arrayLikeForEach from '../../utils/aaa/_arrayLikeForEach/index';
 
 class Set {
 	public doubleLinkedList: DoubleLinkedList;
@@ -13,11 +12,11 @@ class Set {
 		var self = this;
 		this.doubleLinkedList = new DoubleLinkedList();
 		if (object instanceof Set) {
-			object.forEach(function(value) {
+			object.forEach(function (value) {
 				self.add(value);
 			});
 		} else if (isArray(object)) {
-			_arrayLikeForEach(object, function(value) {
+			object.forEach(function (value) {
 				self.add(value);
 			});
 		}
@@ -31,7 +30,7 @@ class Set {
 	};
 	
 	public add(value?: any): this {
-		var oldNode = this.doubleLinkedList.find({ value: value });
+		var oldNode = this.doubleLinkedList.find({value: value});
 		if (oldNode) {
 			oldNode.value = value;
 		} else {
@@ -77,7 +76,7 @@ class Set {
 	};
 	
 	public has(value?: any): boolean {
-		return !!this.doubleLinkedList.find({ value: value });
+		return !!this.doubleLinkedList.find({value: value});
 	};
 }
 

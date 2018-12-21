@@ -1,10 +1,9 @@
 /**
  * Created by joey on 2018/10/15
  */
-import isFunction from '../isFunction/index';
-import { compareFunctionType } from '../@types';
+import {compareFunctionType} from '../@types';
 
-var defaultCompareFunction: compareFunctionType = function(a, b) {
+var defaultCompareFunction: compareFunctionType = function (a, b) {
 	if (a === b) {
 		return 0;
 	}
@@ -12,8 +11,8 @@ var defaultCompareFunction: compareFunctionType = function(a, b) {
 };
 
 export default class Comparator {
-	constructor(compareFunction?: compareFunctionType | any) {
-		this.compare = isFunction(compareFunction) ? compareFunction : defaultCompareFunction;
+	constructor(compareFunction?: compareFunctionType) {
+		this.compare = typeof compareFunction === "function" ? compareFunction : defaultCompareFunction;
 	}
 	
 	public compare: compareFunctionType;
@@ -40,7 +39,7 @@ export default class Comparator {
 	
 	public reverse(): this {
 		var compareOriginal = this.compare;
-		this.compare = function(a, b) {
+		this.compare = function (a, b) {
 			return compareOriginal(b, a);
 		};
 		return this;

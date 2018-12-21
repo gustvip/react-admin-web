@@ -4,7 +4,6 @@
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
 // 处理vtk规则
-const vtkRules = require('vtk.js/Utilities/config/dependency.js').webpack.v2.rules;
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // 页面入口文件,使用异步加载方式---bundle-loader
@@ -113,7 +112,6 @@ module.exports = {
 	module: {
 		rules: [
 			...staticResource,
-			...vtkRules,
 			
 			{
 				test: /\.css$/,
