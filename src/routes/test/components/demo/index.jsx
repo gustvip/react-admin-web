@@ -1,19 +1,19 @@
 import * as React from 'react';
 
 export default class TestComponent extends React.PureComponent {
-	constructor() {
+	constructor () {
 		super();
 		this.container = null;
 	}
 	
-	componentDidMount() {
+	componentDidMount () {
 	}
 	
 	xhrDemo = () => {
 		const xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
 		xhr.open('POST', 'http://localhost:8081/user/add');
-		xhr.onreadystatechange = function(event) {
+		xhr.onreadystatechange = function (event) {
 			if ((xhr.readyState === 4) && (xhr.status >= 200 && xhr.status <= 300) || xhr.status === 304) {
 				const responseText = xhr.responseText;
 				const allResponseHeaders = xhr.getAllResponseHeaders();
@@ -22,7 +22,7 @@ export default class TestComponent extends React.PureComponent {
 			}
 		};
 		xhr.timeout = 999999999;
-		xhr.ontimeout = function(event) {
+		xhr.ontimeout = function (event) {
 		
 		};
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
@@ -35,7 +35,7 @@ export default class TestComponent extends React.PureComponent {
 		);
 	};
 	
-	render() {
+	render () {
 		return (
 			<div
 				ref={container => this.container = container}

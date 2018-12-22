@@ -18,7 +18,7 @@ const staticResource = [
 		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
-		test: /\.(txt|doc|docx|swf)$/,
+		test: /\.(txt|doc|docx|swf)(\?.*)?$/,
 		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
@@ -26,7 +26,7 @@ const staticResource = [
 		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
-		test: /\.(csv|tsv)$/,
+		test: /\.(csv|tsv)(\?.*)?$/,
 		use: 'csv-loader',
 	},
 ];
@@ -68,7 +68,7 @@ module.exports = {
 	},
 	
 	entry: {
-		app: ['babel-polyfill', 'url-search-params-polyfill', './src/index'],
+		app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
 		commons: [
 			'axios',
 			'immutability-helper',
@@ -181,9 +181,8 @@ module.exports = {
 			},
 			
 			{
-				test: /\.jsx?$/,
-				// use: ['babel-loader', 'ts-loader'],
-				use: ['babel-loader'],
+				test: /\.[jt]sx?$/,
+				use: ['babel-loader', 'ts-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
 		],
