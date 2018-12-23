@@ -23,8 +23,8 @@ module.exports = {
 	],
 	
 	transform: {
-		'.*\\.(js)$': 'babel-jest',
-		'.*\\.(ts)$': 'ts-jest',
+		'.*\\.js$': 'babel-jest',
+		'.*\\.ts$': 'ts-jest',
 	},
 	
 	snapshotSerializers: [
@@ -37,7 +37,7 @@ module.exports = {
 	],
 	
 	// The pattern Jest uses to detect test files.
-	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
 	
 	// This option sets the URL for the jsdom environment.
 	// It is reflected in properties such as location.href.

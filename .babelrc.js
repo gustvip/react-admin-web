@@ -24,7 +24,6 @@ const plugins = [
 			'style': true,
 		},
 	],
-	require('@babel/plugin-proposal-function-bind'),        // 支持::obj.func 等价与obj.func.bind(obj) 参照:https://babeljs.io/docs/en/next/babel-plugin-proposal-function-bind
 	require('@babel/plugin-syntax-dynamic-import'),         // 支持动态import
 	[require('@babel/plugin-proposal-decorators'), {'legacy': true}],         // 支持装饰器语法
 	[require('@babel/plugin-proposal-class-properties'), {'loose': true}],    // 支持class属性初始化和static

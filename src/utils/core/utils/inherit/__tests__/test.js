@@ -9,12 +9,6 @@ test('test inherit', () => {
 		return 'hi';
 	};
 	
-	expect(() => {
-		inherit(1, parent)();
-	}).toThrow();
-	expect(() => {
-		inherit(child, 1)();
-	}).toThrow();
 	inherit(child, parent);
 	child.prototype.sayHello = function() {
 		return 'hello';

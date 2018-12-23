@@ -3,7 +3,6 @@
  */
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
-// 处理vtk规则
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // 页面入口文件,使用异步加载方式---bundle-loader
@@ -70,6 +69,7 @@ module.exports = {
 	entry: {
 		app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
 		commons: [
+			'qs',
 			'axios',
 			'immutability-helper',
 			'prop-types',
@@ -84,7 +84,6 @@ module.exports = {
 			'utils/core/request.js',
 			'utils/core/emitter/index.js',
 			'utils/core/localStorage/index.js',
-			'utils/core/queryString/index.js',
 			'utils/core/helper.js',
 		],
 	},
@@ -100,7 +99,7 @@ module.exports = {
   }, */
 	
 	resolve: {
-		extensions: ['.js', '.jsx', '.json', '.scss'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
 		modules: ['node_modules', 'src/'],
 		mainFields: ['browser', 'main', 'module'],
 	},

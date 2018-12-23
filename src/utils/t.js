@@ -1,10 +1,10 @@
 /**
  * Created by joey on 2018/2/18
  */
-import * as queryString from './core/queryString';
+import * as qs from 'qs';
 import helper from './core/helper';
 import prompt from './core/prompt';
-import auth, {AuthComponent} from './core/auth';
+import auth, { AuthComponent } from './core/auth';
 import regExp from './core/regexp';
 import localStorage from './core/localStorage/index';
 import emitter from './core/emitter/index';
@@ -15,14 +15,14 @@ import classNames from 'classnames';
 import update from 'immutability-helper';
 
 /**
- * @type {{update: (<T, C extends CustomCommands<object>=never>(target: T, spec: Spec<T, C>) => T) | update, classNames: ClassNamesExport | classNames, queryString: {extract?, parse?, stringify?, parseUrl?}, crypto: Crypto, emitter, prompt: Prompt, regExp: {name(*=, *=, *=): *, password(*=, *=, *=): *, url: RegExp, email: RegExp, html: RegExp, ip: RegExp, chinese: RegExp, telephone: RegExp}, helper: Helper, auth: Auth, AuthComponent: AuthComponent, decorate: {contextTypes?, propTypes?}, request: {get?, post?, postJSON?, upload?, del?, put?, form?, all?}, localStorage: {length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}}
+ * @type {{update, classNames, qs, crypto: Crypto, emitter, prompt: Prompt, regExp: {name(*=, *=, *=): *, password(*=, *=, *=): *, url: RegExp, email: RegExp, html: RegExp, ip: RegExp, chinese: RegExp, telephone: RegExp}, helper: Helper, auth: Auth, AuthComponent: AuthComponent, decorate: {contextTypes?, propTypes?}, request: {get?, upload?, del?, all?, form?, post?, postJSON?, downLoadUrl?, put?}, localStorage: {length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}}
  */
 const T = {
 	update,
 	
 	classNames,
 	
-	queryString,
+	qs,
 	
 	// 加密算法
 	crypto,

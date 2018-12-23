@@ -1,12 +1,13 @@
 import Comparator from '../../utils/comparator';
-import { compareFunctionType } from '../../utils/@types';
+import ComparatorInterface from '../../utils/comparator/@types';
+import {compareFunctionType} from '../../utils/@types';
 
-export default function(originalArray: any[], compareCallback?: compareFunctionType): any[] {
+export default function (originalArray: any[], compareCallback?: compareFunctionType): any[] {
 	var comparator = new Comparator(compareCallback);
 	return mergeSort(originalArray, comparator);
 }
 
-function mergeSort(originalArray: any[], comparator: any): any[] {
+function mergeSort(originalArray: any[], comparator: ComparatorInterface): any[] {
 	if (originalArray.length <= 1) {
 		return originalArray;
 	}

@@ -4,10 +4,10 @@
 import T from 'utils/t';
 import UpdateAuthInfoModal from './updateAuthInfoModal';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import {Button, Input, Table, Form, Select} from 'antd';
+import { Button, Input, Table, Form, Select } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
-import {status} from 'constants/app/common';
+import { status } from 'constants/app/common';
 import * as webAPI from '../../webAPI/authList';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -53,7 +53,7 @@ class List extends React.PureComponent {
 		isTableLoading: false,
 	};
 	
-	componentDidMount() {
+	componentDidMount () {
 		this.getList(1, this.state.pageSize, this.state.search, this.state.status);
 	}
 	
@@ -111,7 +111,7 @@ class List extends React.PureComponent {
 	handleDelete = (selectedRows) => {
 		const self = this;
 		T.prompt.confirm({
-			onOk() {
+			onOk () {
 				return webAPI.administratorAuthDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
 					self.getList(1, self.state.pageSize, self.state.search, self.state.status);
@@ -128,7 +128,7 @@ class List extends React.PureComponent {
 		const self = this;
 		T.prompt.confirm({
 			title: '确认恢复吗?',
-			onOk() {
+			onOk () {
 				return webAPI.administratorAuthRecover({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('恢复成功');
 					self.getList(1, self.state.pageSize, self.state.search, self.state.status);
@@ -142,13 +142,13 @@ class List extends React.PureComponent {
 	 */
 	resetFields = () => this.props.form.resetFields();
 	
-	get columns() {
+	get columns () {
 		const self = this;
 		return [
 			{
 				title: 'value',
 				dataIndex: 'value',
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -159,7 +159,7 @@ class List extends React.PureComponent {
 			{
 				title: 'label',
 				dataIndex: 'label',
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -170,20 +170,20 @@ class List extends React.PureComponent {
 			{
 				title: 'status',
 				dataIndex: 'status',
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
 						property: 'status',
 					});
 				},
-				render(text) {
+				render (text) {
 					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},
 			},
 			{
 				title: '操作',
-				render(test, record) {
+				render (test, record) {
 					return (
 						<React.Fragment>
 							<AuthComponent auth={enumAuth.sAdministratorAuthUpdate.value}>
@@ -202,11 +202,11 @@ class List extends React.PureComponent {
 		];
 	}
 	
-	get rowSelection() {
+	get rowSelection () {
 		const self = this;
 		return {
 			selectedRowKeys: self.state.selectedRowKeys,
-			onChange(selectedRowKeys, selectedRows) {
+			onChange (selectedRowKeys, selectedRows) {
 				self.setState({
 					selectedRowKeys,
 					selectedRows,
@@ -215,7 +215,7 @@ class List extends React.PureComponent {
 		};
 	}
 	
-	get pagination() {
+	get pagination () {
 		const self = this;
 		return {
 			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
@@ -224,10 +224,10 @@ class List extends React.PureComponent {
 			total: self.state.count,
 			pageSize: self.state.pageSize,
 			showQuickJumper: enumCommon.pagination.showQuickJumper,
-			onChange(currentPage, pageSize) {
+			onChange (currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search, self.state.status);
 			},
-			onShowSizeChange(currentPage, pageSize) {
+			onShowSizeChange (currentPage, pageSize) {
 				self.getList(1, pageSize, self.state.search, self.state.status);
 			},
 		};
@@ -250,10 +250,10 @@ class List extends React.PureComponent {
 	};
 	
 	handleDownloadAuth = () => {
-		window.open(enumAPI.administratorAuthDownload);
+		T.request.form(enumAPI.administratorAuthDownload, {method: 'GET'});
 	};
 	
-	render() {
+	render () {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
