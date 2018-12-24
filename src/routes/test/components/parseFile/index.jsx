@@ -1,7 +1,7 @@
 import React from 'react';
 import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
-import {Button, Input} from 'antd';
+import { Button, Input } from 'antd';
 import mime from 'mime';
 import styles from './parseFile.scss';
 import enumAuth from 'constants/enumAuth';
@@ -11,13 +11,15 @@ import camelCase from 'lodash/camelCase';
 const {AuthComponent} = T;
 
 export default class TestComponent extends React.PureComponent {
-	constructor() {
+	constructor () {
 		super();
 		this.xlsxContainer = null;
 		this.xmlContainer = null;
 		this.csvContainer = null;
+		this.imageToBase64Container = null;
 		this.container = null;
 		this.state = {
+			imageBase64: '',
 			mime: '',
 			camelCase: '',
 		};
@@ -41,7 +43,16 @@ export default class TestComponent extends React.PureComponent {
 		}).catch(info => T.prompt.error(info.msg));
 	};
 	
-	render() {
+	handleImageToBase64 = (file) => {
+		const self = this;
+		const fileReader = new FileReader();
+		fileReader.onload = function (event) {
+			self.setState({imageBase64: event.target.result});
+		};
+		fileReader.readAsDataURL(file);
+	};
+	
+	render () {
 		return (
 			<div
 				className={T.classNames(styles['main-container'], 'flex-column-grow')}
@@ -120,6 +131,25 @@ export default class TestComponent extends React.PureComponent {
 					/>
 					<div className="content">
 						{this.state.camelCase}
+					</div>
+				</div>
+				<div className="image-to-base64-container">
+					<Button
+						onClick={() => this.imageToBase64Container.click()}
+						type="primary"
+					>
+						图片到base64
+					</Button>
+					<input
+						style={{display: 'none'}}
+						ref={imageToBase64Container => this.imageToBase64Container = imageToBase64Container}
+						multiple={false}
+						accept="image/gif,image/png,image/jpeg,image/webp,image/svg+xml"
+						type="file"
+						onChange={(e) => e.target.files && this.handleImageToBase64(e.target.files[0])}
+					/>
+					<div className="content">
+						{this.state.imageBase64}
 					</div>
 				</div>
 			</div>

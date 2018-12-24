@@ -8,11 +8,16 @@
 	:global {
 		.xlsx-container,
 		.xml-container,
+		.image-to-base64-container,
 		.csv-container {
 			margin-bottom: $base-content-gap;
 			.ant-btn {
 				width: 100%;
 				display: block;
+			}
+			.content {
+				text-indent: 2em;
+				padding: $base-content-gap 0;
 			}
 		}
 		.mime-container {
