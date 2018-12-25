@@ -102,6 +102,7 @@ describe('Index', () => {
 		
 		expect(linkedList.head.toString()).toBe('1');
 		expect(linkedList.tail.toString()).toBe('3');
+		expect(linkedList.tail.next).toBeNull();
 		
 		const deletedNode1 = linkedList.deleteTail();
 		
@@ -222,7 +223,6 @@ describe('Index', () => {
 		
 		expect(linkedList.toString()).toBe('1,1,2,3,3,3,4,5');
 		linkedList = new Index();
-		linkedList.fromArray({1: 1});
 		expect(linkedList.toString()).toBe('');
 	});
 	

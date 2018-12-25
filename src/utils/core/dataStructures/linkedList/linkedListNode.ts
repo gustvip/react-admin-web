@@ -1,19 +1,15 @@
-import isFunction from '../../utils/isFunction/index';
-import isUndefined from '../../utils/isUndefined/index';
+import {LinkedListNodeInterface} from './@types';
 
-class LinkedListNode {
-	public value: any;
-	public next: any;
+export default class LinkedListNode implements LinkedListNodeInterface {
+	public value;
+	public next;
 	
-	constructor(value: any, next?: any) {
+	constructor(value: any, next = null) {
 		this.value = value;
-		this.next = isUndefined(next) ? null : next;
+		this.next = next;
 	}
 	
-	toString(callback?: any) {
-		return isFunction(callback) ? callback(this.value) : String(this.value);
+	toString(callback) {
+		return typeof callback === 'function' ? callback(this.value) : String(this.value);
 	}
 }
-
-export default LinkedListNode;
-

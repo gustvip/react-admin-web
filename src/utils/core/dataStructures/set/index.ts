@@ -2,7 +2,6 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
-import isArray from '../../utils/isArray/index';
 
 class Set {
 	public doubleLinkedList: DoubleLinkedList;
@@ -15,7 +14,7 @@ class Set {
 			object.forEach(function (value) {
 				self.add(value);
 			});
-		} else if (isArray(object)) {
+		} else if (Array.isArray(object)) {
 			object.forEach(function (value) {
 				self.add(value);
 			});

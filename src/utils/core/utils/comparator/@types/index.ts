@@ -2,7 +2,7 @@ import {compareFunctionType} from '../../@types';
 
 type compare = (a?: any, b?: any) => boolean;
 
-export default interface ComparatorInterface {
+export default interface InterfaceComparator {
 	compare: compareFunctionType,
 	equal: compare,
 	lessThan: compare,

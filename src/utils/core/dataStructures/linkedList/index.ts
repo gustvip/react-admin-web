@@ -1,11 +1,9 @@
 import LinkedListNode from './linkedListNode';
 import Comparator from '../../utils/comparator/index';
-import isFunction from '../../utils/isFunction/index';
-import isPureObject from '../../utils/isPureObject/index';
-import isArray from '../../utils/isArray/index';
 import {compareFunctionType} from '../../utils/@types';
+import {InterfaceLinkedList} from './@types';
 
-class LinkedList {
+export default class LinkedList implements InterfaceLinkedList {
 	constructor(comparatorFunction?: compareFunctionType) {
 		this.head = null;
 		this.tail = null;
@@ -16,43 +14,34 @@ class LinkedList {
 	public compare;
 	public head;
 	public tail;
-	public size: number;
+	public size;
 	
-	public clear(): this {
+	public clear() {
 		this.head = this.tail = null;
 		this.size = 0;
 		return this;
 	};
 	
-	public toString(callback?: any): string {
-		return this.toArray().map(function (node: LinkedListNode) {
-			return node.toString(callback);
-		}).toString();
+	public toString(callback) {
+		return this.toArray().map(node => node.toString(callback)).toString();
 	};
 	
-	public toArray(): LinkedListNode[] {
+	public toArray() {
 		var nodes: any[] = [];
 		var currentNode = this.head;
 		while (currentNode) {
 			nodes.push(currentNode);
 			currentNode = currentNode.next;
 		}
-		
 		return nodes;
 	};
 	
-	public fromArray(values?: any[] | any): this {
-		var self = this;
-		if (isArray(values)) {
-			values.forEach(function (value) {
-				self.append(value);
-			});
-		}
-		
-		return self;
+	public fromArray(values) {
+		values.forEach(value => this.append(value));
+		return this;
 	};
 	
-	public deleteHead(): null | LinkedListNode {
+	public deleteHead() {
 		var deletedHead = this.head;
 		if (this.head === this.tail) {
 			this.clear();
@@ -60,14 +49,12 @@ class LinkedList {
 			this.head = this.head.next;
 			--this.size;
 		}
-		
 		return deletedHead;
 	};
 	
-	public deleteTail(): null | LinkedListNode {
+	public deleteTail() {
 		var deletedTail = this.tail;
 		var currentNode = this.head;
-		
 		if (this.head === this.tail) {
 			this.clear();
 		} else {
@@ -82,18 +69,16 @@ class LinkedList {
 			this.tail = currentNode;
 			--this.size;
 		}
-		
 		return deletedTail;
 	};
 	
-	public find(findParams?: { value?: any, callback?: any } | any) {
-		var findParams = isPureObject(findParams) ? findParams : {};
+	public find(findParams) {
 		var value = findParams.value;
 		var callback = findParams.callback;
 		var currentNode = this.head;
 		
 		while (currentNode) {
-			if (callback && isFunction(callback) && callback(currentNode.value)) {
+			if (callback && typeof callback === 'function' && callback(currentNode.value)) {
 				break;
 			} else if (this.compare.equal(currentNode.value, value)) {
 				break;
@@ -105,7 +90,7 @@ class LinkedList {
 		return currentNode;
 	};
 	
-	public delete(value?: any): null | LinkedListNode {
+	public delete(value) {
 		var deletedNode = null;
 		while (this.head && this.compare.equal(this.head.value, value)) {
 			deletedNode = this.head;
@@ -133,7 +118,7 @@ class LinkedList {
 		return deletedNode;
 	};
 	
-	public append(value?: any): this {
+	public append(value) {
 		var newNode = new LinkedListNode(value);
 		
 		if (this.isEmpty()) {
@@ -146,7 +131,7 @@ class LinkedList {
 		return this;
 	};
 	
-	public prepend(value?: any): this {
+	public prepend(value) {
 		var newNode = new LinkedListNode(value, this.head);
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
@@ -158,13 +143,11 @@ class LinkedList {
 		return this;
 	};
 	
-	public has(value?: any): boolean {
+	public has(value) {
 		return !!this.find({value: value});
 	};
 	
-	public isEmpty(): boolean {
+	public isEmpty() {
 		return this.size === 0;
 	};
 }
-
-export default LinkedList;

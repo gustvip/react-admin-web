@@ -1,7 +1,7 @@
 import Comparator from '../../utils/comparator/index';
-import { compareFunctionType } from '../../utils/@types';
+import {compareFunctionType} from '../../utils/@types';
 
-export default function binarySearch(sortedArray: any[], seekElement: any, comparatorCallback?: compareFunctionType): number {
+export default function binarySearch(sortedArray: any[], seekElement?: any, comparatorCallback?: compareFunctionType): number {
 	var comparator = new Comparator(comparatorCallback);
 	var startIndex = 0;
 	var endIndex = sortedArray.length - 1;

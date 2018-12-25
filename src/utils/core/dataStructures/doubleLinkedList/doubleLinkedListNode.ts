@@ -1,21 +1,16 @@
-import isFunction from '../../utils/isFunction/index';
-import isUndefined from '../../utils/isUndefined/index';
 
-class DoubleLinkedListNode {
+export default class DoubleLinkedListNode {
 	public value;
 	public next;
 	public previous;
 	
-	constructor(value: any, next?: any, previous?: any) {
+	constructor(value: any, next = null, previous = null) {
 		this.value = value;
-		this.next = isUndefined(next) ? null : next;
-		this.previous = isUndefined(previous) ? null : previous;
+		this.next = next;
+		this.previous = previous;
 	}
 	
 	toString(callback?: any) {
-		return isFunction(callback) ? callback(this.value) : String(this.value);
+		return typeof callback === 'function' ? callback(this.value) : String(this.value);
 	}
 }
-
-export default DoubleLinkedListNode;
-

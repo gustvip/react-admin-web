@@ -1,6 +1,5 @@
 import DoubleLinkedListNode from './doubleLinkedListNode';
 import Comparator from '../../utils/comparator/index';
-import isFunction from '../../utils/isFunction/index';
 import isPureObject from '../../utils/isPureObject/index';
 import {compareFunctionType} from '../../utils/@types';
 
@@ -83,7 +82,7 @@ class DoubleLinkedList {
 		var currentNode = this.head;
 		
 		while (currentNode) {
-			if (callback && isFunction(callback) && callback(currentNode.value)) {
+			if (callback && typeof callback === "function" && callback(currentNode.value)) {
 				break;
 			} else if (this.compare.equal(currentNode.value, value)) {
 				break;

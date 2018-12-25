@@ -2,7 +2,6 @@
  * Created by joey on 2018/10/25
  */
 import Comparator from '../../utils/comparator/index';
-import isUndefined from '../../utils/isUndefined/index';
 import swap from '../../utils/swap/index';
 
 /**
@@ -177,7 +176,7 @@ Heap.prototype.toString = function toString () {
  * @param {number} [customStartIndex]
  */
 Heap.prototype.heapifyUp = function heapifyUp (customStartIndex) {
-	customStartIndex = isUndefined(customStartIndex) ? this.heapContainer.length - 1 : customStartIndex;
+	customStartIndex = customStartIndex === undefined ? this.heapContainer.length - 1 : customStartIndex;
 	while (this.hasParent(customStartIndex) && !this.pairIsInCorrectOrder(this.parent(customStartIndex), this.heapContainer[customStartIndex])) {
 		swap(this.heapContainer, customStartIndex, this.getParentIndex(customStartIndex));
 		customStartIndex = this.getParentIndex(customStartIndex);
@@ -188,7 +187,7 @@ Heap.prototype.heapifyUp = function heapifyUp (customStartIndex) {
  * @param {number} [customStartIndex]
  */
 Heap.prototype.heapifyDown = function heapifyDown (customStartIndex) {
-	customStartIndex = isUndefined(customStartIndex) ? 0 : customStartIndex;
+	customStartIndex = customStartIndex === undefined ? 0 : customStartIndex;
 	var nextIndex = null;
 	while (this.hasLeftChild(customStartIndex)) {
 		if (this.hasRightChild(customStartIndex) && this.pairIsInCorrectOrder(this.rightChild(customStartIndex), this.leftChild(customStartIndex))) {

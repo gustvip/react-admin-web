@@ -2,7 +2,7 @@
  * Created by joey on 2018/10/15
  */
 import {compareFunctionType} from '../@types';
-import ComparatorInterface from './@types';
+import InterfaceComparator from './@types';
 
 const defaultCompareFunction: compareFunctionType = function (a, b) {
 	if (a === b) {
@@ -11,7 +11,7 @@ const defaultCompareFunction: compareFunctionType = function (a, b) {
 	return a < b ? -1 : 1;
 };
 
-export default class Comparator implements ComparatorInterface {
+export default class Comparator implements InterfaceComparator {
 	constructor(compareFunction?: compareFunctionType) {
 		this.compare = typeof compareFunction === "function" ? compareFunction : defaultCompareFunction;
 	}

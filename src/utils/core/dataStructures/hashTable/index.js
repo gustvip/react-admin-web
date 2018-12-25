@@ -1,12 +1,9 @@
 import doubleLinkedList from '../doubleLinkedList/index';
-import toLength from '../../utils/toLength/index';
-import isUndefined from '../../utils/isUndefined/index';
 
 /**
  * @param {number} hashTableSize
  */
-function HashTable (hashTableSize) {
-	hashTableSize = isUndefined(hashTableSize) ? 32 : toLength(hashTableSize);
+function HashTable (hashTableSize = 32) {
 	this.buckets = new Array(hashTableSize).fill().map(function () {
 		return new doubleLinkedList();
 	});
