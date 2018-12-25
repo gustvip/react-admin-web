@@ -1,6 +1,6 @@
-import {LinkedListNodeInterface} from './@types';
+import {InterfaceLinkedListNode} from './@types';
 
-export default class LinkedListNode implements LinkedListNodeInterface {
+export default class LinkedListNode implements InterfaceLinkedListNode {
 	public value;
 	public next;
 	
