@@ -1,47 +1,47 @@
 import DoubleLinkedList from '../doubleLinkedList/index';
+import {InterfaceQueue} from './@types';
+import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
-class Queue {
-	public doubleLinkedList: DoubleLinkedList;
-	public size: number;
-	
+export default class Queue implements InterfaceQueue {
 	constructor() {
 		this.doubleLinkedList = new DoubleLinkedList();
-		this.size = this.doubleLinkedList.size;
 	}
 	
-	public toString(callback?: any): string {
+	private doubleLinkedList: InterfaceDoubleLinkedList;
+	
+	public get size() {
+		return this.doubleLinkedList.size;
+	}
+	
+	public toString(callback) {
 		return this.doubleLinkedList.toString(callback);
 	};
 	
-	public dequeue(): any {
+	public dequeue() {
 		var removedHead = this.doubleLinkedList.deleteHead();
-		this.size = this.doubleLinkedList.size;
 		return removedHead ? removedHead.value : undefined;
 	};
 	
-	public enqueue(value?: any): this {
+	public enqueue(value) {
 		this.doubleLinkedList.append(value);
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public peek(): any {
+	public peek() {
+		// @ts-ignore
 		return this.isEmpty() ? undefined : this.doubleLinkedList.head.value;
 	};
 	
-	public clear(): this {
+	public clear() {
 		this.doubleLinkedList.clear();
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public has(value?: any): boolean {
+	public has(value) {
 		return this.doubleLinkedList.has(value);
 	};
 	
-	public isEmpty(): boolean {
+	public isEmpty() {
 		return this.size === 0;
 	};
 }
-
-export default Queue;

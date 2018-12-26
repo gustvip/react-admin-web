@@ -2,6 +2,8 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
+import {InterfaceMap} from './@types';
+import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
 function compareFunction(a, b) {
 	if (a.key === b.key) {
@@ -10,47 +12,42 @@ function compareFunction(a, b) {
 	return a.key < b.key ? -1 : 1;
 }
 
-class Map {
-	public doubleLinkedList: DoubleLinkedList;
-	public size: number;
-	
+export default class Map implements InterfaceMap {
 	constructor(object?: any) {
-		var self = this;
 		this.doubleLinkedList = new DoubleLinkedList(compareFunction);
 		if (object instanceof Map) {
-			object.forEach(function (value, key) {
-				self.set(key, value);
-			});
+			object.forEach((value, key) => this.set(key, value));
 		} else if (Array.isArray(object)) {
-			object.forEach(function (value) {
+			object.forEach((value) => {
 				if (Array.isArray(value)) {
-					self.set(value[0], value[1]);
+					this.set(value[0], value[1]);
 				}
 			});
 		}
-		this.size = this.doubleLinkedList.size;
 	}
 	
-	public delete(key?: any): this {
+	private doubleLinkedList: InterfaceDoubleLinkedList;
+	
+	public get size() {
+		return this.doubleLinkedList.size;
+	}
+	
+	public delete(key) {
 		this.doubleLinkedList.delete({key: key});
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public set(key?: any, value?: any): this {
+	public set(key, value) {
 		var oldNode = this.doubleLinkedList.find({value: {key: key}});
 		if (oldNode) {
 			oldNode.value.value = value;
 		} else {
-			this.doubleLinkedList.append({
-				key: key, value: value
-			});
+			this.doubleLinkedList.append({key: key, value: value});
 		}
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public forEach(callback: (value?: any, key?: any) => any): this {
+	public forEach(callback) {
 		var head = this.doubleLinkedList.head;
 		while (head) {
 			callback(head.value.value, head.value.key);
@@ -59,7 +56,7 @@ class Map {
 		return this;
 	};
 	
-	public entries(): any[] {
+	public entries() {
 		var entries: any[] = [];
 		var head = this.doubleLinkedList.head;
 		while (head) {
@@ -69,7 +66,7 @@ class Map {
 		return entries;
 	};
 	
-	public values(): any[] {
+	public values() {
 		var values: any[] = [];
 		var head = this.doubleLinkedList.head;
 		while (head) {
@@ -79,7 +76,7 @@ class Map {
 		return values;
 	};
 	
-	public keys(): any[] {
+	public keys() {
 		var keys: any[] = [];
 		var head = this.doubleLinkedList.head;
 		while (head) {
@@ -89,20 +86,17 @@ class Map {
 		return keys;
 	};
 	
-	public clear(): this {
+	public clear() {
 		this.doubleLinkedList.clear();
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public get(key?: any): any {
+	public get(key) {
 		var result = this.doubleLinkedList.find({value: {key: key}});
 		return result ? result.value.value : undefined;
 	};
 	
-	public has(key?: any): boolean {
+	public has(key) {
 		return !!this.doubleLinkedList.find({value: {key: key}});
 	};
 }
-
-export default Map;

@@ -1,19 +1,23 @@
 import DoubleLinkedList from '../doubleLinkedList/index';
+import {InterfaceDoubleLinkedList} from "../doubleLinkedList/@types";
+import {InterfaceStack} from './@types';
 
-class Stack {
-	public doubleLinkedList: DoubleLinkedList;
-	public size: number;
-	
+export default class Stack implements InterfaceStack {
 	constructor() {
 		this.doubleLinkedList = new DoubleLinkedList();
-		this.size = this.doubleLinkedList.size;
 	}
 	
-	public toString(callback?: any): string {
+	private doubleLinkedList: InterfaceDoubleLinkedList;
+	
+	public get size() {
+		return this.doubleLinkedList.size;
+	}
+	
+	public toString(callback) {
 		return this.doubleLinkedList.toString(callback);
 	};
 	
-	public toArray(): any[] {
+	public toArray() {
 		var nodes: any[] = [];
 		var tail = this.doubleLinkedList.tail;
 		while (tail) {
@@ -23,35 +27,31 @@ class Stack {
 		return nodes;
 	};
 	
-	public pop(): any {
+	public pop() {
 		var removedTail = this.doubleLinkedList.deleteTail();
-		this.size = this.doubleLinkedList.size;
 		return removedTail ? removedTail.value : undefined;
 	};
 	
-	public push(value?: any): this {
+	public push(value) {
 		this.doubleLinkedList.append(value);
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public peek(): any {
+	public peek() {
+		// @ts-ignore
 		return this.isEmpty() ? undefined : this.doubleLinkedList.tail.value;
 	};
 	
-	public clear(): this {
+	public clear() {
 		this.doubleLinkedList.clear();
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public has(value?: any): boolean {
+	public has(value) {
 		return this.doubleLinkedList.has(value);
 	};
 	
-	public isEmpty(): boolean {
+	public isEmpty() {
 		return this.size === 0;
 	};
 }
-
-export default Stack;

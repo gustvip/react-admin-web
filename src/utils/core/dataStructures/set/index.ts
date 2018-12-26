@@ -2,44 +2,41 @@
  * Created by joey on 2018/8/20
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
+import {InterfaceSet} from './@types';
+import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
-class Set {
-	public doubleLinkedList: DoubleLinkedList;
-	public size: number;
-	
+export default class Set implements InterfaceSet {
 	constructor(object?: any) {
-		var self = this;
 		this.doubleLinkedList = new DoubleLinkedList();
 		if (object instanceof Set) {
-			object.forEach(function (value) {
-				self.add(value);
-			});
+			object.forEach((value) => this.add(value));
 		} else if (Array.isArray(object)) {
-			object.forEach(function (value) {
-				self.add(value);
-			});
+			object.forEach((value) => this.add(value));
 		}
-		this.size = this.doubleLinkedList.size;
 	}
 	
-	public delete(value?: any): this {
+	private doubleLinkedList: InterfaceDoubleLinkedList;
+	
+	public get size() {
+		return this.doubleLinkedList.size;
+	}
+	
+	public delete(value) {
 		this.doubleLinkedList.delete(value);
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public add(value?: any): this {
+	public add(value) {
 		var oldNode = this.doubleLinkedList.find({value: value});
 		if (oldNode) {
 			oldNode.value = value;
 		} else {
 			this.doubleLinkedList.append(value);
 		}
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public forEach(callback: (value?: any, key?: any) => any): this {
+	public forEach(callback) {
 		var head = this.doubleLinkedList.head;
 		while (head) {
 			callback(head.value, head.value);
@@ -48,7 +45,7 @@ class Set {
 		return this;
 	};
 	
-	public entries(): any[] {
+	public entries() {
 		var entries: any[] = [];
 		var head = this.doubleLinkedList.head;
 		while (head) {
@@ -58,7 +55,7 @@ class Set {
 		return entries;
 	};
 	
-	public values(): any[] {
+	public values() {
 		var values: any[] = [];
 		var head = this.doubleLinkedList.head;
 		while (head) {
@@ -68,16 +65,12 @@ class Set {
 		return values;
 	};
 	
-	public clear(): this {
+	public clear() {
 		this.doubleLinkedList.clear();
-		this.size = this.doubleLinkedList.size;
 		return this;
 	};
 	
-	public has(value?: any): boolean {
+	public has(value) {
 		return !!this.doubleLinkedList.find({value: value});
 	};
 }
-
-export default Set;
-
