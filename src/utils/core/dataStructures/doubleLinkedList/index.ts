@@ -1,9 +1,9 @@
 import DoubleLinkedListNode from './doubleLinkedListNode';
 import Comparator from '../../utils/comparator/index';
-import isPureObject from '../../utils/isPureObject/index';
 import {compareFunctionType} from '../../utils/@types';
+import {InterfaceDoubleLinkedList, InterfaceDoubleLinkedListNode} from './@types';
 
-class DoubleLinkedList {
+export default class DoubleLinkedList implements InterfaceDoubleLinkedList {
 	constructor(comparatorFunction?: compareFunctionType) {
 		this.head = null;
 		this.tail = null;
@@ -14,22 +14,20 @@ class DoubleLinkedList {
 	public compare;
 	public head;
 	public tail;
-	public size: number;
+	public size;
 	
-	public clear(): this {
+	public clear() {
 		this.head = this.tail = null;
 		this.size = 0;
 		return this;
 	};
 	
-	public toString(callback?: any): string {
-		return this.toArray().map(function (node: DoubleLinkedListNode) {
-			return node.toString(callback);
-		}).toString();
+	public toString(callback) {
+		return this.toArray().map(node => node.toString(callback)).toString();
 	};
 	
-	public toArray(): DoubleLinkedListNode[] {
-		var nodes: any = [];
+	public toArray() {
+		var nodes: InterfaceDoubleLinkedListNode[] = [];
 		var currentNode = this.head;
 		while (currentNode) {
 			nodes.push(currentNode);
@@ -39,17 +37,12 @@ class DoubleLinkedList {
 		return nodes;
 	};
 	
-	public fromArray(values?: any[] | any): this {
-		var self = this;
-		if (Array.isArray(values)) {
-			values.forEach(function (value) {
-				self.append(value);
-			});
-		}
-		return self;
+	public fromArray(values) {
+		values.forEach(value => this.append(value));
+		return this;
 	};
 	
-	public deleteHead(): null | DoubleLinkedListNode {
+	public deleteHead() {
 		var deletedHead = this.head;
 		if (this.head === this.tail) {
 			this.clear();
@@ -62,7 +55,7 @@ class DoubleLinkedList {
 		return deletedHead;
 	};
 	
-	public deleteTail(): null | DoubleLinkedListNode {
+	public deleteTail() {
 		var deletedTail = this.tail;
 		if (this.head === this.tail) {
 			this.clear();
@@ -75,8 +68,7 @@ class DoubleLinkedList {
 		return deletedTail;
 	};
 	
-	public find(findParams?: { value?: any, callback?: any } | any) {
-		findParams = isPureObject(findParams) ? findParams : {};
+	public find(findParams) {
 		var value = findParams.value;
 		var callback = findParams.callback;
 		var currentNode = this.head;
@@ -94,7 +86,7 @@ class DoubleLinkedList {
 		return currentNode;
 	};
 	
-	public delete(value?: any): null | DoubleLinkedListNode {
+	public delete(value) {
 		var deletedNode = null;
 		while (this.head && this.compare.equal(this.head.value, value)) {
 			deletedNode = this.head;
@@ -116,7 +108,6 @@ class DoubleLinkedList {
 					currentNode.next = currentNode.next.next;
 					--this.size;
 				} else {
-					currentNode.next.previous = currentNode;
 					currentNode = currentNode.next;
 				}
 			}
@@ -130,7 +121,7 @@ class DoubleLinkedList {
 		return deletedNode;
 	};
 	
-	public append(value?: any): this {
+	public append(value) {
 		var newNode = new DoubleLinkedListNode(value, null, this.tail);
 		
 		if (this.isEmpty()) {
@@ -143,7 +134,7 @@ class DoubleLinkedList {
 		return this;
 	};
 	
-	public prepend(value?: any): this {
+	public prepend(value) {
 		var newNode = new DoubleLinkedListNode(value, this.head);
 		if (this.isEmpty()) {
 			this.head = this.tail = newNode;
@@ -155,13 +146,11 @@ class DoubleLinkedList {
 		return this;
 	};
 	
-	public has(value?: any): boolean {
+	public has(value) {
 		return !!this.find({value: value});
 	};
 	
-	public isEmpty(): boolean {
+	public isEmpty() {
 		return this.size === 0;
 	};
 }
-
-export default DoubleLinkedList;

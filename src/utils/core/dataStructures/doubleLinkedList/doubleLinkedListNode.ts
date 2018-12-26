@@ -1,5 +1,6 @@
+import {InterfaceDoubleLinkedListNode} from './@types';
 
-export default class DoubleLinkedListNode {
+export default class DoubleLinkedListNode implements InterfaceDoubleLinkedListNode {
 	public value;
 	public next;
 	public previous;
@@ -10,7 +11,7 @@ export default class DoubleLinkedListNode {
 		this.previous = previous;
 	}
 	
-	toString(callback?: any) {
+	toString(callback) {
 		return typeof callback === 'function' ? callback(this.value) : String(this.value);
 	}
 }
