@@ -3,7 +3,7 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Modal, Spin} from 'antd';
+import { Modal, Spin } from 'antd';
 import prompt from 'utils/core/prompt';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
@@ -23,7 +23,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 		userId: PropTypes.number.isRequired,
 	};
 	
-	componentDidMount() {
+	componentDidMount () {
 		request.get(enumAPI.userDetail, {userId: this.props.userId}).then(info => {
 			this.setState({
 				userInfo: info.data,
@@ -38,20 +38,22 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 		userInfo: {},
 	};
 	
-	render() {
+	render () {
 		const {className = '', option = {}} = this.props;
-		return this.state.isLoading ? (
-			<Spin size="large"/>
-		) : (
+		return !this.state.isLoading && (
 			<Modal
 				title="个人中心"
 				footer={null}
+				classNmae={className}
+				okButtonProps={{loading: this.state.loading}}
+				onOk={() => this.handleSubmit()}
 				onCancel={() => this.setState({showModal: false})}
-				closable={true}
+				okText="确认"
+				cancelText="取消"
+				closable={false}
 				visible={this.state.showModal}
 				maskClosable={true}
 				destroyOnClose={true}
-				classNmae={className}
 				{...option}
 			>
 				<div className={styles['content-container']}>
