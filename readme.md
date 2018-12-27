@@ -37,11 +37,11 @@
     		|--prompt.js				// antd-design的弹出框封装
     		|--regexp.js				// 常用正则的封装
     		|--request.js				// axios的封装（结合业务）
-    |--index.js         		// 入口文件
+    |--index.ts         		// 入口文件
   * |--store.js         		// 实例redux store的封装
     |--base.scss        		// 基础样式
 		|--routes           		// 存放路由配置和路由入口
-	*			|--index.js          					// 对各个大模块的引入
+	*			|--index.ts          					// 对各个大模块的引入
 	*			|--routeTool.js          			// 路由工具
 						|--actions          					// 存放action
 						|--components       					// 存放业务组件的，不同模块的业务组件不能相互引用
@@ -50,7 +50,7 @@
 						|--routes         						// 对components的引用和结合react-reudx连接组件
 						|--scss         							// 样式文件
 						|--webAPI         						// http请求
-						|--index.js										// 对组件、路由path、布局方式、reducer对引入
+						|--index.ts										// 对组件、路由path、布局方式、reducer对引入
 						
 2. 项目启动
 		下载

@@ -47,7 +47,7 @@ describe('HashTable', () => {
 		
 		hashTable.delete('a');
 		
-		expect(hashTable.delete('not-existing')).toBeNull();
+		expect(hashTable.delete('not-existing')).toBe(hashTable);
 		
 		expect(hashTable.get('a')).not.toBeDefined();
 		expect(hashTable.get('d')).toBe('ocean');
