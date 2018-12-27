@@ -1,10 +1,10 @@
-import doubleLinkedList from '../doubleLinkedList/index';
+import DoubleLinkedList from '../doubleLinkedList/index';
 import {InterfaceHasTable} from './@types';
 import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
 export default class HashTable implements InterfaceHasTable {
-	constructor(hashTableSize = 32) {
-		this.buckets = new Array(hashTableSize).fill(null).map(() => new doubleLinkedList());
+	constructor(hashTableSize: number = 32) {
+		this.buckets = new Array(hashTableSize).fill(null).map(() => new DoubleLinkedList());
 		this.keys = {};
 	}
 	
