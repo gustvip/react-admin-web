@@ -3,7 +3,6 @@
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
 import {InterfaceMap} from './@types';
-import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
 function compareFunction(a, b) {
 	if (a.key === b.key) {
@@ -26,23 +25,23 @@ export default class Map implements InterfaceMap {
 		}
 	}
 	
-	private doubleLinkedList: InterfaceDoubleLinkedList;
+	public doubleLinkedList;
 	
 	public get size() {
 		return this.doubleLinkedList.size;
 	}
 	
 	public delete(key) {
-		this.doubleLinkedList.delete({key: key});
+		this.doubleLinkedList.delete({key});
 		return this;
 	};
 	
 	public set(key, value) {
-		var oldNode = this.doubleLinkedList.find({value: {key: key}});
+		var oldNode = this.doubleLinkedList.find({value: {key}});
 		if (oldNode) {
 			oldNode.value.value = value;
 		} else {
-			this.doubleLinkedList.append({key: key, value: value});
+			this.doubleLinkedList.append({key, value});
 		}
 		return this;
 	};

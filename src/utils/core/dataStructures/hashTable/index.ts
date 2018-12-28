@@ -1,6 +1,5 @@
 import DoubleLinkedList from '../doubleLinkedList/index';
 import {InterfaceHasTable} from './@types';
-import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
 export default class HashTable implements InterfaceHasTable {
 	constructor(hashTableSize: number = 32) {
@@ -8,8 +7,8 @@ export default class HashTable implements InterfaceHasTable {
 		this.keys = {};
 	}
 	
-	private buckets: InterfaceDoubleLinkedList[];
-	private keys: object;
+	public buckets;
+	public keys;
 	
 	public hash(key) {
 		// @ts-ignore

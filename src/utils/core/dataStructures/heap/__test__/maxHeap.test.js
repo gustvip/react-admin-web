@@ -10,6 +10,12 @@ describe('MaxHeap', () => {
 		expect(maxHeap.isEmpty()).toBe(true);
 	});
 	
+	it('should create min heap from array', () => {
+		const maxHeap = new MaxHeap();
+		maxHeap.fromArray([5, 3, 10, 11, 1]);
+		expect(maxHeap.toString()).toBe('11,10,5,3,1');
+	});
+	
 	it('should add items to the heap and heapify it up', () => {
 		const maxHeap = new MaxHeap();
 		
@@ -169,4 +175,61 @@ describe('MaxHeap', () => {
 		maxHeap.remove('hey', comparator);
 		expect(maxHeap.toString()).toBe('dddd,a,bb');
 	});
+	
+	it('sort number', () => {
+		const maxHeap = new MaxHeap();
+		maxHeap.fromArray([3, 4, 2, 1, 0, 0, 4, 3, 4, 2]);
+		expect(maxHeap.sort()).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4].reverse());
+		expect(maxHeap.heapContainer).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4].reverse());
+	});
+	
+	it('sort string', () => {
+		const maxHeap = new MaxHeap();
+		maxHeap.fromArray([3, 4, 2, 1, 0, 0, 4, 3, 4, 2].reverse().map(value => '' + value));
+		
+		expect(maxHeap.sort()).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4].reverse().map(value => '' + value));
+		expect(maxHeap.heapContainer).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4].reverse().map(value => '' + value));
+	});
+	
+	it('sort object', () => {
+		const arr = [
+			{age: 1},
+			{age: 30},
+			{age: 20},
+			{age: 5},
+			{age: 7},
+			{age: 25},
+		];
+		
+		function compareCallback (a, b) {
+			if (a.age === b.age) {
+				return 0;
+			}
+			return a.age < b.age ? -1 : 1;
+		}
+		
+		const maxHeap = new MaxHeap(compareCallback);
+		maxHeap.fromArray(arr);
+		expect(maxHeap.sort()).toEqual(
+			[
+				{age: 1},
+				{age: 5},
+				{age: 7},
+				{age: 20},
+				{age: 25},
+				{age: 30},
+			].reverse(),
+		);
+		expect(maxHeap.heapContainer).toEqual(
+			[
+				{age: 1},
+				{age: 5},
+				{age: 7},
+				{age: 20},
+				{age: 25},
+				{age: 30},
+			].reverse(),
+		);
+	});
+	
 });

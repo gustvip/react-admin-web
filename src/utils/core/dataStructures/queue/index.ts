@@ -1,13 +1,12 @@
 import DoubleLinkedList from '../doubleLinkedList/index';
 import {InterfaceQueue} from './@types';
-import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
 export default class Queue implements InterfaceQueue {
 	constructor() {
 		this.doubleLinkedList = new DoubleLinkedList();
 	}
 	
-	private doubleLinkedList: InterfaceDoubleLinkedList;
+	public doubleLinkedList;
 	
 	public get size() {
 		return this.doubleLinkedList.size;

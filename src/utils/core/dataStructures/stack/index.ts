@@ -1,5 +1,4 @@
 import DoubleLinkedList from '../doubleLinkedList/index';
-import {InterfaceDoubleLinkedList} from "../doubleLinkedList/@types";
 import {InterfaceStack} from './@types';
 
 export default class Stack implements InterfaceStack {
@@ -7,7 +6,7 @@ export default class Stack implements InterfaceStack {
 		this.doubleLinkedList = new DoubleLinkedList();
 	}
 	
-	private doubleLinkedList: InterfaceDoubleLinkedList;
+	public doubleLinkedList;
 	
 	public get size() {
 		return this.doubleLinkedList.size;

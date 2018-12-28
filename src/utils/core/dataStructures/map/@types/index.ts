@@ -1,4 +1,7 @@
+import {InterfaceDoubleLinkedList} from '../../doubleLinkedList/@types';
+
 export interface InterfaceMap {
+	doubleLinkedList: InterfaceDoubleLinkedList;
 	size: number,
 	delete: (key?: any) => this
 	set: (key?: any, value?: any) => this

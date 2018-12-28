@@ -1,4 +1,7 @@
+import {InterfaceDoubleLinkedList} from '../../doubleLinkedList/@types';
+
 export interface InterfaceQueue {
+	doubleLinkedList: InterfaceDoubleLinkedList
 	size: number,
 	toString: (callback?: (...arg) => string) => string
 	dequeue: () => any

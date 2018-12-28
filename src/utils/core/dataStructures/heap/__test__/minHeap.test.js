@@ -10,6 +10,12 @@ describe('MinHeap', () => {
 		expect(minHeap.isEmpty()).toBe(true);
 	});
 	
+	it('should create min heap from array', () => {
+		const minHeap = new MinHeap();
+		minHeap.fromArray([5, 3, 10, 11, 1]);
+		expect(minHeap.toString()).toBe('1,3,10,11,5');
+	});
+	
 	it('should add items to the heap and heapify it up', () => {
 		const minHeap = new MinHeap();
 		
@@ -190,5 +196,61 @@ describe('MinHeap', () => {
 		
 		minHeap.remove(4);
 		expect(minHeap.toString()).toBe('1,5,3,8,9,6,7');
+	});
+	
+	it('sort number', () => {
+		const minHeap = new MinHeap();
+		minHeap.fromArray([3, 4, 2, 1, 0, 0, 4, 3, 4, 2]);
+		expect(minHeap.sort()).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4]);
+		expect(minHeap.heapContainer).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4]);
+	});
+	
+	it('sort string', () => {
+		const minHeap = new MinHeap();
+		minHeap.fromArray([3, 4, 2, 1, 0, 0, 4, 3, 4, 2].map(value => '' + value));
+		
+		expect(minHeap.sort()).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4].map(value => '' + value));
+		expect(minHeap.heapContainer).toEqual([0, 0, 1, 2, 2, 3, 3, 4, 4, 4].map(value => '' + value));
+	});
+	
+	it('sort object', () => {
+		const arr = [
+			{age: 1},
+			{age: 30},
+			{age: 20},
+			{age: 5},
+			{age: 7},
+			{age: 25},
+		];
+		
+		function compareCallback (a, b) {
+			if (a.age === b.age) {
+				return 0;
+			}
+			return a.age < b.age ? -1 : 1;
+		}
+		
+		const minHeap = new MinHeap(compareCallback);
+		minHeap.fromArray(arr);
+		expect(minHeap.sort()).toEqual(
+			[
+				{age: 1},
+				{age: 5},
+				{age: 7},
+				{age: 20},
+				{age: 25},
+				{age: 30},
+			],
+		);
+		expect(minHeap.heapContainer).toEqual(
+			[
+				{age: 1},
+				{age: 5},
+				{age: 7},
+				{age: 20},
+				{age: 25},
+				{age: 30},
+			],
+		);
 	});
 });

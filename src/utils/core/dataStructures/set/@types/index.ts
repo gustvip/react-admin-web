@@ -1,4 +1,7 @@
+import {InterfaceDoubleLinkedList} from '../../doubleLinkedList/@types';
+
 export interface InterfaceSet {
+	doubleLinkedList: InterfaceDoubleLinkedList
 	size: number,
 	add: (value?: any) => this
 	delete: (value?: any) => this

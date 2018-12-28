@@ -16,6 +16,20 @@ export default class Heap implements InterfaceHeap {
 	public heapContainer;
 	public compare;
 	
+	public fromArray(value) {
+		value.forEach(val => this.add(val));
+		return this;
+	}
+	
+	public sort() {
+		const sortArray: any[] = [];
+		while (!this.isEmpty()) {
+			sortArray.push(this.poll());
+		}
+		this.heapContainer = sortArray;
+		return sortArray;
+	}
+	
 	public getLeftChildIndex(parentIndex) {
 		return 2 * parentIndex + 1;
 	}

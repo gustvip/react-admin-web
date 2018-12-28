@@ -4,6 +4,8 @@ import InterfaceComparator from '../../../utils/comparator/@types';
 export interface InterfaceHeap {
 	heapContainer: any[]
 	compare: InterfaceComparator
+	fromArray: (value: any[]) => this
+	sort: () => any[]
 	getLeftChildIndex: (parentIndex: number) => number
 	getRightChildIndex: (parentIndex: number) => number
 	getParentIndex: (childIndex: number) => number

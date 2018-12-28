@@ -3,7 +3,6 @@
  */
 import DoubleLinkedList from '../doubleLinkedList/index';
 import {InterfaceSet} from './@types';
-import {InterfaceDoubleLinkedList} from '../doubleLinkedList/@types';
 
 export default class Set implements InterfaceSet {
 	constructor(object?: any) {
@@ -15,7 +14,7 @@ export default class Set implements InterfaceSet {
 		}
 	}
 	
-	private doubleLinkedList: InterfaceDoubleLinkedList;
+	public doubleLinkedList;
 	
 	public get size() {
 		return this.doubleLinkedList.size;
