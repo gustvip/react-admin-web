@@ -23,4 +23,5 @@ export interface InterfaceLinkedList {
 	prepend: (value?: any) => this
 	has: (value?: any) => boolean
 	isEmpty: () => boolean
+	reverse: () => this
 }

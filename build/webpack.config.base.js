@@ -180,7 +180,12 @@ module.exports = {
 			},
 			
 			{
-				test: /\.[jt]sx?$/,
+				test: /\.jsx?$/,
+				use: ['babel-loader'],
+				exclude: [excludeRegex, routesComponentsRegex],
+			},
+			{
+				test: /\.tsx?$/,
 				use: ['babel-loader', 'ts-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},

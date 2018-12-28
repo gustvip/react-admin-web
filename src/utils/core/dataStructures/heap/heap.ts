@@ -29,15 +29,18 @@ export default class Heap implements InterfaceHeap {
 	}
 	
 	public hasParent(childIndex) {
-		return this.getParentIndex(childIndex) >= 0;
+		const i = this.getParentIndex(childIndex);
+		return i > -1 && i < this.heapContainer.length;
 	}
 	
 	public hasLeftChild(parentIndex) {
-		return this.getLeftChildIndex(parentIndex) < this.heapContainer.length;
+		const i = this.getLeftChildIndex(parentIndex);
+		return i > -1 && i < this.heapContainer.length;
 	}
 	
 	public hasRightChild(parentIndex) {
-		return this.getRightChildIndex(parentIndex) < this.heapContainer.length;
+		const i = this.getRightChildIndex(parentIndex);
+		return i > -1 && i < this.heapContainer.length;
 	}
 	
 	public leftChild(parentIndex) {

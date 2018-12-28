@@ -111,6 +111,20 @@ describe('Index', () => {
 		expect(linkedList.toString()).toBe('1,1,2,3,3,3,4,5');
 	});
 	
+	it('should reverse linked list', () => {
+		const linkedList = new Index();
+		
+		linkedList.append(1);
+		linkedList.append(2);
+		linkedList.append(3);
+		linkedList.append(4);
+		expect(linkedList.toString()).toBe('1,2,3,4');
+		linkedList.reverse();
+		expect(linkedList.toString()).toBe('4,3,2,1');
+		expect(linkedList.tail.next).toBeNull();
+		expect(linkedList.head.previous).toBeNull();
+	});
+	
 	it('should delete node by value from linked list', () => {
 		const linkedList = new Index();
 		

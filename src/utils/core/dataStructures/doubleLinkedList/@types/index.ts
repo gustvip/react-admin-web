@@ -24,4 +24,5 @@ export interface InterfaceDoubleLinkedList {
 	prepend: (value?: any) => this
 	has: (value?: any) => boolean
 	isEmpty: () => boolean
+	reverse: () => this
 }

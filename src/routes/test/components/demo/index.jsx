@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Chart from 'templates/toolComponents/echarts/bar';
 
 export default class TestComponent extends React.PureComponent {
 	constructor () {
@@ -40,7 +39,6 @@ export default class TestComponent extends React.PureComponent {
 			<div
 				ref={container => this.container = container}
 			>
-				<Chart/>
 			</div>
 		);
 	}

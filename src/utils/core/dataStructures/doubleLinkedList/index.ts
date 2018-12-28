@@ -146,6 +146,15 @@ export default class DoubleLinkedList implements InterfaceDoubleLinkedList {
 		return this;
 	};
 	
+	public reverse() {
+		const nodes: any[] = [];
+		while (!this.isEmpty()) {
+			nodes.push(this.deleteTail().value);
+		}
+		this.fromArray(nodes);
+		return this;
+	};
+	
 	public has(value) {
 		return !!this.find({value: value});
 	};
