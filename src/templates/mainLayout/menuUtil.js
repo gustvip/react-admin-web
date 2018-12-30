@@ -8,7 +8,6 @@ import uniq from 'lodash/uniq';
 import flowRight from 'lodash/flowRight';
 import identity from 'lodash/identity';
 import isString from 'lodash/isString';
-import isPlainObject from 'lodash/isPlainObject';
 
 /**
  * Location.pathname和分类值的对应关系
@@ -98,7 +97,8 @@ export const EnumMenus = (() => {
 						? item.url
 						: isString(item.url)
 							? [item.url]
-							: []).concat(result.resultUrl),
+							: []
+					).concat(result.resultUrl),
 				),
 			},
 		);
@@ -116,7 +116,7 @@ export const EnumMenus = (() => {
 export const getCategoryData = (locationPathname) => {
 	const result = mapUrlToCategory[flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname)];
 	
-	return isPlainObject(result) ? result.category : null;
+	return result ? result.category : null;
 };
 
 /**
@@ -127,7 +127,7 @@ export const getCategoryData = (locationPathname) => {
 export const getCategoryChildrenData = (category) => {
 	const result = EnumMenus.find(item => item.value === category);
 	
-	return isPlainObject(result)
+	return result
 		? Array.isArray(result.children)
 			? result.children
 			: []
@@ -150,7 +150,7 @@ export const getMenuData = (locationPathname) => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const result = getCategoryRoute(locationPathname).find(item => item.url.indexOf(locationPathname) !== -1);
 	
-	return isPlainObject(result)
+	return result
 		? Array.isArray(result.children)
 			? result.children
 			: []

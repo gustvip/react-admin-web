@@ -17,12 +17,8 @@ export default class Stack implements InterfaceStack {
 	};
 	
 	public toArray() {
-		var nodes: any[] = [];
-		var tail = this.doubleLinkedList.tail;
-		while (tail) {
-			nodes.push(tail.value);
-			tail = tail.previous;
-		}
+		const nodes: any[] = [];
+		this.doubleLinkedList.eachFromTail(node => nodes.push(node.value));
 		return nodes;
 	};
 	

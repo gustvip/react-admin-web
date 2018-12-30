@@ -54,7 +54,6 @@ describe('PriorityQueue', () => {
 		
 		priorityQueue.changePriority(100, 10);
 		priorityQueue.changePriority(10, 20);
-		
 		expect(priorityQueue.minHeap.poll().value).toBe(200);
 		expect(priorityQueue.minHeap.poll().value).toBe(5);
 		expect(priorityQueue.minHeap.poll().value).toBe(100);

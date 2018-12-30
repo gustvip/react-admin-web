@@ -4,11 +4,16 @@ import {compareFunctionType} from '../../utils/@types';
 
 export default function (originalArray: any[], compareCallback?: compareFunctionType): any[] {
 	const comparator = new Comparator(compareCallback);
-	for (let i = 0; i < originalArray.length; ++i) {
-		for (let j = 0; j < originalArray.length - i - 1; ++j) {
-			if (comparator.greaterThan(originalArray[j], originalArray[j + 1])) {
-				swap(originalArray, j, j + 1);
+	let minIndex: null | number;
+	for (let i = 0; i < originalArray.length - 1; ++i) {
+		minIndex = i;
+		for (let j = i + 1; j < originalArray.length; ++j) {
+			if (comparator.greaterThan(originalArray[minIndex], originalArray[j])) {
+				minIndex = j;
 			}
+		}
+		if (i !== minIndex) {
+			swap(originalArray, i, minIndex);
 		}
 	}
 	return originalArray;

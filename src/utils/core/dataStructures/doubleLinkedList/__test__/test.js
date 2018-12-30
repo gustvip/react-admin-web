@@ -111,6 +111,24 @@ describe('Index', () => {
 		expect(linkedList.toString()).toBe('1,1,2,3,3,3,4,5');
 	});
 	
+	it('should create linked eachFromHead', () => {
+		const linkedList = new Index();
+		linkedList.fromArray([1, 1, 2, 3, 3, 3, 4, 5]);
+		
+		const array = [];
+		linkedList.eachFromHead((node) => array.push(node.value));
+		expect(array.toString()).toBe('1,1,2,3,3,3,4,5');
+	});
+	
+	it('should create linked eachFromTail', () => {
+		const linkedList = new Index();
+		linkedList.fromArray([1, 1, 2, 3, 3, 3, 4, 5]);
+		
+		const array = [];
+		linkedList.eachFromTail((node) => array.push(node.value));
+		expect(array.toString()).toBe('5,4,3,3,3,2,1,1');
+	});
+	
 	it('should reverse linked list', () => {
 		const linkedList = new Index();
 		

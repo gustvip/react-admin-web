@@ -27,14 +27,28 @@ export default class DoubleLinkedList implements InterfaceDoubleLinkedList {
 	};
 	
 	public toArray() {
-		var nodes: InterfaceDoubleLinkedListNode[] = [];
-		var currentNode = this.head;
+		const nodes: InterfaceDoubleLinkedListNode[] = [];
+		this.eachFromHead(node => nodes.push(node));
+		return nodes;
+	};
+	
+	public eachFromHead(callback) {
+		let currentNode = this.head;
 		while (currentNode) {
-			nodes.push(currentNode);
+			callback(currentNode);
 			currentNode = currentNode.next;
 		}
 		
-		return nodes;
+		return this;
+	};
+	
+	public eachFromTail(callback) {
+		let currentNode = this.tail;
+		while (currentNode) {
+			callback(currentNode);
+			currentNode = currentNode.previous;
+		}
+		return this;
 	};
 	
 	public fromArray(values) {

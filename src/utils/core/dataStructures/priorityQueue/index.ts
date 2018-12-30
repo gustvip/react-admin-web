@@ -32,9 +32,22 @@ export default class PriorityQueue implements InterfacePriority {
 	}
 	
 	public changePriority(value, priority) {
-		if (this.hasValue(value)) {
-			this.minHeap.remove({value}, this.compareValue);
-			this.add(value, priority);
+		const comparator = new Comparator(function (a, b) {
+			if (a.value === b.value && a.priority !== b.priority) {
+				return 0;
+			}
+			return -1;
+		});
+		let changeIndex = this.minHeap.findIndex({value, priority}, comparator);
+		while (changeIndex !== -1) {
+			const item = this.minHeap.heapContainer[changeIndex];
+			item.priority = priority;
+			if (this.minHeap.hasLeftChild(changeIndex) && (!this.minHeap.parent(changeIndex) || this.minHeap.pairIsInCorrectOrder(this.minHeap.parent(changeIndex), item))) {
+				this.minHeap.down(changeIndex);
+			} else {
+				this.minHeap.up(changeIndex);
+			}
+			changeIndex = this.minHeap.findIndex({value, priority}, comparator);
 		}
 		
 		return this;

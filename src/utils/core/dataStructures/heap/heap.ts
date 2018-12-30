@@ -115,7 +115,7 @@ export default class Heap implements InterfaceHeap {
 				} else {
 					this.up(removeIndex);
 				}
-				removeIndex = this.findIndex(item, comparator, removeIndex);
+				removeIndex = this.findIndex(item, comparator);
 			}
 		}
 		return this;

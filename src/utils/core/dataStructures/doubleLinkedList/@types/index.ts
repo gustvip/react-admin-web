@@ -14,6 +14,8 @@ export interface InterfaceDoubleLinkedList {
 	compare: InterfaceComparator
 	clear: () => this
 	toString: (callback?: (...arg) => string) => string
+	eachFromHead: (callback: (node: InterfaceDoubleLinkedListNode, ...arg) => any) => this
+	eachFromTail: (callback: (node: InterfaceDoubleLinkedListNode, ...arg) => any) => this
 	toArray: () => InterfaceDoubleLinkedListNode[]
 	fromArray: (values: any[]) => this
 	deleteHead: () => null | InterfaceDoubleLinkedListNode

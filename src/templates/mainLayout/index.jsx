@@ -69,14 +69,6 @@ class SiderMenu extends React.PureComponent {
 		}).map((item) => {
 			const defaultOpenKeys = [].concat(openKeys);
 			if (!T.helper.checkArray(item.children)) {
-				/**
-				 * 判断children是为长度大于0的数组
-				 * 是则返回submenu
-				 * 不是返回menu.Item
-				 * 绑定Submenu的click事件---menu.Item不需要(已经跳转到对应的url---组件卸载---组件渲染)
-				 * 是否需要添加图标字体
-				 * @notice 不要改Menu.Item下面文字和图标的结构---否则后果自负
-				 */
 				return (
 					<Menu.Item key={item.id} className={T.classNames({active: get(item, 'url[0]') === locationPathname})}>
 						<Link to={get(item, 'url[0]')}>
@@ -85,12 +77,6 @@ class SiderMenu extends React.PureComponent {
 					</Menu.Item>
 				);
 			}
-			/**
-			 * 设置可能的defaulOpenKeys
-			 * 绑定Submenu的onClick事件
-			 * 将子defaultOpenKeys传下去
-			 * @notice 不要改Menu.Submenu下面文字和图标的结构---否则后果自负
-			 */
 			defaultOpenKeys.push(item.id);
 			return (
 				<Menu.SubMenu
@@ -104,11 +90,6 @@ class SiderMenu extends React.PureComponent {
 		});
 	};
 	
-	/**
-	 * 设置openKeys
-	 * @param {Array} defaultOpenKeys
-	 * @param {Array} url
-	 */
 	handleDefaultOpenKeys = (defaultOpenKeys, url) => {
 		if (isEqual(defaultOpenKeys, this.state.defaultOpenKeys)) {
 			defaultOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
@@ -121,9 +102,6 @@ class SiderMenu extends React.PureComponent {
 	};
 	
 	handleCollapsed = (collapsed) => {
-		/**
-		 * 将打开的菜单关闭---菜单宽度减少到80px，但是subMenu离左侧还是200px
-		 */
 		this.setState({defaultOpenKeys: collapsed ? [] : getOpenKeys(this.locationPathname)});
 		this.props.handleCollapsed();
 	};
