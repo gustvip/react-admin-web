@@ -6,7 +6,7 @@ export interface InterfaceMap {
 	delete: (key?: any) => this
 	set: (key?: any, value?: any) => this
 	forEach: (callback: (value?: any, key?: any) => any) => this
-	entries: () => any[]
+	entries: () => [any, any][]
 	values: () => any[]
 	keys: () => any[]
 	clear: () => this

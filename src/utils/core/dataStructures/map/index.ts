@@ -37,7 +37,7 @@ export default class Map implements InterfaceMap {
 	};
 	
 	public set(key, value) {
-		var oldNode = this.doubleLinkedList.find({value: {key}});
+		const oldNode = this.doubleLinkedList.find({value: {key}});
 		if (oldNode) {
 			oldNode.value.value = value;
 		} else {
@@ -47,41 +47,25 @@ export default class Map implements InterfaceMap {
 	};
 	
 	public forEach(callback) {
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			callback(head.value.value, head.value.key);
-			head = head.next;
-		}
+		this.doubleLinkedList.eachFromHead(node => callback(node.value.value, node.value.key));
 		return this;
 	};
 	
 	public entries() {
-		var entries: any[] = [];
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			entries.push([head.value.key, head.value.value]);
-			head = head.next;
-		}
+		const entries: any[] = [];
+		this.doubleLinkedList.eachFromHead(node => entries.push([node.value.key, node.value.value]));
 		return entries;
 	};
 	
 	public values() {
-		var values: any[] = [];
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			values.push(head.value.value);
-			head = head.next;
-		}
+		const values: any[] = [];
+		this.doubleLinkedList.eachFromHead(node => values.push(node.value.value));
 		return values;
 	};
 	
 	public keys() {
-		var keys: any[] = [];
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			keys.push(head.value.key);
-			head = head.next;
-		}
+		const keys: any[] = [];
+		this.doubleLinkedList.eachFromHead(node => keys.push(node.value.key));
 		return keys;
 	};
 	
@@ -91,7 +75,7 @@ export default class Map implements InterfaceMap {
 	};
 	
 	public get(key) {
-		var result = this.doubleLinkedList.find({value: {key: key}});
+		const result = this.doubleLinkedList.find({value: {key: key}});
 		return result ? result.value.value : undefined;
 	};
 	

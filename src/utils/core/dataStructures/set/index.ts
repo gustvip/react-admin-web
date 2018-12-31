@@ -36,31 +36,19 @@ export default class Set implements InterfaceSet {
 	};
 	
 	public forEach(callback) {
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			callback(head.value, head.value);
-			head = head.next;
-		}
+		this.doubleLinkedList.eachFromHead(node => callback(node.value, node.value));
 		return this;
 	};
 	
 	public entries() {
-		var entries: any[] = [];
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			entries.push([head.value, head.value]);
-			head = head.next;
-		}
+		const entries: any[] = [];
+		this.doubleLinkedList.eachFromHead(node => entries.push([node.value, node.value]));
 		return entries;
 	};
 	
 	public values() {
-		var values: any[] = [];
-		var head = this.doubleLinkedList.head;
-		while (head) {
-			values.push(head.value);
-			head = head.next;
-		}
+		const values: any[] = [];
+		this.doubleLinkedList.eachFromHead(node => values.push(node.value));
 		return values;
 	};
 	

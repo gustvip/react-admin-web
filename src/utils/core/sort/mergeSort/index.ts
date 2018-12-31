@@ -15,13 +15,10 @@ function mergeSort(originalArray: any[], comparator: InterfaceComparator): any[]
 	var leftArray = originalArray.slice(0, middleIndex);
 	var rightArray = originalArray.slice(middleIndex, originalArray.length);
 	
-	var leftSortedArray = mergeSort(leftArray, comparator);
-	var rightSortedArray = mergeSort(rightArray, comparator);
-	
-	return mergeSortedArrays(leftSortedArray, rightSortedArray, comparator);
+	return mergeSortedArrays(mergeSort(leftArray, comparator), mergeSort(rightArray, comparator), comparator);
 }
 
-function mergeSortedArrays(leftArray: any[], rightArray: any[], comparator: any): any[] {
+function mergeSortedArrays(leftArray: any[], rightArray: any[], comparator: InterfaceComparator): any[] {
 	var sortedArray: any[] = [];
 	
 	while (leftArray.length && rightArray.length) {
@@ -38,9 +35,7 @@ function mergeSortedArrays(leftArray: any[], rightArray: any[], comparator: any)
 	
 	if (leftArray.length) {
 		sortedArray = sortedArray.concat(leftArray);
-	}
-	
-	if (rightArray.length) {
+	} else {
 		sortedArray = sortedArray.concat(rightArray);
 	}
 	

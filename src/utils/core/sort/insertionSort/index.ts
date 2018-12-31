@@ -6,7 +6,7 @@ export default function (originalArray: any[], compareCallback?: compareFunction
 	const comparator = new Comparator(compareCallback);
 	for (let i = 1; i < originalArray.length; i++) {
 		let currentIndex = i;
-		while (comparator.lessThan(originalArray[currentIndex], originalArray[currentIndex - 1])) {
+		while (currentIndex > 0 && comparator.lessThan(originalArray[currentIndex], originalArray[currentIndex - 1])) {
 			swap(originalArray, currentIndex, currentIndex - 1);
 			currentIndex--;
 		}

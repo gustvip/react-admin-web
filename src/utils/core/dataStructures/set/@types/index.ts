@@ -6,7 +6,7 @@ export interface InterfaceSet {
 	add: (value?: any) => this
 	delete: (value?: any) => this
 	forEach: (callback: (value?: any, key?: any) => any) => this
-	entries: () => any[]
+	entries: () => [any, any][]
 	values: () => any[]
 	clear: () => this
 	has: (key?: any) => boolean
