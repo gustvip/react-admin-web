@@ -10,12 +10,12 @@ export default class PriorityQueue implements InterfacePriority {
 			}
 			return a.value < b.value ? -1 : 1;
 		});
-		this.minHeap = new MinHeap(function (a, b) {
+		this.minHeap = new MinHeap(new Comparator(function (a, b) {
 			if (a.priority === b.priority) {
 				return 0;
 			}
 			return a.priority < b.priority ? -1 : 1;
-		});
+		}));
 	}
 	
 	public compareValue;
@@ -42,7 +42,7 @@ export default class PriorityQueue implements InterfacePriority {
 		while (changeIndex !== -1) {
 			const item = this.minHeap.heapContainer[changeIndex];
 			item.priority = priority;
-			if (this.minHeap.hasLeftChild(changeIndex) && (!this.minHeap.parent(changeIndex) || this.minHeap.pairIsInCorrectOrder(this.minHeap.parent(changeIndex), item))) {
+			if (this.minHeap.hasLeftChild(changeIndex) && (!this.minHeap.hasParent(changeIndex) || this.minHeap.pairIsInCorrectOrder(this.minHeap.parent(changeIndex), item))) {
 				this.minHeap.down(changeIndex);
 			} else {
 				this.minHeap.up(changeIndex);

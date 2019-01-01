@@ -7,9 +7,7 @@ import {InterfaceSet} from './@types';
 export default class Set implements InterfaceSet {
 	constructor(object?: any) {
 		this.doubleLinkedList = new DoubleLinkedList();
-		if (object instanceof Set) {
-			object.forEach((value) => this.add(value));
-		} else if (Array.isArray(object)) {
+		if (object instanceof Set || Array.isArray(object)) {
 			object.forEach((value) => this.add(value));
 		}
 	}
@@ -26,7 +24,7 @@ export default class Set implements InterfaceSet {
 	};
 	
 	public add(value) {
-		var oldNode = this.doubleLinkedList.find({value: value});
+		var oldNode = this.doubleLinkedList.find({value});
 		if (oldNode) {
 			oldNode.value = value;
 		} else {
@@ -58,6 +56,6 @@ export default class Set implements InterfaceSet {
 	};
 	
 	public has(value) {
-		return !!this.doubleLinkedList.find({value: value});
+		return !!this.doubleLinkedList.find({value});
 	};
 }

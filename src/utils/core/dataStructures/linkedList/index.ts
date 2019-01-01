@@ -4,11 +4,11 @@ import {compareFunctionType} from '../../utils/@types';
 import {InterfaceLinkedList} from './@types';
 
 export default class LinkedList implements InterfaceLinkedList {
-	constructor(comparatorFunction?: compareFunctionType) {
+	constructor(comparatorFunction?: Comparator | compareFunctionType) {
 		this.head = null;
 		this.tail = null;
 		this.size = 0;
-		this.compare = new Comparator(comparatorFunction);
+		this.compare = comparatorFunction instanceof Comparator ? comparatorFunction : new Comparator(comparatorFunction);
 	}
 	
 	public compare;

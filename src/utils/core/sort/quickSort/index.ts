@@ -3,8 +3,8 @@ import InterfaceComparator from '../../utils/comparator/@types';
 import {compareFunctionType} from '../../utils/@types';
 import swap from "../../utils/swap";
 
-export default function quickSortExchange(originalArray: any[], compareCallback?: compareFunctionType): any[] {
-	const comparator = new Comparator(compareCallback);
+export default function quickSortExchange(originalArray: any[], compareCallback?: Comparator | compareFunctionType): any[] {
+	const comparator = compareCallback instanceof Comparator ? compareCallback : new Comparator(compareCallback);
 	return quickSort(originalArray, 0, originalArray.length - 1, comparator);
 }
 
@@ -27,7 +27,7 @@ function partition(originalArray: any[], left: number, right: number, comparator
 	let pivotElement = originalArray[Math.floor((left + right) / 2)];
 	let i = left;
 	let j = right;
-	while (i <= j) {
+	while (i < j) {
 		while (comparator.lessThan(originalArray[i], pivotElement)) {
 			i++;
 		}

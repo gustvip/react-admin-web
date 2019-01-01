@@ -7,9 +7,9 @@ import {compareFunctionType} from '../../utils/@types';
 import {InterfaceHeap} from './@types';
 
 export default class Heap implements InterfaceHeap {
-	constructor(comparatorFunction?: compareFunctionType) {
+	constructor(comparatorFunction?: Comparator | compareFunctionType) {
 		this.heapContainer = [];
-		this.compare = new Comparator(comparatorFunction);
+		this.compare = comparatorFunction instanceof Comparator ? comparatorFunction : new Comparator(comparatorFunction);
 	}
 	
 	public pairIsInCorrectOrder;
@@ -110,7 +110,7 @@ export default class Heap implements InterfaceHeap {
 				break;
 			} else {
 				this.heapContainer[removeIndex] = this.heapContainer.pop();
-				if (this.hasLeftChild(removeIndex) && (!this.parent(removeIndex) || this.pairIsInCorrectOrder(this.parent(removeIndex), this.heapContainer[removeIndex]))) {
+				if (this.hasLeftChild(removeIndex) && (!this.hasParent(removeIndex) || this.pairIsInCorrectOrder(this.parent(removeIndex), this.heapContainer[removeIndex]))) {
 					this.down(removeIndex);
 				} else {
 					this.up(removeIndex);

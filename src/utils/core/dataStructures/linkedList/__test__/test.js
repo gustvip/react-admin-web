@@ -1,8 +1,9 @@
 import Index from '../index';
+import Comparator from '../../../utils/comparator/index';
 
 describe('Index', () => {
 	it('should create empty linked list', () => {
-		const linkedList = new Index();
+		const linkedList = new Index(new Comparator());
 		linkedList.append(1);
 		expect(linkedList.size).toBe(1);
 		expect(linkedList.has(2)).toBeFalsy();

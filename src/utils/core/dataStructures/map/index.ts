@@ -75,11 +75,11 @@ export default class Map implements InterfaceMap {
 	};
 	
 	public get(key) {
-		const result = this.doubleLinkedList.find({value: {key: key}});
+		const result = this.doubleLinkedList.find({value: {key}});
 		return result ? result.value.value : undefined;
 	};
 	
 	public has(key) {
-		return !!this.doubleLinkedList.find({value: {key: key}});
+		return !!this.doubleLinkedList.find({value: {key}});
 	};
 }

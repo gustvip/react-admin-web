@@ -4,11 +4,11 @@ import {compareFunctionType} from '../../utils/@types';
 import {InterfaceDoubleLinkedList, InterfaceDoubleLinkedListNode} from './@types';
 
 export default class DoubleLinkedList implements InterfaceDoubleLinkedList {
-	constructor(comparatorFunction?: compareFunctionType) {
+	constructor(comparatorFunction?: Comparator | compareFunctionType) {
 		this.head = null;
 		this.tail = null;
 		this.size = 0;
-		this.compare = new Comparator(comparatorFunction);
+		this.compare = comparatorFunction instanceof Comparator ? comparatorFunction : new Comparator(comparatorFunction);
 	}
 	
 	public compare;

@@ -2,8 +2,8 @@ import Comparator from '../../utils/comparator';
 import InterfaceComparator from '../../utils/comparator/@types';
 import {compareFunctionType} from '../../utils/@types';
 
-export default function (originalArray: any[], compareCallback?: compareFunctionType): any[] {
-	var comparator = new Comparator(compareCallback);
+export default function (originalArray: any[], compareCallback?: Comparator | compareFunctionType): any[] {
+	const comparator = compareCallback instanceof Comparator ? compareCallback : new Comparator(compareCallback);
 	return mergeSort(originalArray, comparator);
 }
 

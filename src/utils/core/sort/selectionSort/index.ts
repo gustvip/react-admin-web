@@ -2,8 +2,8 @@ import swap from '../../utils/swap';
 import Comparator from '../../utils/comparator';
 import {compareFunctionType} from '../../utils/@types';
 
-export default function (originalArray: any[], compareCallback?: compareFunctionType): any[] {
-	const comparator = new Comparator(compareCallback);
+export default function (originalArray: any[], compareCallback?: Comparator | compareFunctionType): any[] {
+	const comparator = compareCallback instanceof Comparator ? compareCallback : new Comparator(compareCallback);
 	let minIndex: null | number;
 	for (let i = 0; i < originalArray.length - 1; ++i) {
 		minIndex = i;
