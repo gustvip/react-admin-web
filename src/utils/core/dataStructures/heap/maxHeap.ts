@@ -8,7 +8,6 @@ export default class MaxHeap extends Heap implements InterfaceMaxHeap {
 		super(comparatorFunction);
 	}
 	
-	// @ts-ignore
 	pairIsInCorrectOrder(parentElement, childElement) {
 		return this.compare.greaterThanOrEqual(parentElement, childElement);
 	}

@@ -6,16 +6,16 @@ import swap from '../../utils/swap/index';
 import {compareFunctionType} from '../../utils/@types';
 import {InterfaceHeap} from './@types';
 
-export default class Heap implements InterfaceHeap {
+export default abstract class Heap implements InterfaceHeap {
 	constructor(comparatorFunction?: Comparator | compareFunctionType) {
 		this.heapContainer = [];
 		this.compare = comparatorFunction instanceof Comparator ? comparatorFunction : new Comparator(comparatorFunction);
 	}
 	
-	public pairIsInCorrectOrder;
+	abstract pairIsInCorrectOrder(firstElement, secondElement): boolean
+	
 	public heapContainer;
 	public compare;
-	
 	public fromArray(value) {
 		value.forEach(val => this.add(val));
 		return this;

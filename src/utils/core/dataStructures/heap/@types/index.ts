@@ -24,7 +24,6 @@ export interface InterfaceHeap {
 	toString: () => string
 	up: (customStartIndex?: number) => this
 	down: (customStartIndex?: number) => this
-	pairIsInCorrectOrder: any
 }
 
 export interface InterfaceMinHeap extends InterfaceHeap {

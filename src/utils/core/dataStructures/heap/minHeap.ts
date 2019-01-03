@@ -8,7 +8,6 @@ export default class MinHeap extends Heap implements InterfaceHeap, InterfaceMin
 		super(comparatorFunction);
 	}
 	
-	// @ts-ignore
 	pairIsInCorrectOrder(parentElement, childElement) {
 		return this.compare.lessThanOrEqual(parentElement, childElement);
 	}
