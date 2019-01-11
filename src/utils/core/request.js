@@ -3,10 +3,7 @@
  */
 import axios from 'axios';
 import axiosUtils from 'axios/lib/utils';
-import forOwn from 'lodash/forOwn';
-import forEach from 'lodash/forEach';
-import noop from 'lodash/noop';
-import transform from 'lodash/transform';
+import { forOwn, forEach, noop, transform } from 'lodash';
 
 /**
  * 将对象转化为FormData数据格式

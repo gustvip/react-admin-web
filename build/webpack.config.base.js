@@ -4,6 +4,7 @@
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const lodashWebpackPlugin = require('lodash-webpack-plugin');
 
 // 页面入口文件,使用异步加载方式---bundle-loader
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.([jt]sx?))$/ig;
@@ -193,6 +194,17 @@ module.exports = {
 	},
 	
 	plugins: [
+		new lodashWebpackPlugin({
+			cloning: true,
+			currying: true,
+			collections: true,
+			paths: true,
+			unicode: true,
+			placeholders: true,
+			flattening: true,
+			metadata: true,
+			coercions: true,
+		}),
 		new webpack.ProvidePlugin({
 			React: 'react',
 		}),

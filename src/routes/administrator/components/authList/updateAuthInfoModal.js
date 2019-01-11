@@ -3,12 +3,12 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Form, Input, Modal} from 'antd';
+import { Form, Input, Modal } from 'antd';
 import prompt from 'utils/core/prompt';
 import enumAuth from 'constants/enumAuth';
 import * as webAPI from '../../webAPI/authList';
 
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash';
 
 const formItemLayout = {
 	labelCol: {
@@ -30,7 +30,7 @@ class UpdateAuthInfoModal extends React.PureComponent {
 		option: PropTypes.object,
 	};
 	
-	constructor(props) {
+	constructor (props) {
 		super();
 		this.state = {
 			showModal: true,
@@ -59,7 +59,7 @@ class UpdateAuthInfoModal extends React.PureComponent {
 		});
 	};
 	
-	render() {
+	render () {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (

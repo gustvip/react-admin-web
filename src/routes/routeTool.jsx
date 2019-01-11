@@ -5,9 +5,9 @@ import Route from 'react-router-dom/Route';
 import Exception from 'templates/toolComponents/exception';
 import lazyLoad from 'templates/lazyLoad';
 import * as React from 'react';
-import {DefaultLayout as DefaultLayoutComponent} from 'templates/mainLayout';
+import { DefaultLayout as DefaultLayoutComponent } from 'templates/mainLayout';
 import Auth from 'utils/core/auth';
-import flattenDeep from 'lodash/flattenDeep';
+import { flattenDeep } from 'lodash';
 
 /**
  * 布局方式

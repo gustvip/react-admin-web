@@ -1,19 +1,18 @@
 /**
  * Created by joey on 2018/2/18
  */
-import isNil from 'lodash/isNil';
-import toLength from 'lodash/toLength';
+import { isNil, toLength } from 'lodash';
 
 /**
  * 常用正则
  */
 const regExpHelper = {
-	name(min, max, tag) {
+	name (min, max, tag) {
 		min = isNil(min) ? 7 : toLength(min);
 		max = isNil(max) ? 15 : toLength(max);
 		return new RegExp(`^[a-z-A-Z_]\\w{${min},${max}}$`, tag);
 	},
-	password(min, max, tag) {
+	password (min, max, tag) {
 		min = isNil(min) ? 6 : toLength(min);
 		max = isNil(max) ? 18 : toLength(max);
 		return new RegExp(`^\\w{${min},${max}}$`, tag);

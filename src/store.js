@@ -1,30 +1,28 @@
 /**
  * Created by joey on 2018/02/19
  */
-import {createStore as _createStore, applyMiddleware, combineReducers} from 'redux';
-import isPlainObject from 'lodash/isPlainObject';
-import isFunction from 'lodash/isFunction';
-import transform from 'lodash/transform';
+import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux';
+import { isPlainObject, isFunction, transform } from 'lodash';
 
 export const STORE_INJECT = '@@STORE_INJECT';
 
 class Registry {
-	constructor() {
+	constructor () {
 		this.store = null;
 		this.initialReducer = {
-			initialReducer() {
+			initialReducer () {
 				return {};
 			},
 		};
 	}
 	
-	injectReducers(reducers) {
+	injectReducers (reducers) {
 		this.store.replaceReducer(combineReducers(
 			transform(reducers, (acc, reducer) => acc[reducer.name] = reducer.reducer, {...this.initialReducer}),
 		));
 	}
 	
-	get initialReducers() {
+	get initialReducers () {
 		return combineReducers(this.initialReducer);
 	}
 }
@@ -34,7 +32,7 @@ class Registry {
  * @param {Object} registry
  * @return {function(*): function(*): function(*=)}
  */
-function registryMiddleware(registry) {
+function registryMiddleware (registry) {
 	return () => next => (action) => {
 		if (isPlainObject(action) && Object.prototype.hasOwnProperty.call(action, STORE_INJECT) && Array.isArray(action[STORE_INJECT]) && action[STORE_INJECT].length > 0) {
 			return registry.injectReducers(action[STORE_INJECT]);
@@ -48,7 +46,7 @@ function registryMiddleware(registry) {
  * @param {*} [extraOptions]
  * @return {function(*=, *=): function(*): Function}
  */
-function thunkMiddleware(extraOptions) {
+function thunkMiddleware (extraOptions) {
 	return ({dispatch, getState}) => next => (action) => {
 		if (isFunction(action)) {
 			return action(dispatch, getState, extraOptions);
@@ -57,7 +55,7 @@ function thunkMiddleware(extraOptions) {
 	};
 }
 
-export default function createStore(initialState = {}) {
+export default function createStore (initialState = {}) {
 	const registry = new Registry();
 	let finalCreateStore = applyMiddleware(registryMiddleware(registry), thunkMiddleware());
 	

@@ -15,6 +15,7 @@ const presets = [
 ];
 
 const plugins = [
+	'lodash',
 	[
 		'import',
 		{

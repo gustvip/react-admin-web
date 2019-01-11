@@ -4,10 +4,7 @@
 
 import T from 'utils/t';
 import EnumDefaultMenus from 'constants/enumDefaultMenus';
-import uniq from 'lodash/uniq';
-import flowRight from 'lodash/flowRight';
-import identity from 'lodash/identity';
-import isString from 'lodash/isString';
+import { isString, uniq, flowRight, identity } from 'lodash';
 
 /**
  * Location.pathname和分类值的对应关系
@@ -167,7 +164,7 @@ export const getOpenKeys = (locationPathname) => {
 	const dataSource = getMenuData(locationPathname);
 	const data = [];
 	
-	(function fn(_dataSource) {
+	(function fn (_dataSource) {
 		const result = _dataSource.find(item => item.url.indexOf(locationPathname) !== -1);
 		if (result) {
 			data.push(result.id);

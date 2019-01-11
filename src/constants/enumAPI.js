@@ -2,8 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import identity from 'lodash/identity';
-import flowRight from 'lodash/flowRight';
+import { identity, flowRight } from 'lodash';
 
 const _proxyAPI = api => window.ENV.apiDomain + api;
 
@@ -56,3 +55,4 @@ const API = {
 	administratorGroupDistribute: _proxyAPI('/administrator/group/distribute'), // 组对应角色权限分配
 };
 export default helper.immutable(API, flowRight(helper.removeTrailingSlash, helper.removeBlank, identity));
+

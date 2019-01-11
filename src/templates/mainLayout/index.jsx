@@ -3,22 +3,18 @@
  */
 import T from 'utils/t';
 import PropTypes from 'prop-types';
-import {EnumIconTypes} from 'constants/enumDefaultMenus';
+import { EnumIconTypes } from 'constants/enumDefaultMenus';
 import enumRouter from 'constants/enumRouter';
 import * as enumCommon from 'constants/app/common';
-import {Select, Menu, Icon, Layout, Dropdown} from 'antd';
+import { Select, Menu, Icon, Layout, Dropdown } from 'antd';
 import styles from './mainLayout.scss';
-import {getMenuData, getOpenKeys, EnumMenus, getCategoryRoute} from './menuUtil';
+import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil';
 import * as React from 'react';
 import Link from 'react-router-dom/Link';
 import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
-
-import isEqual from 'lodash/isEqual';
-import flowRight from 'lodash/flowRight';
-import get from 'lodash/get';
-import uniqueId from 'lodash/uniqueId';
+import { isEqual, flowRight, get, uniqueId } from 'lodash';
 
 /**
  * 获取图标字体
@@ -41,7 +37,7 @@ class SiderMenu extends React.PureComponent {
 		isCollapsed: PropTypes.bool.isRequired,
 	};
 	
-	constructor() {
+	constructor () {
 		super();
 		const locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 		this.locationPathname = locationPathname;
@@ -106,7 +102,7 @@ class SiderMenu extends React.PureComponent {
 		this.props.handleCollapsed();
 	};
 	
-	render() {
+	render () {
 		const locationPathname = this.locationPathname;
 		const defaultOpenKeys = this.state.defaultOpenKeys;
 		
@@ -198,7 +194,7 @@ export class HeaderLayout extends React.PureComponent {
 	
 	handleResetPassword = (userId) => {
 		T.prompt.confirm({
-			onOk() {
+			onOk () {
 				T.auth.resetUserPassword(userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码码？',
@@ -276,7 +272,7 @@ export class HeaderLayout extends React.PureComponent {
 		);
 	};
 	
-	render() {
+	render () {
 		return (
 			<React.Fragment>
 				<Layout.Header className={styles['main-header-container']}>
@@ -313,7 +309,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 		this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}));
 	};
 	
-	render() {
+	render () {
 		const self = this;
 		return (
 			<Layout
@@ -339,7 +335,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 }
 
 export class DefaultLayout extends React.PureComponent {
-	render() {
+	render () {
 		return (
 			<React.Fragment>{this.props.children}</React.Fragment>
 		);

@@ -3,13 +3,13 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Form, Modal, Select} from 'antd';
+import { Form, Modal, Select } from 'antd';
 import auth from 'utils/core/auth';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
 import * as enumCommon from 'constants/app/common';
 
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash';
 
 const Option = Select.Option;
 const formItemLayout = {
@@ -35,7 +35,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 		option: PropTypes.object,
 	};
 	
-	constructor(props) {
+	constructor (props) {
 		super(props);
 		// 组的数据
 		const groupData = Object.values(enumCommon.group).
@@ -119,7 +119,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 		});
 	};
 	
-	render() {
+	render () {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (

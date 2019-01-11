@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import flowRight from 'lodash/flowRight';
+import { flowRight } from 'lodash';
 
 /**
  * @type {{rootPath: string, login: string, noPermit: string, testDemo: string, testParseFile: string, userList: string, administratorAuthList: string, administratorGroupList: string}}

@@ -1,13 +1,4 @@
-import get from 'lodash/get';
-import identity from 'lodash/identity';
-import each from 'lodash/each';
-import isString from 'lodash/isString';
-import groupBy from 'lodash/groupBy';
-import round from 'lodash/round';
-import toFinite from 'lodash/toFinite';
-import IsFinite from 'lodash/isFinite';
-import minBy from 'lodash/minBy';
-import maxBy from 'lodash/maxBy';
+import { get, identity, forEach, isString, groupBy, round, toFinite, minBy, maxBy, isFinite as IsFinite } from 'lodash';
 import classNames from 'classnames';
 import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
 
@@ -71,7 +62,7 @@ class Helper {
 			let i = data[maxLevel];
 			const j = data[maxLevel - 1];
 			if (i && j) {
-				each(
+				forEach(
 					groupBy(i, parentName),
 					(value, key) => {
 						const k = j.findIndex(value => value[ownName] === key);
@@ -145,13 +136,10 @@ class Helper {
 	sort ({prev, now, property} = {}) {
 		const prevValue = get(prev, property);
 		const nowValue = get(now, property);
-		if (prevValue < nowValue) {
-			return -1;
-		} else if (prevValue > nowValue) {
-			return 1;
-		} else {
+		if (prevValue === nowValue) {
 			return 0;
 		}
+		return prevValue < nowValue ? -1 : 1;
 	}
 	
 	/**
@@ -166,7 +154,7 @@ class Helper {
 			let result = _data;
 			if (self.isPureObject(_data) || Array.isArray(_data)) {
 				result = Array.isArray(_data) ? [] : {};
-				each(_data, (value, key) => {
+				forEach(_data, (value, key) => {
 					Object.defineProperty(result, key, {
 						value: fn(callback(value, key)),
 						enumerable,

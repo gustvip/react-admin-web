@@ -6,7 +6,7 @@ import mime from 'mime';
 import styles from './parseFile.scss';
 import enumAuth from 'constants/enumAuth';
 
-import camelCase from 'lodash/camelCase';
+import { camelCase } from 'lodash';
 
 const {AuthComponent} = T;
 

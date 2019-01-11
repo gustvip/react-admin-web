@@ -2,15 +2,15 @@
  * Created by joey on 18-9-4
  */
 import React from 'react';
-import {Form, Input, Button, Radio, Modal} from 'antd';
+import { Form, Input, Button, Radio, Modal } from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
 import PropTypes from 'prop-types';
-import {userSex} from 'constants/app/common';
+import { userSex } from 'constants/app/common';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
 
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash';
 
 const RadioGroup = Radio.Group;
 const formItemLayout = {
@@ -74,7 +74,7 @@ class AddUserModal extends React.PureComponent {
 		}
 	};
 	
-	render() {
+	render () {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (

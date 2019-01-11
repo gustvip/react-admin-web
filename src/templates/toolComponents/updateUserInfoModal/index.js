@@ -9,7 +9,7 @@ import regExpHelper from 'utils/core/regexp';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
 
-import isFunction from 'lodash/isFunction';
+import {isFunction }from 'lodash';
 import {userSex} from 'constants/app/common';
 
 const RadioGroup = Radio.Group;

@@ -10,9 +10,7 @@ import helper from './helper';
 import localStorage from './localStorage';
 import * as request from './request';
 
-import flowRight from 'lodash/flowRight';
-import isFunction from 'lodash/isFunction';
-import get from 'lodash/get';
+import { flowRight, isFunction, get } from 'lodash';
 
 class Auth {
 	constructor () {

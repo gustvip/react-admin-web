@@ -4,7 +4,7 @@
 
 import helper from 'utils/core/helper';
 import EnumRouter from './enumRouter';
-import uniqueId from 'lodash/uniqueId';
+import { uniqueId } from 'lodash';
 import enumAuth from 'constants/enumAuth';
 
 /**

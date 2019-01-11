@@ -1,14 +1,9 @@
 /**
  * Created by joey 2018/02/20
  */
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
-import isBoolean from 'lodash/isBoolean';
-import fowOwn from 'lodash/forOwn';
-import toInteger from 'lodash/toInteger';
-import isInteger from 'lodash/isInteger';
+import { isString, isNumber, isBoolean, forOwn, toInteger, isInteger } from 'lodash';
 
-function isPureObject(x) {
+function isPureObject (x) {
 	return Object.prototype.toString.call(x) === '[object Object]';
 }
 
@@ -17,12 +12,12 @@ var NO_EXPIRE = 0;
 // localStorage的key
 var STORAGE_KEY = '__STORAGE__';
 // 临时存储的变量
-var storageValue = (function() {
+var storageValue = (function () {
 	var result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
 	return isPureObject(result) ? result : {};
 }());
 
-function canJSON(x) {
+function canJSON (x) {
 	return isString(x) || isNumber(x) || isPureObject(x) || Array.isArray(x) || isBoolean(x);
 }
 
@@ -31,7 +26,7 @@ function canJSON(x) {
  * @param {Number} expTime
  * @returns {Boolean}
  */
-function isFresh(expTime) {
+function isFresh (expTime) {
 	return (expTime === NO_EXPIRE) || (isInteger(expTime) && expTime - Date.now() > 0);
 }
 
@@ -40,7 +35,7 @@ function isFresh(expTime) {
  * @param {String} key
  * @param {String || Number || Boolean || Object || Array} value
  */
-function update(key, value) {
+function update (key, value) {
 	window.localStorage.setItem(key, JSON.stringify(value));
 }
 
@@ -48,7 +43,7 @@ function update(key, value) {
  * 获取长度
  * @return {Number}
  */
-function length() {
+function length () {
 	clearExpired();
 	update(STORAGE_KEY, storageValue);
 	return Object.keys(storageValue).length;
@@ -57,8 +52,8 @@ function length() {
 /**
  * 清空过期的数据
  */
-function clearExpired() {
-	fowOwn(storageValue, function(value, key) {
+function clearExpired () {
+	forOwn(storageValue, function (value, key) {
 		if (!isPureObject(value) || !canJSON(value.value) || !isFresh(value.expire)) {
 			delete storageValue[key];
 		}
@@ -70,7 +65,7 @@ function clearExpired() {
  * @param {String || Number ||  Boolean || Array || Object} value
  * @param {Number} expTime 过期时间
  */
-function setItem(key, value, expTime) {
+function setItem (key, value, expTime) {
 	clearExpired();
 	if (canJSON(value)) {
 		expTime = toInteger(expTime);
@@ -87,7 +82,7 @@ function setItem(key, value, expTime) {
  * @param {String} key
  * @returns {String || Boolean || Number || Array || Object || Undefined}
  */
-function getItem(key) {
+function getItem (key) {
 	clearExpired();
 	update(STORAGE_KEY, storageValue);
 	var storage = storageValue[key];
@@ -99,7 +94,7 @@ function getItem(key) {
  * @param {Number} expTime 过期时间
  * @return {Boolean}
  */
-function keepItemExpire(key, expTime) {
+function keepItemExpire (key, expTime) {
 	clearExpired();
 	var storage = storageValue[key];
 	if (storage) {
@@ -117,7 +112,7 @@ function keepItemExpire(key, expTime) {
  * @param {String} key 数据名
  * @param {Number} expTime 过期时间
  */
-function updateItemExpire(key, expTime) {
+function updateItemExpire (key, expTime) {
 	clearExpired();
 	var storage = storageValue[key];
 	if (storage) {
@@ -132,7 +127,7 @@ function updateItemExpire(key, expTime) {
  * @param {String} key
  * @param{String || Boolean || Number || Array || Object} value
  */
-function updateItemValue(key, value) {
+function updateItemValue (key, value) {
 	clearExpired();
 	var storage = storageValue[key];
 	if (storage && canJSON(value)) {
@@ -144,13 +139,13 @@ function updateItemValue(key, value) {
 /**
  * @param {string} key 数据名
  */
-function removeItem(key) {
+function removeItem (key) {
 	clearExpired();
 	delete storageValue[key];
 	update(STORAGE_KEY, storageValue);
 }
 
-function clear() {
+function clear () {
 	update(STORAGE_KEY, storageValue = {});
 }
 
@@ -158,7 +153,7 @@ function clear() {
  * @type {{length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}
  */
 var method = {
-	get length() {
+	get length () {
 		return length();
 	},
 	clearExpired: clearExpired,

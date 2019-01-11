@@ -3,13 +3,13 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Form, Input, Modal} from 'antd';
+import { Form, Input, Modal } from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
 
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash';
 
 const formItemLayout = {
 	labelCol: {
@@ -70,7 +70,7 @@ class UpdatePasswordModal extends React.PureComponent {
 		}
 	};
 	
-	render() {
+	render () {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (

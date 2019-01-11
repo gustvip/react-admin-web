@@ -2,12 +2,12 @@
  * Created by joey on 2018/02/19
  */
 
-import {Modal} from 'antd';
-import {message} from 'antd';
-import noop from 'lodash/noop';
+import { Modal } from 'antd';
+import { message } from 'antd';
+import { noop } from 'lodash';
 
 class Prompt {
-	constructor() {
+	constructor () {
 		message.config({duration: 2});
 	}
 	
@@ -17,7 +17,7 @@ class Prompt {
 	 * @param {Number} duration
 	 * @param {Function} [onClose]
 	 */
-	success(msg, duration = 2, onClose = noop) {
+	success (msg, duration = 2, onClose = noop) {
 		message.success(msg, duration, onClose);
 	}
 	
@@ -27,7 +27,7 @@ class Prompt {
 	 * @param {Number} duration
 	 * @param {Function} [onClose]
 	 */
-	error(msg, duration = 2, onClose = noop) {
+	error (msg, duration = 2, onClose = noop) {
 		message.error(msg, duration, onClose);
 	}
 	
@@ -37,7 +37,7 @@ class Prompt {
 	 * @param {Number} duration
 	 * @param {Function} [onClose]
 	 */
-	warn(msg, duration = 2, onClose = noop) {
+	warn (msg, duration = 2, onClose = noop) {
 		message.warn(msg, duration, onClose);
 	}
 	
@@ -45,7 +45,7 @@ class Prompt {
 	 * 确认提示框
 	 * @param {Object} options
 	 */
-	confirm(options = {}) {
+	confirm (options = {}) {
 		options = Object.assign({
 			title: '确定删除吗？',
 			content: '', // Content可以是react节点实例
