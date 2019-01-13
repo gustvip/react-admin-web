@@ -2,6 +2,7 @@ process.env.NODE_ENV = 'production';
 process.env.BABEL_ENV = 'production';
 
 const path = require('path');
+const fs = require('fs');
 const os = require('os');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
@@ -10,11 +11,10 @@ const rm = require('rimraf');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const clc = require('cli-color');
 const prodConfig = require('./webpack.config.prod');
-
 const conf = {
 	indexHtmlName: 'demo_project.html',		// 生成的html的名字
 	appName: 'platform', // 项目名称
-	proxyPath: process.argv[3] ? process.argv[3] : '/', // 代理的前缀 注意：后面必须带斜线
+	proxyPath: process.argv[3] ? path.resolve(process.argv[3]) : '/', // 代理的前缀 注意：后面必须带斜线
 	webPath: process.argv[2], // Web目录
 };
 
@@ -99,7 +99,7 @@ const webpackConfigProd = merge(prodConfig, {
 	],
 });
 
-function doCompilerPlatform() {
+function doCompilerPlatform () {
 	return new Promise((resolve, reject) => {
 		webpack(webpackConfigProd, (err, stats) => {
 			const jsonStats = stats.toJson();
@@ -113,15 +113,19 @@ function doCompilerPlatform() {
 	});
 }
 
-function deleteFile() {
+function deleteFile () {
 	return new Promise((resolve, reject) => {
-		rm(conf.webPath, (err) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve();
-			}
-		});
+		if (conf.webPath.startsWith(os.homedir)) {
+			rm(conf.webPath, (err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve();
+				}
+			});
+		} else {
+			reject('webPath must be starts with os.homeDir');
+		}
 	});
 }
 
@@ -129,7 +133,7 @@ function deleteFile() {
  * 编译结束后统计
  * @param {number} startTime
  */
-function toEnd(startTime) {
+function toEnd (startTime) {
 	const endTime = Date.now();
 	console.log(clc.green('  ↓'));
 	console.log(clc.green('总计耗时:' + ((endTime - startTime) / 1000).toFixed(2) + 's'));
@@ -149,7 +153,7 @@ function toEnd(startTime) {
  * 错误处理方法
  * @param errorMsg
  */
-function handleError(errorMsg) {
+function handleError (errorMsg) {
 	console.log(clc.red.bold(errorMsg));
 	process.exit();
 }
@@ -158,18 +162,22 @@ function handleError(errorMsg) {
  * 告警处理方法
  * @param warnMsg
  */
-function handleWarn(warnMsg) {
+function handleWarn (warnMsg) {
 	console.log(clc.yellow(warnMsg));
 }
 
-async function buildApp() {
+async function buildApp () {
 	const startTime = Date.now();
 	
 	// 删除文件
-	await deleteFile();
+	await deleteFile().catch(err => {
+		throw err;
+	});
 	
 	// webpack编译
-	await doCompilerPlatform();
+	await doCompilerPlatform().catch(err => {
+		throw err;
+	});
 	
 	return startTime;
 }

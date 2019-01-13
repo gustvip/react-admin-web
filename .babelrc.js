@@ -15,11 +15,12 @@ const presets = [
 ];
 
 const plugins = [
+	// lodash按需引入
 	'lodash',
+	// ant-design按需引入
 	[
 		'import',
 		{
-			// ant-design按需引入
 			'libraryName': 'antd',
 			'libraryDirectory': 'es',
 			'style': true,

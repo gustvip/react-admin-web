@@ -167,17 +167,17 @@ export default class Chart extends React.PureComponent {
 		option: PropTypes.object.isRequired,
 	};
 	
-	constructor() {
+	constructor () {
 		super();
 		this.chart = null;
 		this.chartContainer = null;
 	}
 	
-	get echartsInstance() {
+	get echartsInstance () {
 		return this.chart;
 	}
 	
-	componentDidMount() {
+	componentDidMount () {
 		const self = this;
 		self.chart = echarts.init(self.chartContainer, self.props.theme || '', Object.assign({
 			height: 300,
@@ -189,7 +189,7 @@ export default class Chart extends React.PureComponent {
 		}, 300));
 	}
 	
-	render() {
+	render () {
 		return (
 			<div
 				style={this.props.style}

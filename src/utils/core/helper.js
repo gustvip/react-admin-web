@@ -225,7 +225,7 @@ class Helper {
 	 * @return {String}
 	 */
 	removeBlank (x) {
-		return x.replace(/\s|\ufeff/g, '');
+		return x.replace(/\s/g, '');
 	}
 	
 	/**

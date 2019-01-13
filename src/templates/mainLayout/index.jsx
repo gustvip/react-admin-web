@@ -72,17 +72,18 @@ class SiderMenu extends React.PureComponent {
 						</Link>
 					</Menu.Item>
 				);
+			} else {
+				defaultOpenKeys.push(item.id);
+				return (
+					<Menu.SubMenu
+						key={item.id}
+						title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
+						onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
+					>
+						{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
+					</Menu.SubMenu>
+				);
 			}
-			defaultOpenKeys.push(item.id);
-			return (
-				<Menu.SubMenu
-					key={item.id}
-					title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
-					onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
-				>
-					{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
-				</Menu.SubMenu>
-			);
 		});
 	};
 	

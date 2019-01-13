@@ -1,9 +1,11 @@
+/* eslint-disable camelcase */
 /**
  * @description webpack 打包基本配置
  */
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
+// 优化lodash
 const lodashWebpackPlugin = require('lodash-webpack-plugin');
 
 // 页面入口文件,使用异步加载方式---bundle-loader
@@ -42,6 +44,7 @@ module.exports = {
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
+				// 提取css
 				vendor: {
 					name: 'vendor',
 					test: /\.scss|css|less$/,
@@ -52,6 +55,7 @@ module.exports = {
 					priority: 0,
 				},
 				
+				// 提取公共包
 				commons: {
 					chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是异步)
 					name: 'commons',
@@ -68,6 +72,7 @@ module.exports = {
 	},
 	
 	entry: {
+		// 入口和浏览器兼容（不需要考虑兼容，保留./src/index）
 		app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
 		commons: [
 			'qs',
@@ -106,7 +111,11 @@ module.exports = {
 	},
 	
 	node: {
+		dgram: 'empty',
 		fs: 'empty',
+		net: 'empty',
+		tls: 'empty',
+		child_process: 'empty',
 	},
 	
 	module: {
@@ -167,6 +176,7 @@ module.exports = {
 				],
 			},
 			
+			// 路由的懒加载
 			{
 				test: routesComponentsRegex,
 				exclude: excludeRegex,
@@ -194,6 +204,7 @@ module.exports = {
 	},
 	
 	plugins: [
+		// https://www.npmjs.com/package/lodash-webpack-plugin
 		new lodashWebpackPlugin({
 			cloning: true,
 			currying: true,
@@ -207,6 +218,10 @@ module.exports = {
 		}),
 		new webpack.ProvidePlugin({
 			React: 'react',
+			ReactDom: 'react-dom',
+			qs: 'qs',
+			axios: 'axios',
+			classNames: 'classnames',
 		}),
 		new webpackBar({
 			profile: true,

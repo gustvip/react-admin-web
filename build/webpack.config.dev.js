@@ -1,13 +1,13 @@
 /**
  * @description webpack 开发模式下的配置
  */
+
 const merge = require('webpack-merge');
-const host = 'localhost';
-// const host = require("./util").getLocalIp();
+const host = require('./util').getLocalIp();
+// const host = 'localhost';
 const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const baseConfig = require('./webpack.config.base');
-const resourceBaseName = require('./util').resourceBaseName;
 module.exports = merge(baseConfig, {
 	mode: 'development',
 	
@@ -15,13 +15,13 @@ module.exports = merge(baseConfig, {
 		rules: [
 			{
 				test: /\.(png|jpg|gif|jpeg|svg)(\?.*)?$/,
-				use: `url-loader?name=${resourceBaseName}/[name].[ext]`,
+				use: 'url-loader',
 			},
 		],
 	},
 	devServer: {
-		host,
-		port,
+		host: parseInt(process.env.host, 10) || host,
+		port: parseInt(process.env.port, 10) || port,
 		publicPath: '/public/',
 		contentBase: `${__dirname}/../public/`,
 		
@@ -31,8 +31,9 @@ module.exports = merge(baseConfig, {
 		},
 		hot: false,
 		historyApiFallback: {
-			index: '/',
-			disableDotRule: true,
+			rewrites: [
+				{from: /.*/, to: 'index.html'},
+			],
 		},
 		stats: {
 			colors: true,

@@ -50,23 +50,24 @@ export const EnumMenus = (() => {
 							),
 						},
 					);
+				} else {
+					if (Array.isArray(item.url) || isString(item.url)) {
+						resultUrl = resultUrl.concat(item.url);
+					}
+					
+					return Object.assign(
+						{},
+						item,
+						{
+							children: [],
+							url: Array.isArray(item.url)
+								? uniq(item.url)
+								: isString(item.url)
+									? [item.url]
+									: [],
+						},
+					);
 				}
-				if (Array.isArray(item.url) || isString(item.url)) {
-					resultUrl = resultUrl.concat(item.url);
-				}
-				
-				return Object.assign(
-					{},
-					item,
-					{
-						children: [],
-						url: Array.isArray(item.url)
-							? uniq(item.url)
-							: isString(item.url)
-								? [item.url]
-								: [],
-					},
-				);
 			});
 		}
 		return {
