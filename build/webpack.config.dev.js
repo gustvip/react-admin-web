@@ -3,8 +3,8 @@
  */
 
 const merge = require('webpack-merge');
-const host = require('./util').getLocalIp();
-// const host = 'localhost';
+// const host = require('./util').getLocalIp();
+const host = 'localhost';
 const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const baseConfig = require('./webpack.config.base');
@@ -20,7 +20,7 @@ module.exports = merge(baseConfig, {
 		],
 	},
 	devServer: {
-		host: parseInt(process.env.host, 10) || host,
+		host: process.env.host || host,
 		port: parseInt(process.env.port, 10) || port,
 		publicPath: '/public/',
 		contentBase: `${__dirname}/../public/`,

@@ -6,8 +6,9 @@
  * Mock数据---接入真实数据不要引入
  */
 // import './mock';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
+import Locale from './locale';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import * as React from 'react';
 import './base.scss';
 // import './ant-theme.less';
@@ -21,7 +22,9 @@ const renderApp = Routes => {
 	return render(
 		<ErrorBoundary>
 			<Provider store={store()}>
-				<Routes/>
+				{
+					Locale(Routes)
+				}
 			</Provider>
 		</ErrorBoundary>,
 		document.body.appendChild(wrapper),

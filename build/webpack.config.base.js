@@ -9,7 +9,7 @@ const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const lodashWebpackPlugin = require('lodash-webpack-plugin');
 
 // 页面入口文件,使用异步加载方式---bundle-loader
-const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index.([jt]sx?))$/ig;
+const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index\.([jt]sx?))$/ig;
 const excludeRegex = require('./util').excludeRegex;
 const resourceBaseName = require('./util').resourceBaseName;
 const customAntStyle = require('./util').customAntStyle;
@@ -75,6 +75,7 @@ module.exports = {
 		// 入口和浏览器兼容（不需要考虑兼容，保留./src/index）
 		app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
 		commons: [
+			'moment',
 			'qs',
 			'axios',
 			'immutability-helper',
@@ -217,6 +218,7 @@ module.exports = {
 			coercions: true,
 		}),
 		new webpack.ProvidePlugin({
+			moment: 'moment',
 			React: 'react',
 			ReactDom: 'react-dom',
 			qs: 'qs',

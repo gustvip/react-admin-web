@@ -6,7 +6,6 @@ import Exception from 'templates/toolComponents/exception';
 import lazyLoad from 'templates/lazyLoad';
 import * as React from 'react';
 import { DefaultLayout as DefaultLayoutComponent } from 'templates/mainLayout';
-import Auth from 'utils/core/auth';
 import { flattenDeep } from 'lodash';
 
 /**

@@ -2,7 +2,6 @@ process.env.NODE_ENV = 'production';
 process.env.BABEL_ENV = 'production';
 
 const path = require('path');
-const fs = require('fs');
 const os = require('os');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
@@ -87,16 +86,7 @@ const webpackConfigProd = merge(prodConfig, {
 				from: path.join(__dirname, '../public/favicon.ico'),
 				to: conf.webPath,
 			},
-		]),
-		
-		// 复制nginx配置
-		new copyWebpackPlugin([
-			{
-				from: path.join(__dirname, '../public/nginx.conf'),
-				to: conf.webPath,
-			},
-		]),
-	],
+		])],
 });
 
 function doCompilerPlatform () {

@@ -13,11 +13,14 @@ import * as request from './core/request';
 import crypto from './core/crypto';
 import classNames from 'classnames';
 import update from 'immutability-helper';
+import moment from 'moment';
 
 /**
- * @type {{update, classNames, qs, crypto: Crypto, emitter, prompt: Prompt, regExp: {name(*=, *=, *=): *, password(*=, *=, *=): *, url: RegExp, email: RegExp, html: RegExp, ip: RegExp, chinese: RegExp, telephone: RegExp}, helper: Helper, auth: Auth, AuthComponent: AuthComponent, decorate: {contextTypes?, propTypes?}, request: {get?, upload?, del?, all?, form?, post?, postJSON?, downLoadUrl?, put?}, localStorage: {length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}}
+ * @type {{moment, update, classNames, qs, crypto: Crypto, emitter, prompt: Prompt, regExp: {name(*=, *=, *=): *, password(*=, *=, *=): *, url: RegExp, email: RegExp, html: RegExp, ip: RegExp, chinese: RegExp, telephone: RegExp}, helper: Helper, auth: Auth, AuthComponent: AuthComponent, decorate: {contextTypes?, propTypes?}, request: {get?, post?, postJSON?, upload?, del?, put?, form?, downLoadUrl?, all?}, localStorage: {length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}}
  */
 const T = {
+	moment,
+	
 	update,
 	
 	classNames,
