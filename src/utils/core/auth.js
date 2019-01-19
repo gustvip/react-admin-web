@@ -169,15 +169,12 @@ class Auth {
 
 const auth = new Auth();
 
-export class AuthComponent extends React.PureComponent {
-	static propTypes = {
-		auth: PropTypes.string.isRequired,
-		children: PropTypes.any,
-	};
-	
-	render () {
-		return auth.hasAuth(this.props.auth) && this.props.children;
-	}
+export function AuthComponent (props) {
+	return auth.hasAuth(props.auth) && props.children;
 }
 
+AuthComponent.propTypes = {
+	auth: PropTypes.string.isRequired,
+	children: PropTypes.any,
+};
 export default auth;

@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 	var rootPath = '/pw/';
 	var apiDomain = 'http://localhost:8081';
@@ -21,7 +21,7 @@
 				defaultRedirectUrl: rootPath + 'test/demo',  // 登录成功默认重定向的url
 				loginUrl: rootPath + 'login',                   // 登录页面url
 				noCheckIsLoginRoutes: [    						// 不需要验证是否登录的路由配置
-					rootPath + 'login'
+					rootPath + 'login',
 				],
 			},
 			
@@ -41,20 +41,20 @@
 		configurable: false,
 	});
 	
-	function isObject(x) {
+	function isObject (x) {
 		return Object.prototype.toString.call(x) === '[object Object]';
 	}
 	
-	function immutable(data, callback) {
-		callback = callback ? callback : function(value, key) {
+	function immutable (data, callback) {
+		callback = callback ? callback : function (value, key) {
 			return value;
 		};
 		
-		return (function fn(_data) {
+		return (function fn (_data) {
 			var result = _data;
 			if (Array.isArray(_data)) {
 				result = [];
-				_data.forEach(function(value, key) {
+				_data.forEach(function (value, key) {
 					Object.defineProperty(result, key, {
 						value: fn(callback(value, key)),
 						configurable: false,

@@ -20,7 +20,6 @@ export default helper.immutable([
 	{
 		auth: enumAuth.bPlatform.value,
 		label: '大栏目',
-		value: 'data_platform',
 		url: EnumRouter.testDemo,
 		id: uniqueId(),
 		children: [

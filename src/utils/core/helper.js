@@ -1,4 +1,4 @@
-import { get, identity, forEach, isString, groupBy, round, toFinite, minBy, maxBy, isFinite as IsFinite } from 'lodash';
+import { get, identity, forEach, forOwn, isString, groupBy, round, toFinite, minBy, maxBy, isFinite as IsFinite } from 'lodash';
 import classNames from 'classnames';
 import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
 
@@ -7,16 +7,16 @@ class Helper {
 	 * @param {*} x
 	 * @return {{index: *, base: string}}
 	 */
-	getNumberBase (x) {
+	getNumberBase (x, radix = 1024) {
 		const baseCollection = ['B', 'K', 'M', 'G', 'T'];
 		x = toFinite(Math.abs(x));
-		if (x < 1024) {
+		if (x < radix) {
 			return {
 				index: 0,
 				base: baseCollection[0],
 			};
 		} else {
-			let index = Math.floor(Math.log(x) / Math.log(1024));
+			let index = Math.floor(Math.log(x) / Math.log(radix));
 			index = index >= baseCollection.length ? baseCollection.length - 1 : index;
 			return {
 				index,
@@ -38,43 +38,46 @@ class Helper {
 	/**
 	 * 将[{},{}...]转化为tree的数据结构
 	 * @param {Array} data
-	 * @param {string} levelName 等级的key
-	 * @param {string} parentName 指向parent的key
-	 * @param {string} ownName 指向own的key
+	 * @param {string | number} parentIdName 指向parent的key
+	 * @param {string | number} ownIdName 指向own的key
 	 * @param {string} [childrenName] 生成children的key
 	 * @return {Array}
 	 */
-	formatTreeData (data, levelName, parentName, ownName, childrenName = 'children') {
-		if (!data.length) {
-			return [];
-		}
-		const minLevel = minBy(data, levelName)[levelName];
-		let maxLevel = maxBy(data, levelName)[levelName];
-		data = groupBy(
-			data.map(value => {
-				value[childrenName] = Array.isArray(value[childrenName]) ? value[childrenName] : [];
-				return value;
-			}),
-			levelName,
-		);
+	formatTreeData (data, parentIdName, ownIdName, childrenName = 'children') {
+		// 格式化children的值
+		data = data.map(value => {
+			value[childrenName] = Array.isArray(value[childrenName]) ? value[childrenName] : [];
+			return value;
+		});
 		
-		while (maxLevel > minLevel) {
-			let i = data[maxLevel];
-			const j = data[maxLevel - 1];
-			if (i && j) {
-				forEach(
-					groupBy(i, parentName),
-					(value, key) => {
-						const k = j.findIndex(value => value[ownName] === key);
-						if (k !== -1) {
-							j[k][childrenName] = j[k][childrenName].concat(value);
-						}
-					},
-				);
+		// 分组
+		const result = [];
+		const groupData = data.reduce(function (prev, value) {
+			if (!value[parentIdName]) {
+				result.push(value);
+			} else {
+				if (prev[value[parentIdName]]) {
+					prev[value[parentIdName]].push(value);
+				} else {
+					prev[value[parentIdName]] = [value];
+				}
 			}
-			maxLevel--;
-		}
-		return data[minLevel];
+			return prev;
+		}, {});
+		
+		// 递归格式化树
+		!(function format (childData) {
+			childData.forEach(value => {
+				forOwn(groupData, (val, key) => {
+					if (value[ownIdName] === key) {
+						value[childrenName] = value[childrenName].concat(val);
+					}
+				});
+				value[childrenName].length && format(value[childrenName]);
+			});
+		}(result));
+		
+		return result;
 	}
 	
 	/**
@@ -92,38 +95,6 @@ class Helper {
 		newDomElement.id = domId;
 		document.body.appendChild(newDomElement);
 		reactDomRender(component, newDomElement);
-	}
-	
-	/**
-	 * 生成uuid
-	 * @param {number} len
-	 * @param {number} radix
-	 * @return {string}
-	 */
-	uuid (len, radix) {
-		var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-		var uuid = [];
-		var i;
-		var r;
-		radix = radix || chars.length;
-		
-		if (len) {
-			for (i = 0; i < len; i++) {
-				uuid[i] = chars[0 | Math.random() * radix];
-			}
-		} else {
-			uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
-			uuid[14] = '4';
-			
-			for (i = 0; i < 36; i++) {
-				if (!uuid[i]) {
-					r = 0 | Math.random() * 16;
-					uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r];
-				}
-			}
-		}
-		
-		return uuid.join('');
 	}
 	
 	/**

@@ -101,6 +101,7 @@ html, body {
 			line-height: $header-height;
 			margin-left: $base-content-gap;
 			a {
+				display: flex;
 				i {
 					margin-right: $base-btn-gap;
 				}

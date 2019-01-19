@@ -8,7 +8,7 @@ const presets = [
 			browsers: package.browserslist,
 		},
 		modules: false,         // modules预先将es6模块转成"amd" | "umd" | "systemjs" | "commonjs", 值为false则不转换
-		useBuiltIns: 'usage',   // 按需动态加载polyfills
+		useBuiltIns: false,
 		debug: false,
 	}],
 	'@babel/preset-react',  // 转换jsx语法
