@@ -37,7 +37,7 @@ const API = {
 	fileParseXlsx: _proxyAPI('/file/parseXlsx'), // 解析xlsx文件
 	fileParseCsv: _proxyAPI('/file/parseCsv'), // 解析csv文件
 	fileParseXml: _proxyAPI('/file/parseXml'), // 解析xml文件
-	fileDownJson: _proxyAPI('/file/downJson'), // 下载json文件
+	fileDownload: _proxyAPI('/file/download'), // 下载文件
 	
 	/*
    |----------------------------------------------------------------

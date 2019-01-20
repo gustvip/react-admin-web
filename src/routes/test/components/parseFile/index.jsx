@@ -5,7 +5,7 @@ import { Button, Input } from 'antd';
 import mime from 'mime';
 import styles from './parseFile.scss';
 import enumAuth from 'constants/enumAuth';
-
+import { fileExtendName } from 'constants/app/common';
 import { camelCase } from 'lodash';
 
 const {AuthComponent} = T;
@@ -27,19 +27,19 @@ export default class TestComponent extends React.PureComponent {
 	
 	handleParseXlsx = (file) => {
 		T.request.upload(enumAPI.fileParseXlsx, {file}).then(info => {
-			T.request.form(enumAPI.fileDownJson, {method: 'GET'}, {id: info.data.id});
+			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
 		}).catch(info => T.prompt.error(info.msg));
 	};
 	
 	handleParseXml = (file) => {
 		T.request.upload(enumAPI.fileParseXml, {file}).then(info => {
-			T.request.form(enumAPI.fileDownJson, {method: 'GET'}, {id: info.data.id});
+			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
 		}).catch(info => T.prompt.error(info.msg));
 	};
 	
 	handleParseCsv = (file) => {
 		T.request.upload(enumAPI.fileParseCsv, {file}).then(info => {
-			T.request.form(enumAPI.fileDownJson, {method: 'GET'}, {id: info.data.id});
+			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
 		}).catch(info => T.prompt.error(info.msg));
 	};
 	

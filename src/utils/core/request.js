@@ -211,7 +211,7 @@ export function form (url, property = {}, params = {}) {
 	property = Object.assign({
 		enctype: 'application/x-www-form-urlencoded',
 		method: 'POST',
-		target: '_self',
+		target: '_target',
 		action: url,
 	}, property);
 	

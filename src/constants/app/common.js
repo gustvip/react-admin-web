@@ -82,3 +82,21 @@ export const pagination = {
  * @type {string}
  */
 export const initialPassword = '123456';
+
+/**
+ * @type {{json: {value: string, label: string}, xlsx: {value: string, label: string}, csv: {value: string, label: string}}}
+ */
+export const fileExtendName = {
+	json: {
+		value: 'json',
+		label: 'json文件',
+	},
+	xlsx: {
+		value: 'xlsx',
+		label: 'xlsx文件',
+	},
+	csv: {
+		value: 'csv',
+		label: 'csv文件',
+	},
+};
