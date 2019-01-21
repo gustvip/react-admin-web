@@ -34,6 +34,7 @@ const API = {
    | 文件相关API地址
    |----------------------------------------------------------------
   */
+	fileParseJson: _proxyAPI('/file/parseJson'), // 解析json文件
 	fileParseXlsx: _proxyAPI('/file/parseXlsx'), // 解析xlsx文件
 	fileParseCsv: _proxyAPI('/file/parseCsv'), // 解析csv文件
 	fileParseXml: _proxyAPI('/file/parseXml'), // 解析xml文件

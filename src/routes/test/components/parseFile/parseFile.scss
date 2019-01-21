@@ -1,36 +1,35 @@
 @import "baseStyleVarity";
 
+$w: 200px;
 .main-container {
-	background-color: $base-background-color;
-	padding: $base-content-gap;
-	border-radius: $base-border-radius;
-
-	:global {
-		.xlsx-container,
-		.xml-container,
-		.image-to-base64-container,
-		.csv-container {
-			margin-bottom: $base-content-gap;
+	.parse-file-container {
+		:global {
 			.ant-btn {
-				width: 100%;
-				display: block;
-			}
-			.content {
-				text-indent: 2em;
-				padding: $base-content-gap 0;
-			}
-		}
-		.mime-container {
-			margin-bottom: $base-content-gap;
-			display: flex;
-			align-items: center;
-			input {
 				margin-right: $base-content-gap;
-				width: 200px;
+				width: $w;
 			}
-			.content {
-				flex-grow: 1;
+			.ant-select {
+				width: $w;
 			}
 		}
+	}
+	.mime-container,
+	.camel-case-container {
+		display: flex;
+		align-items: center;
+		input {
+			margin-right: $base-content-gap;
+			width: $w;
+		}
+	}
+	.other-content {
+		.ant-btn {
+			width: $w;
+		}
+		.content {
+			background-color: #f00;
+			text-indent: 2em;
+		}
+		margin-bottom: 0;
 	}
 }
