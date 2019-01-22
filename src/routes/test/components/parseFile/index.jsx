@@ -27,46 +27,56 @@ export default class TestComponent extends React.PureComponent {
 			mime: '',
 			camelCase: '',
 			
+			jsonFile: null,
 			jsonExtendName: fileExtendName.xlsx.value,
 			jsonExtendNameData: getExtendNameData(fileExtendName.json.value),
 			
+			xlsxFile: null,
 			xlsxExtendName: fileExtendName.json.value,
 			xlsxExtendNameData: getExtendNameData(fileExtendName.xlsx.value),
 			
+			csvFile: null,
 			csvExtendName: fileExtendName.json.value,
 			csvExtendNameData: getExtendNameData(fileExtendName.csv.value),
 			
-			xmlExtendName: fileExtendName.json.value,
-			xmlExtendNameData: getExtendNameData(),
+			xmlFile: null,
 		};
 	}
 	
 	// 解析json文件
-	handleParseJson = (file) => {
-		T.request.upload(enumAPI.fileParseJson, {file}).then(info => {
-			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
-		}).catch(info => T.prompt.error(info.msg));
+	handleParseJson = () => {
+		if (this.state.jsonFile) {
+			T.request.upload(enumAPI.fileParseJson, {file: this.state.jsonFile, exchange: this.state.jsonExtendName}).then(info => {
+				T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: this.state.jsonExtendName});
+			}).catch(info => T.prompt.error(info.msg));
+		}
 	};
 	
 	// 解析xlsx文件
-	handleParseXlsx = (file) => {
-		T.request.upload(enumAPI.fileParseXlsx, {file, exchange: this.state.xlsxExtendName}).then(info => {
-			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: this.state.xlsxExtendName});
-		}).catch(info => T.prompt.error(info.msg));
+	handleParseXlsx = () => {
+		if (this.state.xlsxFile) {
+			T.request.upload(enumAPI.fileParseXlsx, {file: this.state.xlsxFile, exchange: this.state.xlsxExtendName}).then(info => {
+				T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: this.state.xlsxExtendName});
+			}).catch(info => T.prompt.error(info.msg));
+		}
 	};
 	
 	// 解析xml文件
-	handleParseXml = (file) => {
-		T.request.upload(enumAPI.fileParseXml, {file}).then(info => {
-			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
-		}).catch(info => T.prompt.error(info.msg));
+	handleParseXml = () => {
+		if (this.state.xmlFile) {
+			T.request.upload(enumAPI.fileParseXml, {file: this.state.xmlFile, exchange: fileExtendName.json.value}).then(info => {
+				T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
+			}).catch(info => T.prompt.error(info.msg));
+		}
 	};
 	
 	// 解析scv文件
-	handleParseCsv = (file) => {
-		T.request.upload(enumAPI.fileParseCsv, {file}).then(info => {
-			T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: fileExtendName.json.value});
-		}).catch(info => T.prompt.error(info.msg));
+	handleParseCsv = () => {
+		if (this.state.csvFile) {
+			T.request.upload(enumAPI.fileParseCsv, {file: this.state.csvFile, exchange: this.state.csvExtendName}).then(info => {
+				T.request.form(enumAPI.fileDownload, {method: 'GET'}, {id: info.data.id, extendName: this.state.csvExtendName});
+			}).catch(info => T.prompt.error(info.msg));
+		}
 	};
 	
 	render () {
@@ -74,7 +84,7 @@ export default class TestComponent extends React.PureComponent {
 			<div
 				className={T.classNames(styles['main-container'], 'flex-column-grow')}
 			>
-				<AuthComponent auth={enumAuth.sFileParseXlsx.value}>
+				<AuthComponent auth={enumAuth.sFileParseJson.value}>
 					<MainHeader>
 						<div className={styles['parse-file-container']}>
 							<Button
@@ -93,13 +103,19 @@ export default class TestComponent extends React.PureComponent {
 									}))
 								}
 							</Select>
+							<Button
+								onClick={() => this.handleParseJson()}
+								type="primary"
+							>
+								下载
+							</Button>
 							<input
 								style={{display: 'none'}}
 								ref={jsonContainer => this.jsonContainer = jsonContainer}
 								multiple={false}
 								accept="application/json"
 								type="file"
-								onChange={(e) => e.target.files && this.handleParseJson(e.target.files[0])}
+								onChange={(e) => e.target.files && this.setState({jsonFile: e.target.files[0]})}
 							/>
 						</div>
 					</MainHeader>
@@ -123,13 +139,19 @@ export default class TestComponent extends React.PureComponent {
 									}))
 								}
 							</Select>
+							<Button
+								onClick={() => this.handleParseXlsx()}
+								type="primary"
+							>
+								下载
+							</Button>
 							<input
 								style={{display: 'none'}}
 								ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
 								multiple={false}
 								accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 								type="file"
-								onChange={(e) => e.target.files && this.handleParseXlsx(e.target.files[0])}
+								onChange={(e) => e.target.files && this.setState({xlsxFile: e.target.files[0]})}
 							/>
 						</div>
 					</MainHeader>
@@ -153,13 +175,19 @@ export default class TestComponent extends React.PureComponent {
 									}))
 								}
 							</Select>
+							<Button
+								onClick={() => this.handleParseCsv()}
+								type="primary"
+							>
+								下载
+							</Button>
 							<input
 								style={{display: 'none'}}
 								ref={csvContainer => this.csvContainer = csvContainer}
 								multiple={false}
 								accept="text/csv"
 								type="file"
-								onChange={(e) => e.target.files && this.handleParseCsv(e.target.files[0])}
+								onChange={(e) => e.target.files && this.setState({csvFile: e.target.files[0]})}
 							/>
 						</div>
 					</MainHeader>
@@ -173,24 +201,20 @@ export default class TestComponent extends React.PureComponent {
 							>
 								解析xml
 							</Button>
-							<Select
-								value={this.state.xmlExtendName}
-								onChange={xmlExtendName => this.setState({xmlExtendName})}
-							>
-								{
-									this.state.xmlExtendNameData.map((value => {
-										return <Option key={value.value}>{value.label}</Option>;
-									}))
-								}
-							</Select>
 							<input
 								style={{display: 'none'}}
 								ref={xmlContainer => this.xmlContainer = xmlContainer}
 								multiple={false}
 								accept="text/xml"
 								type="file"
-								onChange={(e) => e.target.files && this.handleParseXml(e.target.files[0])}
+								onChange={(e) => e.target.files && this.setState({xmlFile: e.target.files[0]})}
 							/>
+							<Button
+								onClick={() => this.handleParseXml()}
+								type="primary"
+							>
+								下载
+							</Button>
 						</div>
 					</MainHeader>
 				</AuthComponent>

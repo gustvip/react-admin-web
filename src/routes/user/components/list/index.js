@@ -276,7 +276,7 @@ export default class List extends React.PureComponent {
 			onOk() {
 				T.auth.resetUserPassword(record.userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
 			},
-			title: '确认重置密码码？',
+			title: '确认重置密码吗？',
 			content: `密码将重置为${enumCommon.initialPassword}`,
 		});
 	};
@@ -338,6 +338,13 @@ export default class List extends React.PureComponent {
 			{
 				title: '状态',
 				dataIndex: 'status',
+				sorter(prev, now) {
+					return T.helper.sort({
+						prev,
+						now,
+						property: 'status',
+					});
+				},
 				render(text) {
 					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},

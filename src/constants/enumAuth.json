@@ -1,4 +1,8 @@
 {
+	"sFileParseJson": {
+		"value": "sFileParseJson",
+		"label": "解析json文件"
+	},
 	"sUserResetPassword": {
 		"value": "sUserResetPassword",
 		"label": "s用户重置密码"
@@ -39,9 +43,9 @@
 		"value": "sAdministratorGroupGroupAndRoleAuth",
 		"label": "s获取组对应角色的权限"
 	},
-	"sFileDownJson": {
-		"value": "sFileDownJson",
-		"label": "s下载json文件"
+	"sFileDownload": {
+		"value": "sFileDownload",
+		"label": "s下载文件"
 	},
 	"sFileParseXml": {
 		"value": "sFileParseXml",

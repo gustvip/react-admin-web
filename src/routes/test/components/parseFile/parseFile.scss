@@ -4,11 +4,8 @@ $w: 200px;
 .main-container {
 	.parse-file-container {
 		:global {
-			.ant-btn {
+			.ant-btn, .ant-select {
 				margin-right: $base-content-gap;
-				width: $w;
-			}
-			.ant-select {
 				width: $w;
 			}
 		}
@@ -21,15 +18,5 @@ $w: 200px;
 			margin-right: $base-content-gap;
 			width: $w;
 		}
-	}
-	.other-content {
-		.ant-btn {
-			width: $w;
-		}
-		.content {
-			background-color: #f00;
-			text-indent: 2em;
-		}
-		margin-bottom: 0;
 	}
 }
