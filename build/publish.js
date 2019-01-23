@@ -105,7 +105,7 @@ function doCompilerPlatform () {
 
 function deleteFile () {
 	return new Promise((resolve, reject) => {
-		if (conf.webPath.startsWith(os.homedir)) {
+		if (conf.webPath.startsWith(os.homedir())) {
 			rm(conf.webPath, (err) => {
 				if (err) {
 					reject(err);
