@@ -2,8 +2,11 @@
  * Created by joey on 2018/2/19
  */
 import axios from 'axios';
-import axiosUtils from 'axios/lib/utils';
 import { forOwn, forEach, noop, transform } from 'lodash';
+
+function isFile (x) {
+	return Object.prototype.toString.call(x) === '[object File]';
+}
 
 /**
  * 将对象转化为FormData数据格式
@@ -17,14 +20,12 @@ function objectToFormData (obj, form, namespace) {
 	let formKey;
 	forEach(obj, (value, property) => {
 		if (namespace) {
-			formKey = `${namespace}[${property}]`;
+			formKey = Array.isArray(obj) ? `${namespace}[][${property}]` : `${namespace}[${property}]`;
 		} else {
 			formKey = Array.isArray(obj) ? `[${property}]` : property + '';
 		}
 		
-		if (typeof value === 'object' && !axiosUtils.isFile(value) && !axiosUtils.isBlob(value)) {
-			objectToFormData(value, fd, formKey);
-		} else if (Array.isArray(value)) {
+		if ((typeof value === 'object' && !isFile(value)) || Array.isArray(value)) {
 			objectToFormData(value, fd, formKey);
 		} else {
 			fd.append(formKey, value);
@@ -118,7 +119,6 @@ const _request = (options = {}) => {
 export function get (url, params = {}, options = {}) {
 	return _request(Object.assign({
 		url,
-		method: 'get',
 		params,
 	}, options));
 }

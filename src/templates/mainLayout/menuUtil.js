@@ -10,43 +10,29 @@ export const EnumMenus = (() => {
 	const formatData = (data) => {
 		let resultUrl = [];
 		let resultData = data.map((item) => {
+			const itemUrl = uniq(Array.isArray(item.url) ? item.url : isString(item.url) ? [item.url] : []);
 			if (Array.isArray(item.children) && item.children.length) {
 				const result = formatData(item.children);
-				resultUrl = resultUrl.concat(result.resultUrl).concat(Array.isArray(item.url)
-					? item.url
-					: isString(item.url)
-						? [item.url]
-						: []);
+				resultUrl = resultUrl.concat(result.resultUrl).concat(itemUrl);
 				
 				return Object.assign(
 					{},
 					item,
 					{
 						children: result.resultData,
-						url: uniq(
-							(Array.isArray(item.url)
-								? item.url
-								: isString(item.url)
-									? [item.url]
-									: []).concat(result.resultUrl),
-						),
+						url: uniq(itemUrl.concat(result.resultUrl)),
 					},
 				);
 			} else {
-				if (Array.isArray(item.url) || isString(item.url)) {
-					resultUrl = resultUrl.concat(item.url);
-				}
+				
+				resultUrl = resultUrl.concat(itemUrl);
 				
 				return Object.assign(
 					{},
 					item,
 					{
 						children: [],
-						url: Array.isArray(item.url)
-							? uniq(item.url)
-							: isString(item.url)
-								? [item.url]
-								: [],
+						url: itemUrl,
 					},
 				);
 			}
