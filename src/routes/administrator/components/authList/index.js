@@ -7,7 +7,6 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form, Select } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
-import { status } from 'constants/app/common';
 import * as webAPI from '../../webAPI/authList';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -42,7 +41,7 @@ class List extends React.PureComponent {
 		dataSource: [],
 		search: '',
 		status: undefined,
-		statusValue: Object.values(status).
+		statusValue: Object.values(enumCommon.status).
 			map(value => ({
 				value: value.value,
 				label: value.label,

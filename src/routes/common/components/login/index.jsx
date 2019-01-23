@@ -1,13 +1,11 @@
 /**
  * Created by joey on 17-8-30.
  */
-import enumRouter from 'constants/enumRouter';
 import propTypes from 'prop-types';
 import regExp from 'utils/core/regExp';
 import auth from 'utils/core/auth';
 import crypto from 'utils/core/crypto';
 import prompt from 'utils/core/prompt';
-import * as decorate from 'utils/core/decorate';
 import styles from './login.scss';
 import {Button, Input} from 'antd';
 import bg from './img/bg.jpeg';
