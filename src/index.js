@@ -2,10 +2,6 @@
  * Created by joey 2018/02/19
  */
 
-/**
- * Mock数据---接入真实数据不要引入
- */
-// import './mock';
 import Locale from './locale';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

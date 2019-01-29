@@ -4,6 +4,16 @@ import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
 
 class Helper {
 	/**
+	 * 时间格式化
+	 * @param { Date | Number} date
+	 * @param {string} template
+	 * @return {string}
+	 */
+	dateFormat (date = Date.now(), template = 'YYYY-MM-DD HH:mm:ss') {
+		return moment(date).format(template);
+	}
+	
+	/**
 	 * @param {*} x
 	 * @return {{index: *, base: string}}
 	 */
@@ -69,7 +79,7 @@ class Helper {
 		!(function format (childData) {
 			childData.forEach(value => {
 				forOwn(groupData, (val, key) => {
-					if (value[ownIdName] === key) {
+					if (value[ownIdName] == key) {
 						value[childrenName] = value[childrenName].concat(val);
 					}
 				});

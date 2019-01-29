@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, Spin } from 'antd';
 import prompt from 'utils/core/prompt';
+import helper from 'utils/core/helper';
 import enumAPI from 'constants/enumAPI';
 import * as request from 'utils/core/request';
 import styles from './lookUpUserInfoModal.scss';
@@ -91,11 +92,11 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 					</div>
 					<div className={styles['item']}>
 						<div className={styles['description']}>创建时间:&nbsp;&nbsp;</div>
-						<div className={styles['value']}>{new Date(this.state.userInfo.createdAt).toLocaleString()}</div>
+						<div className={styles['value']}>{helper.dateFormat(this.state.userInfo.createdAt)}</div>
 					</div>
 					<div className={styles['item']}>
 						<div className={styles['description']}>更新时间:&nbsp;&nbsp;</div>
-						<div className={styles['value']}>{new Date(this.state.userInfo.updatedAt).toLocaleString()}</div>
+						<div className={styles['value']}>{helper.dateFormat(this.state.userInfo.updatedAt)}</div>
 					</div>
 				</div>
 			</Modal>
