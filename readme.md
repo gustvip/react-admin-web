@@ -17,18 +17,15 @@
    |--constants
     		|--enumAPI.js	 								// api的枚举
     		|--enumDefaultMenus.js	 			// 菜单的枚举
-    		|--enumRouter.js	 						// 路由的枚举
-    |--mock          				// mockjs的封装
+    		|--enumRouter.js	 						// 路由的枚举  			
     |--templates
 				|--lazyLoad          					// 路由懒加载（配合bundle-loader）
 	*			|--mainLayout          				// 常见布局方式的封装（顶部菜单、顶部菜单+左侧菜单、自定义）
 				|--toolComponents          		// 公共组件的封装
     |--utils            		// 存放工具方法
-    		|--classNames				// 自己写的classNames
     		|--dataStructures		// 自己练习数据结构
     		|--emitter					// 事件的发布订阅的封装
     		|--localStorage			// localStorage的封装，支持时间限制等
-    		|--queryString			// query-string的包直接提到commons会出问题---把包的内容复制出来
     		|--utils						// 自己练习lodash的常用方法
     		|--auth.js					// 权限的封装
     		|--crypto.js				// 加密算法的封装
@@ -38,7 +35,7 @@
     		|--regexp.js				// 常用正则的封装
     		|--request.js				// axios的封装（结合业务）
     |--index.ts         		// 入口文件
-  * |--store.js         		// 实例redux store的封装
+  * |--store.js         		// redux store的封装
     |--base.scss        		// 基础样式
 		|--routes           		// 存放路由配置和路由入口
 	*			|--index.ts          					// 对各个大模块的引入
@@ -49,8 +46,8 @@
 						|--reducers         					// 存放reducer
 						|--routes         						// 对components的引用和结合react-reudx连接组件
 						|--scss         							// 样式文件
-						|--webAPI         						// http请求
-						|--index.ts										// 对组件、路由path、布局方式、reducer对引入
+						|--webAPI         						// ajax请求
+						|--index.js										// 对组件、路由path、布局方式、reducer对引入
 						
 2. 项目启动
 		下载
