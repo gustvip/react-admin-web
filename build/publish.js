@@ -57,31 +57,22 @@ const webpackConfigProd = merge(prodConfig, {
 			},
 			chunksSortMode: 'dependency',
 		}),
-		
-		// 复制config
 		new copyWebpackPlugin([
+			// 复制config
 			{
 				from: path.join(__dirname, '../public/config/env.js'),
 				to: path.join(conf.webPath, 'config/env.js'),
 			},
-		]),
-		new copyWebpackPlugin([
 			{
 				from: path.join(__dirname, '../public/config/env.js'),
 				to: path.join(conf.webPath, 'config/env.production.js'),
 			},
-		]),
-		
-		// 复制assets
-		new copyWebpackPlugin([
+			// 复制assets
 			{
 				from: path.join(__dirname, '../public/assets/'),
 				to: path.join(conf.webPath, 'assets'),
 			},
-		]),
-		
-		// 复制favicon
-		new copyWebpackPlugin([
+			// 复制favicon
 			{
 				from: path.join(__dirname, '../public/favicon.ico'),
 				to: conf.webPath,
