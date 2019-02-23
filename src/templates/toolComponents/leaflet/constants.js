@@ -101,7 +101,7 @@ export const EnumTile = {
 			},
 		},
 	},
-
+	
 	TianDiTu: {
 		Normal: {
 			Map: {
@@ -128,7 +128,7 @@ export const EnumTile = {
 			},
 		},
 	},
-
+	
 	Google: {
 		Normal: {
 			Map: {

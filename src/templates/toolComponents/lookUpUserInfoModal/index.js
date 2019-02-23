@@ -43,7 +43,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 		const {className = '', option = {}} = this.props;
 		return !this.state.isLoading && (
 			<Modal
-				title="个人中心"
+				title="信息中心"
 				footer={null}
 				classNmae={className}
 				okButtonProps={{loading: this.state.loading}}

@@ -1,13 +1,13 @@
 /**
  * @description webpack 开发模式下的配置
  */
-
 const merge = require('webpack-merge');
 // const host = require('./util').getLocalIp();
 const host = 'localhost';
 const port = 11111; // 端口号
 const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const baseConfig = require('./webpack.config.base');
+
 module.exports = merge(baseConfig, {
 	mode: 'development',
 	
@@ -22,7 +22,7 @@ module.exports = merge(baseConfig, {
 	devServer: {
 		host: process.env.host || host,
 		port: parseInt(process.env.port, 10) || port,
-		publicPath: '/public/',
+		publicPath: '/',
 		contentBase: `${__dirname}/../public/`,
 		
 		watchContentBase: true,
@@ -48,7 +48,7 @@ module.exports = merge(baseConfig, {
 		},
 	},
 	output: {
-		publicPath: '/public/',
+		publicPath: '/',
 		path: `${__dirname}/../public/`,
 		filename: '[name].js',
 	},

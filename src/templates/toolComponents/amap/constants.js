@@ -2,52 +2,51 @@
 /**
  * Created by joey on 2018/02/27
  */
-import helper from 'utils/core/helper';
 
 /**
  * 中心
  * @type {{normal: [number,number]}}
  */
-export const CENTER = helper.immutable({
+export const CENTER = {
 	normal: [116.397428, 39.90923], // 默认中心
-});
+};
 
 /**
  * 缩放
  * @type {{normal: number, min: number, max: number}}
  */
-export const ZOOM = helper.immutable({
+export const ZOOM = {
 	normal: 7,		// 默认缩放级别
 	min: 3,		// 最小缩放级别
 	max: 18,		// 最大缩放级别
-});
+};
 
 /**
  * Features
  * @type {{bg: string, point: string, road: string, building: string}}
  */
-export const FEATURES = helper.immutable({
+export const FEATURES = {
 	bg: 'bg',		// 地图背景
 	point: 'point',	// POI点
 	road: 'road',		// 道路
 	building: 'building',		// 建筑物
-});
+};
 
 /**
  * 语言
  * @type {{zh_cn: string, en: string, zh_en: string}}
  */
-export const LANG = helper.immutable({
+export const LANG = {
 	zh_cn: 'zh_cn',		// 中文简体
 	en: 'en',		// 英文
 	zh_en: 'zh_en',		// 中英文对照
-});
+};
 
 /**
  * 地图样式
  * @type {{normal: {value: string, label: string}, whitesmoke: {value: string, label: string}, graffiti: {value: string, label: string}, darkblue: {value: string, label: string}, blue: {value: string, label: string}, fresh: {value: string, label: string}, dark: {value: string, label: string}, light: {value: string, label: string}, grey: {value: string, label: string}}}
  */
-export const MAP_STYLE = helper.immutable({
+export const MAP_STYLE = {
 	normal: {
 		value: 'amap://styles/normal',
 		label: '标准',
@@ -84,88 +83,42 @@ export const MAP_STYLE = helper.immutable({
 		value: 'amap://styles/grey',
 		label: '雅士灰',
 	},
-});
+};
 
 /**
  * 地图的纬度
  * @type {{two: string, three: string}}
  */
-export const VIEW_MODE = helper.immutable({
+export const VIEW_MODE = {
 	two: '2D',		// 二维
 	three: '3D',		// 三维
-});
+};
 
 /**
  * 地图显示的参考坐标系
  * @type {{EPSG3857: string, EPSG3395: string, EPSG4326: string}}
  */
-export const CRS = helper.immutable({
+export const CRS = {
 	EPSG3857: 'EPSG3857',
 	EPSG3395: 'EPSG3395',
 	EPSG4326: 'EPSG4326',
-});
+};
 
 /**
  * 请求的状态
  * @type {{no_data: string, complete: string, error: string, complete_info: string, no_data_info: string}}
  */
-export const REQUEST_STATUS_INFO = helper.immutable({
+export const REQUEST_STATUS_INFO = {
 	no_data: 'no_data',	// 请求成功---但没有数据
 	complete: 'complete',		// 请求成功---并且有数据
 	error: 'error',		// 请求失败
-	no_data_info: '该地区没有数据',		// 请求成功---并且有数据的info
-});
-
-/**
- * 绘制图的多个选择
- * @type {{guage: Symbol, area: Symbol, circle: Symbol, rectangle: Symbol, polygon: Symbol, polyline: Symbol, marker: Symbol}}
- */
-export const MORE_DRAW_TYPE = helper.immutable({
-	rule: 'rule',
-	area: 'area',
-	circle: 'circle',
-	rectangle: 'rectangle',
-	polygon: 'polygon',
-	polyline: 'polyline',
-	marker: 'marker',
-});
-
-/**
- * 图层的样式
- * @type {{TileLayer: {value: string, label: string, isBasis: boolean}, TileLayer_Satellite: {value: string, label: string, isBasis: boolean}, TileLayer_RoadNet: {value: string, label: string, isBasis: boolean}, TileLayer_Traffic: {value: string, label: string, isBasis: boolean}, MassMarks: {value: string, label: string, isBasis: boolean}}}
- */
-export const LAYER = helper.immutable({
-	TileLayer: {
-		value: 'AMap.TileLayer',
-		label: '切片',
-		isBasis: true,
-	},
-	TileLayer_Satellite: {
-		value: 'AMap.TileLayer.Satellite',
-		label: '卫星',
-		isBasis: true,
-	},
-	TileLayer_RoadNet: {
-		value: 'AMap.TileLayer.RoadNet',
-		label: '路网',
-		isBasis: true,
-	},
-	TileLayer_Traffic: {
-		value: 'AMap.TileLayer.Traffic',
-		label: '实时交通',
-		isBasis: true,
-	},
-	MassMarks: {
-		value: 'AMap.MassMarks',
-		label: '海量麻点',
-		isBasis: false,
-	},
-});
+};
 
 /**
  * 覆盖物公共样式
+ * @type {{topWhenClick: boolean, bubble: boolean, draggable: boolean, raiseOnDrag: boolean, visible: boolean, angle: number, autoRotation: boolean, animation: string}}
  */
-export const COVER_COMMON_STYLE = helper.immutable({
+export const COVER_COMMON_STYLE = {
 	topWhenClick: false,		// 鼠标点击时marker是否置顶
 	bubble: false,		// 是否将覆盖物的鼠标或touch等事件冒泡到地图上
 	draggable: false,		// 设置点标记是否可拖拽移动
@@ -174,23 +127,25 @@ export const COVER_COMMON_STYLE = helper.immutable({
 	angle: 0,		// 点标记的旋转角度
 	autoRotation: false,		// 是否自动旋转
 	animation: 'AMAP_ANIMATION_NONE',		// 点标记的动画效果
-});
+};
 
 /**
  * 覆盖物text样式
+ * @type {{'background-color': string, padding: string, border: string, color: string, 'font-size': string}}
  */
-export const COVER_TEXT_STYLE = helper.immutable({
+export const COVER_TEXT_STYLE = {
 	'background-color': 'rgba(0,0,0,.5)',
 	padding: '10px 20px',
 	border: 'none',
 	color: '#fff',
 	'font-size': '12px',
-});
+};
 
 /**
  * 覆盖物Polyline样式
+ * @type {{geodesic: boolean, isOutline: boolean, borderWeight: number, strokeColor: string, strokeOpacity: number, strokeWeight: number, strokeStyle: string, lineJoin: string, lineCap: string}}
  */
-export const COVER_POLYLINE_STYLE = helper.immutable({
+export const COVER_POLYLINE_STYLE = {
 	geodesic: true, // 是否绘制大地线
 	isOutline: false, // 线条是否带描边
 	borderWeight: 1, // 描边的宽度
@@ -200,83 +155,89 @@ export const COVER_POLYLINE_STYLE = helper.immutable({
 	strokeStyle: 'solid', // 线样式
 	lineJoin: 'round', // 折线拐点的绘制样式
 	lineCap: 'round', // 折线两端线帽的绘制样式
-});
+};
 
 /**
  * 覆盖物Polygon样式
+ * @type {{strokeColor: string, strokeOpacity: number, strokeWeight: number, fillColor: string, fillOpacity: number}}
  */
-export const COVER_POLYGON_STYLE = helper.immutable({
+export const COVER_POLYGON_STYLE = {
 	strokeColor: '#006600', 	// 线颜色
 	strokeOpacity: 0.2, 	// 线透明度
 	strokeWeight: 3, // 线宽
 	fillColor: '#FFAA00', 	// 填充色
 	fillOpacity: 0.35,		// 填充透明度
-});
+};
 
 /**
  * 覆盖物Bezircure样式
+ * @type {{strokeColor: string, strokeOpacity: number, strokeWeight: number, fillColor: string, fillOpacity: number}}
  */
-export const COVER_BEZIRCURE_STYLE = helper.immutable({
+export const COVER_BEZIRCURE_STYLE = {
 	strokeColor: '#006600', 	// 线颜色
 	strokeOpacity: 0.2, 	// 线透明度
 	strokeWeight: 3, // 线宽
 	fillColor: '#FFAA00', 	// 填充色
 	fillOpacity: 0.35,		// 填充透明度
-});
+};
 
 /**
  * 覆盖物Circle样式
+ * @type {{strokeColor: string, strokeOpacity: number, strokeWeight: number, fillColor: string, fillOpacity: number, strokeStyle: string}}
  */
-export const COVER_CIRCLE_STYLE = helper.immutable({
+export const COVER_CIRCLE_STYLE = {
 	strokeColor: '#006600', 		// 线颜色
 	strokeOpacity: 1, 	// 线透明度
 	strokeWeight: 3, 	// 线粗细度
 	fillColor: '#006600', // 填充颜色
 	fillOpacity: 0.9,	// 填充透明度
 	strokeStyle: 'solid',	// 填充透明度
-});
+};
 
 /**
  * 覆盖物CircleMarker样式
+ * @type {{strokeColor: string, strokeOpacity: number, strokeWeight: number, fillColor: string, fillOpacity: number, strokeStyle: string}}
  */
-export const COVER_CIRCLE_MARKER_STYLE = helper.immutable({
+export const COVER_CIRCLE_MARKER_STYLE = {
 	strokeColor: '#006600', 		// 线颜色
 	strokeOpacity: 1, 	// 线透明度
 	strokeWeight: 3, 	// 线粗细度
 	fillColor: '#006600', // 填充颜色
 	fillOpacity: 0.9,	// 填充透明度
 	strokeStyle: 'solid',	// 填充透明度
-});
+};
 
 /**
  * 覆盖物Ellipse样式
+ * @type {{strokeColor: string, strokeWeight: number, strokeOpacity: number, strokeStyle: string, fillColor: string, fillOpacity: number}}
  */
-export const COVER_ELLIPSE_STYLE = helper.immutable({
+export const COVER_ELLIPSE_STYLE = {
 	strokeColor: '#006600',	// 线条颜色
 	strokeWeight: 0,		// 轮廓线宽度
 	strokeOpacity: 0.5,	// 轮廓线透明度
 	strokeStyle: 'solid',		// 轮廓线样式
 	fillColor: '#006600',		// 椭圆填充颜色
 	fillOpacity: 0.9,	// 椭圆填充透明度
-});
+};
 
 /**
  * 覆盖物Rectangle样式
+ * @type {{strokeColor: string, strokeWeight: number, strokeOpacity: number, strokeStyle: string, fillColor: string, fillOpacity: number}}
  */
-export const COVER_RECTANGLE_STYLE = helper.immutable({
+export const COVER_RECTANGLE_STYLE = {
 	strokeColor: '#006600',	// 线条颜色
 	strokeWeight: 0,		// 轮廓线宽度
 	strokeOpacity: 0.5,	// 轮廓线透明度
 	strokeStyle: 'solid',		// 轮廓线样式
 	fillColor: '#006600',		// 椭圆填充颜色
 	fillOpacity: 0.9,	// 椭圆填充透明度
-});
+};
 
 /**
- * 地图url
+ * 瓦片图层url
  * @type {{GaoDe: {Normal: {Map: {tile: string}}, Satellite: {Map: {tile: string}, Annotion: {tile: string}}}, TianDiTu: {Normal: {Map: {tile: string}, Annotion: {tile: string}}, Satellite: {Map: {tile: string}, Annotion: {tile: string}}, Terrain: {Map: {tile: string}, Annotion: {tile: string}}}, Google: {Normal: {Map: {sourceID: string, tile: string}}, Satellite: {Map: {sourceID: string, tile: string}}, Terrain: {Map: {sourceID: string, tile: string}}}}}
  */
-export const EnumTile = {
+export const TILE_URL = {
 	GaoDe: {
 		Normal: {
 			Map: {

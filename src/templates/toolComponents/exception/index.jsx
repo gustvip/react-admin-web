@@ -1,12 +1,14 @@
 /**
  * Created by joey on 2018/02/19
  */
+import PropTypes from 'prop-types';
 import Link from 'react-router-dom/Link';
-import {Button} from 'antd';
+import { Button } from 'antd';
 import styles from './index.scss';
 import img404 from './img/404.svg';
+import classNames from 'classnames';
 
-export default function Exception({className = '', code = 403, ...rest}) {
+export default function Exception ({className, code, ...rest}) {
 	const enumInfo = {
 		404: {
 			label: '抱歉，你访问的页面不存在',
@@ -17,9 +19,9 @@ export default function Exception({className = '', code = 403, ...rest}) {
 			code: 403,
 		},
 	};
-	const info = enumInfo[code] ? enumInfo[code] : enumInfo[404];
+	const info = enumInfo[code];
 	return (
-		<div className={`${styles.exception} ${className}`} {...rest}>
+		<div className={classNames(styles.exception, className)} {...rest}>
 			<div className={styles.imgBlock}>
 				<div
 					className={styles.imgEle}
@@ -38,3 +40,13 @@ export default function Exception({className = '', code = 403, ...rest}) {
 		</div>
 	);
 }
+
+Exception.propTypes = {
+	className: PropTypes.string,
+	code: PropTypes.oneOf([404, 403]),
+};
+
+Exception.defaultProps = {
+	className: '',
+	code: 404,
+};

@@ -16,17 +16,17 @@ import { flattenDeep } from 'lodash';
  * @param {Array} rest
  * @param {Array} reducers
  */
-export const DefaultLayout = ({component: Component, layout: LayoutComponent, reducers, auth, ...rest}) => {
+export const DefaultLayout = ({component: Component,path, layout: LayoutComponent, reducers, auth, ...rest}) => {
 	const LazyComponent = lazyLoad(Component);
 	LayoutComponent = LayoutComponent ? LayoutComponent : DefaultLayoutComponent;
 	return (
 		<Route
-			key={rest.path}
-			{...rest}
+			key={path}
+			path={path}
 			exact
 			render={() => (
 				<LayoutComponent>
-					<LazyComponent reducers={reducers} auth={auth}/>
+					<LazyComponent reducers={reducers} auth={auth} {...rest}/>
 				</LayoutComponent>
 			)}
 		/>

@@ -1,24 +1,32 @@
 import PropTypes from 'prop-types';
-import mapUtils from 'utils/leaflet';
-import merge from 'lodash/merge';
-import isFunction from 'lodash/isFunction';
-import classNames from 'classnames';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import * as EnumMap from './constants';
 import * as React from 'react';
 
 export default class LeafletComponent extends React.PureComponent {
 	static defaultProps = {
 		className: '',
 		style: {},
+		option: {},
 	};
-
+	
 	static propTypes = {
 		className: PropTypes.string,
-		mapLoadCallback: PropTypes.func,
+		completeCallback: PropTypes.func,
 		style: PropTypes.object,
+		option: PropTypes.object,
 	};
-
-	get defaultOptions() {
-		return {
+	
+	constructor (props) {
+		super(props);
+		this._mapContainer = null;
+		this.map = null;
+		this.EnumMap = EnumMap;
+	}
+	
+	componentDidMount () {
+		const baseOption = {
 			/**
 			 * 交互选项
 			 */
@@ -33,29 +41,21 @@ export default class LeafletComponent extends React.PureComponent {
 			/**
 			 * 地图状态
 			 */
-			center: this.mapUtils.EnumMap.CENTER.normal,		// 地图中心
-			zoom: this.mapUtils.EnumMap.ZOOM.normal,		// 默认缩放
-			minZoom: this.mapUtils.EnumMap.ZOOM.min,		// 最小默认缩放
-			maxZoom: this.mapUtils.EnumMap.ZOOM.max,		// 最大默认缩放
+			center: EnumMap.CENTER.normal,		// 地图中心
+			zoom: EnumMap.ZOOM.normal,		// 默认缩放
+			minZoom: EnumMap.ZOOM.min,		// 最小默认缩放
+			maxZoom: EnumMap.ZOOM.max,		// 最大默认缩放
 		};
+		
+		const option = Object.assign(baseOption, this.props.option);
+		const map = this.map = L.map(this._mapContainer, option);
+		L.tileLayer(EnumMap.EnumTile.GaoDe.Normal.Map.tile, {}).addTo(map);
+		if (typeof this.props.completeCallback === 'function') {
+			this.props.completeCallback();
+		}
 	}
-
-	constructor(props) {
-		super(props);
-		this._mapContainer = null;
-		this.mapUtils = new mapUtils();
-	}
-
-	componentDidMount() {
-		const map = this.mapUtils.L.map(this._mapContainer, this.defaultOptions);
-		this.mapUtils.setMap(map);
-		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Map.tile, {}).addTo(map);
-		this.mapUtils.L.tileLayer(this.mapUtils.EnumMap.EnumTile.GaoDe.Satellite.Annotion.tile, {}).addTo(map);
-
-		isFunction(this.props.mapLoadCallback) && this.props.mapLoadCallback();
-	}
-
-	render() {
+	
+	render () {
 		const baseStyle = {
 			position: 'absolute',
 			left: 0,
@@ -63,12 +63,12 @@ export default class LeafletComponent extends React.PureComponent {
 			top: 0,
 			bottom: 0,
 		};
-		const {className, style = {}} = this.props;
+		const {className, style} = this.props;
 		return (
 			<div
 				ref={_mapContainer => this._mapContainer = _mapContainer}
-				className={classNames(className)}
-				style={merge(baseStyle, style)}
+				className={className}
+				style={Object.assign(baseStyle, style)}
 			/>
 		);
 	}

@@ -6,7 +6,7 @@ const eslintrc = {
 		jest: true,
 	},
 	globals: {
-		axios: false,
+		AMap: false,
 		ENV: false,
 	},
 	parser: 'babel-eslint',

@@ -13,6 +13,7 @@ export default class TestComponent extends React.PureComponent {
 			<div
 				ref={container => this.container = container}
 			>
+			
 			</div>
 		);
 	}
