@@ -4,17 +4,16 @@
 import T from 'utils/t';
 import UpdateAuthInfoModal from './updateAuthInfoModal';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import { Button, Input, Table, Form, Select } from 'antd';
+import { Button, Input, Table, Form } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
-import * as webAPI from '../../webAPI/authList';
+import * as webAPI from '../../webAPI/authEnumList';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
 import styles from './authList.scss';
 
 const {AuthComponent} = T;
-const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
@@ -26,7 +25,7 @@ const formItemLayout = {
 	},
 };
 
-class List extends React.PureComponent {
+class AuthEnumList extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
@@ -65,7 +64,7 @@ class List extends React.PureComponent {
 	 */
 	getList = (currentPage, pageSize, search, status, callback) => {
 		this.setState({isTableLoading: true}, () => {
-			webAPI.administratorAuthList({
+			webAPI.administratorAuthEnumList({
 				currentPage,
 				pageSize,
 				search,
@@ -111,25 +110,8 @@ class List extends React.PureComponent {
 		const self = this;
 		T.prompt.confirm({
 			onOk () {
-				return webAPI.administratorAuthDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
+				return webAPI.administratorAuthEnumDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
-					self.getList(1, self.state.pageSize, self.state.search, self.state.status);
-				}).catch(info => T.prompt.error(info.msg));
-			},
-		});
-	};
-	
-	/**
-	 * 恢复枚举权限
-	 * @param {Array<Object>} selectedRows
-	 */
-	handleRecover = (selectedRows) => {
-		const self = this;
-		T.prompt.confirm({
-			title: '确认恢复吗?',
-			onOk () {
-				return webAPI.administratorAuthRecover({authValue: selectedRows.map(value => value.value)}).then(() => {
-					T.prompt.success('恢复成功');
 					self.getList(1, self.state.pageSize, self.state.search, self.state.status);
 				}).catch(info => T.prompt.error(info.msg));
 			},
@@ -164,20 +146,6 @@ class List extends React.PureComponent {
 						now,
 						property: 'label',
 					});
-				},
-			},
-			{
-				title: 'status',
-				dataIndex: 'status',
-				sorter (prev, now) {
-					return T.helper.sort({
-						prev,
-						now,
-						property: 'status',
-					});
-				},
-				render (text) {
-					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},
 			},
 			{
@@ -238,7 +206,7 @@ class List extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				self.setState({isAdd: true}, () => {
-					webAPI.administratorAuthAdd(values).then(() => {
+					webAPI.administratorAuthEnumAdd(values).then(() => {
 						T.prompt.success('添加成功');
 						this.resetFields();
 						this.getList(1, this.state.pageSize, this.state.search, this.state.status);
@@ -249,7 +217,7 @@ class List extends React.PureComponent {
 	};
 	
 	handleDownloadAuth = () => {
-		T.request.form(enumAPI.administratorAuthDownload, {method: 'GET'});
+		T.request.form(enumAPI.administratorAuthEnumDownload, {method: 'GET'});
 	};
 	
 	render () {
@@ -354,20 +322,6 @@ class List extends React.PureComponent {
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.status)}
 						/>
 					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorAuthList.value}>
-						<Select
-							allowClear
-							onChange={statusValue => this.getList(1, this.state.pageSize, this.state.search, statusValue)}
-							value={this.state.status}
-							placeholder="请选择状态"
-						>
-							{
-								this.state.statusValue.map((value => {
-									return <Option value={value.value} key={value.value}>{value.label}</Option>;
-								}))
-							}
-						</Select>
-					</AuthComponent>
 					<AuthComponent auth={enumAuth.sAdministratorAuthDelete.value}>
 						<Button
 							type="primary"
@@ -375,15 +329,6 @@ class List extends React.PureComponent {
 							onClick={() => this.handleDelete(this.state.selectedRows)}
 						>
 							删除
-						</Button>
-					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorAuthRecover.value}>
-						<Button
-							type="primary"
-							disabled={this.state.selectedRows.length <= 0}
-							onClick={() => this.handleRecover(this.state.selectedRows)}
-						>
-							恢复
 						</Button>
 					</AuthComponent>
 				</MainHeader>
@@ -407,4 +352,4 @@ class List extends React.PureComponent {
 	}
 }
 
-export default Form.create()(List);
+export default Form.create()(AuthEnumList);

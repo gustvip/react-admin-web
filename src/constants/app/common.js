@@ -17,15 +17,15 @@ export const status = {
  */
 export const role = {
 	normal: {
-		value: '1',
+		value: 'normal',
 		label: '一般用户',
 	},
 	admin: {
-		value: '2',
+		value: 'admin',
 		label: '管理员用户',
 	},
 	root: {
-		value: '3',
+		value: 'root',
 		label: 'root用户',
 	},
 };
@@ -36,17 +36,17 @@ export const role = {
 export const group = {
 	normalGroup: {
 		label: '正常分组',
-		value: '2',
+		value: 'normal',
 		children: [role.normal, role.admin, role.root],
 	},
 	administrator: {
 		label: '超级管理员分组',
-		value: '1',
+		value: 'root',
 		children: [role.root],
 	},
 	touristGroup: {
 		label: '游客',
-		value: '3',
+		value: 'tourist',
 		children: [role.normal],
 	},
 };

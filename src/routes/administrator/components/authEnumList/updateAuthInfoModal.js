@@ -6,7 +6,7 @@ import React from 'react';
 import { Form, Input, Modal } from 'antd';
 import prompt from 'utils/core/prompt';
 import enumAuth from 'constants/enumAuth';
-import * as webAPI from '../../webAPI/authList';
+import * as webAPI from '../../webAPI/authEnumList';
 
 import { isFunction } from 'lodash';
 
@@ -46,7 +46,7 @@ class UpdateAuthInfoModal extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				self.setState({loading: true}, () => {
-					webAPI.administratorAuthUpdate(values).then(() => {
+					webAPI.administratorAuthEnumUpdate(values).then(() => {
 						self.setState({showModal: false}, () => {
 							isFunction(self.props.successCallback) && self.props.successCallback();
 						});

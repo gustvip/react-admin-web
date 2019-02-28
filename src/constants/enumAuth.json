@@ -63,10 +63,6 @@
 		"value": "sAdministratorAuthUpdate",
 		"label": "s权限枚举更新"
 	},
-	"sAdministratorAuthRecover": {
-		"value": "sAdministratorAuthRecover",
-		"label": "s权限枚举恢复"
-	},
 	"sAdministratorAuthDelete": {
 		"value": "sAdministratorAuthDelete",
 		"label": "s权限枚举删除"

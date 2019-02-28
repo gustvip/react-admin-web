@@ -12,7 +12,7 @@ import T from 'utils/t';
  * @param {string | null | undefined} condition.status
  * @return {Promise}
  */
-export const administratorAuthList = (condition) => T.request.get(enumAPI.administratorAuthList, condition);
+export const administratorAuthEnumList = (condition) => T.request.get(enumAPI.administratorAuthEnumList, condition);
 
 /**
  * 增加权限枚举
@@ -20,21 +20,14 @@ export const administratorAuthList = (condition) => T.request.get(enumAPI.admini
  * @param {string} condition.label
  * @return {Promise}
  */
-export const administratorAuthAdd = (condition) => T.request.postJSON(enumAPI.administratorAuthAdd, condition);
+export const administratorAuthEnumAdd = (condition) => T.request.postJSON(enumAPI.administratorAuthEnumAdd, condition);
 
 /**
  * 删除权限枚举
  * @param {Array<String>} condition.authValue
  * @return {Promise}
  */
-export const administratorAuthDelete = (condition) => T.request.del(enumAPI.administratorAuthDelete, condition);
-
-/**
- * 恢复权限枚举
- * @param {Array<String>} condition.authValue
- * @return {Promise}
- */
-export const administratorAuthRecover = (condition) => T.request.postJSON(enumAPI.administratorAuthRecover, condition);
+export const administratorAuthEnumDelete = (condition) => T.request.del(enumAPI.administratorAuthEnumDelete, condition);
 
 /**
  * 更新权限枚举
@@ -43,4 +36,4 @@ export const administratorAuthRecover = (condition) => T.request.postJSON(enumAP
  * @param {string} condition.authLabel
  * @return {Promise}
  */
-export const administratorAuthUpdate = (condition) => T.request.postJSON(enumAPI.administratorAuthUpdate, condition);
+export const administratorAuthEnumUpdate = (condition) => T.request.put(enumAPI.administratorAuthEnumUpdate, condition);

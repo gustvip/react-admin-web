@@ -23,8 +23,7 @@ class Auth {
 	 * @return boolean
 	 */
 	hasAuth (info) {
-		const userInfo = this.getUserInfoStorageValue();
-		const auth = get(userInfo, this.ENV.login.auth, []);
+		const auth = get(this.getUserInfoStorageValue(), this.ENV.login.auth, []);
 		return auth.indexOf(info) !== -1;
 	}
 	

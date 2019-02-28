@@ -47,7 +47,7 @@ class AddUserModal extends React.PureComponent {
 					const {userName, userPassword, userEmail, userPhone, userDescription, userSex, name} = values;
 					request.postJSON(enumAPI.userAdd, {
 						userName,
-						userPassword: crypto.hmacSHA512(userPassword, userPassword),
+						userPassword: crypto.md5(userPassword),
 						userEmail,
 						userPhone,
 						userDescription,

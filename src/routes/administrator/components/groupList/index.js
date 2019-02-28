@@ -58,7 +58,7 @@ class List extends React.PureComponent {
 	};
 	
 	componentDidMount() {
-		webAPI.administratorAuthList().then(info => {
+		webAPI.administratorAuthEnumList().then(info => {
 			this.setState({
 				authValueData: info.data.map(value => ({
 					value: value.value,

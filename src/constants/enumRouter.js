@@ -5,7 +5,7 @@ import helper from 'utils/core/helper';
 import { flowRight } from 'lodash';
 
 /**
- * @type {{rootPath: string, login: string, noPermit: string, testDemo: string, testParseFile: string, userList: string, administratorAuthList: string, administratorGroupList: string}}
+ * @type {{rootPath: string, login: string, noPermit: string, testDemo: string, testParseFile: string, userList: string, administratorAuthEnumList: string, administratorGroupList: string}}
  */
 const enumRouter = {
 	rootPath: '',
@@ -32,7 +32,7 @@ const enumRouter = {
 	 | 超级管理员-相关的路由
 	 |-----------------------------------------------
 	 */
-	administratorAuthList: 'administrator/authList', // 权限列表
+	administratorAuthEnumList: 'administrator/authEnumList', // 权限列表
 	administratorGroupList: 'administrator/groupList', // 分配权限列表
 };
 export default helper.immutable(enumRouter, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

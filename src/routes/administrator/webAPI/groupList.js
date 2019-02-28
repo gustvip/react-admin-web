@@ -8,7 +8,7 @@ import T from 'utils/t';
  * 获取权限枚举列表
  * @return {Promise}
  */
-export const administratorAuthList = () => T.request.get(enumAPI.administratorAuthList, {search: ''});
+export const administratorAuthEnumList = () => T.request.get(enumAPI.administratorAuthEnumList, {search: ''});
 
 /**
  * 获取组对应角色已有权限列表

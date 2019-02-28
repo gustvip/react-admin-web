@@ -48,8 +48,8 @@ class UpdatePasswordModal extends React.PureComponent {
 				self.setState({loading: true}, () => {
 					const {oldPassword, newPassword} = values;
 					request.postJSON(enumAPI.userUpdatePassword, {
-						oldPassword: crypto.hmacSHA512(oldPassword, oldPassword),
-						newPassword: crypto.hmacSHA512(newPassword, newPassword),
+						oldPassword: crypto.md5(oldPassword, oldPassword),
+						newPassword: crypto.md5(newPassword, newPassword),
 					}).then(() => {
 						self.setState({showModal: false}, () => {
 							isFunction(self.props.successCallback) && self.props.successCallback();

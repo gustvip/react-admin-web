@@ -7,7 +7,7 @@ import auth from 'utils/core/auth';
 import crypto from 'utils/core/crypto';
 import prompt from 'utils/core/prompt';
 import styles from './login.scss';
-import {Button, Input} from 'antd';
+import { Button, Input } from 'antd';
 import bg from './img/bg.jpeg';
 
 export default class Login extends React.PureComponent {
@@ -15,7 +15,7 @@ export default class Login extends React.PureComponent {
 		router: propTypes.object.isRequired,
 	};
 	
-	constructor() {
+	constructor () {
 		super();
 		this.state = {
 			userName: '',
@@ -28,12 +28,12 @@ export default class Login extends React.PureComponent {
 		if (!(regExp.name().test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
 			prompt.warn('账号格式不对');
 			return false;
-		}
-		if (!regExp.password().test(userPassword)) {
+		} else if (!regExp.password().test(userPassword)) {
 			prompt.warn('密码格式不对');
 			return false;
+		} else {
+			return true;
 		}
-		return true;
 	};
 	
 	handleSubmit = () => {
@@ -42,7 +42,7 @@ export default class Login extends React.PureComponent {
 		let userPassword = self.state.userPassword.trim();
 		
 		if (self.checkParam(userName, userPassword)) {
-			userPassword = crypto.hmacSHA512(userPassword, userPassword);
+			userPassword = crypto.md5(userPassword, userPassword);
 			self.setState({loading: true}, () => {
 				auth.login(
 					userName,
@@ -62,7 +62,7 @@ export default class Login extends React.PureComponent {
 		}
 	};
 	
-	render() {
+	render () {
 		const self = this;
 		
 		return (
