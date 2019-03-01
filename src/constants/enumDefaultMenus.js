@@ -42,7 +42,7 @@ export default helper.immutable([
 							{
 								auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 								label: '权限枚举',
-								url: EnumRouter.administratorAuthEnumList,
+								url: EnumRouter.administratorAuthEnum,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -53,7 +53,7 @@ export default helper.immutable([
 							{
 								auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
 								label: '权限分配',
-								url: EnumRouter.administratorGroupList,
+								url: EnumRouter.administratorAuthList,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',

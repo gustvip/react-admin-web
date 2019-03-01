@@ -3,7 +3,7 @@
  */
 
 import {connect} from 'react-redux';
-import Index from '../../components/groupList/index';
+import AuthEnum from '../../components/authEnum/index';
 
 const mapStateToProps = (state, ownProps) => {
 	return {...ownProps};
@@ -13,6 +13,6 @@ const mapDispatchToProps = (dispatch) => {
 	return {dispatch};
 };
 
-const ListComponent = connect(mapStateToProps, mapDispatchToProps)(Index);
+const AuthEnumComponent = connect(mapStateToProps, mapDispatchToProps)(AuthEnum);
 
-export default (props) => <ListComponent {...props}/>;
+export default (props) => <AuthEnumComponent {...props}/>;

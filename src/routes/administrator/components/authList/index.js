@@ -3,13 +3,13 @@
  */
 import T from 'utils/t';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import {Button, Input, Table, Form, Select} from 'antd';
+import { Button, Input, Table, Form, Select } from 'antd';
 import enumAuth from 'constants/enumAuth';
-import * as webAPI from '../../webAPI/groupList';
+import * as webAPI from '../../webAPI/authList';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
-import styles from './groupList.scss';
+import styles from './authList.scss';
 
 const {AuthComponent} = T;
 const Option = Select.Option;
@@ -24,7 +24,7 @@ const formItemLayout = {
 	},
 };
 
-class List extends React.PureComponent {
+class AuthList extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
@@ -57,7 +57,7 @@ class List extends React.PureComponent {
 		isTableLoading: false,
 	};
 	
-	componentDidMount() {
+	componentDidMount () {
 		webAPI.administratorAuthEnumList().then(info => {
 			this.setState({
 				authValueData: info.data.map(value => ({
@@ -82,7 +82,7 @@ class List extends React.PureComponent {
 	getList = (currentPage, pageSize, search, group, role, callback) => {
 		if (group && role) {
 			this.setState({isTableLoading: true}, () => {
-				webAPI.administratorGroupList({
+				webAPI.administratorAuthListGroupAndRoleAuth({
 					search,
 					group,
 					role,
@@ -164,8 +164,8 @@ class List extends React.PureComponent {
 	handleDelete = (selectedRows) => {
 		const self = this;
 		T.prompt.confirm({
-			onOk() {
-				return webAPI.administratorGroupDelete({
+			onOk () {
+				return webAPI.administratorAuthListDelete({
 					authValue: selectedRows.map(value => value.value),
 					group: self.state.group,
 					role: self.state.role,
@@ -182,15 +182,15 @@ class List extends React.PureComponent {
 	 */
 	resetFields = () => this.props.form.resetFields();
 	
-	get columns() {
+	get columns () {
 		return [
 			{
 				title: 'group',
 				dataIndex: 'group',
-				render(text) {
+				render (text) {
 					return Object.values(enumCommon.group).find(value => value.value === text).label;
 				},
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -201,10 +201,10 @@ class List extends React.PureComponent {
 			{
 				title: 'role',
 				dataIndex: 'role',
-				render(text) {
+				render (text) {
 					return Object.values(enumCommon.role).find(value => value.value === text).label;
 				},
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -215,7 +215,7 @@ class List extends React.PureComponent {
 			{
 				title: 'value',
 				dataIndex: 'value',
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -226,7 +226,7 @@ class List extends React.PureComponent {
 			{
 				title: 'label',
 				dataIndex: 'label',
-				sorter(prev, now) {
+				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -237,11 +237,11 @@ class List extends React.PureComponent {
 		];
 	}
 	
-	get rowSelection() {
+	get rowSelection () {
 		const self = this;
 		return {
 			selectedRowKeys: self.state.selectedRowKeys,
-			onChange(selectedRowKeys, selectedRows) {
+			onChange (selectedRowKeys, selectedRows) {
 				self.setState({
 					selectedRowKeys,
 					selectedRows,
@@ -250,7 +250,7 @@ class List extends React.PureComponent {
 		};
 	}
 	
-	get pagination() {
+	get pagination () {
 		const self = this;
 		return {
 			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
@@ -259,10 +259,10 @@ class List extends React.PureComponent {
 			total: self.state.count,
 			pageSize: self.state.pageSize,
 			showQuickJumper: enumCommon.pagination.showQuickJumper,
-			onChange(currentPage, pageSize) {
+			onChange (currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search, self.state.group, self.state.role);
 			},
-			onShowSizeChange(currentPage, pageSize) {
+			onShowSizeChange (currentPage, pageSize) {
 				self.getList(1, pageSize, self.state.search, self.state.group, self.state.role);
 			},
 		};
@@ -274,9 +274,9 @@ class List extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				T.prompt.confirm({
-					onOk() {
+					onOk () {
 						return self.setState({isAdd: true}, () => {
-							webAPI.administratorGroupDistribute(values).then(() => {
+							webAPI.administratorAuthListDistribute(values).then(() => {
 								T.prompt.success('分配成功');
 								self.getList(1, self.state.pageSize, self.state.search, self.state.group, self.state.role);
 							}).catch(info => T.prompt.error(info.msg)).finally(() => self.setState({isAdd: false}));
@@ -288,7 +288,7 @@ class List extends React.PureComponent {
 		});
 	};
 	
-	render() {
+	render () {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
@@ -441,4 +441,4 @@ class List extends React.PureComponent {
 	}
 }
 
-export default Form.create()(List);
+export default Form.create()(AuthList);

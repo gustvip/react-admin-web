@@ -6,7 +6,7 @@ import React from 'react';
 import { Form, Input, Modal } from 'antd';
 import prompt from 'utils/core/prompt';
 import enumAuth from 'constants/enumAuth';
-import * as webAPI from '../../webAPI/authEnumList';
+import * as webAPI from '../../webAPI/authEnum';
 
 import { isFunction } from 'lodash';
 

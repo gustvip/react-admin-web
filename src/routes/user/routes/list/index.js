@@ -3,7 +3,7 @@
  */
 
 import {connect} from 'react-redux';
-import Index from '../../components/list/index';
+import List from '../../components/list/index';
 
 const mapStateToProps = (state, ownProps) => {
 	return {...ownProps};
@@ -13,6 +13,6 @@ const mapDispatchToProps = (dispatch) => {
 	return {dispatch};
 };
 
-const ListComponent = connect(mapStateToProps, mapDispatchToProps)(Index);
+const ListComponent = connect(mapStateToProps, mapDispatchToProps)(List);
 
 export default (props) => <ListComponent {...props}/>;

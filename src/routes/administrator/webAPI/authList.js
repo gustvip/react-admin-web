@@ -17,7 +17,7 @@ export const administratorAuthEnumList = () => T.request.get(enumAPI.administrat
  * @param {string} condition.search
  * @return {Promise}
  */
-export const administratorGroupList = (condition) => T.request.get(enumAPI.administratorGroupGroupAndRoleAuth, condition);
+export const administratorAuthListGroupAndRoleAuth = (condition) => T.request.get(enumAPI.administratorAuthListGroupAndRoleAuth, condition);
 
 /**
  * 删除组对应角色已有权限
@@ -26,7 +26,7 @@ export const administratorGroupList = (condition) => T.request.get(enumAPI.admin
  * @param {String} condition.role
  * @return {Promise}
  */
-export const administratorGroupDelete = (condition) => T.request.del(enumAPI.administratorGroupDelete, condition);
+export const administratorAuthListDelete = (condition) => T.request.del(enumAPI.administratorAuthListDelete, condition);
 
 /**
  * 分配组对应角色已有权限
@@ -35,4 +35,4 @@ export const administratorGroupDelete = (condition) => T.request.del(enumAPI.adm
  * @param {String} condition.role
  * @return {Promise}
  */
-export const administratorGroupDistribute = (condition) => T.request.postJSON(enumAPI.administratorGroupDistribute, condition);
+export const administratorAuthListDistribute = (condition) => T.request.put(enumAPI.administratorAuthListDistribute, condition);

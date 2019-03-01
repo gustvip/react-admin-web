@@ -7,7 +7,7 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
-import * as webAPI from '../../webAPI/authEnumList';
+import * as webAPI from '../../webAPI/authEnum';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
@@ -25,7 +25,7 @@ const formItemLayout = {
 	},
 };
 
-class AuthEnumList extends React.PureComponent {
+class AuthEnum extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
@@ -352,4 +352,4 @@ class AuthEnumList extends React.PureComponent {
 	}
 }
 
-export default Form.create()(AuthEnumList);
+export default Form.create()(AuthEnum);

@@ -6,20 +6,20 @@ import enumRouter from 'constants/enumRouter';
 import {AssembleRoute} from 'routes/routeTool';
 import {MenuAndHeaderLayout} from 'templates/mainLayout';
 
-import AdministratorAuthEnumList from './routes/authEnumList';
-import AdministratorGroupList from './routes/groupList';
+import AuthEnum from './routes/authEnum';
+import AuthList from './routes/authList';
 
 export default AssembleRoute([
 	{
 		auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 		layout: MenuAndHeaderLayout,
-		path: enumRouter.administratorAuthEnumList,
-		component: AdministratorAuthEnumList,
+		path: enumRouter.administratorAuthEnum,
+		component: AuthEnum,
 	},
 	{
 		auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
 		layout: MenuAndHeaderLayout,
-		path: enumRouter.administratorGroupList,
-		component: AdministratorGroupList,
+		path: enumRouter.administratorAuthList,
+		component: AuthList,
 	},
 ]);

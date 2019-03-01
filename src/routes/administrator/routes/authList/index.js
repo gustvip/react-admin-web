@@ -3,7 +3,7 @@
  */
 
 import {connect} from 'react-redux';
-import AuthEnumList from '../../components/authEnumList/index';
+import AuthList from '../../components/authList/index';
 
 const mapStateToProps = (state, ownProps) => {
 	return {...ownProps};
@@ -13,6 +13,6 @@ const mapDispatchToProps = (dispatch) => {
 	return {dispatch};
 };
 
-const AuthEnumListComponent = connect(mapStateToProps, mapDispatchToProps)(AuthEnumList);
+const AuthListComponent = connect(mapStateToProps, mapDispatchToProps)(AuthList);
 
-export default (props) => <AuthEnumListComponent {...props}/>;
+export default (props) => <AuthListComponent {...props}/>;
