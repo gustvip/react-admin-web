@@ -32,7 +32,8 @@ const enumRouter = {
 	 | 超级管理员-相关的路由
 	 |-----------------------------------------------
 	 */
-	administratorAuthEnum: 'administrator/authEnum', // 权限列表
-	administratorAuthList: 'administrator/authList', // 分配权限列表
+	administratorAuthEnum: 'administrator/authEnum', // 权限枚举
+	administratorAuthList: 'administrator/authList', // 权限列表
+	administratorGroupList: 'administrator/groupList', // 组列表
 };
 export default helper.immutable(enumRouter, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));

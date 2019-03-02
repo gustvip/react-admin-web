@@ -6,6 +6,7 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form, Select } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import * as webAPI from '../../webAPI/authList';
+import { administratorGroupList } from '../../webAPI/groupList';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
@@ -40,11 +41,7 @@ class AuthList extends React.PureComponent {
 		search: '',
 		
 		authValueData: [],
-		groupData: Object.values(enumCommon.group).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			})),
+		groupData: [],
 		group: undefined,
 		roleData: Object.values(enumCommon.role).
 			map(value => ({
@@ -57,18 +54,46 @@ class AuthList extends React.PureComponent {
 	};
 	
 	componentDidMount () {
+		// 获取权限列表
+		this.getAuthList();
+		
+		// 获取组
+		this.getGroupList();
+		
+		// 获取group和role对应的权限
+		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+			this.setState({authValue: data.map(value => value.value)});
+		});
+	}
+	
+	/**
+	 * @param {function} [callback]
+	 */
+	getAuthList = (callback) => {
 		webAPI.administratorAuthEnumList().then(info => {
 			this.setState({
 				authValueData: info.data.map(value => ({
 					value: value.value,
 					label: value.label,
 				})),
-			});
+			}, () => callback && callback(info.data));
 		}).catch(info => T.prompt.error(info.msg));
-		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
-			this.setState({authValue: data.map(value => value.value)});
-		});
-	}
+	};
+	
+	/**
+	 * @param {function} [callback]
+	 */
+	getGroupList = (callback) => {
+		administratorGroupList().then(info => {
+			this.setState({
+				groupData: info.data.map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
+			}, () => callback && callback(info.data));
+		}).catch(info => T.prompt.error(info.msg));
+		
+	};
 	
 	/**
 	 * @param {number} currentPage
@@ -147,7 +172,7 @@ class AuthList extends React.PureComponent {
 	};
 	
 	/**
-	 * 删除权限
+	 * 删除权限列表
 	 * @param{Array<Object>} selectedRows
 	 */
 	handleDelete = (selectedRows) => {

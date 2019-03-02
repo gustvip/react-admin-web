@@ -42,6 +42,16 @@ const API = {
 	
 	/*
    |----------------------------------------------------------------
+   | 组相关API
+   |----------------------------------------------------------------
+  */
+	administratorGroupList: _proxyAPI('/administrator/group/list'), // 组---列表
+	administratorGroupAdd: _proxyAPI('/administrator/group/add'), // 组---新增
+	administratorGroupDelete: _proxyAPI('/administrator/group/delete'), // 组---删除
+	administratorGroupUpdate: _proxyAPI('/administrator/group/update'), // 组---更新
+	
+	/*
+   |----------------------------------------------------------------
    | 权限枚举相关API
    |----------------------------------------------------------------
   */

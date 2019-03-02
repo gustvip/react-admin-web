@@ -1,4 +1,24 @@
 {
+	"sAdministratorGroupUpdate": {
+		"value": "sAdministratorGroupUpdate",
+		"label": "s组更新"
+	},
+	"sAdministratorGroupDelete": {
+		"value": "sAdministratorGroupDelete",
+		"label": "s组删除"
+	},
+	"sAdministratorGroupAdd": {
+		"value": "sAdministratorGroupAdd",
+		"label": "s组新增"
+	},
+	"bPlatformCategoryAdministratorGroupList": {
+		"value": "bPlatformCategoryAdministratorGroupList",
+		"label": "b超级管理员组列表"
+	},
+	"sAdministratorGroupList": {
+		"value": "sAdministratorGroupList",
+		"label": "s组列表"
+	},
 	"sAdministratorAuthListGroupAndRoleAuth": {
 		"value": "sAdministratorAuthListGroupAndRoleAuth",
 		"label": "s获取组对应角色的权限"

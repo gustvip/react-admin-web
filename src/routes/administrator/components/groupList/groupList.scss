@@ -1,0 +1,22 @@
+@import "baseStyleVarity";
+
+.main-container {
+	background-color: $base-background-color;
+	padding: $base-content-gap;
+	border-radius: $base-border-radius;
+}
+
+.operate-container {
+	:global {
+		.ant-input-search {
+			width: auto;
+		}
+	}
+}
+
+.form-container {
+	background-color: $base-background-color;
+	padding: $base-content-gap;
+	border-radius: $base-border-radius;
+	margin-bottom: $base-content-gap;
+}

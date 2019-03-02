@@ -61,6 +61,17 @@ export default helper.immutable([
 								id: uniqueId(),
 								children: [],
 							},
+							{
+								auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
+								label: '组管理',
+								url: EnumRouter.administratorGroupList,
+								icon: {
+									type: EnumIconTypes.antd,
+									value: 'up-square-o',
+								},
+								id: uniqueId(),
+								children: [],
+							},
 						],
 					},
 					{

@@ -8,6 +8,7 @@ import {MenuAndHeaderLayout} from 'templates/mainLayout';
 
 import AuthEnum from './routes/authEnum';
 import AuthList from './routes/authList';
+import GroupList from './routes/groupList';
 
 export default AssembleRoute([
 	{
@@ -21,5 +22,11 @@ export default AssembleRoute([
 		layout: MenuAndHeaderLayout,
 		path: enumRouter.administratorAuthList,
 		component: AuthList,
+	},
+	{
+		auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
+		layout: MenuAndHeaderLayout,
+		path: enumRouter.administratorGroupList,
+		component: GroupList,
 	},
 ]);

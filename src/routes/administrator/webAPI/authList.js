@@ -5,7 +5,7 @@ import enumAPI from 'constants/enumAPI';
 import T from 'utils/t';
 
 /**
- * 获取权限枚举列表
+ * 获取权限列表
  * @return {Promise}
  */
 export const administratorAuthEnumList = () => T.request.get(enumAPI.administratorAuthEnumList, {search: ''});
@@ -21,7 +21,7 @@ export const administratorAuthListGroupAndRoleAuth = (condition) => T.request.ge
 
 /**
  * 删除组对应角色已有权限
- * @param {Array<String>} condition.authValue
+ * @param {String[]} condition.authValue
  * @param {String} condition.group
  * @param {String} condition.role
  * @return {Promise}
@@ -30,7 +30,7 @@ export const administratorAuthListDelete = (condition) => T.request.del(enumAPI.
 
 /**
  * 分配组对应角色已有权限
- * @param {Array<String>} condition.authValue
+ * @param {String[]} condition.authValue
  * @param {String} condition.group
  * @param {String} condition.role
  * @return {Promise}

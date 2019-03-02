@@ -2,30 +2,29 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import UpdateAuthInfoModal from './updateAuthInfoModal';
+import UpdateGroupInfoModal from './updateGroupInfoModal';
 import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form, Radio } from 'antd';
 import enumAuth from 'constants/enumAuth';
-import enumAPI from 'constants/enumAPI';
-import * as webAPI from '../../webAPI/authEnum';
+import * as webAPI from '../../webAPI/groupList';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
-import styles from './authEnum.scss';
+import styles from './groupList.scss';
 
 const {AuthComponent} = T;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
-		sm: {span: 6},
+		sm: {span: 4},
 	},
 	wrapperCol: {
 		xs: {span: 24},
-		sm: {span: 18},
+		sm: {span: 20},
 	},
 };
 
-class AuthEnum extends React.PureComponent {
+class GroupList extends React.PureComponent {
 	static contextTypes = {
 		router: PropTypes.object.isRequired,
 	};
@@ -40,10 +39,8 @@ class AuthEnum extends React.PureComponent {
 		dataSource: [],
 		search: '',
 		
-		authValue: '',
-		authLabel: '',
-		autoAddToRoot: enumCommon.autoAddToRoot.yes.value,
-		autoAddToRootData: Object.values(enumCommon.autoAddToRoot),
+		groupValue: '',
+		groupLabel: '',
 		isAdd: false,
 		isTableLoading: false,
 	};
@@ -60,7 +57,7 @@ class AuthEnum extends React.PureComponent {
 	 */
 	getList = (currentPage, pageSize, search, callback) => {
 		this.setState({isTableLoading: true}, () => {
-			webAPI.administratorAuthEnumList({
+			webAPI.administratorGroupList({
 				currentPage,
 				pageSize,
 				search,
@@ -78,16 +75,15 @@ class AuthEnum extends React.PureComponent {
 					callback && callback(info.data);
 				});
 			}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
-			
 		});
 	};
 	
 	/**
-	 * 编辑权限枚举
+	 * 组编辑
 	 * @param record
 	 */
 	handleEdit = (record) => {
-		T.helper.renderModal(<UpdateAuthInfoModal
+		T.helper.renderModal(<UpdateGroupInfoModal
 			record={record}
 			successCallback={() => {
 				T.prompt.success('更新成功');
@@ -97,14 +93,14 @@ class AuthEnum extends React.PureComponent {
 	};
 	
 	/**
-	 * 删除权限枚举
+	 * 组删除
 	 * @param{Array<Object>} selectedRows
 	 */
 	handleDelete = (selectedRows) => {
 		const self = this;
 		T.prompt.confirm({
 			onOk () {
-				return webAPI.administratorAuthEnumDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
+				return webAPI.administratorGroupDelete({groupValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
 					self.getList(1, self.state.pageSize, self.state.search);
 				}).catch(info => T.prompt.error(info.msg));
@@ -147,7 +143,7 @@ class AuthEnum extends React.PureComponent {
 				render (test, record) {
 					return (
 						<React.Fragment>
-							<AuthComponent auth={enumAuth.sAdministratorAuthEnumUpdate.value}>
+							<AuthComponent auth={enumAuth.sAdministratorGroupUpdate.value}>
 								<Button
 									className="base-gap"
 									type="primary"
@@ -200,7 +196,7 @@ class AuthEnum extends React.PureComponent {
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				self.setState({isAdd: true}, () => {
-					webAPI.administratorAuthEnumAdd(values).then(() => {
+					webAPI.administratorGroupAdd(values).then(() => {
 						T.prompt.success('添加成功');
 						this.resetFields();
 						this.getList(1, this.state.pageSize, this.state.search);
@@ -210,43 +206,25 @@ class AuthEnum extends React.PureComponent {
 		});
 	};
 	
-	handleDownloadAuth = () => {
-		T.request.form(enumAPI.administratorAuthEnumDownload, {method: 'GET'});
-	};
-	
 	render () {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
-				<AuthComponent auth={enumAuth.sAdministratorAuthEnumDownload.value}>
-					<MainHeader
-					>
-						<React.Fragment>
-							<Button
-								className="base-gap"
-								onClick={() => this.handleDownloadAuth()}
-								type="primary"
-							>
-								下载权限
-							</Button>
-						</React.Fragment>
-					</MainHeader>
-				</AuthComponent>
 				<div className={styles['form-container']}>
 					<Form
 						onSubmit={this.handleSubmit}
 					>
 						<Form.Item
-							label="权限枚举值"
+							label="组值"
 							hasFeedback
 							{...formItemLayout}
 						>
-							{getFieldDecorator('authValue', {
-								initialValue: this.state.authValue,
+							{getFieldDecorator('groupValue', {
+								initialValue: this.state.groupValue,
 								rules: [
 									{
 										required: true,
-										message: '请填写权限枚举值',
+										message: '请填写组值',
 									},
 									{
 										whitespace: true,
@@ -258,20 +236,20 @@ class AuthEnum extends React.PureComponent {
 									},
 								],
 							})(
-								<Input placeholder="请填写权限枚举值"/>,
+								<Input placeholder="请填写组值"/>,
 							)}
 						</Form.Item>
 						<Form.Item
-							label="权限描述"
+							label="组描述"
 							hasFeedback
 							{...formItemLayout}
 						>
-							{getFieldDecorator('authLabel', {
+							{getFieldDecorator('groupLabel', {
 								initialValue: this.state.authLabel,
 								rules: [
 									{
 										required: true,
-										message: '请填写权限描述',
+										message: '请填写组描述',
 									},
 									{
 										max: 64,
@@ -279,29 +257,7 @@ class AuthEnum extends React.PureComponent {
 									},
 								],
 							})(
-								<Input placeholder="请填写权限描述"/>,
-							)}
-						</Form.Item>
-						<Form.Item
-							label="是否自动加到administrator"
-							{...formItemLayout}
-						>
-							{getFieldDecorator('autoAddToRoot', {
-								initialValue: this.state.autoAddToRoot,
-								rules: [
-									{
-										required: true,
-										message: '请选择',
-									},
-								],
-							})(
-								<Radio.Group>
-									{
-										this.state.autoAddToRootData.map(value => {
-											return <Radio value={value.value} key={value.value}>{value.label}</Radio>;
-										})
-									}
-								</Radio.Group>,
+								<Input placeholder="请填写组描述"/>,
 							)}
 						</Form.Item>
 						<Form.Item
@@ -315,14 +271,14 @@ class AuthEnum extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<AuthComponent auth={enumAuth.sAdministratorAuthEnumAdd.value}>
+							<AuthComponent auth={enumAuth.sAdministratorGroupAdd.value}>
 								<Button
 									htmlType="submit"
 									className="base-gap"
 									loading={this.state.isAdd}
 									type="primary"
 								>
-									添加权限
+									添加组
 								</Button>
 							</AuthComponent>
 						</Form.Item>
@@ -331,14 +287,14 @@ class AuthEnum extends React.PureComponent {
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<AuthComponent auth={enumAuth.sAdministratorAuthEnumList.value}>
+					<AuthComponent auth={enumAuth.sAdministratorGroupList.value}>
 						<Input.Search
 							onChange={event => this.setState({search: event.target.value})}
-							placeholder="请搜索权限值或者描述"
+							placeholder="请搜索组值或者描述"
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search)}
 						/>
 					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorAuthEnumDelete.value}>
+					<AuthComponent auth={enumAuth.sAdministratorGroupDelete.value}>
 						<Button
 							type="primary"
 							disabled={this.state.selectedRows.length <= 0}
@@ -368,4 +324,4 @@ class AuthEnum extends React.PureComponent {
 	}
 }
 
-export default Form.create()(AuthEnum);
+export default Form.create()(GroupList);
