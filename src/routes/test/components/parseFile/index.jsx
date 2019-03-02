@@ -4,17 +4,11 @@ import enumAPI from 'constants/enumAPI';
 import { Button, Input, Select } from 'antd';
 import mime from 'mime';
 import styles from './parseFile.scss';
-import enumAuth from 'constants/enumAuth';
 import { fileExtendName } from 'constants/app/common';
 import { camelCase } from 'lodash';
 import MainHeader from 'templates/toolComponents/mainHeader';
 
-const {AuthComponent} = T;
 const Option = Select.Option;
-
-function getExtendNameData (extendName) {
-	return Object.values(fileExtendName).filter(value => value.value !== extendName);
-}
 
 export default class TestComponent extends React.PureComponent {
 	constructor () {
@@ -29,15 +23,15 @@ export default class TestComponent extends React.PureComponent {
 			
 			jsonFile: null,
 			jsonExtendName: fileExtendName.xlsx.value,
-			jsonExtendNameData: getExtendNameData(fileExtendName.json.value),
+			jsonExtendNameData: [fileExtendName.xlsx, fileExtendName.csv],
 			
 			xlsxFile: null,
 			xlsxExtendName: fileExtendName.json.value,
-			xlsxExtendNameData: getExtendNameData(fileExtendName.xlsx.value),
+			xlsxExtendNameData: [fileExtendName.json, fileExtendName.csv],
 			
 			csvFile: null,
 			csvExtendName: fileExtendName.json.value,
-			csvExtendNameData: getExtendNameData(fileExtendName.csv.value),
+			csvExtendNameData: [fileExtendName.json, fileExtendName.xlsx],
 			
 			xmlFile: null,
 		};
@@ -84,140 +78,132 @@ export default class TestComponent extends React.PureComponent {
 			<div
 				className={T.classNames(styles['main-container'], 'flex-column-grow')}
 			>
-				<AuthComponent auth={enumAuth.sFileParseJson.value}>
-					<MainHeader>
-						<div className={styles['parse-file-container']}>
-							<Button
-								onClick={() => this.jsonContainer.click()}
-								type="primary"
-							>
-								解析json
-							</Button>
-							<Select
-								value={this.state.jsonExtendName}
-								onChange={jsonExtendName => this.setState({jsonExtendName})}
-							>
-								{
-									this.state.jsonExtendNameData.map((value => {
-										return <Option key={value.value}>{value.label}</Option>;
-									}))
-								}
-							</Select>
-							<Button
-								onClick={() => this.handleParseJson()}
-								type="primary"
-							>
-								下载
-							</Button>
-							<input
-								style={{display: 'none'}}
-								ref={jsonContainer => this.jsonContainer = jsonContainer}
-								multiple={false}
-								accept="application/json"
-								type="file"
-								onChange={(e) => e.target.files && this.setState({jsonFile: e.target.files[0]})}
-							/>
-						</div>
-					</MainHeader>
-				</AuthComponent>
-				<AuthComponent auth={enumAuth.sFileParseXlsx.value}>
-					<MainHeader>
-						<div className={styles['parse-file-container']}>
-							<Button
-								onClick={() => this.xlsxContainer.click()}
-								type="primary"
-							>
-								解析xlsx
-							</Button>
-							<Select
-								value={this.state.xlsxExtendName}
-								onChange={xlsxExtendName => this.setState({xlsxExtendName})}
-							>
-								{
-									this.state.xlsxExtendNameData.map((value => {
-										return <Option key={value.value}>{value.label}</Option>;
-									}))
-								}
-							</Select>
-							<Button
-								onClick={() => this.handleParseXlsx()}
-								type="primary"
-							>
-								下载
-							</Button>
-							<input
-								style={{display: 'none'}}
-								ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
-								multiple={false}
-								accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-								type="file"
-								onChange={(e) => e.target.files && this.setState({xlsxFile: e.target.files[0]})}
-							/>
-						</div>
-					</MainHeader>
-				</AuthComponent>
-				<AuthComponent auth={enumAuth.sFileParseCsv.value}>
-					<MainHeader>
-						<div className={styles['parse-file-container']}>
-							<Button
-								onClick={() => this.csvContainer.click()}
-								type="primary"
-							>
-								解析csv
-							</Button>
-							<Select
-								value={this.state.csvExtendName}
-								onChange={csvExtendName => this.setState({csvExtendName})}
-							>
-								{
-									this.state.csvExtendNameData.map((value => {
-										return <Option key={value.value}>{value.label}</Option>;
-									}))
-								}
-							</Select>
-							<Button
-								onClick={() => this.handleParseCsv()}
-								type="primary"
-							>
-								下载
-							</Button>
-							<input
-								style={{display: 'none'}}
-								ref={csvContainer => this.csvContainer = csvContainer}
-								multiple={false}
-								accept="text/csv"
-								type="file"
-								onChange={(e) => e.target.files && this.setState({csvFile: e.target.files[0]})}
-							/>
-						</div>
-					</MainHeader>
-				</AuthComponent>
-				<AuthComponent auth={enumAuth.sFileParseXml.value}>
-					<MainHeader>
-						<div className={styles['parse-file-container']}>
-							<Button
-								onClick={() => this.xmlContainer.click()}
-								type="primary"
-							>
-								解析xml
-							</Button>
-							<input
-								style={{display: 'none'}}
-								ref={xmlContainer => this.xmlContainer = xmlContainer}
-								multiple={false}
-								accept="text/xml"
-								type="file"
-								onChange={(e) => e.target.files && this.setState({xmlFile: e.target.files[0]})}
-							/>
-							<Button
-								onClick={() => this.handleParseXml()}
-								type="primary"
-							>
-								下载
-							</Button>
-						</div>
-					</MainHeader>
-				</AuthComponent>
+				<MainHeader>
+					<div className={styles['parse-file-container']}>
+						<Button
+							onClick={() => this.jsonContainer.click()}
+							type="primary"
+						>
+							解析json
+						</Button>
+						<Select
+							value={this.state.jsonExtendName}
+							onChange={jsonExtendName => this.setState({jsonExtendName})}
+						>
+							{
+								this.state.jsonExtendNameData.map((value => {
+									return <Option key={value.value}>{value.label}</Option>;
+								}))
+							}
+						</Select>
+						<Button
+							onClick={() => this.handleParseJson()}
+							type="primary"
+						>
+							下载
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={jsonContainer => this.jsonContainer = jsonContainer}
+							multiple={false}
+							accept="application/json"
+							type="file"
+							onChange={(e) => e.target.files && this.setState({jsonFile: e.target.files[0]})}
+						/>
+					</div>
+				</MainHeader>
+				<MainHeader>
+					<div className={styles['parse-file-container']}>
+						<Button
+							onClick={() => this.xlsxContainer.click()}
+							type="primary"
+						>
+							解析xlsx
+						</Button>
+						<Select
+							value={this.state.xlsxExtendName}
+							onChange={xlsxExtendName => this.setState({xlsxExtendName})}
+						>
+							{
+								this.state.xlsxExtendNameData.map((value => {
+									return <Option key={value.value}>{value.label}</Option>;
+								}))
+							}
+						</Select>
+						<Button
+							onClick={() => this.handleParseXlsx()}
+							type="primary"
+						>
+							下载
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={xlsxContainer => this.xlsxContainer = xlsxContainer}
+							multiple={false}
+							accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+							type="file"
+							onChange={(e) => e.target.files && this.setState({xlsxFile: e.target.files[0]})}
+						/>
+					</div>
+				</MainHeader>
+				<MainHeader>
+					<div className={styles['parse-file-container']}>
+						<Button
+							onClick={() => this.csvContainer.click()}
+							type="primary"
+						>
+							解析csv
+						</Button>
+						<Select
+							value={this.state.csvExtendName}
+							onChange={csvExtendName => this.setState({csvExtendName})}
+						>
+							{
+								this.state.csvExtendNameData.map((value => {
+									return <Option key={value.value}>{value.label}</Option>;
+								}))
+							}
+						</Select>
+						<Button
+							onClick={() => this.handleParseCsv()}
+							type="primary"
+						>
+							下载
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={csvContainer => this.csvContainer = csvContainer}
+							multiple={false}
+							accept="text/csv"
+							type="file"
+							onChange={(e) => e.target.files && this.setState({csvFile: e.target.files[0]})}
+						/>
+					</div>
+				</MainHeader>
+				<MainHeader>
+					<div className={styles['parse-file-container']}>
+						<Button
+							onClick={() => this.xmlContainer.click()}
+							type="primary"
+						>
+							解析xml
+						</Button>
+						<input
+							style={{display: 'none'}}
+							ref={xmlContainer => this.xmlContainer = xmlContainer}
+							multiple={false}
+							accept="text/xml"
+							type="file"
+							onChange={(e) => e.target.files && this.setState({xmlFile: e.target.files[0]})}
+						/>
+						<Button
+							onClick={() => this.handleParseXml()}
+							type="primary"
+						>
+							下载
+						</Button>
+					</div>
+				</MainHeader>
 				<MainHeader>
 					<div className={styles['mime-container']}>
 						<Input

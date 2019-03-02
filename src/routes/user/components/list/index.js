@@ -34,12 +34,7 @@ export default class List extends React.PureComponent {
 			selectedRows: [],
 			search: '',
 			
-			groupData: Object.values(enumCommon.group).
-				filter(value => value.value !== enumCommon.group.administrator.value).
-				map(value => ({
-					value: value.value,
-					label: value.label,
-				})),
+			groupData: [],
 			group: undefined,
 			roleData: Object.values(enumCommon.role).
 				map(value => ({
@@ -317,9 +312,6 @@ export default class List extends React.PureComponent {
 						property: 'group',
 					});
 				},
-				render(text) {
-					return Object.values(enumCommon.group).find(value => value.value === text).label;
-				},
 			},
 			{
 				title: '角色',
@@ -517,7 +509,7 @@ export default class List extends React.PureComponent {
 						onSearch={() => this.handleSearch()}
 					/>
 					{
-						T.auth.isAdministrator() && (
+						T.auth.isAdministrator && (
 							<Select
 								allowClear
 								value={this.state.group}

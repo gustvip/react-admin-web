@@ -72,7 +72,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 					</div>
 					<div className={styles['item']}>
 						<div className={styles['description']}>组:&nbsp;&nbsp;</div>
-						<div className={styles['value']}>{Object.values(enumCommon.group).find(value => value.value === this.state.userInfo.group).label}</div>
+						<div className={styles['value']}>{this.state.userInfo.group}</div>
 					</div>
 					<div className={styles['item']}>
 						<div className={styles['description']}>角色:&nbsp;&nbsp;</div>

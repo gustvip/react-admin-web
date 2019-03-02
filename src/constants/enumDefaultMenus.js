@@ -40,7 +40,7 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
-								auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
+								auth: enumAuth.bPlatformCategoryAdministratorAuthEnum.value,
 								label: '权限枚举',
 								url: EnumRouter.administratorAuthEnum,
 								icon: {
@@ -51,7 +51,7 @@ export default helper.immutable([
 								children: [],
 							},
 							{
-								auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
+								auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 								label: '权限分配',
 								url: EnumRouter.administratorAuthList,
 								icon: {
@@ -87,7 +87,6 @@ export default helper.immutable([
 						],
 					},
 					{
-						auth: enumAuth.bPlatformCategoryTest.value,
 						label: 'API测试',
 						url: EnumRouter.testDemo,
 						icon: {
@@ -97,7 +96,6 @@ export default helper.immutable([
 						id: uniqueId(),
 						children: [
 							{
-								auth: enumAuth.bPlatformCategoryTestDemo.value,
 								label: '练习API',
 								url: EnumRouter.testDemo,
 								icon: {
@@ -108,7 +106,6 @@ export default helper.immutable([
 								children: [],
 							},
 							{
-								auth: enumAuth.bPlatformCategoryTestParseFile.value,
 								label: '解析文件',
 								url: EnumRouter.testParseFile,
 								icon: {

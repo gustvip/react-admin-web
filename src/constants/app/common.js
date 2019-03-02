@@ -31,23 +31,20 @@ export const role = {
 };
 
 /**
- * @type {{normalGroup: {label: string, value: string, children: *[]}, administrator: {label: string, value: string, children: (role.root|{value, label})[]}, touristGroup: {label: string, value: string, children: (role.normal|{value, label})[]}}}
+ * @type {{root: {label: string, value: string}, tourist: {label: string, value: string}}}
  */
 export const group = {
-	normalGroup: {
-		label: '正常分组',
+	normal: {
+		label: '一般组',
 		value: 'normal',
-		children: [role.normal, role.admin, role.root],
 	},
-	administrator: {
-		label: '超级管理员分组',
+	root: {
+		label: 'root组',
 		value: 'root',
-		children: [role.root],
 	},
-	touristGroup: {
-		label: '游客',
+	tourist: {
+		label: '游客组',
 		value: 'tourist',
-		children: [role.normal],
 	},
 };
 
@@ -82,6 +79,20 @@ export const pagination = {
  * @type {string}
  */
 export const initialPassword = '123456';
+
+/**
+ * @type {{yes: {value: string, label: string}, no: {value: string, label: string}}}
+ */
+export const autoAddToRoot = {
+	yes: {
+		value: '1',
+		label: '是',
+	},
+	no: {
+		value: '0',
+		label: '否',
+	},
+};
 
 /**
  * @type {{json: {value: string, label: string}, xlsx: {value: string, label: string}, csv: {value: string, label: string}}}

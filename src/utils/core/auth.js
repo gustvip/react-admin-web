@@ -83,8 +83,9 @@ class Auth {
 	 * 是否为administrator
 	 * @returns {Boolean}
 	 */
-	isAdministrator () {
-		return this.getUserDetailStorageValue().group === enumCommon.group.administrator.value;
+	get isAdministrator () {
+		const loginUserDetail = this.getUserDetailStorageValue();
+		return loginUserDetail.group === enumCommon.group.root.value && loginUserDetail.role === enumCommon.role.root.value;
 	}
 	
 	/**

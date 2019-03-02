@@ -4,7 +4,7 @@
 import T from 'utils/t';
 import UpdateAuthInfoModal from './updateAuthInfoModal';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import { Button, Input, Table, Form } from 'antd';
+import { Button, Input, Table, Form, Radio } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
 import * as webAPI from '../../webAPI/authEnum';
@@ -17,11 +17,11 @@ const {AuthComponent} = T;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
-		sm: {span: 4},
+		sm: {span: 6},
 	},
 	wrapperCol: {
 		xs: {span: 24},
-		sm: {span: 20},
+		sm: {span: 18},
 	},
 };
 
@@ -45,8 +45,11 @@ class AuthEnum extends React.PureComponent {
 				value: value.value,
 				label: value.label,
 			})),
+		
 		authValue: '',
 		authLabel: '',
+		autoAddToRoot: enumCommon.autoAddToRoot.yes.value,
+		autoAddToRootData: Object.values(enumCommon.autoAddToRoot),
 		isAdd: false,
 		isTableLoading: false,
 	};
@@ -153,7 +156,7 @@ class AuthEnum extends React.PureComponent {
 				render (test, record) {
 					return (
 						<React.Fragment>
-							<AuthComponent auth={enumAuth.sAdministratorAuthUpdate.value}>
+							<AuthComponent auth={enumAuth.sAdministratorAuthEnumUpdate.value}>
 								<Button
 									className="base-gap"
 									type="primary"
@@ -224,7 +227,7 @@ class AuthEnum extends React.PureComponent {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
-				<AuthComponent auth={enumAuth.sAdministratorAuthDownload.value}>
+				<AuthComponent auth={enumAuth.sAdministratorAuthEnumDownload.value}>
 					<MainHeader
 					>
 						<React.Fragment>
@@ -289,6 +292,28 @@ class AuthEnum extends React.PureComponent {
 							)}
 						</Form.Item>
 						<Form.Item
+							label="是否自动加到administrator"
+							{...formItemLayout}
+						>
+							{getFieldDecorator('autoAddToRoot', {
+								initialValue: this.state.autoAddToRoot,
+								rules: [
+									{
+										required: true,
+										message: '请选择',
+									},
+								],
+							})(
+								<Radio.Group>
+									{
+										this.state.autoAddToRootData.map(value => {
+											return <Radio value={value.value} key={value.value}>{value.label}</Radio>;
+										})
+									}
+								</Radio.Group>,
+							)}
+						</Form.Item>
+						<Form.Item
 							style={{textAlign: 'center'}}
 						>
 							<Button
@@ -299,7 +324,7 @@ class AuthEnum extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<AuthComponent auth={enumAuth.sAdministratorAuthAdd.value}>
+							<AuthComponent auth={enumAuth.sAdministratorAuthEnumAdd.value}>
 								<Button
 									htmlType="submit"
 									className="base-gap"
@@ -315,14 +340,14 @@ class AuthEnum extends React.PureComponent {
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<AuthComponent auth={enumAuth.sAdministratorAuthList.value}>
+					<AuthComponent auth={enumAuth.sAdministratorAuthEnumList.value}>
 						<Input.Search
 							onChange={event => this.setState({search: event.target.value})}
 							placeholder="请搜索权限值或者描述"
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.status)}
 						/>
 					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorAuthDelete.value}>
+					<AuthComponent auth={enumAuth.sAdministratorAuthEnumDelete.value}>
 						<Button
 							type="primary"
 							disabled={this.state.selectedRows.length <= 0}

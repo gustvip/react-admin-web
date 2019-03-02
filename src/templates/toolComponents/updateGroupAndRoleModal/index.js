@@ -38,17 +38,12 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 	constructor (props) {
 		super(props);
 		// 组的数据
-		const groupData = Object.values(enumCommon.group).
-			filter(value => value.value !== enumCommon.group.administrator.value).
-			map(value => ({
-				value: value.value,
-				label: value.label,
-			}));
+		const groupData = [];
 		
 		// 角色的数据
-		let roleData = (Object.values(enumCommon.group).find(value => value.value === props.group) || []);
+		let roleData = [];
 		roleData = roleData ? roleData.children.filter(value => {
-			if (auth.isAdministrator()) {
+			if (auth.isAdministrator) {
 				return true;
 			} else {
 				return value.value !== enumCommon.role.root.value;
@@ -70,10 +65,10 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 	 * @param {string | undefined} group
 	 */
 	handleGroupChange = (group) => {
-		let roleData = Object.values(enumCommon.group).find(value => value.value === group);
+		let roleData = [];
 		if (roleData) {
 			roleData = roleData ? roleData.children.filter(value => {
-				if (auth.isAdministrator()) {
+				if (auth.isAdministrator) {
 					return true;
 				} else {
 					return value.value !== enumCommon.role.root.value;
@@ -154,7 +149,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 							],
 						})(
 							<Select
-								disabled={!auth.isAdministrator()}
+								disabled={!auth.isAdministrator}
 								onChange={group => this.handleGroupChange(group)}
 								placeholder="请选择分组"
 							>

@@ -41,7 +41,6 @@ class AuthList extends React.PureComponent {
 		
 		authValueData: [],
 		groupData: Object.values(enumCommon.group).
-			filter(value => value.value !== enumCommon.group.administrator.value).
 			map(value => ({
 				value: value.value,
 				label: value.label,
@@ -108,19 +107,9 @@ class AuthList extends React.PureComponent {
 	 * @param {string | undefined} group
 	 */
 	handleGroupChange = (group) => {
-		let roleData = [];
-		const hasData = Object.values(enumCommon.group).find(value => value.value === group);
-		if (hasData) {
-			roleData = hasData.children.map(value => ({
-				value: value.value,
-				label: value.label,
-			}));
-		}
 		this.setState({
 			authValue: [],
-			roleData,
 			group,
-			role: undefined,
 			
 			currentPage: 1,
 			selectedRowKeys: [],
@@ -187,9 +176,6 @@ class AuthList extends React.PureComponent {
 			{
 				title: 'group',
 				dataIndex: 'group',
-				render (text) {
-					return Object.values(enumCommon.group).find(value => value.value === text).label;
-				},
 				sorter (prev, now) {
 					return T.helper.sort({
 						prev,
@@ -387,7 +373,7 @@ class AuthList extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<AuthComponent auth={enumAuth.sAdministratorGroupDistribute.value}>
+							<AuthComponent auth={enumAuth.sAdministratorAuthListDistribute.value}>
 								<Button
 									htmlType="submit"
 									className="base-gap"
@@ -403,7 +389,7 @@ class AuthList extends React.PureComponent {
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<AuthComponent auth={enumAuth.sAdministratorGroupGroupAndRoleAuth.value}>
+					<AuthComponent auth={enumAuth.sAdministratorAuthListGroupAndRoleAuth.value}>
 						<Input.Search
 							value={this.state.search}
 							onChange={event => this.setState({search: event.target.value})}
@@ -411,7 +397,7 @@ class AuthList extends React.PureComponent {
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role)}
 						/>
 					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorGroupDelete.value}>
+					<AuthComponent auth={enumAuth.sAdministratorAuthListDelete.value}>
 						<Button
 							type="primary"
 							disabled={this.state.selectedRows.length <= 0}

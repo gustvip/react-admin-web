@@ -1,7 +1,7 @@
 {
-	"sFileParseJson": {
-		"value": "sFileParseJson",
-		"label": "解析json文件"
+	"sAdministratorAuthListGroupAndRoleAuth": {
+		"value": "sAdministratorAuthListGroupAndRoleAuth",
+		"label": "s获取组对应角色的权限"
 	},
 	"sUserResetPassword": {
 		"value": "sUserResetPassword",
@@ -31,81 +31,49 @@
 		"value": "sUserList",
 		"label": "s用户列表"
 	},
-	"sAdministratorGroupDistribute": {
-		"value": "sAdministratorGroupDistribute",
+	"sAdministratorAuthListDistribute": {
+		"value": "sAdministratorAuthListDistribute",
 		"label": "s分配组对应角色的权限"
 	},
-	"sAdministratorGroupDelete": {
-		"value": "sAdministratorGroupDelete",
+	"sAdministratorAuthListDelete": {
+		"value": "sAdministratorAuthListDelete",
 		"label": "s删除组对应角色的权限"
 	},
-	"sAdministratorGroupGroupAndRoleAuth": {
-		"value": "sAdministratorGroupGroupAndRoleAuth",
-		"label": "s获取组对应角色的权限"
-	},
-	"sFileDownload": {
-		"value": "sFileDownload",
-		"label": "s下载文件"
-	},
-	"sFileParseXml": {
-		"value": "sFileParseXml",
-		"label": "s解析xml文件"
-	},
-	"sFileParseCsv": {
-		"value": "sFileParseCsv",
-		"label": "s解析csv文件"
-	},
-	"sFileParseXlsx": {
-		"value": "sFileParseXlsx",
-		"label": "s解析xlsx文件"
-	},
-	"sAdministratorAuthUpdate": {
-		"value": "sAdministratorAuthUpdate",
+	"sAdministratorAuthEnumUpdate": {
+		"value": "sAdministratorAuthEnumUpdate",
 		"label": "s权限枚举更新"
 	},
-	"sAdministratorAuthDelete": {
-		"value": "sAdministratorAuthDelete",
+	"sAdministratorAuthEnumDelete": {
+		"value": "sAdministratorAuthEnumDelete",
 		"label": "s权限枚举删除"
 	},
-	"sAdministratorAuthAdd": {
-		"value": "sAdministratorAuthAdd",
+	"sAdministratorAuthEnumAdd": {
+		"value": "sAdministratorAuthEnumAdd",
 		"label": "s权限枚举添加"
 	},
-	"sAdministratorAuthList": {
-		"value": "sAdministratorAuthList",
+	"sAdministratorAuthEnumList": {
+		"value": "sAdministratorAuthEnumList",
 		"label": "s权限枚举列表"
 	},
-	"sAdministratorAuthDownload": {
-		"value": "sAdministratorAuthDownload",
+	"sAdministratorAuthEnumDownload": {
+		"value": "sAdministratorAuthEnumDownload",
 		"label": "s权限枚举json下载"
-	},
-	"bPlatformCategoryTest": {
-		"value": "bPlatformCategoryTest",
-		"label": "b测试"
 	},
 	"bPlatformCategoryUser": {
 		"value": "bPlatformCategoryUser",
 		"label": "b用户管理"
 	},
-	"bPlatformCategoryTestParseFile": {
-		"value": "bPlatformCategoryTestParseFile",
-		"label": "b测试文件解析"
-	},
-	"bPlatformCategoryTestDemo": {
-		"value": "bPlatformCategoryTestDemo",
-		"label": "b测试demo"
-	},
 	"bPlatformCategoryUserList": {
 		"value": "bPlatformCategoryUserList",
 		"label": "b用户管理列表"
 	},
-	"bPlatformCategoryAdministratorGroupList": {
-		"value": "bPlatformCategoryAdministratorGroupList",
-		"label": "b超级管理员权限分配"
-	},
 	"bPlatformCategoryAdministratorAuthList": {
 		"value": "bPlatformCategoryAdministratorAuthList",
 		"label": "b超级管理员权限列表"
+	},
+	"bPlatformCategoryAdministratorAuthEnum": {
+		"value": "bPlatformCategoryAdministratorAuthEnum",
+		"label": "b超级管理员权限枚举"
 	},
 	"bPlatformCategoryAdministrator": {
 		"value": "bPlatformCategoryAdministrator",

@@ -11,13 +11,13 @@ import AuthList from './routes/authList';
 
 export default AssembleRoute([
 	{
-		auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
+		auth: enumAuth.bPlatformCategoryAdministratorAuthEnum.value,
 		layout: MenuAndHeaderLayout,
 		path: enumRouter.administratorAuthEnum,
 		component: AuthEnum,
 	},
 	{
-		auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
+		auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 		layout: MenuAndHeaderLayout,
 		path: enumRouter.administratorAuthList,
 		component: AuthList,
