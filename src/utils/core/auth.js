@@ -45,7 +45,7 @@ class Auth {
 	 * @param {function} [failCallback]
 	 */
 	resetUserPassword (userId, successCallback, failCallback) {
-		request.postJSON(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
+		request.put(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
 	
 	/**

@@ -37,61 +37,33 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 	
 	constructor (props) {
 		super(props);
-		// 组的数据
-		const groupData = [];
-		
-		// 角色的数据
-		let roleData = [];
-		roleData = roleData ? roleData.children.filter(value => {
-			if (auth.isAdministrator) {
-				return true;
-			} else {
-				return value.value !== enumCommon.role.root.value;
-			}
-		}) : [];
-		
 		this.state = {
 			showModal: true,
 			loading: false,
-			groupData,
+			groupData: [],
 			group: props.group,
-			roleData,
+			roleData: Object.values(enumCommon.role).map(value => {
+				return {
+					value: value.value,
+					label: value.label,
+				};
+			}),
 			role: props.role,
 		};
 	}
 	
-	/**
-	 * 组变化
-	 * @param {string | undefined} group
-	 */
-	handleGroupChange = (group) => {
-		let roleData = [];
-		if (roleData) {
-			roleData = roleData ? roleData.children.filter(value => {
-				if (auth.isAdministrator) {
-					return true;
-				} else {
-					return value.value !== enumCommon.role.root.value;
-				}
-			}).map(value => ({
-				value: value.value,
-				label: value.label,
-			})) : [];
-		}
-		this.setState({
-			roleData,
-			group,
-			role: undefined,
-		}, () => this.props.form.resetFields());
-	};
-	
-	/**
-	 * 角色变化
-	 * @param {string | undefined} role
-	 */
-	handleRoleChange = (role) => {
-		this.setState({role});
-	};
+	componentDidMount () {
+		request.get(enumAPI.administratorGroupList, {}).then(info => {
+			this.setState({
+				groupData: info.data.map(value => {
+					return {
+						value: value.value,
+						label: value.label,
+					};
+				}),
+			});
+		}).catch(info => prompt.error(info.msg));
+	}
 	
 	handleSubmit = () => {
 		const self = this;
@@ -99,7 +71,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 			if (!err) {
 				self.setState({loading: true}, () => {
 					const userId = self.props.userId;
-					request.postJSON(enumAPI.userUpdateGroupAndRole, {
+					request.put(enumAPI.userUpdateGroupAndRole, {
 						userId,
 						...values,
 					}).then(() => {
@@ -150,12 +122,12 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 						})(
 							<Select
 								disabled={!auth.isAdministrator}
-								onChange={group => this.handleGroupChange(group)}
+								onChange={group => this.setState({group})}
 								placeholder="请选择分组"
 							>
 								{
 									this.state.groupData.map((value => {
-										return <Option key={value.value}>{value.label}</Option>;
+										return <Option key={value.value}>{value.value}</Option>;
 									}))
 								}
 							</Select>,
@@ -176,12 +148,12 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 							],
 						})(
 							<Select
-								onChange={role => this.handleRoleChange(role)}
+								onChange={role => this.setState({role})}
 								placeholder="请选择角色"
 							>
 								{
 									this.state.roleData.map((value => {
-										return <Option key={value.value}>{value.label}</Option>;
+										return <Option key={value.value}>{value.value}</Option>;
 									}))
 								}
 							</Select>,

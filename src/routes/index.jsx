@@ -12,7 +12,7 @@ import {NoMatch} from './routeTool';
 import CommonRoutes from './common'; // 公共模块--相关路由,如:登录,注册...
 import Administrator from './administrator'; // 超级管理员相关模块
 import UserRoutes from './user'; // 用户相关模块
-import TestRoutes from './test'; // 测试相关路由
+import TestRoutes from './test'; // 测试相关模块
 
 const checkLoginRedirect = () => <Redirect to={auth.isLogin ? ENV.login.defaultRedirectUrl : ENV.login.loginUrl}/>;
 

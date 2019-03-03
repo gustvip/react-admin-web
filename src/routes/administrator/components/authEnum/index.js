@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import UpdateAuthInfoModal from './updateAuthInfoModal';
+import UpdateAuthEnumInfoModal from './updateAuthEnumInfoModal';
 import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form, Radio } from 'antd';
 import enumAuth from 'constants/enumAuth';
@@ -42,8 +42,8 @@ class AuthEnum extends React.PureComponent {
 		
 		authValue: '',
 		authLabel: '',
-		autoAddToRoot: enumCommon.autoAddToRoot.yes.value,
-		autoAddToRootData: Object.values(enumCommon.autoAddToRoot),
+		autoAddToAdministrator: enumCommon.autoAddToAdministrator.yes.value,
+		autoAddToAdministratorData: Object.values(enumCommon.autoAddToAdministrator),
 		isAdd: false,
 		isTableLoading: false,
 	};
@@ -87,7 +87,7 @@ class AuthEnum extends React.PureComponent {
 	 * @param record
 	 */
 	handleEdit = (record) => {
-		T.helper.renderModal(<UpdateAuthInfoModal
+		T.helper.renderModal(<UpdateAuthEnumInfoModal
 			record={record}
 			successCallback={() => {
 				T.prompt.success('更新成功');
@@ -286,8 +286,8 @@ class AuthEnum extends React.PureComponent {
 							label="是否自动加到administrator"
 							{...formItemLayout}
 						>
-							{getFieldDecorator('autoAddToRoot', {
-								initialValue: this.state.autoAddToRoot,
+							{getFieldDecorator('autoAddToAdministrator', {
+								initialValue: this.state.autoAddToAdministrator,
 								rules: [
 									{
 										required: true,
@@ -297,7 +297,7 @@ class AuthEnum extends React.PureComponent {
 							})(
 								<Radio.Group>
 									{
-										this.state.autoAddToRootData.map(value => {
+										this.state.autoAddToAdministratorData.map(value => {
 											return <Radio value={value.value} key={value.value}>{value.label}</Radio>;
 										})
 									}
@@ -352,7 +352,7 @@ class AuthEnum extends React.PureComponent {
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table
 						loading={this.state.isTableLoading}
-						size="middle"
+						size="small"
 						rowSelection={this.rowSelection}
 						dataSource={this.state.dataSource.map(value => ({
 							...value,

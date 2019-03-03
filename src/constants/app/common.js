@@ -83,7 +83,7 @@ export const initialPassword = '123456';
 /**
  * @type {{yes: {value: string, label: string}, no: {value: string, label: string}}}
  */
-export const autoAddToRoot = {
+export const autoAddToAdministrator = {
 	yes: {
 		value: '1',
 		label: '是',

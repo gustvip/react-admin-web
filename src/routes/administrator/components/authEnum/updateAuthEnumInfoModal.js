@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Input, Modal } from 'antd';
 import prompt from 'utils/core/prompt';
-import enumAuth from 'constants/enumAuth';
 import * as webAPI from '../../webAPI/authEnum';
 
 import { isFunction } from 'lodash';
@@ -21,7 +20,7 @@ const formItemLayout = {
 	},
 };
 
-class UpdateAuthInfoModal extends React.PureComponent {
+class UpdateAuthEnumInfoModal extends React.PureComponent {
 	static propTypes = {
 		form: PropTypes.object.isRequired,
 		successCallback: PropTypes.func,
@@ -156,4 +155,4 @@ class UpdateAuthInfoModal extends React.PureComponent {
 	}
 }
 
-export default Form.create()(UpdateAuthInfoModal);
+export default Form.create()(UpdateAuthEnumInfoModal);

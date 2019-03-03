@@ -17,6 +17,7 @@ export const administratorAuthEnumList = (condition) => T.request.get(enumAPI.ad
  * 增加权限枚举
  * @param {string} condition.authValue
  * @param {string} condition.authLabel
+ * @param {string} condition.autoAddToAdministrator
  * @return {Promise}
  */
 export const administratorAuthEnumAdd = (condition) => T.request.postJSON(enumAPI.administratorAuthEnumAdd, condition);

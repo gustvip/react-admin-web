@@ -47,7 +47,7 @@ class UpdatePasswordModal extends React.PureComponent {
 			if (!err) {
 				self.setState({loading: true}, () => {
 					const {oldPassword, newPassword} = values;
-					request.postJSON(enumAPI.userUpdatePassword, {
+					request.put(enumAPI.userUpdatePassword, {
 						oldPassword: crypto.md5(oldPassword, oldPassword),
 						newPassword: crypto.md5(newPassword, newPassword),
 					}).then(() => {
@@ -75,15 +75,16 @@ class UpdatePasswordModal extends React.PureComponent {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<Modal
+				title="修改密码"
 				classNmae={className}
 				okButtonProps={{loading: this.state.loading}}
 				onOk={() => this.handleSubmit()}
 				onCancel={() => this.setState({showModal: false})}
 				okText="确认"
 				cancelText="取消"
-				closable={false}
+				closable={true}
 				visible={this.state.showModal}
-				maskClosable={true}
+				maskClosable={false}
 				destroyOnClose={true}
 				{...option}
 			>

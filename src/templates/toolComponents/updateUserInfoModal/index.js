@@ -63,7 +63,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 			if (!err) {
 				self.setState({loading: true}, () => {
 					const userId = self.props.userId;
-					request.postJSON(enumAPI.userUpdateInfo, {
+					request.put(enumAPI.userUpdateInfo, {
 						userId,
 						...values,
 					}).then(() => {

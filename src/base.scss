@@ -13,12 +13,8 @@ textarea {
 	resize: none !important;
 }
 
-canvas {
-	display: block;
-}
-
 /* h5tag */
-article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+canvas, article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 	display: block;
 }
 
@@ -33,119 +29,5 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 		border-top: 4px dashed;
 		border-right: 4px solid transparent;
 		border-left: 4px solid transparent;
-	}
-
-	.clearfix::after {
-		display: block;
-		clear: both;
-		content: "";
-	}
-
-	/* 响应式工具 */
-	.hide {
-		display: none !important;
-	}
-
-	.show {
-		display: block !important;
-	}
-
-	.invisible {
-		visibility: hidden;
-	}
-
-	.hidden {
-		display: none !important;
-	}
-
-	.visible-sm,
-	.visible-md,
-	.visible-lg,
-	.visible-xl,
-	.visible-sm-block,
-	.visible-sm-inline,
-	.visible-sm-inline-block,
-	.visible-md-block,
-	.visible-md-inline,
-	.visible-md-inline-block,
-	.visible-lg-block,
-	.visible-lg-inline,
-	.visible-lg-inline-block,
-	.visible-xl-block,
-	.visible-xl-inline,
-	.visible-xl-inline-block {
-		display: none !important;
-	}
-
-	@media (max-width: 575px) {
-		.hidden-sm {
-			display: none !important;
-		}
-		.visible-sm {
-			display: block !important;
-		}
-		.visible-sm-block {
-			display: block !important;
-		}
-		.visible-sm-inline {
-			display: inline !important;
-		}
-		.visible-sm-inline-block {
-			display: inline-block !important;
-		}
-	}
-
-	@media (min-width: 576px) and (max-width: 767px) {
-		.hidden-md {
-			display: none !important;
-		}
-		.visible-md {
-			display: block !important;
-		}
-		.visible-md-block {
-			display: block !important;
-		}
-		.visible-md-inline {
-			display: inline !important;
-		}
-		.visible-md-inline-block {
-			display: inline-block !important;
-		}
-	}
-
-	@media (min-width: 768px) and (max-width: 1199px) {
-		.hidden-lg {
-			display: none !important;
-		}
-		.visible-lg {
-			display: block !important;
-		}
-		.visible-lg-block {
-			display: block !important;
-		}
-		.visible-lg-inline {
-			display: inline !important;
-		}
-		.visible-lg-inline-block {
-			display: inline-block !important;
-		}
-	}
-
-	@media (min-width: 1200px) {
-		.hidden-xl {
-			display: none !important;
-		}
-		.visible-xl {
-			display: block !important;
-		}
-		.visible-xl-block {
-			display: block !important;
-		}
-		.visible-xl-inline {
-			display: inline !important;
-		}
-		.visible-xl-inline-block {
-			display: inline-block !important;
-		}
 	}
 }

@@ -92,7 +92,6 @@ class AuthList extends React.PureComponent {
 				})),
 			}, () => callback && callback(info.data));
 		}).catch(info => T.prompt.error(info.msg));
-		
 	};
 	
 	/**
@@ -436,7 +435,7 @@ class AuthList extends React.PureComponent {
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table
 						loading={this.state.isTableLoading}
-						size="middle"
+						size="small"
 						rowSelection={this.rowSelection}
 						dataSource={this.state.dataSource.map(value => ({
 							...value,

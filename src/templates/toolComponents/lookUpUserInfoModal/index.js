@@ -51,7 +51,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 				onCancel={() => this.setState({showModal: false})}
 				okText="确认"
 				cancelText="取消"
-				closable={false}
+				closable={true}
 				visible={this.state.showModal}
 				maskClosable={true}
 				destroyOnClose={true}
@@ -76,7 +76,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 					</div>
 					<div className={styles['item']}>
 						<div className={styles['description']}>角色:&nbsp;&nbsp;</div>
-						<div className={styles['value']}>{Object.values(enumCommon.role).find(value => value.value === this.state.userInfo.role).label}</div>
+						<div className={styles['value']}>{this.state.userInfo.role}</div>
 					</div>
 					<div className={styles['item']}>
 						<div className={styles['description']}>状态:&nbsp;&nbsp;</div>
