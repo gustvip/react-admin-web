@@ -51,9 +51,10 @@ class Helper {
 	 * @param {string | number} parentIdName 指向parent的key
 	 * @param {string | number} ownIdName 指向own的key
 	 * @param {string} [childrenName] 生成children的key
+	 * @param {int} [treeDepth] 树的深度
 	 * @return {Array}
 	 */
-	formatTreeData (data, parentIdName, ownIdName, childrenName = 'children') {
+	formatTreeData (data, parentIdName, ownIdName, childrenName = 'children', treeDepth = 20000) {
 		// 格式化children的值
 		data = data.map(value => {
 			value[childrenName] = Array.isArray(value[childrenName]) ? value[childrenName] : [];
@@ -76,16 +77,18 @@ class Helper {
 		}, {});
 		
 		// 递归格式化树
-		!(function format (childData) {
-			childData.forEach(value => {
-				forOwn(groupData, (val, key) => {
-					if (value[ownIdName] == key) {
-						value[childrenName] = value[childrenName].concat(val);
-					}
+		!(function format (childData, index) {
+			if (index <= treeDepth) {
+				childData.forEach(value => {
+					forOwn(groupData, (val, key) => {
+						if (value[ownIdName] == key) {
+							value[childrenName] = value[childrenName].concat(val);
+						}
+					});
+					value[childrenName].length && format(value[childrenName], index + 1);
 				});
-				value[childrenName].length && format(value[childrenName]);
-			});
-		}(result));
+			}
+		}(result, 2));
 		
 		return result;
 	}
