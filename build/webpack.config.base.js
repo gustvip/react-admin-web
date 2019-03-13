@@ -207,6 +207,7 @@ module.exports = {
 	plugins: [
 		// https://www.npmjs.com/package/lodash-webpack-plugin
 		new lodashWebpackPlugin({
+			shorthands: true,
 			cloning: true,
 			currying: true,
 			collections: true,
