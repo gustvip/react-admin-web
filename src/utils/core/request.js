@@ -43,12 +43,9 @@ Promise._unhandledRejectionFn = noop;
 
 const singleton = (function () {
 	let instantiated;
-	const baseURL = ENV.apiDomain;
 	
 	function init () {
 		const instance = axios.create({
-			baseURL,
-			
 			withCredentials: true,
 			
 			/**

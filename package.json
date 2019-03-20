@@ -76,7 +76,6 @@
 		"lint-staged": "^8.1.4",
 		"lodash-webpack-plugin": "^0.11.5",
 		"mini-css-extract-plugin": "^0.5.0",
-		"mockjs": "^1.0.1-beta3",
 		"node-sass": "^4.11.0",
 		"optimize-css-assets-webpack-plugin": "^5.0.1",
 		"papaparse": "^4.6.3",
@@ -105,17 +104,16 @@
 		"webpackbar": "^3.1.5"
 	},
 	"scripts": {
-		"test": "jest --config jest.js --color",
+		"test": "jest --config jest.js --color --no-cache",
 		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
 		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
 		"lint": "npm run lint:js && npm run lint:scss",
-		"lint:js": "eslint build src tests ./*.js --ext '.js,.jsx'",
+		"lint:js": "eslint . --ext '.js,.jsx'",
 		"lint:ts": "tslint 'src/**/*.{ts,tsx}'",
 		"lint:scss": "stylelint 'src/**/*.scss' --syntax scss",
 		"lint-fix:js": "eslint --fix build src tests ./*.js --ext '.js,.jsx'",
 		"lint-fix:ts": "tslint 'src/**/*.{ts,tsx}' --fix",
 		"lint-fix:scss": "stylelint 'src/**/*.scss' --fix --syntax scss",
-		"pre-commit": "pre-commit",
 		"lint-staged": "lint-staged"
 	},
 	"browserslist": [
@@ -132,7 +130,7 @@
 		"lint-staged"
 	],
 	"lint-staged": {
-		"{build,src,tests}/*/*.{js,jsx}": [
+		"*.{js,jsx}": [
 			"npm run lint:js"
 		],
 		"src/**/*.scss": [

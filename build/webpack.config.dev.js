@@ -42,7 +42,7 @@ module.exports = merge(baseConfig, {
 		
 		proxy: {
 			'/proxyAPI': {
-				target: 'http://10.0.3.179:9090',
+				target: 'http://47.75.209.119:8081',
 				pathRewrite: {'^/proxyAPI': ''},
 			},
 		},

@@ -4,6 +4,16 @@ import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
 
 class Helper {
 	/**
+	 * 连接url
+	 * @param {string} baseUrl
+	 * @param {string} relativeUrl
+	 * @return {string}
+	 */
+	combineUrl (baseUrl, relativeUrl) {
+		return relativeUrl ? baseUrl.replace(/\/+$/, '') + '/' + relativeUrl.replace(/^\/+/, '') : baseUrl;
+	}
+	
+	/**
 	 * 时间格式化
 	 * @param { Date | Number} date
 	 * @param {string} template
@@ -51,7 +61,7 @@ class Helper {
 	 * @param {string | number} parentIdName 指向parent的key
 	 * @param {string | number} ownIdName 指向own的key
 	 * @param {string} [childrenName] 生成children的key
-	 * @param {int} [treeDepth] 树的深度
+	 * @param {number} [treeDepth] 树的深度
 	 * @return {Array}
 	 */
 	formatTreeData (data, parentIdName, ownIdName, childrenName = 'children', treeDepth = 20000) {
@@ -200,7 +210,7 @@ class Helper {
 	 * @param {String} x
 	 */
 	removeTrailingSlash (x) {
-		return x.replace(/\/*$/g, '');
+		return x.replace(/\/+$/g, '');
 	}
 	
 	/**
