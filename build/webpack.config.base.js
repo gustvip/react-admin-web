@@ -4,7 +4,6 @@
  */
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
-const miniCssExtractPlugin = require('mini-css-extract-plugin');
 // 优化lodash
 const lodashWebpackPlugin = require('lodash-webpack-plugin');
 
@@ -12,7 +11,6 @@ const lodashWebpackPlugin = require('lodash-webpack-plugin');
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index\.([jt]sx?))$/ig;
 const excludeRegex = require('./util').excludeRegex;
 const resourceBaseName = require('./util').resourceBaseName;
-const customAntStyle = require('./util').customAntStyle;
 
 const staticResource = [
 	{
@@ -123,60 +121,6 @@ module.exports = {
 		rules: [
 			...staticResource,
 			
-			{
-				test: /\.css$/,
-				use: [
-					miniCssExtractPlugin.loader,
-					'css-loader',
-					'postcss-loader',
-				],
-			},
-			
-			{
-				test: /\.scss/,
-				exclude: excludeRegex,
-				use: [
-					miniCssExtractPlugin.loader,
-					
-					// scss开启css的命名空间
-					{
-						loader: 'css-loader',
-						options: {
-							sourceMap: true,
-							modules: true,
-							import: true,
-							url: true,
-							localIdentName: '[name][hash:base64]',
-						},
-					},
-					
-					'postcss-loader',
-					{
-						loader: 'sass-loader',
-						options: {
-							sourceMap: true,
-						},
-					},
-				],
-			},
-			
-			{
-				test: /\.less/,
-				use: [
-					miniCssExtractPlugin.loader,
-					'css-loader',
-					'postcss-loader',
-					{
-						loader: 'less-loader',
-						options: {
-							sourceMap: true,
-							javascriptEnabled: true,
-							modifyVars: customAntStyle,
-						},
-					},
-				],
-			},
-			
 			// 路由的懒加载
 			{
 				test: routesComponentsRegex,
@@ -228,9 +172,6 @@ module.exports = {
 		}),
 		new webpackBar({
 			profile: true,
-		}),
-		new miniCssExtractPlugin({
-			filename: process.env.NODE_ENV === 'development' ? '[name].css' : '[name].[contenthash].css',
 		}),
 	],
 };

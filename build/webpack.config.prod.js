@@ -9,6 +9,67 @@ const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 const compressionPlugin = require('compression-webpack-plugin');
 const resourceBaseName = require('./util').resourceBaseName;
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const excludeRegex = require('./util').excludeRegex;
+const customAntStyle = require('./util').customAntStyle;
+
+function getStyleConfig () {
+	return [
+		{
+			test: /\.css$/,
+			use: [
+				miniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader',
+			],
+		},
+		
+		{
+			test: /\.scss/,
+			exclude: excludeRegex,
+			use: [
+				miniCssExtractPlugin.loader,
+				
+				// scss开启css的命名空间
+				{
+					loader: 'css-loader',
+					options: {
+						sourceMap: true,
+						modules: true,
+						import: true,
+						url: true,
+						localIdentName: '[name][hash:base64]',
+					},
+				},
+				
+				'postcss-loader',
+				{
+					loader: 'sass-loader',
+					options: {
+						sourceMap: true,
+					},
+				},
+			],
+		},
+		
+		{
+			test: /\.less/,
+			use: [
+				miniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader',
+				{
+					loader: 'less-loader',
+					options: {
+						sourceMap: true,
+						javascriptEnabled: true,
+						modifyVars: customAntStyle,
+					},
+				},
+			],
+		},
+	];
+}
 
 module.exports = merge(baseConfig, {
 	mode: 'production',
@@ -49,6 +110,8 @@ module.exports = merge(baseConfig, {
 	
 	module: {
 		rules: [
+			...getStyleConfig(),
+			
 			{
 				test: /\.(png|jpg|gif|jpeg|svg)(\?.*)?$/,
 				use: [
@@ -99,6 +162,8 @@ module.exports = merge(baseConfig, {
 	},
 	
 	plugins: [
+		new miniCssExtractPlugin({filename: '[name].[contenthash].css'}),
+		
 		new compressionPlugin({
 			test: /\.(js|css)$/,
 			cache: true,
