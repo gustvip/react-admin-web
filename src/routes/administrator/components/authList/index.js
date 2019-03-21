@@ -46,7 +46,7 @@ class AuthList extends React.PureComponent {
 		roleData: Object.values(enumCommon.role).
 			map(value => ({
 				value: value.value,
-				label: value.label,
+				label: value.value,
 			})),
 		role: undefined,
 		isAdd: false,
@@ -88,7 +88,7 @@ class AuthList extends React.PureComponent {
 			this.setState({
 				groupData: info.data.map(value => ({
 					value: value.value,
-					label: value.label,
+					label: value.value,
 				})),
 			}, () => callback && callback(info.data));
 		}).catch(info => T.prompt.error(info.msg));
@@ -211,9 +211,6 @@ class AuthList extends React.PureComponent {
 			{
 				title: 'role',
 				dataIndex: 'role',
-				render (text) {
-					return Object.values(enumCommon.role).find(value => value.value === text).label;
-				},
 				sorter (prev, now) {
 					return T.helper.sort({
 						prev,

@@ -97,9 +97,10 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 				onCancel={() => this.setState({showModal: false})}
 				okText="确认"
 				cancelText="取消"
-				closable={false}
+				title="角色管理"
+				closable={true}
 				visible={this.state.showModal}
-				maskClosable={true}
+				maskClosable={false}
 				destroyOnClose={true}
 				{...option}
 			>

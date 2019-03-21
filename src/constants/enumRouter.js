@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import { flowRight } from 'lodash';
+import { flowRight, identity, partial } from 'lodash';
 
 /**
  * @type {{rootPath: string, login: string, noPermit: string, testDemo: string, testParseFile: string, userList: string, administratorAuthEnumList: string, administratorGroupList: string}}
@@ -36,4 +36,4 @@ const enumRouter = {
 	administratorAuthList: 'administrator/authList', // 权限列表
 	administratorGroupList: 'administrator/groupList', // 组列表
 };
-export default helper.immutable(enumRouter, value => ENV.rootPath.trim() + flowRight(helper.removeTrailingSlash, helper.removeBlank)(value));
+export default helper.immutable(enumRouter, flowRight(partial(helper.combineUrl, ENV.rootPath), helper.removeTrailingSlash, helper.removeBlank, identity));
