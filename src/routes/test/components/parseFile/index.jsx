@@ -11,7 +11,7 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 const Option = Select.Option;
 
 export default class TestComponent extends React.PureComponent {
-	constructor () {
+	constructor() {
 		super();
 		this.jsonContainer = null;
 		this.xlsxContainer = null;
@@ -73,7 +73,7 @@ export default class TestComponent extends React.PureComponent {
 		}
 	};
 	
-	render () {
+	render() {
 		return (
 			<div
 				className={T.classNames(styles['main-container'], 'flex-column-grow')}
@@ -91,9 +91,7 @@ export default class TestComponent extends React.PureComponent {
 							onChange={jsonExtendName => this.setState({jsonExtendName})}
 						>
 							{
-								this.state.jsonExtendNameData.map((value => {
-									return <Option key={value.value}>{value.label}</Option>;
-								}))
+								this.state.jsonExtendNameData.map((value => <Option key={value.value}>{value.label}</Option>))
 							}
 						</Select>
 						<Button
@@ -108,7 +106,7 @@ export default class TestComponent extends React.PureComponent {
 							multiple={false}
 							accept="application/json"
 							type="file"
-							onChange={(e) => e.target.files && this.setState({jsonFile: e.target.files[0]})}
+							onChange={e => e.target.files && this.setState({jsonFile: e.target.files[0]})}
 						/>
 					</div>
 				</MainHeader>
@@ -125,9 +123,7 @@ export default class TestComponent extends React.PureComponent {
 							onChange={xlsxExtendName => this.setState({xlsxExtendName})}
 						>
 							{
-								this.state.xlsxExtendNameData.map((value => {
-									return <Option key={value.value}>{value.label}</Option>;
-								}))
+								this.state.xlsxExtendNameData.map((value => <Option key={value.value}>{value.label}</Option>))
 							}
 						</Select>
 						<Button
@@ -142,7 +138,7 @@ export default class TestComponent extends React.PureComponent {
 							multiple={false}
 							accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 							type="file"
-							onChange={(e) => e.target.files && this.setState({xlsxFile: e.target.files[0]})}
+							onChange={e => e.target.files && this.setState({xlsxFile: e.target.files[0]})}
 						/>
 					</div>
 				</MainHeader>
@@ -159,9 +155,7 @@ export default class TestComponent extends React.PureComponent {
 							onChange={csvExtendName => this.setState({csvExtendName})}
 						>
 							{
-								this.state.csvExtendNameData.map((value => {
-									return <Option key={value.value}>{value.label}</Option>;
-								}))
+								this.state.csvExtendNameData.map((value => <Option key={value.value}>{value.label}</Option>))
 							}
 						</Select>
 						<Button
@@ -176,7 +170,7 @@ export default class TestComponent extends React.PureComponent {
 							multiple={false}
 							accept="text/csv"
 							type="file"
-							onChange={(e) => e.target.files && this.setState({csvFile: e.target.files[0]})}
+							onChange={e => e.target.files && this.setState({csvFile: e.target.files[0]})}
 						/>
 					</div>
 				</MainHeader>
@@ -194,7 +188,7 @@ export default class TestComponent extends React.PureComponent {
 							multiple={false}
 							accept="text/xml"
 							type="file"
-							onChange={(e) => e.target.files && this.setState({xmlFile: e.target.files[0]})}
+							onChange={e => e.target.files && this.setState({xmlFile: e.target.files[0]})}
 						/>
 						<Button
 							onClick={() => this.handleParseXml()}

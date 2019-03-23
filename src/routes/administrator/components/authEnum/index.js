@@ -48,7 +48,7 @@ class AuthEnum extends React.PureComponent {
 		isTableLoading: false,
 	};
 	
-	componentDidMount () {
+	componentDidMount() {
 		this.getList(1, this.state.pageSize, this.state.search);
 	}
 	
@@ -78,7 +78,6 @@ class AuthEnum extends React.PureComponent {
 					callback && callback(info.data);
 				});
 			}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isTableLoading: false}));
-			
 		});
 	};
 	
@@ -86,7 +85,7 @@ class AuthEnum extends React.PureComponent {
 	 * 编辑权限枚举
 	 * @param record
 	 */
-	handleEdit = (record) => {
+	handleEdit = record => {
 		T.helper.renderModal(<UpdateAuthEnumInfoModal
 			record={record}
 			successCallback={() => {
@@ -100,10 +99,10 @@ class AuthEnum extends React.PureComponent {
 	 * 删除权限枚举
 	 * @param{Array<Object>} selectedRows
 	 */
-	handleDelete = (selectedRows) => {
+	handleDelete = selectedRows => {
 		const self = this;
 		T.prompt.confirm({
-			onOk () {
+			onOk() {
 				return webAPI.administratorAuthEnumDelete({authValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
 					self.getList(1, self.state.pageSize, self.state.search);
@@ -117,13 +116,13 @@ class AuthEnum extends React.PureComponent {
 	 */
 	resetFields = () => this.props.form.resetFields();
 	
-	get columns () {
+	get columns() {
 		const self = this;
 		return [
 			{
 				title: 'value',
 				dataIndex: 'value',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -134,7 +133,7 @@ class AuthEnum extends React.PureComponent {
 			{
 				title: 'label',
 				dataIndex: 'label',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -144,7 +143,7 @@ class AuthEnum extends React.PureComponent {
 			},
 			{
 				title: '操作',
-				render (test, record) {
+				render(test, record) {
 					return (
 						<React.Fragment>
 							<AuthComponent auth={enumAuth.sAdministratorAuthEnumUpdate.value}>
@@ -163,11 +162,11 @@ class AuthEnum extends React.PureComponent {
 		];
 	}
 	
-	get rowSelection () {
+	get rowSelection() {
 		const self = this;
 		return {
 			selectedRowKeys: self.state.selectedRowKeys,
-			onChange (selectedRowKeys, selectedRows) {
+			onChange(selectedRowKeys, selectedRows) {
 				self.setState({
 					selectedRowKeys,
 					selectedRows,
@@ -176,7 +175,7 @@ class AuthEnum extends React.PureComponent {
 		};
 	}
 	
-	get pagination () {
+	get pagination() {
 		const self = this;
 		return {
 			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
@@ -185,16 +184,16 @@ class AuthEnum extends React.PureComponent {
 			total: self.state.count,
 			pageSize: self.state.pageSize,
 			showQuickJumper: enumCommon.pagination.showQuickJumper,
-			onChange (currentPage, pageSize) {
+			onChange(currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search);
 			},
-			onShowSizeChange (currentPage, pageSize) {
+			onShowSizeChange(currentPage, pageSize) {
 				self.getList(1, pageSize, self.state.search);
 			},
 		};
 	}
 	
-	handleSubmit = (e) => {
+	handleSubmit = e => {
 		e.preventDefault();
 		const self = this;
 		self.props.form.validateFields((err, values) => {
@@ -214,7 +213,7 @@ class AuthEnum extends React.PureComponent {
 		T.request.form(enumAPI.administratorAuthEnumDownload, {method: 'GET'});
 	};
 	
-	render () {
+	render() {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
@@ -297,9 +296,7 @@ class AuthEnum extends React.PureComponent {
 							})(
 								<Radio.Group>
 									{
-										this.state.autoAddToAdministratorData.map(value => {
-											return <Radio value={value.value} key={value.value}>{value.label}</Radio>;
-										})
+										this.state.autoAddToAdministratorData.map(value => <Radio value={value.value} key={value.value}>{value.label}</Radio>)
 									}
 								</Radio.Group>,
 							)}

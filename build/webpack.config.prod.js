@@ -13,7 +13,7 @@ const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const excludeRegex = require('./util').excludeRegex;
 const customAntStyle = require('./util').customAntStyle;
 
-function getStyleConfig () {
+function getStyleConfig() {
 	return [
 		{
 			test: /\.css$/,
@@ -171,7 +171,7 @@ module.exports = merge(baseConfig, {
 			compressionOptions: {
 				level: 9,
 				threshold: 0,
-				minRatio: .8,
+				minRatio: 0.8,
 			},
 		}),
 	],

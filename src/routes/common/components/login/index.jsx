@@ -15,7 +15,7 @@ export default class Login extends React.PureComponent {
 		router: propTypes.object.isRequired,
 	};
 	
-	constructor () {
+	constructor() {
 		super();
 		this.state = {
 			userName: '',
@@ -31,9 +31,8 @@ export default class Login extends React.PureComponent {
 		} else if (!regExp.password().test(userPassword)) {
 			prompt.warn('密码格式不对');
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 	};
 	
 	handleSubmit = () => {
@@ -47,13 +46,13 @@ export default class Login extends React.PureComponent {
 				auth.login(
 					userName,
 					userPassword,
-					(info) => {
+					info => {
 						prompt.success('登陆成功,正在跳转');
 						auth.setLoginStorageValue();
 						auth.setUserInfoStorageValue(info.data);
 						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
 					},
-					(info) => {
+					info => {
 						self.setState({loading: false});
 						prompt.error(info.msg);
 					},
@@ -62,7 +61,7 @@ export default class Login extends React.PureComponent {
 		}
 	};
 	
-	render () {
+	render() {
 		const self = this;
 		
 		return (

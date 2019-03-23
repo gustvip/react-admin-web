@@ -24,7 +24,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 		userId: PropTypes.number.isRequired,
 	};
 	
-	componentDidMount () {
+	componentDidMount() {
 		request.get(enumAPI.userDetail, {userId: this.props.userId}).then(info => {
 			this.setState({
 				userInfo: info.data,
@@ -39,7 +39,7 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 		userInfo: {},
 	};
 	
-	render () {
+	render() {
 		const {className = '', option = {}} = this.props;
 		return !this.state.isLoading && (
 			<Modal

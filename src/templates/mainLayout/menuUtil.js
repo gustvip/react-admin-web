@@ -7,9 +7,9 @@ import EnumDefaultMenus from 'constants/enumDefaultMenus';
 import { isString, uniq, flowRight, identity } from 'lodash';
 
 export const EnumMenus = (() => {
-	const formatData = (data) => {
+	const formatData = data => {
 		let resultUrl = [];
-		let resultData = data.map((item) => {
+		const resultData = data.map(item => {
 			const itemUrl = uniq(Array.isArray(item.url) ? item.url : isString(item.url) ? [item.url] : []);
 			if (Array.isArray(item.children) && item.children.length) {
 				const result = formatData(item.children);
@@ -23,19 +23,17 @@ export const EnumMenus = (() => {
 						url: uniq(itemUrl.concat(result.resultUrl)),
 					},
 				);
-			} else {
-				
-				resultUrl = resultUrl.concat(itemUrl);
-				
-				return Object.assign(
-					{},
-					item,
-					{
-						children: [],
-						url: itemUrl,
-					},
-				);
 			}
+			resultUrl = resultUrl.concat(itemUrl);
+			
+			return Object.assign(
+				{},
+				item,
+				{
+					children: [],
+					url: itemUrl,
+				},
+			);
 		});
 		return {resultData, resultUrl};
 	};
@@ -48,7 +46,7 @@ export const EnumMenus = (() => {
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
-export const getCategoryRoute = (locationPathname) => {
+export const getCategoryRoute = locationPathname => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const result = EnumMenus.find(item => item.url.indexOf(locationPathname) !== -1);
 	return result
@@ -63,7 +61,7 @@ export const getCategoryRoute = (locationPathname) => {
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
-export const getMenuData = (locationPathname) => {
+export const getMenuData = locationPathname => {
 	const result = getCategoryRoute(locationPathname).find(item => item.url.indexOf(locationPathname) !== -1);
 	return result
 		? Array.isArray(result.children)
@@ -77,12 +75,12 @@ export const getMenuData = (locationPathname) => {
  * @param {String} locationPathname window.location.pathname
  * @return {Array}
  */
-export const getOpenKeys = (locationPathname) => {
+export const getOpenKeys = locationPathname => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const dataSource = getMenuData(locationPathname);
 	const data = [];
 	
-	(function fn (_dataSource) {
+	(function fn(_dataSource) {
 		const result = _dataSource.find(item => item.url.indexOf(locationPathname) !== -1);
 		if (result) {
 			data.push(result.id);

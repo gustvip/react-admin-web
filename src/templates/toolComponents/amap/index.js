@@ -15,7 +15,7 @@ export default class AMapComponent extends React.PureComponent {
 		option: PropTypes.object,
 	};
 	
-	constructor () {
+	constructor() {
 		super();
 		this._mapContainer = null;
 		this.map = null;
@@ -23,7 +23,7 @@ export default class AMapComponent extends React.PureComponent {
 		this.EnumMap = EnumMap;
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		const baseOption = {
 			zoom: EnumMap.ZOOM.normal,		// 缩放级别
 			center: EnumMap.CENTER.normal,		// 地图中心
@@ -43,14 +43,14 @@ export default class AMapComponent extends React.PureComponent {
 		}
 	}
 	
-	componentWillUnmount () {
+	componentWillUnmount() {
 		if (this.map) {
 			this.map.destroy();
 			this.map = null;
 		}
 	}
 	
-	render () {
+	render() {
 		const baseStyle = {
 			position: 'absolute',
 			left: 0,

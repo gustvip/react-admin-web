@@ -18,9 +18,9 @@ const conf = {
 };
 
 // 解决antd-design 字体本地化问题
-prodConfig.module.rules.forEach((item) => {
+prodConfig.module.rules.forEach(item => {
 	if (item.use && Array.isArray(item.use)) {
-		item.use.forEach((item2) => {
+		item.use.forEach(item2 => {
 			if (item2.loader === 'less-loader') {
 				const oldIconUrl = item2.options.modifyVars ? item2.options.modifyVars['@icon-url'] : null;
 				if (oldIconUrl) {
@@ -80,7 +80,7 @@ const webpackConfigProd = merge(prodConfig, {
 		])],
 });
 
-function doCompilerPlatform () {
+function doCompilerPlatform() {
 	return new Promise((resolve, reject) => {
 		webpack(webpackConfigProd, (err, stats) => {
 			const jsonStats = stats.toJson();
@@ -94,10 +94,10 @@ function doCompilerPlatform () {
 	});
 }
 
-function deleteFile () {
+function deleteFile() {
 	return new Promise((resolve, reject) => {
 		if (conf.webPath.startsWith(os.homedir())) {
-			rm(conf.webPath, (err) => {
+			rm(conf.webPath, err => {
 				if (err) {
 					reject(err);
 				} else {
@@ -114,10 +114,10 @@ function deleteFile () {
  * 编译结束后统计
  * @param {number} startTime
  */
-function toEnd (startTime) {
+function toEnd(startTime) {
 	const endTime = Date.now();
 	console.log(clc.green('  ↓'));
-	console.log(clc.green('总计耗时:' + ((endTime - startTime) / 1000).toFixed(2) + 's'));
+	console.log(clc.green(`总计耗时:${((endTime - startTime) / 1000).toFixed(2) }s`));
 	console.log(clc.green('  ↓'));
 	console.log(clc.green(`附属信息:
 	        PID: ${process.pid}
@@ -126,7 +126,7 @@ function toEnd (startTime) {
 	        计算机名称: ${os.hostname()}
 	        系统类型: ${os.type()}
 	        系统版本号: ${os.release()}
-	        系统总内存量: ${(os.totalmem() / 1024 / 1024 / 1024).toFixed(1) + 'G'}
+	        系统总内存量: ${`${(os.totalmem() / 1024 / 1024 / 1024).toFixed(1) }G`}
 	`));
 }
 
@@ -134,7 +134,7 @@ function toEnd (startTime) {
  * 错误处理方法
  * @param errorMsg
  */
-function handleError (errorMsg) {
+function handleError(errorMsg) {
 	console.log(clc.red.bold(errorMsg));
 	process.exit();
 }
@@ -143,11 +143,11 @@ function handleError (errorMsg) {
  * 告警处理方法
  * @param warnMsg
  */
-function handleWarn (warnMsg) {
+function handleWarn(warnMsg) {
 	console.log(clc.yellow(warnMsg));
 }
 
-async function buildApp () {
+async function buildApp() {
 	const startTime = Date.now();
 	
 	// 删除文件

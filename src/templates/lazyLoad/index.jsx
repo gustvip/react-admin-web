@@ -4,8 +4,4 @@
  */
 import LazyLoad from './lazyLoad';
 
-export default (lazyLoader) => {
-	return (props) => {
-		return <LazyLoad {...props} lazyLoader={lazyLoader}/>;
-	};
-};
+export default lazyLoader => props => <LazyLoad {...props} lazyLoader={lazyLoader}/>;

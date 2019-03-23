@@ -20,7 +20,7 @@ import { isEqual, flowRight, get, uniqueId } from 'lodash';
  * 获取图标字体
  * @param {Object} icon {{type: String, value: String}}
  */
-const getIcon = (icon) => {
+const getIcon = icon => {
 	if (icon) {
 		if (icon.type === EnumIconTypes.custom) {
 			return <i className={T.helper.classNames()(icon.value)}/>;
@@ -37,7 +37,7 @@ class SiderMenu extends React.PureComponent {
 		isCollapsed: PropTypes.bool.isRequired,
 	};
 	
-	constructor () {
+	constructor() {
 		super();
 		const locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 		this.locationPathname = locationPathname;
@@ -59,10 +59,9 @@ class SiderMenu extends React.PureComponent {
 		return data.filter(value => {
 			if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
 				return T.auth.hasAuth(value.auth);
-			} else {
-				return true;
 			}
-		}).map((item) => {
+			return true;
+		}).map(item => {
 			const defaultOpenKeys = [].concat(openKeys);
 			if (!T.helper.checkArray(item.children)) {
 				return (
@@ -72,18 +71,17 @@ class SiderMenu extends React.PureComponent {
 						</Link>
 					</Menu.Item>
 				);
-			} else {
-				defaultOpenKeys.push(item.id);
-				return (
-					<Menu.SubMenu
-						key={item.id}
-						title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
-						onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
-					>
-						{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
-					</Menu.SubMenu>
-				);
 			}
+			defaultOpenKeys.push(item.id);
+			return (
+				<Menu.SubMenu
+					key={item.id}
+					title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
+					onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
+				>
+					{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
+				</Menu.SubMenu>
+			);
 		});
 	};
 	
@@ -98,12 +96,12 @@ class SiderMenu extends React.PureComponent {
 		this.setState({defaultOpenKeys});
 	};
 	
-	handleCollapsed = (collapsed) => {
+	handleCollapsed = collapsed => {
 		this.setState({defaultOpenKeys: collapsed ? [] : getOpenKeys(this.locationPathname)});
 		this.props.handleCollapsed();
 	};
 	
-	render () {
+	render() {
 		const locationPathname = this.locationPathname;
 		const defaultOpenKeys = this.state.defaultOpenKeys;
 		
@@ -152,13 +150,11 @@ export class HeaderLayout extends React.PureComponent {
 					value={initialValue}
 				>
 					{
-						EnumMenus.map((value) => {
-							return (
-								<Select.Option key={value.id} value={get(value, 'url[0]')}>
-									<Link to={get(value, 'url[0]')}>{value.label}</Link>
-								</Select.Option>
-							);
-						})
+						EnumMenus.map(value => (
+							<Select.Option key={value.id} value={get(value, 'url[0]')}>
+								<Link to={get(value, 'url[0]')}>{value.label}</Link>
+							</Select.Option>
+						))
 					}
 				</Select>
 			</div>
@@ -173,30 +169,27 @@ export class HeaderLayout extends React.PureComponent {
 					getCategoryRoute(self.locationPathname).filter(value => {
 						if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
 							return T.auth.hasAuth(value.auth);
-						} else {
-							return true;
 						}
-					}).map((value) => {
-						return (
-							<Link
-								className={T.helper.classNames('')({[styles.active]: value.url.indexOf(self.locationPathname) !== -1})}
-								key={value.id}
-								to={get(value, 'url[0]')}
-							>
-								{getIcon(value.icon)}
-								{value.label}
-							</Link>
-						);
-					})
+						return true;
+					}).map(value => (
+						<Link
+							className={T.helper.classNames('')({[styles.active]: value.url.indexOf(self.locationPathname) !== -1})}
+							key={value.id}
+							to={get(value, 'url[0]')}
+						>
+							{getIcon(value.icon)}
+							{value.label}
+						</Link>
+					))
 				}
 			</div>
 		);
 	};
 	
-	handleResetPassword = (userId) => {
+	handleResetPassword = userId => {
 		T.prompt.confirm({
-			onOk () {
-				T.auth.resetUserPassword(userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
+			onOk() {
+				T.auth.resetUserPassword(userId, () => T.prompt.success('重置成功'), info => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码吗?',
 			content: `密码将重置为${enumCommon.initialPassword}`,
@@ -273,7 +266,7 @@ export class HeaderLayout extends React.PureComponent {
 		);
 	};
 	
-	render () {
+	render() {
 		return (
 			<React.Fragment>
 				<Layout.Header className={styles['main-header-container']}>
@@ -310,7 +303,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 		this.setState(previousState => ({isCollapsed: !previousState.isCollapsed}));
 	};
 	
-	render () {
+	render() {
 		const self = this;
 		return (
 			<Layout
@@ -336,7 +329,7 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 }
 
 export class DefaultLayout extends React.PureComponent {
-	render () {
+	render() {
 		return (
 			<React.Fragment>{this.props.children}</React.Fragment>
 		);

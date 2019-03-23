@@ -11,7 +11,7 @@ import T from 'utils/t';
  * @param {string} condition.search
  * @return {Promise}
  */
-export const administratorAuthEnumList = (condition) => T.request.get(enumAPI.administratorAuthEnumList, condition);
+export const administratorAuthEnumList = condition => T.request.get(enumAPI.administratorAuthEnumList, condition);
 
 /**
  * 增加权限枚举
@@ -20,14 +20,14 @@ export const administratorAuthEnumList = (condition) => T.request.get(enumAPI.ad
  * @param {string} condition.autoAddToAdministrator
  * @return {Promise}
  */
-export const administratorAuthEnumAdd = (condition) => T.request.postJSON(enumAPI.administratorAuthEnumAdd, condition);
+export const administratorAuthEnumAdd = condition => T.request.postJSON(enumAPI.administratorAuthEnumAdd, condition);
 
 /**
  * 删除权限枚举
  * @param {String[]} condition.authValue
  * @return {Promise}
  */
-export const administratorAuthEnumDelete = (condition) => T.request.del(enumAPI.administratorAuthEnumDelete, condition);
+export const administratorAuthEnumDelete = condition => T.request.del(enumAPI.administratorAuthEnumDelete, condition);
 
 /**
  * 更新权限枚举
@@ -36,4 +36,4 @@ export const administratorAuthEnumDelete = (condition) => T.request.del(enumAPI.
  * @param {string} condition.authLabel
  * @return {Promise}
  */
-export const administratorAuthEnumUpdate = (condition) => T.request.put(enumAPI.administratorAuthEnumUpdate, condition);
+export const administratorAuthEnumUpdate = condition => T.request.put(enumAPI.administratorAuthEnumUpdate, condition);

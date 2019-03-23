@@ -238,7 +238,7 @@ export default class Map extends React.PureComponent {
 		this.handleRegionClick();
 	}
 	
-	handlePlaceChange = (place) => {
+	handlePlaceChange = place => {
 		const self = this;
 		const chart = self.chart;
 		const oldPlace = self.state.place;
@@ -260,7 +260,7 @@ export default class Map extends React.PureComponent {
 	handleRegionClick = () => {
 		const self = this;
 		const echartsInstance = self.chart.echartsInstance;
-		echartsInstance.on('click', function(event) {
+		echartsInstance.on('click', event => {
 			self.handlePlaceChange(event.name);
 		});
 	};

@@ -19,7 +19,7 @@ export default class Scatter extends React.PureComponent {
 		const min = 100;
 		const max = 500;
 		const province = ['台湾', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '上海', '重庆', '香港', '澳门'];
-		const data = province.map((value) => [random(min, max), random(min, max), value]);
+		const data = province.map(value => [random(min, max), random(min, max), value]);
 		return {
 			color: ['#3891ff', '#1fdfe9'],
 			tooltip: {
@@ -80,7 +80,7 @@ export default class Scatter extends React.PureComponent {
 					show: true,
 					lineStyle: {
 						color: ['#485465'],
-						width: .5,
+						width: 0.5,
 						type: 'dashed',
 					},
 				},
@@ -109,7 +109,7 @@ export default class Scatter extends React.PureComponent {
 						show: true,
 					},
 					type: 'scatter',
-					data: data,
+					data,
 				},
 			],
 		};

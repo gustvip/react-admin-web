@@ -38,7 +38,7 @@ class AddUserModal extends React.PureComponent {
 		loading: false,
 	};
 	
-	handleSubmit = (e) => {
+	handleSubmit = e => {
 		e.preventDefault();
 		const self = this;
 		self.props.form.validateFields((err, values) => {
@@ -74,7 +74,7 @@ class AddUserModal extends React.PureComponent {
 		}
 	};
 	
-	render () {
+	render() {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (
@@ -230,9 +230,7 @@ class AddUserModal extends React.PureComponent {
 						})(
 							<RadioGroup>
 								{
-									Object.values(userSex).map(value => {
-										return <Radio key={value.value} value={value.value}>{value.label}</Radio>;
-									})
+									Object.values(userSex).map(value => <Radio key={value.value} value={value.value}>{value.label}</Radio>)
 								}
 							</RadioGroup>,
 						)}

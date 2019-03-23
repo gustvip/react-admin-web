@@ -23,7 +23,7 @@ export default class UserList extends React.PureComponent {
 		router: PropTypes.object.isRequired,
 	};
 	
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			currentPage: 1,
@@ -59,7 +59,7 @@ export default class UserList extends React.PureComponent {
 		};
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		if (T.auth.isAdministrator) {
 			// 获取组
 			this.getGroupList();
@@ -80,7 +80,7 @@ export default class UserList extends React.PureComponent {
 	/**
 	 * @param {function} [callback]
 	 */
-	getGroupList = (callback) => {
+	getGroupList = callback => {
 		administratorGroupList().then(info => {
 			this.setState({
 				groupData: info.data.map(value => ({
@@ -145,7 +145,7 @@ export default class UserList extends React.PureComponent {
 		});
 	};
 	
-	handleLookUp = (record) => {
+	handleLookUp = record => {
 		T.helper.renderModal(
 			<LookUpUserInfoModal
 				userId={record.userId}
@@ -156,7 +156,7 @@ export default class UserList extends React.PureComponent {
 	handleDelete = () => {
 		const self = this;
 		T.prompt.confirm({
-			onOk () {
+			onOk() {
 				webAPI.deleteUser({userId: self.state.selectedRows.map(value => value.userId)}).
 					then(() => {
 						T.prompt.success('删除成功');
@@ -178,7 +178,7 @@ export default class UserList extends React.PureComponent {
 	handleRecover = () => {
 		const self = this;
 		T.prompt.confirm({
-			onOk () {
+			onOk() {
 				webAPI.userRecover({userId: self.state.selectedRows.map(value => value.userId)}).
 					then(() => {
 						T.prompt.success('恢复成功');
@@ -198,7 +198,7 @@ export default class UserList extends React.PureComponent {
 		});
 	};
 	
-	handleGroupChange = (group) => {
+	handleGroupChange = group => {
 		this.getList({
 			currentPage: this.state.currentPage,
 			pageSize: this.state.pageSize,
@@ -210,7 +210,7 @@ export default class UserList extends React.PureComponent {
 		});
 	};
 	
-	handleRoleChange = (role) => {
+	handleRoleChange = role => {
 		this.getList({
 			currentPage: this.state.currentPage,
 			pageSize: this.state.pageSize,
@@ -222,7 +222,7 @@ export default class UserList extends React.PureComponent {
 		});
 	};
 	
-	handleStatusChange = (status) => {
+	handleStatusChange = status => {
 		this.getList({
 			currentPage: this.state.currentPage,
 			pageSize: this.state.pageSize,
@@ -234,7 +234,7 @@ export default class UserList extends React.PureComponent {
 		});
 	};
 	
-	handleSexChange = (sex) => {
+	handleSexChange = sex => {
 		this.getList({
 			currentPage: this.state.currentPage,
 			pageSize: this.state.pageSize,
@@ -261,12 +261,12 @@ export default class UserList extends React.PureComponent {
 						sex: this.state.status,
 					});
 				}}
-				failCallback={(info) => T.prompt.error(info.msg)}
+				failCallback={info => T.prompt.error(info.msg)}
 			/>,
 		);
 	};
 	
-	handleEdit = (record) => {
+	handleEdit = record => {
 		T.helper.renderModal(
 			<UpdateUserInfoModal
 				userId={record.userId}
@@ -282,22 +282,22 @@ export default class UserList extends React.PureComponent {
 						sex: this.state.status,
 					});
 				}}
-				failCallback={(info) => T.prompt.error(info.msg)}
+				failCallback={info => T.prompt.error(info.msg)}
 			/>,
 		);
 	};
 	
-	handleResetPassword = (record) => {
+	handleResetPassword = record => {
 		T.prompt.confirm({
-			onOk () {
-				T.auth.resetUserPassword(record.userId, () => T.prompt.success('重置成功'), (info) => T.prompt.error(info.msg));
+			onOk() {
+				T.auth.resetUserPassword(record.userId, () => T.prompt.success('重置成功'), info => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码吗？',
 			content: `密码将重置为${enumCommon.initialPassword}`,
 		});
 	};
 	
-	handleEditGroupAndRole = (record) => {
+	handleEditGroupAndRole = record => {
 		T.helper.renderModal(
 			<UpdateGroupAndRoleModal
 				userId={record.userId}
@@ -315,18 +315,18 @@ export default class UserList extends React.PureComponent {
 						sex: this.state.status,
 					});
 				}}
-				failCallback={(info) => T.prompt.error(info.msg)}
+				failCallback={info => T.prompt.error(info.msg)}
 			/>,
 		);
 	};
 	
-	get columns () {
+	get columns() {
 		const self = this;
 		return [
 			{
 				title: '组',
 				dataIndex: 'group',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -337,7 +337,7 @@ export default class UserList extends React.PureComponent {
 			{
 				title: '角色',
 				dataIndex: 'role',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -348,35 +348,35 @@ export default class UserList extends React.PureComponent {
 			{
 				title: '状态',
 				dataIndex: 'status',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
 						property: 'status',
 					});
 				},
-				render (text) {
+				render(text) {
 					return Object.values(enumCommon.status).find(value => value.value === text).label;
 				},
 			},
 			{
 				title: '性别',
 				dataIndex: 'userSex',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
 						property: 'userSex',
 					});
 				},
-				render (text) {
+				render(text) {
 					return Object.values(enumCommon.userSex).find(value => value.value === text).label;
 				},
 			},
 			{
 				title: '名称',
 				dataIndex: 'userName',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -387,7 +387,7 @@ export default class UserList extends React.PureComponent {
 			{
 				title: '邮箱',
 				dataIndex: 'userEmail',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -398,7 +398,7 @@ export default class UserList extends React.PureComponent {
 			{
 				title: '手机',
 				dataIndex: 'userPhone',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -408,7 +408,7 @@ export default class UserList extends React.PureComponent {
 			},
 			{
 				title: '操作',
-				render (text, record) {
+				render(text, record) {
 					return (
 						<React.Fragment>
 							<Button
@@ -456,7 +456,7 @@ export default class UserList extends React.PureComponent {
 		];
 	}
 	
-	get pagination () {
+	get pagination() {
 		const self = this;
 		return {
 			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
@@ -465,7 +465,7 @@ export default class UserList extends React.PureComponent {
 			total: self.state.count,
 			pageSize: self.state.pageSize,
 			showQuickJumper: enumCommon.pagination.showQuickJumper,
-			onChange (currentPage, pageSize) {
+			onChange(currentPage, pageSize) {
 				self.getList({
 					currentPage,
 					pageSize,
@@ -476,7 +476,7 @@ export default class UserList extends React.PureComponent {
 					sex: self.state.sex,
 				});
 			},
-			onShowSizeChange (currentPage, pageSize) {
+			onShowSizeChange(currentPage, pageSize) {
 				self.getList({
 					currentPage: 1,
 					pageSize,
@@ -490,11 +490,11 @@ export default class UserList extends React.PureComponent {
 		};
 	}
 	
-	get rowSelection () {
+	get rowSelection() {
 		const self = this;
 		return {
 			selectedRowKeys: self.state.selectedRowKeys,
-			onChange (selectedRowKeys, selectedRows) {
+			onChange(selectedRowKeys, selectedRows) {
 				self.setState({
 					selectedRowKeys,
 					selectedRows,
@@ -503,7 +503,7 @@ export default class UserList extends React.PureComponent {
 		};
 	}
 	
-	render () {
+	render() {
 		const self = this;
 		return (
 			<React.Fragment>
@@ -536,9 +536,7 @@ export default class UserList extends React.PureComponent {
 								placeholder="请选择分组"
 							>
 								{
-									this.state.groupData.map((value => {
-										return <Option key={value.value}>{value.value}</Option>;
-									}))
+									this.state.groupData.map((value => <Option key={value.value}>{value.value}</Option>))
 								}
 							</Select>
 						)
@@ -551,9 +549,7 @@ export default class UserList extends React.PureComponent {
 						placeholder="请选择角色"
 					>
 						{
-							this.state.roleData.map((value => {
-								return <Option key={value.value}>{value.value}</Option>;
-							}))
+							this.state.roleData.map((value => <Option key={value.value}>{value.value}</Option>))
 						}
 					</Select>
 					<Select
@@ -564,9 +560,7 @@ export default class UserList extends React.PureComponent {
 						placeholder="请选择状态"
 					>
 						{
-							this.state.statusData.map((value => {
-								return <Option key={value.value}>{value.label}</Option>;
-							}))
+							this.state.statusData.map((value => <Option key={value.value}>{value.label}</Option>))
 						}
 					</Select>
 					<Select
@@ -577,9 +571,7 @@ export default class UserList extends React.PureComponent {
 						placeholder="请选择性别"
 					>
 						{
-							this.state.sexData.map((value => {
-								return <Option key={value.value}>{value.label}</Option>;
-							}))
+							this.state.sexData.map((value => <Option key={value.value}>{value.label}</Option>))
 						}
 					</Select>
 					<AuthComponent auth={enumAuth.sUserDelete.value}>

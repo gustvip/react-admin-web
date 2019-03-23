@@ -10,13 +10,13 @@ import { findIndex, isFunction, filter } from 'lodash';
  * @param {Boolean} isOnce 是否是一次性
  * @returns {Object}
  */
-function _addListener (type, callback, isOnce) {
+function _addListener(type, callback, isOnce) {
 	if (!isFunction(callback)) {
 		throw new TypeError('callback must be function');
 	}
-	var row = this.__selfListeners__[type];
+	const row = this.__selfListeners__[type];
 	
-	var obj = {
+	const obj = {
 		isOnce,
 		callback,
 	};
@@ -30,7 +30,7 @@ function _addListener (type, callback, isOnce) {
  * @param {Function} callback 回掉函数
  * @returns {Object}
  */
-function addListener (type, callback) {
+function addListener(type, callback) {
 	return _addListener.call(this, type, callback, false);
 }
 
@@ -40,7 +40,7 @@ function addListener (type, callback) {
  * @param {Function} callback 回掉函数
  * @returns {Object}
  */
-function addOnceListener (type, callback) {
+function addOnceListener(type, callback) {
 	return _addListener.call(this, type, callback, true);
 }
 
@@ -48,7 +48,7 @@ function addOnceListener (type, callback) {
  * 移除所有监听的函数
  * @returns {Object}
  */
-function removeAllListener () {
+function removeAllListener() {
 	this.__selfListeners__ = {};
 	return this;
 }
@@ -57,7 +57,7 @@ function removeAllListener () {
  * 移除某一类的所有监听函数
  * @returns {Object}
  */
-function removeCategoryListener (type) {
+function removeCategoryListener(type) {
 	delete this.__selfListeners__[type];
 	return this;
 }
@@ -68,13 +68,11 @@ function removeCategoryListener (type) {
  * @param {Function} callback 监听时的callback
  * @returns {Object}
  */
-function removeListener (type, callback) {
-	var row = this.__selfListeners__[type];
-	var index;
+function removeListener(type, callback) {
+	const row = this.__selfListeners__[type];
+	let index;
 	if (row) {
-		index = findIndex(row, function (value) {
-			return value.callback === callback;
-		});
+		index = findIndex(row, value => value.callback === callback);
 		
 		if (index !== -1) {
 			row.splice(index, 1);
@@ -92,11 +90,11 @@ function removeListener (type, callback) {
  * @param {String} type 监听时的类型
  * @returns {Object}
  */
-function trigger (type) {
-	var row = this.__selfListeners__[type];
-	var arg = arguments;
+function trigger(type) {
+	const row = this.__selfListeners__[type];
+	const arg = arguments;
 	if (row) {
-		this.__selfListeners__[type] = filter(row, function (value) {
+		this.__selfListeners__[type] = filter(row, value => {
 			value.callback.apply(null, [].slice.call(arg, 1));
 			return !value.isOnce;
 		});
@@ -107,7 +105,7 @@ function trigger (type) {
 	return this;
 }
 
-function Emitter () {
+function Emitter() {
 	this.removeAllListener();
 }
 
@@ -122,7 +120,7 @@ Emitter.prototype.trigger = trigger;
 Emitter.prototype.emit = trigger;
 Emitter.prototype.dispatch = trigger;
 
-function emitter () {
+function emitter() {
 	return new Emitter();
 }
 

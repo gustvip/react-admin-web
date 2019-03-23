@@ -45,7 +45,7 @@ class GroupList extends React.PureComponent {
 		isTableLoading: false,
 	};
 	
-	componentDidMount () {
+	componentDidMount() {
 		this.getList(1, this.state.pageSize, this.state.search);
 	}
 	
@@ -82,7 +82,7 @@ class GroupList extends React.PureComponent {
 	 * 组编辑
 	 * @param record
 	 */
-	handleEdit = (record) => {
+	handleEdit = record => {
 		T.helper.renderModal(<UpdateGroupInfoModal
 			record={record}
 			successCallback={() => {
@@ -96,10 +96,10 @@ class GroupList extends React.PureComponent {
 	 * 组删除
 	 * @param{Array<Object>} selectedRows
 	 */
-	handleDelete = (selectedRows) => {
+	handleDelete = selectedRows => {
 		const self = this;
 		T.prompt.confirm({
-			onOk () {
+			onOk() {
 				return webAPI.administratorGroupDelete({groupValue: selectedRows.map(value => value.value)}).then(() => {
 					T.prompt.success('删除成功');
 					self.getList(1, self.state.pageSize, self.state.search);
@@ -113,13 +113,13 @@ class GroupList extends React.PureComponent {
 	 */
 	resetFields = () => this.props.form.resetFields();
 	
-	get columns () {
+	get columns() {
 		const self = this;
 		return [
 			{
 				title: 'value',
 				dataIndex: 'value',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -130,7 +130,7 @@ class GroupList extends React.PureComponent {
 			{
 				title: 'label',
 				dataIndex: 'label',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -140,7 +140,7 @@ class GroupList extends React.PureComponent {
 			},
 			{
 				title: '操作',
-				render (test, record) {
+				render(test, record) {
 					return (
 						<React.Fragment>
 							<AuthComponent auth={enumAuth.sAdministratorGroupUpdate.value}>
@@ -159,11 +159,11 @@ class GroupList extends React.PureComponent {
 		];
 	}
 	
-	get rowSelection () {
+	get rowSelection() {
 		const self = this;
 		return {
 			selectedRowKeys: self.state.selectedRowKeys,
-			onChange (selectedRowKeys, selectedRows) {
+			onChange(selectedRowKeys, selectedRows) {
 				self.setState({
 					selectedRowKeys,
 					selectedRows,
@@ -172,7 +172,7 @@ class GroupList extends React.PureComponent {
 		};
 	}
 	
-	get pagination () {
+	get pagination() {
 		const self = this;
 		return {
 			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
@@ -181,16 +181,16 @@ class GroupList extends React.PureComponent {
 			total: self.state.count,
 			pageSize: self.state.pageSize,
 			showQuickJumper: enumCommon.pagination.showQuickJumper,
-			onChange (currentPage, pageSize) {
+			onChange(currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search);
 			},
-			onShowSizeChange (currentPage, pageSize) {
+			onShowSizeChange(currentPage, pageSize) {
 				self.getList(1, pageSize, self.state.search);
 			},
 		};
 	}
 	
-	handleSubmit = (e) => {
+	handleSubmit = e => {
 		e.preventDefault();
 		const self = this;
 		self.props.form.validateFields((err, values) => {
@@ -206,7 +206,7 @@ class GroupList extends React.PureComponent {
 		});
 	};
 	
-	render () {
+	render() {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>

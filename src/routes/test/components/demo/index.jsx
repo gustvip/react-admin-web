@@ -1,14 +1,14 @@
 import React from 'react';
 
 export default class TestComponent extends React.PureComponent {
-	constructor () {
+	constructor() {
 		super();
 		this.container = null;
 	}
 	
-	componentDidMount () {}
+	componentDidMount() {}
 	
-	render () {
+	render() {
 		return (
 			<div
 				ref={container => this.container = container}

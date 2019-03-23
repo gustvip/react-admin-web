@@ -4,7 +4,7 @@
 import axios from 'axios';
 import { forOwn, forEach, noop, transform } from 'lodash';
 
-function isFile (x) {
+function isFile(x) {
 	return Object.prototype.toString.call(x) === '[object File]';
 }
 
@@ -15,14 +15,14 @@ function isFile (x) {
  * @param {String} [namespace]
  * @returns {FormData}
  */
-function objectToFormData (obj, form, namespace) {
+function objectToFormData(obj, form, namespace) {
 	const fd = form || new FormData();
 	let formKey;
 	forEach(obj, (value, property) => {
 		if (namespace) {
 			formKey = Array.isArray(obj) ? `${namespace}[][${property}]` : `${namespace}[${property}]`;
 		} else {
-			formKey = Array.isArray(obj) ? `[${property}]` : property + '';
+			formKey = Array.isArray(obj) ? `[${property}]` : `${property }`;
 		}
 		
 		if ((typeof value === 'object' && !isFile(value)) || Array.isArray(value)) {
@@ -41,10 +41,10 @@ function objectToFormData (obj, form, namespace) {
  */
 Promise._unhandledRejectionFn = noop;
 
-const singleton = (function () {
+const singleton = (function() {
 	let instantiated;
 	
-	function init () {
+	function init() {
 		const instance = axios.create({
 			withCredentials: true,
 			
@@ -63,7 +63,7 @@ const singleton = (function () {
 	}
 	
 	return {
-		getInstance () {
+		getInstance() {
 			return instantiated ? instantiated : instantiated = init();
 		},
 	};
@@ -75,36 +75,34 @@ const singleton = (function () {
  * @return {Promise}
  * @private
  */
-const _request = (options = {}) => {
-	return new Promise((resolve, reject) => {
-		singleton.getInstance().request(options).then((info) => {
-			const {data, code, msg} = info.data;
-			if (ENV.apiSuccessCode === code) {
-				resolve({
-					code,
-					data,
-					msg,
-				});
-			} else {
-				reject({
-					code,
-					data,
-					msg,
-				});
-			}
-		}).catch((info) => {
-			if (info) {
-				reject({
-					code: info.code,
-					data: info.data,
-					msg: info.message,
-				});
-			} else {
-				reject({msg: 'unknown error'});
-			}
-		});
+const _request = (options = {}) => new Promise((resolve, reject) => {
+	singleton.getInstance().request(options).then(info => {
+		const {data, code, msg} = info.data;
+		if (ENV.apiSuccessCode === code) {
+			resolve({
+				code,
+				data,
+				msg,
+			});
+		} else {
+			reject({
+				code,
+				data,
+				msg,
+			});
+		}
+	}).catch(info => {
+		if (info) {
+			reject({
+				code: info.code,
+				data: info.data,
+				msg: info.message,
+			});
+		} else {
+			reject({msg: 'unknown error'});
+		}
 	});
-};
+});
 
 /**
  * Get请求
@@ -113,7 +111,7 @@ const _request = (options = {}) => {
  * @param {Object} options
  * @returns {Promise}
  */
-export function get (url, params = {}, options = {}) {
+export function get(url, params = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		params,
@@ -127,7 +125,7 @@ export function get (url, params = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function post (url, data = {}, options = {}) {
+export function post(url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'post',
@@ -142,7 +140,7 @@ export function post (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function postJSON (url, data = {}, options = {}) {
+export function postJSON(url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'post',
@@ -158,7 +156,7 @@ export function postJSON (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function upload (url, data = {}, options = {}, onUploadProgress = noop) {
+export function upload(url, data = {}, options = {}, onUploadProgress = noop) {
 	return _request(Object.assign({
 		url,
 		method: 'post',
@@ -174,7 +172,7 @@ export function upload (url, data = {}, options = {}, onUploadProgress = noop) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function del (url, data = {}, options = {}) {
+export function del(url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'delete',
@@ -189,7 +187,7 @@ export function del (url, data = {}, options = {}) {
  * @param {Object} options
  * @returns {Promise}
  */
-export function put (url, data = {}, options = {}) {
+export function put(url, data = {}, options = {}) {
 	return _request(Object.assign({
 		url,
 		method: 'put',
@@ -204,7 +202,7 @@ export function put (url, data = {}, options = {}) {
  * @param {Object} [params] 请求参数
  * @return {HTMLElement}
  */
-export function form (url, property = {}, params = {}) {
+export function form(url, property = {}, params = {}) {
 	property = Object.assign({
 		enctype: 'application/x-www-form-urlencoded',
 		method: 'POST',
@@ -237,7 +235,7 @@ export function form (url, property = {}, params = {}) {
  * @param {string} url
  * @param {string} [fileName]
  */
-export const downLoadUrl = function (url, fileName = Date.now().toString(10)) {
+export const downLoadUrl = function(url, fileName = Date.now().toString(10)) {
 	const newLink = document.createElement('a');
 	newLink.target = '_self';
 	newLink.href = url;
@@ -252,6 +250,6 @@ export const downLoadUrl = function (url, fileName = Date.now().toString(10)) {
  * @param {Array | function} args
  * @return {Promise<[any , any , any , any , any , any , any , any , any , any]>}
  */
-export function all (args) {
+export function all(args) {
 	return Promise.all(Array.isArray(args) ? args : [].slice.call(arguments));
 }

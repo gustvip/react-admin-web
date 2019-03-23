@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 
 moment.locale('zh-cn');
-export default function (App) {
+export default function(App) {
 	return (
 		<LocaleProvider locale={zhCN}>
 			<App/>

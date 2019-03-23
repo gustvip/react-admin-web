@@ -201,9 +201,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 						})(
 							<RadioGroup>
 								{
-									Object.values(userSex).map(value => {
-										return <Radio key={value.value} value={value.value}>{value.label}</Radio>;
-									})
+									Object.values(userSex).map(value => <Radio key={value.value} value={value.value}>{value.label}</Radio>)
 								}
 							</RadioGroup>,
 						)}

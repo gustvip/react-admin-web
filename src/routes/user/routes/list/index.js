@@ -5,14 +5,10 @@
 import {connect} from 'react-redux';
 import UserList from '../../components/list/index';
 
-const mapStateToProps = (state, ownProps) => {
-	return {...ownProps};
-};
+const mapStateToProps = (state, ownProps) => ({...ownProps});
 
-const mapDispatchToProps = (dispatch) => {
-	return {dispatch};
-};
+const mapDispatchToProps = dispatch => ({dispatch});
 
 const UserListComponent = connect(mapStateToProps, mapDispatchToProps)(UserList);
 
-export default (props) => <UserListComponent {...props}/>;
+export default props => <UserListComponent {...props}/>;

@@ -8,7 +8,7 @@ import styles from './index.scss';
 import img404 from './img/404.svg';
 import classNames from 'classnames';
 
-export default function Exception ({className, code, ...rest}) {
+export default function Exception({className, code, ...rest}) {
 	const enumInfo = {
 		404: {
 			label: '抱歉，你访问的页面不存在',

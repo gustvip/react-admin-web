@@ -10,7 +10,7 @@ const baseConfig = require('./webpack.config.base');
 const excludeRegex = require('./util').excludeRegex;
 const customAntStyle = require('./util').customAntStyle;
 
-function getStyleConfig () {
+function getStyleConfig() {
 	return [
 		{
 			test: /\.css$/,

@@ -11,7 +11,7 @@ import T from 'utils/t';
  * @param {string} [condition.search]
  * @return {Promise}
  */
-export const administratorGroupList = (condition) => T.request.get(enumAPI.administratorGroupList, condition);
+export const administratorGroupList = condition => T.request.get(enumAPI.administratorGroupList, condition);
 
 /**
  * 增加组
@@ -19,14 +19,14 @@ export const administratorGroupList = (condition) => T.request.get(enumAPI.admin
  * @param {string} condition.groupLabel
  * @return {Promise}
  */
-export const administratorGroupAdd = (condition) => T.request.postJSON(enumAPI.administratorGroupAdd, condition);
+export const administratorGroupAdd = condition => T.request.postJSON(enumAPI.administratorGroupAdd, condition);
 
 /**
  * 删除组
  * @param {String[]} condition.groupValue
  * @return {Promise}
  */
-export const administratorGroupDelete = (condition) => T.request.del(enumAPI.administratorGroupDelete, condition);
+export const administratorGroupDelete = condition => T.request.del(enumAPI.administratorGroupDelete, condition);
 
 /**
  * 更新组
@@ -34,4 +34,4 @@ export const administratorGroupDelete = (condition) => T.request.del(enumAPI.adm
  * @param {string} condition.groupLabel
  * @return {Promise}
  */
-export const administratorGroupUpdate = (condition) => T.request.put(enumAPI.administratorGroupUpdate, condition);
+export const administratorGroupUpdate = condition => T.request.put(enumAPI.administratorGroupUpdate, condition);

@@ -5,14 +5,10 @@
 import {connect} from 'react-redux';
 import AuthList from '../../components/authList/index';
 
-const mapStateToProps = (state, ownProps) => {
-	return {...ownProps};
-};
+const mapStateToProps = (state, ownProps) => ({...ownProps});
 
-const mapDispatchToProps = (dispatch) => {
-	return {dispatch};
-};
+const mapDispatchToProps = dispatch => ({dispatch});
 
 const AuthListComponent = connect(mapStateToProps, mapDispatchToProps)(AuthList);
 
-export default (props) => <AuthListComponent {...props}/>;
+export default props => <AuthListComponent {...props}/>;

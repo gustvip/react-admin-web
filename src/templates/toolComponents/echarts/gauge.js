@@ -76,13 +76,13 @@ export default class Gauge extends React.PureComponent {
 					detail: {
 						show: true,
 						formatter(value) {
-							return round(value, 2) + '%';
+							return `${round(value, 2) }%`;
 						},
 						fontSize: 24,
 					},
 					data: [
 						{
-							value: random(10, 100, .1),
+							value: random(10, 100, 0.1),
 							name: '参与度',
 						}],
 				},

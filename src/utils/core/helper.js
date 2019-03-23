@@ -9,8 +9,8 @@ class Helper {
 	 * @param {string} relativeUrl
 	 * @return {string}
 	 */
-	combineUrl (baseUrl, relativeUrl) {
-		return relativeUrl ? baseUrl.replace(/\/+$/, '') + '/' + relativeUrl.replace(/^\/+/, '') : baseUrl;
+	combineUrl(baseUrl, relativeUrl) {
+		return relativeUrl ? `${baseUrl.replace(/\/+$/, '') }/${ relativeUrl.replace(/^\/+/, '')}` : baseUrl;
 	}
 	
 	/**
@@ -19,7 +19,7 @@ class Helper {
 	 * @param {string} template
 	 * @return {string}
 	 */
-	dateFormat (date = Date.now(), template = 'YYYY-MM-DD HH:mm:ss') {
+	dateFormat(date = Date.now(), template = 'YYYY-MM-DD HH:mm:ss') {
 		return moment(date).format(template);
 	}
 	
@@ -27,7 +27,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {{index: *, base: string}}
 	 */
-	getNumberBase (x, radix = 1024) {
+	getNumberBase(x, radix = 1024) {
 		const baseCollection = ['B', 'K', 'M', 'G', 'T'];
 		x = toFinite(Math.abs(x));
 		if (x < radix) {
@@ -35,14 +35,13 @@ class Helper {
 				index: 0,
 				base: baseCollection[0],
 			};
-		} else {
-			let index = Math.floor(Math.log(x) / Math.log(radix));
-			index = index >= baseCollection.length ? baseCollection.length - 1 : index;
-			return {
-				index,
-				base: baseCollection[index],
-			};
 		}
+		let index = Math.floor(Math.log(x) / Math.log(radix));
+		index = index >= baseCollection.length ? baseCollection.length - 1 : index;
+		return {
+			index,
+			base: baseCollection[index],
+		};
 	}
 	
 	/**
@@ -50,7 +49,7 @@ class Helper {
 	 * @param w 保留小数位数
 	 * @returns {string}
 	 */
-	autoToSize (x, w = 2) {
+	autoToSize(x, w = 2) {
 		const base = this.getNumberBase(x);
 		return round(toFinite(x) / Math.pow(1024, base.index), w) + base.base;
 	}
@@ -64,7 +63,7 @@ class Helper {
 	 * @param {number} [treeDepth] 树的深度
 	 * @return {Array}
 	 */
-	formatTreeData (data, parentIdName, ownIdName, childrenName = 'children', treeDepth = 20000) {
+	formatTreeData(data, parentIdName, ownIdName, childrenName = 'children', treeDepth = 20000) {
 		// 格式化children的值
 		data = data.map(value => {
 			value[childrenName] = Array.isArray(value[childrenName]) ? value[childrenName] : [];
@@ -73,7 +72,7 @@ class Helper {
 		
 		// 分组
 		const result = [];
-		const groupData = data.reduce(function (prev, value) {
+		const groupData = data.reduce((prev, value) => {
 			if (!value[parentIdName]) {
 				result.push(value);
 			} else {
@@ -87,7 +86,7 @@ class Helper {
 		}, {});
 		
 		// 递归格式化树
-		!(function format (childData, index) {
+		!(function format(childData, index) {
 			if (index <= treeDepth) {
 				childData.forEach(value => {
 					forOwn(groupData, (val, key) => {
@@ -107,9 +106,9 @@ class Helper {
 	 * 渲染弹出窗Modal
 	 * @param {ReactElement} component react组件
 	 */
-	renderModal (component) {
+	renderModal(component) {
 		const domId = '__render-modal-dom-id__';
-		const oldDomElement = document.querySelector('#' + domId);
+		const oldDomElement = document.querySelector(`#${ domId}`);
 		if (oldDomElement) {
 			unmountComponentAtNode(oldDomElement);
 			document.body.removeChild(oldDomElement);
@@ -127,7 +126,7 @@ class Helper {
 	 * @param {String} property
 	 * @return {number}
 	 */
-	sort ({prev, now, property} = {}) {
+	sort({prev, now, property} = {}) {
 		const prevValue = get(prev, property);
 		const nowValue = get(now, property);
 		if (prevValue === nowValue) {
@@ -142,9 +141,9 @@ class Helper {
 	 * @param {Boolean} enumerable 属性是否可以枚举
 	 * @return {*}
 	 */
-	immutable (data, callback = identity, enumerable = true) {
+	immutable(data, callback = identity, enumerable = true) {
 		const self = this;
-		return (function fn (_data) {
+		return (function fn(_data) {
 			let result = _data;
 			if (self.isPureObject(_data) || Array.isArray(_data)) {
 				result = Array.isArray(_data) ? [] : {};
@@ -164,7 +163,7 @@ class Helper {
 	 * @param {*} basisClass 不是字符串，默认为iconfont,不想加传递''
 	 * @return {Function}
 	 */
-	classNames (basisClass) {
+	classNames(basisClass) {
 		return (...rest) => classNames(isString(basisClass) ? basisClass : 'iconfont', ...rest);
 	}
 	
@@ -174,7 +173,7 @@ class Helper {
 	 * @param {String}    defaultVal  不满足条件的默认值
 	 * @return {String}
 	 */
-	showValue (val, defaultVal = '-') {
+	showValue(val, defaultVal = '-') {
 		return (this.checkString(val) || IsFinite(val)) ? val : defaultVal;
 	}
 	
@@ -183,7 +182,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	checkArray (x) {
+	checkArray(x) {
 		return Array.isArray(x) && x.length > 0;
 	}
 	
@@ -192,7 +191,7 @@ class Helper {
 	 * @param {*} x
 	 * @return {Boolean}
 	 */
-	checkString (x) {
+	checkString(x) {
 		return isString(x) && x.trim().length > 0;
 	}
 	
@@ -201,7 +200,7 @@ class Helper {
 	 * @param x
 	 * @return {boolean}
 	 */
-	isPureObject (x) {
+	isPureObject(x) {
 		return Object.prototype.toString.call(x) === '[object Object]';
 	}
 	
@@ -209,7 +208,7 @@ class Helper {
 	 * 去除尾部下划线
 	 * @param {String} x
 	 */
-	removeTrailingSlash (x) {
+	removeTrailingSlash(x) {
 		return x.replace(/\/+$/g, '');
 	}
 	
@@ -218,7 +217,7 @@ class Helper {
 	 * @param {String} x
 	 * @return {String}
 	 */
-	removeBlank (x) {
+	removeBlank(x) {
 		return x.replace(/\s/g, '');
 	}
 	
@@ -230,12 +229,12 @@ class Helper {
 	 * @param {function} [callback]
 	 * @return {Array}
 	 */
-	findPath (data, stopValue, property, callback) {
+	findPath(data, stopValue, property, callback) {
 		const self = this;
 		let tag = false;
 		let array = [];
 		if (Array.isArray(data)) {
-			(function fn (_data, _array) {
+			(function fn(_data, _array) {
 				let index = -1;
 				while (!tag && ++index < _data.length) {
 					const rowData = _data[index];

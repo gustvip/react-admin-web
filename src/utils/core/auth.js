@@ -13,7 +13,7 @@ import * as request from './request';
 import { flowRight, isFunction, get } from 'lodash';
 
 class Auth {
-	constructor () {
+	constructor() {
 		this.ENV = window.ENV;
 	}
 	
@@ -22,7 +22,7 @@ class Auth {
 	 * @param api
 	 * @return boolean
 	 */
-	hasAuth (info) {
+	hasAuth(info) {
 		const auth = get(this.getUserInfoStorageValue(), this.ENV.login.auth, []);
 		return auth.indexOf(info) !== -1;
 	}
@@ -31,7 +31,7 @@ class Auth {
 	 * 验证是否登录
 	 * @returns {boolean}
 	 */
-	get isLogin () {
+	get isLogin() {
 		const locationPathname = flowRight(helper.removeTrailingSlash, helper.removeBlank)(window.location.pathname);
 		const isNeedGetLocalStorage = this.ENV.login.isCheckLogin && this.ENV.login.noCheckIsLoginRoutes.indexOf(locationPathname) === -1;
 		
@@ -44,7 +44,7 @@ class Auth {
 	 * @param {function} [successCallback]
 	 * @param {function} [failCallback]
 	 */
-	resetUserPassword (userId, successCallback, failCallback) {
+	resetUserPassword(userId, successCallback, failCallback) {
 		request.put(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
 	
@@ -52,14 +52,14 @@ class Auth {
 	 * 获取login
 	 * @returns {*}
 	 */
-	getLoginStorageValue () {
+	getLoginStorageValue() {
 		return localStorage.getItem(this.ENV.localStorage.login.key);
 	}
 	
 	/**
 	 * 设置login
 	 */
-	setLoginStorageValue () {
+	setLoginStorageValue() {
 		const login = this.ENV.localStorage.login;
 		localStorage.setItem(login.key, login.value, login.expire);
 	}
@@ -67,7 +67,7 @@ class Auth {
 	/**
 	 * 移除login
 	 */
-	removeLoginStorageValue () {
+	removeLoginStorageValue() {
 		localStorage.removeItem(this.ENV.localStorage.login.key);
 	}
 	
@@ -75,7 +75,7 @@ class Auth {
 	 * 获取userInfo
 	 * @returns {*}
 	 */
-	getUserInfoStorageValue () {
+	getUserInfoStorageValue() {
 		return localStorage.getItem(this.ENV.localStorage.userInfo.key);
 	}
 	
@@ -83,7 +83,7 @@ class Auth {
 	 * 是否为administrator
 	 * @returns {Boolean}
 	 */
-	get isAdministrator () {
+	get isAdministrator() {
 		const loginUserDetail = this.getUserDetailStorageValue();
 		return loginUserDetail.group === enumCommon.group.root.value && loginUserDetail.role === enumCommon.role.root.value;
 	}
@@ -92,7 +92,7 @@ class Auth {
 	 * 是否为root
 	 * @returns {Boolean}
 	 */
-	isRoot () {
+	isRoot() {
 		return this.getUserDetailStorageValue().role === enumCommon.role.root.value;
 	}
 	
@@ -100,7 +100,7 @@ class Auth {
 	 * 是否为admin
 	 * @returns {Boolean}
 	 */
-	isAdmin () {
+	isAdmin() {
 		return this.getUserDetailStorageValue().role === enumCommon.role.admin.value;
 	}
 	
@@ -108,14 +108,14 @@ class Auth {
 	 * 获取user详情
 	 * @returns {Object}
 	 */
-	getUserDetailStorageValue () {
+	getUserDetailStorageValue() {
 		return get(this.getUserInfoStorageValue(), this.ENV.login.userDetail, {});
 	}
 	
 	/**
 	 * 设置userInfo
 	 */
-	setUserInfoStorageValue (value) {
+	setUserInfoStorageValue(value) {
 		const userInfo = this.ENV.localStorage.userInfo;
 		localStorage.setItem(userInfo.key, value, userInfo.expire);
 	}
@@ -123,7 +123,7 @@ class Auth {
 	/**
 	 * 移除userInfo
 	 */
-	removeUserInfoStorageValue () {
+	removeUserInfoStorageValue() {
 		localStorage.removeItem(this.ENV.localStorage.userInfo.key);
 	}
 	
@@ -134,7 +134,7 @@ class Auth {
 	 * @param {function} [successCallback]
 	 * @param {function} [failCallback]
 	 */
-	login (userName, userPassword, successCallback, failCallback) {
+	login(userName, userPassword, successCallback, failCallback) {
 		request.postJSON(enumAPI.userLogin, {
 			userName,
 			userPassword,
@@ -146,7 +146,7 @@ class Auth {
 	 * @param {function} [successCallback]
 	 * @param {function} [failCallback]
 	 */
-	loginOut (successCallback, failCallback) {
+	loginOut(successCallback, failCallback) {
 		request.postJSON(enumAPI.userLoginOut).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
 	
@@ -155,7 +155,7 @@ class Auth {
 	 * @param {Object} history react-router的history
 	 * @param  {Object} [state] react-router的state
 	 */
-	loginSuccessRedirect (history, state) {
+	loginSuccessRedirect(history, state) {
 		const urlParams = qs.parse(window.location.search);
 		let redirectUrl = this.ENV.login.defaultRedirectUrl;
 		
@@ -169,7 +169,7 @@ class Auth {
 
 const auth = new Auth();
 
-export function AuthComponent (props) {
+export function AuthComponent(props) {
 	return auth.hasAuth(props.auth) && props.children;
 }
 

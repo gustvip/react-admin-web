@@ -18,14 +18,14 @@ export default class LeafletComponent extends React.PureComponent {
 		option: PropTypes.object,
 	};
 	
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this._mapContainer = null;
 		this.map = null;
 		this.EnumMap = EnumMap;
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		const baseOption = {
 			/**
 			 * 交互选项
@@ -55,7 +55,7 @@ export default class LeafletComponent extends React.PureComponent {
 		}
 	}
 	
-	render () {
+	render() {
 		const baseStyle = {
 			position: 'absolute',
 			left: 0,

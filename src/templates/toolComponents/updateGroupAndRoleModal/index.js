@@ -35,32 +35,28 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 		option: PropTypes.object,
 	};
 	
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			showModal: true,
 			loading: false,
 			groupData: [],
 			group: props.group,
-			roleData: Object.values(enumCommon.role).map(value => {
-				return {
-					value: value.value,
-					label: value.label,
-				};
-			}),
+			roleData: Object.values(enumCommon.role).map(value => ({
+				value: value.value,
+				label: value.label,
+			})),
 			role: props.role,
 		};
 	}
 	
-	componentDidMount () {
+	componentDidMount() {
 		request.get(enumAPI.administratorGroupList, {}).then(info => {
 			this.setState({
-				groupData: info.data.map(value => {
-					return {
-						value: value.value,
-						label: value.label,
-					};
-				}),
+				groupData: info.data.map(value => ({
+					value: value.value,
+					label: value.label,
+				})),
 			});
 		}).catch(info => prompt.error(info.msg));
 	}
@@ -86,7 +82,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 		});
 	};
 	
-	render () {
+	render() {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (
@@ -127,9 +123,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 								placeholder="请选择分组"
 							>
 								{
-									this.state.groupData.map((value => {
-										return <Option key={value.value}>{value.value}</Option>;
-									}))
+									this.state.groupData.map((value => <Option key={value.value}>{value.value}</Option>))
 								}
 							</Select>,
 						)}
@@ -153,9 +147,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 								placeholder="请选择角色"
 							>
 								{
-									this.state.roleData.map((value => {
-										return <Option key={value.value}>{value.value}</Option>;
-									}))
+									this.state.roleData.map((value => <Option key={value.value}>{value.value}</Option>))
 								}
 							</Select>,
 						)}

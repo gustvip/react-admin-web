@@ -70,7 +70,7 @@ class UpdatePasswordModal extends React.PureComponent {
 		}
 	};
 	
-	render () {
+	render() {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (

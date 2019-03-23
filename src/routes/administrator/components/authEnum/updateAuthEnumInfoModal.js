@@ -29,7 +29,7 @@ class UpdateAuthEnumInfoModal extends React.PureComponent {
 		option: PropTypes.object,
 	};
 	
-	constructor (props) {
+	constructor(props) {
 		super();
 		this.state = {
 			showModal: true,
@@ -58,7 +58,7 @@ class UpdateAuthEnumInfoModal extends React.PureComponent {
 		});
 	};
 	
-	render () {
+	render() {
 		const {className = '', option = {}} = this.props;
 		const {getFieldDecorator} = this.props.form;
 		return (

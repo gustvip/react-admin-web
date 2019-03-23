@@ -53,7 +53,7 @@ class AuthList extends React.PureComponent {
 		isTableLoading: false,
 	};
 	
-	componentDidMount () {
+	componentDidMount() {
 		// 获取权限列表
 		this.getAuthList();
 		
@@ -61,7 +61,7 @@ class AuthList extends React.PureComponent {
 		this.getGroupList();
 		
 		// 获取group和role对应的权限
-		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+		this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, data => {
 			this.setState({authValue: data.map(value => value.value)});
 		});
 	}
@@ -69,7 +69,7 @@ class AuthList extends React.PureComponent {
 	/**
 	 * @param {function} [callback]
 	 */
-	getAuthList = (callback) => {
+	getAuthList = callback => {
 		webAPI.administratorAuthEnumList().then(info => {
 			this.setState({
 				authValueData: info.data.map(value => ({
@@ -83,7 +83,7 @@ class AuthList extends React.PureComponent {
 	/**
 	 * @param {function} [callback]
 	 */
-	getGroupList = (callback) => {
+	getGroupList = callback => {
 		administratorGroupList().then(info => {
 			this.setState({
 				groupData: info.data.map(value => ({
@@ -130,7 +130,7 @@ class AuthList extends React.PureComponent {
 	 * 组变化
 	 * @param {string | undefined} group
 	 */
-	handleGroupChange = (group) => {
+	handleGroupChange = group => {
 		this.setState({
 			authValue: [],
 			group,
@@ -142,7 +142,7 @@ class AuthList extends React.PureComponent {
 			dataSource: [],
 		}, () => {
 			this.resetFields();
-			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, data => {
 				this.setState({authValue: data.map(value => value.value)});
 			});
 		});
@@ -152,7 +152,7 @@ class AuthList extends React.PureComponent {
 	 * 角色变化
 	 * @param {string | undefined} role
 	 */
-	handleRoleChange = (role) => {
+	handleRoleChange = role => {
 		this.setState({
 			role,
 			authValue: [],
@@ -164,7 +164,7 @@ class AuthList extends React.PureComponent {
 			dataSource: [],
 		}, () => {
 			this.resetFields();
-			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, (data) => {
+			this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role, data => {
 				this.setState({authValue: data.map(value => value.value)});
 			});
 		});
@@ -174,10 +174,10 @@ class AuthList extends React.PureComponent {
 	 * 删除权限列表
 	 * @param{Array<Object>} selectedRows
 	 */
-	handleDelete = (selectedRows) => {
+	handleDelete = selectedRows => {
 		const self = this;
 		T.prompt.confirm({
-			onOk () {
+			onOk() {
 				return webAPI.administratorAuthListDelete({
 					authValue: selectedRows.map(value => value.value),
 					group: self.state.group,
@@ -195,12 +195,12 @@ class AuthList extends React.PureComponent {
 	 */
 	resetFields = () => this.props.form.resetFields();
 	
-	get columns () {
+	get columns() {
 		return [
 			{
 				title: 'group',
 				dataIndex: 'group',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -211,7 +211,7 @@ class AuthList extends React.PureComponent {
 			{
 				title: 'role',
 				dataIndex: 'role',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -222,7 +222,7 @@ class AuthList extends React.PureComponent {
 			{
 				title: 'value',
 				dataIndex: 'value',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -233,7 +233,7 @@ class AuthList extends React.PureComponent {
 			{
 				title: 'label',
 				dataIndex: 'label',
-				sorter (prev, now) {
+				sorter(prev, now) {
 					return T.helper.sort({
 						prev,
 						now,
@@ -244,11 +244,11 @@ class AuthList extends React.PureComponent {
 		];
 	}
 	
-	get rowSelection () {
+	get rowSelection() {
 		const self = this;
 		return {
 			selectedRowKeys: self.state.selectedRowKeys,
-			onChange (selectedRowKeys, selectedRows) {
+			onChange(selectedRowKeys, selectedRows) {
 				self.setState({
 					selectedRowKeys,
 					selectedRows,
@@ -257,7 +257,7 @@ class AuthList extends React.PureComponent {
 		};
 	}
 	
-	get pagination () {
+	get pagination() {
 		const self = this;
 		return {
 			pageSizeOptions: enumCommon.pagination.pageSizeOptions,
@@ -266,22 +266,22 @@ class AuthList extends React.PureComponent {
 			total: self.state.count,
 			pageSize: self.state.pageSize,
 			showQuickJumper: enumCommon.pagination.showQuickJumper,
-			onChange (currentPage, pageSize) {
+			onChange(currentPage, pageSize) {
 				self.getList(currentPage, pageSize, self.state.search, self.state.group, self.state.role);
 			},
-			onShowSizeChange (currentPage, pageSize) {
+			onShowSizeChange(currentPage, pageSize) {
 				self.getList(1, pageSize, self.state.search, self.state.group, self.state.role);
 			},
 		};
 	}
 	
-	handleSubmit = (e) => {
+	handleSubmit = e => {
 		e.preventDefault();
 		const self = this;
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
 				T.prompt.confirm({
-					onOk () {
+					onOk() {
 						return self.setState({isAdd: true}, () => {
 							webAPI.administratorAuthListDistribute(values).then(() => {
 								T.prompt.success('分配成功');
@@ -295,7 +295,7 @@ class AuthList extends React.PureComponent {
 		});
 	};
 	
-	render () {
+	render() {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
@@ -322,9 +322,7 @@ class AuthList extends React.PureComponent {
 									placeholder="请选择分组"
 								>
 									{
-										this.state.groupData.map((value => {
-											return <Option key={value.value}>{value.label}</Option>;
-										}))
+										this.state.groupData.map((value => <Option key={value.value}>{value.label}</Option>))
 									}
 								</Select>,
 							)}
@@ -348,9 +346,7 @@ class AuthList extends React.PureComponent {
 									placeholder="请选择角色"
 								>
 									{
-										this.state.roleData.map((value => {
-											return <Option key={value.value}>{value.label}</Option>;
-										}))
+										this.state.roleData.map((value => <Option key={value.value}>{value.label}</Option>))
 									}
 								</Select>,
 							)}
@@ -376,9 +372,7 @@ class AuthList extends React.PureComponent {
 									placeholder="请选择权限值"
 								>
 									{
-										this.state.authValueData.map((value => {
-											return <Option key={value.value}>{value.label}</Option>;
-										}))
+										this.state.authValueData.map((value => <Option key={value.value}>{value.label}</Option>))
 									}
 								</Select>,
 							)}

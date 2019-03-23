@@ -124,7 +124,7 @@ export default class Bar extends React.PureComponent {
 				{
 					type: 'bar',
 					name: '分类1',
-					data: data,
+					data,
 				},
 			],
 		};
