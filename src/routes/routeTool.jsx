@@ -11,8 +11,9 @@ import { flattenDeep } from 'lodash';
 /**
  * 布局方式
  * @param {Object}  Component
- * @param {Object || null}  LayoutComponent
- * @param {string | undefined}  auth
+ * @param {Object}  [LayoutComponent]
+ * @param {string}  path
+ * @param {string}  [auth]
  * @param {Array} rest
  * @param {Array} reducers
  */

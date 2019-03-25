@@ -328,10 +328,6 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 	}
 }
 
-export class DefaultLayout extends React.PureComponent {
-	render() {
-		return (
-			<React.Fragment>{this.props.children}</React.Fragment>
-		);
-	}
+export function DefaultLayout(props) {
+	return props.children;
 }

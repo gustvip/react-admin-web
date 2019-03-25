@@ -49,11 +49,7 @@ export const EnumMenus = (() => {
 export const getCategoryRoute = locationPathname => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
 	const result = EnumMenus.find(item => item.url.indexOf(locationPathname) !== -1);
-	return result
-		? Array.isArray(result.children)
-			? result.children
-			: []
-		: [];
+	return result ? Array.isArray(result.children) ? result.children : [] : [];
 };
 
 /**
@@ -63,11 +59,7 @@ export const getCategoryRoute = locationPathname => {
  */
 export const getMenuData = locationPathname => {
 	const result = getCategoryRoute(locationPathname).find(item => item.url.indexOf(locationPathname) !== -1);
-	return result
-		? Array.isArray(result.children)
-			? result.children
-			: []
-		: [];
+	return result ? Array.isArray(result.children) ? result.children : [] : [];
 };
 
 /**

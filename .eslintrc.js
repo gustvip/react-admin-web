@@ -76,7 +76,7 @@ const eslintrc = {
 		'arrow-body-style': [2, 'as-needed'],
 		'arrow-parens': [2, 'as-needed'],
 		'arrow-spacing': 2,
-		'no-confusing-arrow': 2,
+		'no-confusing-arrow': [2, {'allowParens': true}],
 		'prefer-arrow-callback': 2,
 		'prefer-rest-params': 0,
 		'prefer-spread': 2,
