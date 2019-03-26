@@ -8,7 +8,7 @@ import BrowserRouter from 'react-router-dom/BrowserRouter';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import Redirect from 'react-router-dom/Redirect';
-import {NoMatch} from './routeTool';
+import { NoMatch } from './routeTool';
 import CommonRoutes from './common'; // 公共模块--相关路由,如:登录,注册...
 import Administrator from './administrator'; // 超级管理员相关模块
 import UserRoutes from './user'; // 用户相关模块
@@ -22,7 +22,7 @@ const checkLoginRedirect = () => <Redirect to={auth.isLogin ? ENV.login.defaultR
  */
 const Routes = () => (
 	<BrowserRouter
-		forceRefresh={!('pushState' in history)}
+		forceRefresh={true}
 		keyLength={12}
 	>
 		<Switch>

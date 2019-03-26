@@ -200,7 +200,6 @@ export function put(url, data = {}, options = {}) {
  * @param {String} url
  * @param {Object} [property] 表单属性
  * @param {Object} [params] 请求参数
- * @return {HTMLElement}
  */
 export function form(url, property = {}, params = {}) {
 	property = Object.assign({
