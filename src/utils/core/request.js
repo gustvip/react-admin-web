@@ -42,10 +42,10 @@ function objectToFormData(obj, form, namespace) {
 Promise._unhandledRejectionFn = noop;
 
 const singleton = (function() {
-	let instantiated;
+	let instance;
 	
 	function init() {
-		const instance = axios.create({
+		const axiosInstance = axios.create({
 			withCredentials: true,
 			
 			/**
@@ -59,12 +59,12 @@ const singleton = (function() {
 			},
 		});
 		
-		return instance;
+		return axiosInstance;
 	}
 	
 	return {
 		getInstance() {
-			return instantiated ? instantiated : instantiated = init();
+			return instance ? instance : instance = init();
 		},
 	};
 }());

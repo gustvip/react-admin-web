@@ -3,9 +3,9 @@
  */
 
 import helper from 'utils/core/helper';
-import EnumRouter from './enumRouter';
-import { uniqueId } from 'lodash';
+import enumRouter from './enumRouter';
 import enumAuth from 'constants/enumAuth';
+import { isString, uniq, uniqueId } from 'lodash';
 
 /**
  * Icon 类型
@@ -16,23 +16,26 @@ export const EnumIconTypes = helper.immutable({
 	custom: 'custom',
 });
 
-export default helper.immutable([
+/**
+ * @type {{auth, label: string, url: (string|string), id: *, children: {auth, label: string, url: (string|string), id: *, children: *[]}[]}[]}
+ */
+const menus = [
 	{
 		auth: enumAuth.bPlatform.value,
 		label: '大栏目',
-		url: EnumRouter.testDemo,
+		url: enumRouter.testDemo,
 		id: uniqueId(),
 		children: [
 			{
 				auth: enumAuth.bPlatformCategory.value,
 				label: '小栏目',
-				url: EnumRouter.testDemo,
+				url: enumRouter.testDemo,
 				id: uniqueId(),
 				children: [
 					{
 						auth: enumAuth.bPlatformCategoryAdministrator.value,
 						label: '超级管理员',
-						url: EnumRouter.administratorAuthEnumList,
+						url: enumRouter.administratorAuthEnumList,
 						icon: {
 							type: EnumIconTypes.antd,
 							value: 'up-square-o',
@@ -42,7 +45,7 @@ export default helper.immutable([
 							{
 								auth: enumAuth.bPlatformCategoryAdministratorAuthEnum.value,
 								label: '权限枚举',
-								url: EnumRouter.administratorAuthEnum,
+								url: enumRouter.administratorAuthEnum,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -53,7 +56,7 @@ export default helper.immutable([
 							{
 								auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 								label: '权限分配',
-								url: EnumRouter.administratorAuthList,
+								url: enumRouter.administratorAuthList,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -64,7 +67,7 @@ export default helper.immutable([
 							{
 								auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
 								label: '组管理',
-								url: EnumRouter.administratorGroupList,
+								url: enumRouter.administratorGroupList,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -77,7 +80,7 @@ export default helper.immutable([
 					{
 						auth: enumAuth.bPlatformCategoryUser.value,
 						label: '用户管理',
-						url: EnumRouter.userList,
+						url: enumRouter.userList,
 						icon: {
 							type: EnumIconTypes.antd,
 							value: 'up-square-o',
@@ -87,7 +90,7 @@ export default helper.immutable([
 							{
 								auth: enumAuth.bPlatformCategoryUserList.value,
 								label: '用户列表',
-								url: EnumRouter.userList,
+								url: enumRouter.userList,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -99,7 +102,7 @@ export default helper.immutable([
 					},
 					{
 						label: 'API测试',
-						url: EnumRouter.testDemo,
+						url: enumRouter.testDemo,
 						icon: {
 							type: EnumIconTypes.antd,
 							value: 'up-square-o',
@@ -108,7 +111,7 @@ export default helper.immutable([
 						children: [
 							{
 								label: '练习API',
-								url: EnumRouter.testDemo,
+								url: enumRouter.testDemo,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -118,7 +121,7 @@ export default helper.immutable([
 							},
 							{
 								label: '解析文件',
-								url: EnumRouter.testParseFile,
+								url: enumRouter.testParseFile,
 								icon: {
 									type: EnumIconTypes.antd,
 									value: 'up-square-o',
@@ -132,4 +135,40 @@ export default helper.immutable([
 			},
 		],
 	},
-]);
+];
+
+// 格式化数据
+export default (() => {
+	const formatData = data => {
+		let resultUrl = [];
+		const resultData = data.map(item => {
+			const itemUrl = uniq(Array.isArray(item.url) ? item.url : isString(item.url) ? [item.url] : []);
+			if (Array.isArray(item.children) && item.children.length) {
+				const result = formatData(item.children);
+				resultUrl = resultUrl.concat(result.resultUrl).concat(itemUrl);
+				
+				return Object.assign(
+					{},
+					item,
+					{
+						children: result.resultData,
+						url: uniq(itemUrl.concat(result.resultUrl)),
+					},
+				);
+			}
+			resultUrl = resultUrl.concat(itemUrl);
+			
+			return Object.assign(
+				{},
+				item,
+				{
+					children: [],
+					url: itemUrl,
+				},
+			);
+		});
+		return {resultData, resultUrl};
+	};
+	
+	return helper.immutable(formatData(menus).resultData);
+})();

@@ -10,6 +10,8 @@ const rm = require('rimraf');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const clc = require('cli-color');
 const prodConfig = require('./webpack.config.prod');
+const enumPath = require('./util').enumPath;
+
 const conf = {
 	indexHtmlName: 'demo_project.html',		// 生成的html的名字
 	appName: 'platform', // 项目名称
@@ -41,7 +43,7 @@ const webpackConfigProd = merge(prodConfig, {
 	plugins: [
 		// 生成html文件
 		new htmlWebpackPlugin({
-			template: path.join(__dirname, '../public/template.html'),
+			template: path.join(enumPath.entryPath, 'template.html'),
 			filename: path.join(conf.webPath, conf.indexHtmlName),
 			minify: {
 				removeComments: true,
@@ -60,21 +62,21 @@ const webpackConfigProd = merge(prodConfig, {
 		new copyWebpackPlugin([
 			// 复制config
 			{
-				from: path.join(__dirname, '../public/config/env.js'),
+				from: path.join(enumPath.entryPath, 'config/env.js'),
 				to: path.join(conf.webPath, 'config/env.js'),
 			},
 			{
-				from: path.join(__dirname, '../public/config/env.js'),
+				from: path.join(enumPath.entryPath, 'config/env.js'),
 				to: path.join(conf.webPath, 'config/env.production.js'),
 			},
 			// 复制assets
 			{
-				from: path.join(__dirname, '../public/assets/'),
+				from: path.join(enumPath.entryPath, 'assets/'),
 				to: path.join(conf.webPath, 'assets'),
 			},
 			// 复制favicon
 			{
-				from: path.join(__dirname, '../public/favicon.ico'),
+				from: path.join(enumPath.entryPath, 'favicon.ico'),
 				to: conf.webPath,
 			},
 		])],
@@ -96,7 +98,7 @@ function doCompilerPlatform() {
 
 function deleteFile() {
 	return new Promise((resolve, reject) => {
-		if (conf.webPath.startsWith(os.homedir())) {
+		if (conf.webPath.startsWith(path.join(os.homedir(), 'Desktop'))) {
 			rm(conf.webPath, err => {
 				if (err) {
 					reject(err);
@@ -105,7 +107,7 @@ function deleteFile() {
 				}
 			});
 		} else {
-			reject('webPath must be starts with os.homeDir');
+			reject('webPath not permit');
 		}
 	});
 }

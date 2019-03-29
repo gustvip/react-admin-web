@@ -3,43 +3,8 @@
  */
 
 import T from 'utils/t';
-import EnumDefaultMenus from 'constants/enumDefaultMenus';
+import enumMenus from 'constants/enumMenus';
 import { isString, uniq, flowRight, identity } from 'lodash';
-
-export const EnumMenus = (() => {
-	const formatData = data => {
-		let resultUrl = [];
-		const resultData = data.map(item => {
-			const itemUrl = uniq(Array.isArray(item.url) ? item.url : isString(item.url) ? [item.url] : []);
-			if (Array.isArray(item.children) && item.children.length) {
-				const result = formatData(item.children);
-				resultUrl = resultUrl.concat(result.resultUrl).concat(itemUrl);
-				
-				return Object.assign(
-					{},
-					item,
-					{
-						children: result.resultData,
-						url: uniq(itemUrl.concat(result.resultUrl)),
-					},
-				);
-			}
-			resultUrl = resultUrl.concat(itemUrl);
-			
-			return Object.assign(
-				{},
-				item,
-				{
-					children: [],
-					url: itemUrl,
-				},
-			);
-		});
-		return {resultData, resultUrl};
-	};
-	
-	return T.helper.immutable(formatData(EnumDefaultMenus).resultData);
-})();
 
 /**
  * 获取分类路由
@@ -48,7 +13,7 @@ export const EnumMenus = (() => {
  */
 export const getCategoryRoute = locationPathname => {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(locationPathname);
-	const result = EnumMenus.find(item => item.url.indexOf(locationPathname) !== -1);
+	const result = enumMenus.find(item => item.url.indexOf(locationPathname) !== -1);
 	return result ? Array.isArray(result.children) ? result.children : [] : [];
 };
 

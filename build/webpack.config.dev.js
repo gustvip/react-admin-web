@@ -9,6 +9,7 @@ const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const baseConfig = require('./webpack.config.base');
 const excludeRegex = require('./util').excludeRegex;
 const customAntStyle = require('./util').customAntStyle;
+const enumPath = require('./util').enumPath;
 
 function getStyleConfig() {
 	return [
@@ -81,14 +82,14 @@ module.exports = merge(baseConfig, {
 	devServer: {
 		host: process.env.host || host,
 		port: parseInt(process.env.port, 10) || port,
-		publicPath: '/',
-		contentBase: `${__dirname}/../public/`,
+		publicPath: enumPath.devPublicPath,
+		contentBase: enumPath.entryPath,
 		
 		watchContentBase: true,
 		watchOptions: {
-			ignored: /node_modules/,
+			ignored: excludeRegex,
 		},
-		hot: false,
+		hot: true,
 		historyApiFallback: {
 			rewrites: [
 				{from: /.*/, to: 'index.html'},
@@ -107,8 +108,8 @@ module.exports = merge(baseConfig, {
 		},
 	},
 	output: {
-		publicPath: '/',
-		path: `${__dirname}/../public/`,
+		publicPath: enumPath.devPublicPath,
+		path: enumPath.entryPath,
 		filename: '[name].js',
 	},
 	

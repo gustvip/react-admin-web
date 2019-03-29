@@ -3,18 +3,19 @@
  */
 import T from 'utils/t';
 import PropTypes from 'prop-types';
-import { EnumIconTypes } from 'constants/enumDefaultMenus';
+import { EnumIconTypes } from 'constants/enumMenus';
 import enumRouter from 'constants/enumRouter';
 import * as enumCommon from 'constants/app/common';
 import { Select, Menu, Icon, Layout, Dropdown } from 'antd';
 import styles from './mainLayout.scss';
-import { getMenuData, getOpenKeys, EnumMenus, getCategoryRoute } from './menuUtil';
+import { getMenuData, getOpenKeys, getCategoryRoute } from './menuUtil';
 import * as React from 'react';
 import Link from 'react-router-dom/Link';
 import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
 import { isEqual, flowRight, get, uniqueId } from 'lodash';
+import enumMenus from 'constants/enumMenus';
 
 /**
  * 获取图标字体
@@ -142,7 +143,7 @@ export class HeaderLayout extends React.PureComponent {
 	
 	getTopRoute = () => {
 		const self = this;
-		const initialValue = get(EnumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1), 'url[0]');
+		const initialValue = get(enumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1), 'url[0]');
 		return (
 			<div className={styles['drop-down-menu-container']}>
 				<Select
@@ -150,7 +151,7 @@ export class HeaderLayout extends React.PureComponent {
 					value={initialValue}
 				>
 					{
-						EnumMenus.map(value => (
+						enumMenus.map(value => (
 							<Select.Option key={value.id} value={get(value, 'url[0]')}>
 								<Link to={get(value, 'url[0]')}>{value.label}</Link>
 							</Select.Option>
