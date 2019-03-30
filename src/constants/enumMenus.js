@@ -8,15 +8,6 @@ import enumAuth from 'constants/enumAuth';
 import { isString, uniq, uniqueId } from 'lodash';
 
 /**
- * Icon 类型
- * @type {{antd: string, custom: string}}
- */
-export const EnumIconTypes = helper.immutable({
-	antd: 'antd',
-	custom: 'custom',
-});
-
-/**
  * @type {{auth, label: string, url: (string|string), id: *, children: {auth, label: string, url: (string|string), id: *, children: *[]}[]}[]}
  */
 const menus = [
@@ -36,20 +27,13 @@ const menus = [
 						auth: enumAuth.bPlatformCategoryAdministrator.value,
 						label: '超级管理员',
 						url: enumRouter.administratorAuthEnumList,
-						icon: {
-							type: EnumIconTypes.antd,
-							value: 'up-square-o',
-						},
+						icon: 'team',
 						id: uniqueId(),
 						children: [
 							{
 								auth: enumAuth.bPlatformCategoryAdministratorAuthEnum.value,
 								label: '权限枚举',
 								url: enumRouter.administratorAuthEnum,
-								icon: {
-									type: EnumIconTypes.antd,
-									value: 'up-square-o',
-								},
 								id: uniqueId(),
 								children: [],
 							},
@@ -57,10 +41,6 @@ const menus = [
 								auth: enumAuth.bPlatformCategoryAdministratorAuthList.value,
 								label: '权限分配',
 								url: enumRouter.administratorAuthList,
-								icon: {
-									type: EnumIconTypes.antd,
-									value: 'up-square-o',
-								},
 								id: uniqueId(),
 								children: [],
 							},
@@ -68,10 +48,6 @@ const menus = [
 								auth: enumAuth.bPlatformCategoryAdministratorGroupList.value,
 								label: '组管理',
 								url: enumRouter.administratorGroupList,
-								icon: {
-									type: EnumIconTypes.antd,
-									value: 'up-square-o',
-								},
 								id: uniqueId(),
 								children: [],
 							},
@@ -81,20 +57,13 @@ const menus = [
 						auth: enumAuth.bPlatformCategoryUser.value,
 						label: '用户管理',
 						url: enumRouter.userList,
-						icon: {
-							type: EnumIconTypes.antd,
-							value: 'up-square-o',
-						},
+						icon: 'user',
 						id: uniqueId(),
 						children: [
 							{
 								auth: enumAuth.bPlatformCategoryUserList.value,
 								label: '用户列表',
 								url: enumRouter.userList,
-								icon: {
-									type: EnumIconTypes.antd,
-									value: 'up-square-o',
-								},
 								id: uniqueId(),
 								children: [],
 							},
@@ -103,29 +72,19 @@ const menus = [
 					{
 						label: 'API测试',
 						url: enumRouter.testDemo,
-						icon: {
-							type: EnumIconTypes.antd,
-							value: 'up-square-o',
-						},
+						icon: 'customer-service',
 						id: uniqueId(),
 						children: [
 							{
 								label: '练习API',
 								url: enumRouter.testDemo,
-								icon: {
-									type: EnumIconTypes.antd,
-									value: 'up-square-o',
-								},
 								id: uniqueId(),
 								children: [],
 							},
 							{
+								auth: enumAuth.bPlatformCategoryTestParseFile.value,
 								label: '解析文件',
 								url: enumRouter.testParseFile,
-								icon: {
-									type: EnumIconTypes.antd,
-									value: 'up-square-o',
-								},
 								id: uniqueId(),
 								children: [],
 							},

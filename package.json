@@ -104,19 +104,6 @@
 		"webpack-merge": "^4.1.4",
 		"webpackbar": "^3.1.5"
 	},
-	"scripts": {
-		"test": "jest --config jest.js --color --no-cache",
-		"dev": "cross-env NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
-		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
-		"lint": "npm run lint:js && npm run lint:scss",
-		"lint:js": "eslint . --ext '.js,.jsx'",
-		"lint:ts": "tslint 'src/**/*.{ts,tsx}'",
-		"lint:scss": "stylelint 'src/**/*.scss' --syntax scss",
-		"lint-fix:js": "eslint --fix . --ext '.js,.jsx'",
-		"lint-fix:ts": "tslint 'src/**/*.{ts,tsx}' --fix",
-		"lint-fix:scss": "stylelint 'src/**/*.scss' --fix --syntax scss",
-		"lint-staged": "lint-staged"
-	},
 	"browserslist": [
 		"Chrome >= 45",
 		"Firefox >= 38",
@@ -149,5 +136,18 @@
 		"url": "https://github.com/air-supply94/react-admin-web/issues"
 	},
 	"homepage": "https://github.com/air-supply94/react-admin-web",
-	"license": "MIT"
+	"license": "MIT",
+	"scripts": {
+		"test": "jest --config jest.js --color --no-cache",
+		"dev": "cross-env GET_LOCAL_IP=0 NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
+		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
+		"lint": "npm run lint:js && npm run lint:scss",
+		"lint:js": "eslint . --ext '.js,.jsx'",
+		"lint:ts": "tslint 'src/**/*.{ts,tsx}'",
+		"lint:scss": "stylelint 'src/**/*.scss' --syntax scss",
+		"lint-fix:js": "eslint --fix . --ext '.js,.jsx'",
+		"lint-fix:ts": "tslint 'src/**/*.{ts,tsx}' --fix",
+		"lint-fix:scss": "stylelint 'src/**/*.scss' --fix --syntax scss",
+		"lint-staged": "lint-staged"
+	}
 }

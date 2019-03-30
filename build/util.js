@@ -26,6 +26,19 @@ exports.enumPath = {
 	devPublicPath: '/',
 };
 
+/**
+ * 前后端协议、主机、端口的枚举
+ * @type {{defaultWebProtocol: string, defaultWebHost: string, defaultWebPort: number, defaultServerNodeProtocol: string, defaultServerNodeHost: string, defaultServerNodePort: number}}
+ */
+exports.enumHostAndPortAndProtocol = {
+	defaultWebProtocol: 'http',
+	defaultWebHost: 'localhost',
+	defaultWebPort: 11111,
+	defaultServerNodeProtocol: 'http',
+	defaultServerNodeHost: 'localhost',
+	defaultServerNodePort: 8081,
+};
+
 exports.excludeRegex = /node_modules/;
 
 exports.resourceBaseName = 'assets';

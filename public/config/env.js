@@ -2,10 +2,8 @@
 	'use strict';
 	var rootPath = '/pw/';
 	var apiDomain = 'http://localhost:8081';
-	var mockDomain = 'http://localhost:8081';
 	var config = {
-		apiDomain: apiDomain,         // api请求接口
-		mockDomain: mockDomain,         // mock的api请求接口
+		apiDomain: apiDomain,
 		rootPath: rootPath,                       	// 路由的根路径
 		apiSuccessCode: 0,                          // api响应成功的code
 		apiFailCode: 900,                          // api响应失败的code
@@ -37,7 +35,7 @@
 	};
 	
 	Object.defineProperty(window, 'ENV', {
-		value: immutable(config, null),
+		value: immutable(config),
 		configurable: false,
 	});
 	

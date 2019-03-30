@@ -3,7 +3,6 @@
  */
 import T from 'utils/t';
 import PropTypes from 'prop-types';
-import { EnumIconTypes } from 'constants/enumMenus';
 import enumRouter from 'constants/enumRouter';
 import * as enumCommon from 'constants/app/common';
 import { Select, Menu, Icon, Layout, Dropdown } from 'antd';
@@ -21,16 +20,7 @@ import enumMenus from 'constants/enumMenus';
  * 获取图标字体
  * @param {Object} icon {{type: String, value: String}}
  */
-const getIcon = icon => {
-	if (icon) {
-		if (icon.type === EnumIconTypes.custom) {
-			return <i className={T.helper.classNames()(icon.value)}/>;
-		}
-		if (icon.type === EnumIconTypes.antd) {
-			return <Icon type={icon.value}/>;
-		}
-	}
-};
+const getIcon = icon => icon && <Icon type={icon}/>;
 
 class SiderMenu extends React.PureComponent {
 	static propTypes = {
@@ -178,7 +168,6 @@ export class HeaderLayout extends React.PureComponent {
 							key={value.id}
 							to={get(value, 'url[0]')}
 						>
-							{getIcon(value.icon)}
 							{value.label}
 						</Link>
 					))

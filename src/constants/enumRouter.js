@@ -36,4 +36,5 @@ const enumRouter = {
 	administratorAuthList: 'administrator/authList', // 权限列表
 	administratorGroupList: 'administrator/groupList', // 组列表
 };
+
 export default helper.immutable(enumRouter, flowRight(partial(helper.combineUrl, ENV.rootPath), helper.removeTrailingSlash, helper.removeBlank, identity));

@@ -4,6 +4,7 @@
  */
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 // 优化lodash
 const lodashWebpackPlugin = require('lodash-webpack-plugin');
 
@@ -11,6 +12,65 @@ const lodashWebpackPlugin = require('lodash-webpack-plugin');
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index\.([jt]sx?))$/ig;
 const excludeRegex = require('./util').excludeRegex;
 const resourceBaseName = require('./util').resourceBaseName;
+const customAntStyle = require('./util').customAntStyle;
+
+function getStyleConfig() {
+	return [
+		{
+			test: /\.css$/,
+			use: [
+				miniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader',
+			],
+		},
+		
+		{
+			test: /\.scss/,
+			exclude: excludeRegex,
+			use: [
+				miniCssExtractPlugin.loader,
+				
+				// scss开启css的命名空间
+				{
+					loader: 'css-loader',
+					options: {
+						sourceMap: true,
+						modules: true,
+						import: true,
+						url: true,
+						localIdentName: '[name][hash:base64]',
+					},
+				},
+				
+				'postcss-loader',
+				{
+					loader: 'sass-loader',
+					options: {
+						sourceMap: true,
+					},
+				},
+			],
+		},
+		
+		{
+			test: /\.less/,
+			use: [
+				miniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader',
+				{
+					loader: 'less-loader',
+					options: {
+						sourceMap: true,
+						javascriptEnabled: true,
+						modifyVars: customAntStyle,
+					},
+				},
+			],
+		},
+	];
+}
 
 const staticResource = [
 	{
@@ -119,6 +179,10 @@ module.exports = {
 	
 	module: {
 		rules: [
+			// 样式文件配置
+			...getStyleConfig(),
+			
+			// 静态资源配置
 			...staticResource,
 			
 			// 路由的懒加载
@@ -135,20 +199,26 @@ module.exports = {
 				],
 			},
 			
+			// js配置
 			{
 				test: /\.jsx?$/,
 				use: ['babel-loader'],
 				exclude: [excludeRegex, routesComponentsRegex],
 			},
-			{
-				test: /\.tsx?$/,
-				use: ['babel-loader', 'ts-loader'],
-				exclude: [excludeRegex, routesComponentsRegex],
-			},
+			
+			// ts配置
+			/*
+            {
+              test: /\.tsx?$/,
+              use: ['babel-loader', 'ts-loader'],
+              exclude: [excludeRegex, routesComponentsRegex],
+            },
+      */
 		],
 	},
 	
 	plugins: [
+		new miniCssExtractPlugin({filename: process.env.NODE_ENV === 'development' ? '[name].css' : '[name].[contenthash].css'}),
 		// https://www.npmjs.com/package/lodash-webpack-plugin
 		new lodashWebpackPlugin({
 			shorthands: true,

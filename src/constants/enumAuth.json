@@ -1,4 +1,8 @@
 {
+	"bPlatformCategoryTestParseFile": {
+		"value": "bPlatformCategoryTestParseFile",
+		"label": "解析文件"
+	},
 	"sAdministratorGroupUpdate": {
 		"value": "sAdministratorGroupUpdate",
 		"label": "s组更新"
