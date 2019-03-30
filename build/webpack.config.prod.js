@@ -49,8 +49,6 @@ module.exports = merge(baseConfig, {
 	
 	module: {
 		rules: [
-			...getStyleConfig(),
-			
 			{
 				test: /\.(png|jpg|gif|jpeg|svg)(\?.*)?$/,
 				use: [

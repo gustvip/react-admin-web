@@ -149,7 +149,6 @@ module.exports = {
 			'utils/core/request.js',
 			'utils/core/emitter/index.js',
 			'utils/core/localStorage/index.js',
-			'utils/core/helper.js',
 		],
 	},
 	
