@@ -125,10 +125,12 @@ export class HeaderLayout extends React.PureComponent {
 	locationPathname = flowRight(T.helper.removeTrailingSlash, T.helper.removeBlank)(window.location.pathname);
 	
 	logout = () => {
-		T.auth.loginOut(() => {
-			localStorage.clear();
-			this.context.router.history.push(ENV.login.loginUrl);
-		});
+		// 清除localStorage
+		localStorage.clear();
+		// 跳转至登录页面
+		this.context.router.history.push(ENV.login.loginUrl);
+		// 发送请求---清除cookie和服务端缓存
+		T.auth.loginOut();
 	};
 	
 	getTopRoute = () => {

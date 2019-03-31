@@ -5,7 +5,7 @@
 
 const merge = require('webpack-merge');
 const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const uglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const terserWebpackPlugin = require('terser-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 const compressionPlugin = require('compression-webpack-plugin');
 const resourceBaseName = require('./util').resourceBaseName;
@@ -15,33 +15,15 @@ module.exports = merge(baseConfig, {
 	
 	optimization: {
 		minimizer: [
-			new uglifyJsPlugin({
-				cache: true,
-				parallel: true,
-				sourceMap: false,
-				uglifyOptions: {
+			new terserWebpackPlugin({
+				terserOptions: {
+					ecma: 6,
 					output: {
-						// 最紧凑的输出
-						beautify: false,
-						// 删除所有的注释
 						comments: false,
 					},
-					compress: {
-						// 在UglifyJs删除没有用到的代码时不输出警告
-						warnings: false,
-						
-						drop_console: false,
-						
-						// 内嵌定义了但是只用到一次的变量
-						collapse_vars: true,
-						
-						// 提取出出现多次但是没有定义成变量去引用的静态值
-						reduce_vars: true,
-						
-						// 注意开启这---可能会导致打包出错---典型错误:Refference Error t is not defined
-						comparisons: true,
-					},
 				},
+				parallel: true,
+				extractComments: false,
 			}),
 			new optimizeCssAssetsPlugin(),
 		],
@@ -86,6 +68,7 @@ module.exports = merge(baseConfig, {
 							},
 							/*
                             webp: {
+                              disable: false,
                               progressive: true,
                               quality: 70,
                               speed: 4,

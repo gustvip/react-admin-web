@@ -131,7 +131,9 @@ module.exports = {
 	
 	entry: {
 		// 入口和浏览器兼容（不需要考虑兼容，保留./src/index）
-		app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
+		//	app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
+		// 入口和浏览器兼容（不需要考虑兼容，保留./src/index）
+		app: ['./src/index'],
 		commons: [
 			'moment',
 			'qs',
