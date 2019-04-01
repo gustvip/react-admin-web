@@ -13,10 +13,10 @@ const prodConfig = require('./webpack.config.prod');
 const enumPath = require('./util').enumPath;
 
 const conf = {
-	indexHtmlName: 'demo_project.html',		// 生成的html的名字
-	appName: 'platform', // 项目名称
-	proxyPath: process.argv[3] ? path.resolve(process.argv[3]) : '/', // 代理的前缀 注意：后面必须带斜线
-	webPath: process.argv[2], // Web目录
+	indexHtmlName: 'demo_project.html',
+	appName: 'platform',
+	proxyPath: process.argv[3] ? path.resolve(process.argv[3]) : '/',
+	webPath: process.argv[2],
 };
 
 // 解决antd-design 字体本地化问题

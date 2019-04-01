@@ -45,7 +45,7 @@ module.exports = {
 		},
 		'production': {
 			presets,
-			plugins,
+			plugins: [...plugins, 'transform-react-remove-prop-types'],
 		},
 		'test': {
 			presets: [

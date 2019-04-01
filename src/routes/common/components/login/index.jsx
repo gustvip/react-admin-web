@@ -41,7 +41,7 @@ export default class Login extends React.PureComponent {
 		let userPassword = self.state.userPassword.trim();
 		
 		if (self.checkParam(userName, userPassword)) {
-			userPassword = crypto.md5(userPassword, userPassword);
+			userPassword = crypto.md5(userPassword);
 			self.setState({loading: true}, () => {
 				auth.login(
 					userName,
