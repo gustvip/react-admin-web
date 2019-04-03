@@ -45,11 +45,7 @@
     - index.js  对组件、路由path、布局方式、reducer对引入
 						
 ## 项目启动
-		
-- 下载
-  - git clone git@github.com:air-supply94/react-demo.git
-	- npm install 
-	- yarn install
+
 - 启动
   - npm run dev
   - yarn run dev
