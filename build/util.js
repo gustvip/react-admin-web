@@ -41,4 +41,12 @@ exports.enumHostAndPortAndProtocol = {
 
 exports.excludeRegex = /node_modules/;
 
-exports.resourceBaseName = 'assets';
+exports.resourceName = {
+	assets: 'assets',
+	css: 'css',
+	js: 'js',
+	image: 'image',
+	font: 'font',
+	media: 'media',
+	document: 'document',
+};

@@ -134,7 +134,7 @@
 	"scripts": {
 		"test": "jest --config jest.js --color --no-cache",
 		"dev": "cross-env GET_LOCAL_IP=0 NODE_ENV=development BABEL_ENV=development webpack-dev-server --config ./build/webpack.config.dev.js",
-		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /static/demo_project/",
+		"build": "npm run lint && node ./build/publish.js ~/Desktop/demo_project /",
 		"lint": "npm run lint:js && npm run lint:scss",
 		"lint:js": "eslint . --ext '.js,.jsx'",
 		"lint:ts": "tslint 'src/**/*.{ts,tsx}'",

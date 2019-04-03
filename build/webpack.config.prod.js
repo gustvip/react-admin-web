@@ -8,7 +8,7 @@ const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const terserWebpackPlugin = require('terser-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 const compressionPlugin = require('compression-webpack-plugin');
-const resourceBaseName = require('./util').resourceBaseName;
+const resourceName = require('./util').resourceName;
 
 module.exports = merge(baseConfig, {
 	mode: 'production',
@@ -37,7 +37,7 @@ module.exports = merge(baseConfig, {
 					{
 						loader: 'url-loader',
 						options: {
-							name: `${resourceBaseName}/[name].[hash].[ext]`,
+							name: `${resourceName.image}/[name].[hash].[ext]`,
 							limit: 8192,	 // <= 8kb的图片base64内联
 						},
 					},

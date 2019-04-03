@@ -11,7 +11,7 @@ const lodashWebpackPlugin = require('lodash-webpack-plugin');
 // 页面入口文件,使用异步加载方式---bundle-loader
 const routesComponentsRegex = /src\/routes\/([\w-])+?\/((.*)\/)?routes\/((.*)\/)?(index\.([jt]sx?))$/ig;
 const excludeRegex = require('./util').excludeRegex;
-const resourceBaseName = require('./util').resourceBaseName;
+const resourceName = require('./util').resourceName;
 const customAntStyle = require('./util').customAntStyle;
 
 function getStyleConfig() {
@@ -75,15 +75,15 @@ function getStyleConfig() {
 const staticResource = [
 	{
 		test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
+		use: `url-loader?name=${resourceName.font}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
 		test: /\.(txt|doc|docx|swf)(\?.*)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
+		use: `url-loader?name=${resourceName.document}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
 		test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-		use: `url-loader?name=${resourceBaseName}/[name].[hash].[ext]&limit=10000`,
+		use: `url-loader?name=${resourceName.media}/[name].[hash].[ext]&limit=10000`,
 	},
 	{
 		test: /\.(csv|tsv)(\?.*)?$/,
@@ -218,7 +218,7 @@ module.exports = {
 	},
 	
 	plugins: [
-		new miniCssExtractPlugin({filename: process.env.NODE_ENV === 'development' ? '[name].css' : '[name].[contenthash].css'}),
+		new miniCssExtractPlugin({filename: process.env.NODE_ENV === 'development' ? '[name].css' : `${resourceName.css}/[name].[contenthash].css`}),
 		// https://www.npmjs.com/package/lodash-webpack-plugin
 		new lodashWebpackPlugin({
 			shorthands: true,

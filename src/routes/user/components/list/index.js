@@ -356,7 +356,7 @@ export default class UserList extends React.PureComponent {
 					});
 				},
 				render(text) {
-					return Object.values(enumCommon.status).find(value => value.value === text).label;
+					return self.state.statusData.find(value => value.value === text).label;
 				},
 			},
 			{
@@ -370,7 +370,7 @@ export default class UserList extends React.PureComponent {
 					});
 				},
 				render(text) {
-					return Object.values(enumCommon.userSex).find(value => value.value === text).label;
+					return self.state.sexData.find(value => value.value === text).label;
 				},
 			},
 			{

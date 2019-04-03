@@ -11,12 +11,25 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const clc = require('cli-color');
 const prodConfig = require('./webpack.config.prod');
 const enumPath = require('./util').enumPath;
+const resourceName = require('./util').resourceName;
 
 const conf = {
-	indexHtmlName: 'demo_project.html',
-	appName: 'platform',
+	indexHtmlName: 'index.html',
 	proxyPath: process.argv[3] ? path.resolve(process.argv[3]) : '/',
 	webPath: process.argv[2],
+};
+
+const minify = {
+	removeComments: true,
+	collapseWhitespace: true,
+	removeRedundantAttributes: true,
+	useShortDoctype: true,
+	removeEmptyAttributes: true,
+	removeStyleLinkTypeAttributes: true,
+	keepClosingSlash: true,
+	minifyJS: true,
+	minifyCSS: true,
+	minifyURLs: true,
 };
 
 // 解决antd-design 字体本地化问题
@@ -36,43 +49,28 @@ prodConfig.module.rules.forEach(item => {
 // 更新webpack配置
 const webpackConfigProd = merge(prodConfig, {
 	output: {
-		filename: '[name].[contenthash].js',
-		publicPath: path.join(conf.proxyPath, conf.appName, '/'),
-		path: path.join(conf.webPath, conf.appName),
+		filename: `${resourceName.js}/[name].[contenthash].js`,
+		publicPath: path.join(conf.proxyPath, '/'),
+		path: path.join(conf.webPath),
 	},
 	plugins: [
 		// 生成html文件
 		new htmlWebpackPlugin({
 			template: path.join(enumPath.entryPath, 'template.html'),
 			filename: path.join(conf.webPath, conf.indexHtmlName),
-			minify: {
-				removeComments: true,
-				collapseWhitespace: true,
-				removeRedundantAttributes: true,
-				useShortDoctype: true,
-				removeEmptyAttributes: true,
-				removeStyleLinkTypeAttributes: true,
-				keepClosingSlash: true,
-				minifyJS: true,
-				minifyCSS: true,
-				minifyURLs: true,
-			},
+			minify,
 			chunksSortMode: 'dependency',
 		}),
 		new copyWebpackPlugin([
 			// 复制config
 			{
 				from: path.join(enumPath.entryPath, 'config/env.js'),
-				to: path.join(conf.webPath, 'config/env.js'),
-			},
-			{
-				from: path.join(enumPath.entryPath, 'config/env.js'),
 				to: path.join(conf.webPath, 'config/env.production.js'),
 			},
 			// 复制assets
 			{
-				from: path.join(enumPath.entryPath, 'assets/'),
-				to: path.join(conf.webPath, 'assets'),
+				from: path.join(enumPath.entryPath, resourceName.assets),
+				to: path.join(conf.webPath, resourceName.assets),
 			},
 			// 复制favicon
 			{
@@ -137,7 +135,7 @@ function toEnd(startTime) {
  * @param errorMsg
  */
 function handleError(errorMsg) {
-	console.log(clc.red.bold(errorMsg));
+	console.log(clc.red.bold(errorMsg.toString()));
 	process.exit();
 }
 
@@ -146,21 +144,17 @@ function handleError(errorMsg) {
  * @param warnMsg
  */
 function handleWarn(warnMsg) {
-	console.log(clc.yellow(warnMsg));
+	console.log(clc.yellow(warnMsg.toString()));
 }
 
 async function buildApp() {
 	const startTime = Date.now();
 	
 	// 删除文件
-	await deleteFile().catch(err => {
-		throw err;
-	});
+	await deleteFile().catch(handleError);
 	
 	// webpack编译
-	await doCompilerPlatform().catch(err => {
-		throw err;
-	});
+	await doCompilerPlatform().catch(handleError);
 	
 	return startTime;
 }

@@ -11,7 +11,17 @@ const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const baseConfig = require('./webpack.config.base');
 const excludeRegex = require('./util').excludeRegex;
 const enumPath = require('./util').enumPath;
-const serverNodeUrl = `${enumHostAndPortAndProtocol.defaultServerNodeProtocol}://${enumHostAndPortAndProtocol.defaultServerNodeHost}:${enumHostAndPortAndProtocol.defaultServerNodePort}`;
+const serverNodeUrl = buildUrl(enumHostAndPortAndProtocol.defaultServerNodeProtocol, enumHostAndPortAndProtocol.defaultServerNodeHost, enumHostAndPortAndProtocol.defaultServerNodePort);
+
+/**
+ * @param {string} protocol
+ * @param {string} hostName
+ * @param {string} port
+ * @return {string}
+ */
+function buildUrl(protocol, hostName, port) {
+	return `${protocol}://${hostName}:${port}`;
+}
 
 module.exports = merge(baseConfig, {
 	mode: 'development',
