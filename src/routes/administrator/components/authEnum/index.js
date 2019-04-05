@@ -7,13 +7,12 @@ import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form, Radio } from 'antd';
 import enumAuth from 'constants/enumAuth';
 import enumAPI from 'constants/enumAPI';
-import * as webAPI from '../../webAPI/authEnum';
+import * as webAPI from 'constants/webAPI';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
 import styles from './authEnum.scss';
 
-const {AuthComponent} = T;
 const formItemLayout = {
 	labelCol: {
 		xs: {span: 24},
@@ -146,7 +145,7 @@ class AuthEnum extends React.PureComponent {
 				render(test, record) {
 					return (
 						<React.Fragment>
-							<AuthComponent auth={enumAuth.sAdministratorAuthEnumUpdate.value}>
+							<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthEnumUpdate.value}>
 								<Button
 									className="base-gap"
 									type="primary"
@@ -154,7 +153,7 @@ class AuthEnum extends React.PureComponent {
 								>
 									编辑
 								</Button>
-							</AuthComponent>
+							</T.auth.AuthComponent>
 						</React.Fragment>
 					);
 				},
@@ -198,12 +197,17 @@ class AuthEnum extends React.PureComponent {
 		const self = this;
 		self.props.form.validateFields((err, values) => {
 			if (!err) {
-				self.setState({isAdd: true}, () => {
-					webAPI.administratorAuthEnumAdd(values).then(() => {
-						T.prompt.success('添加成功');
-						this.resetFields();
-						this.getList(1, this.state.pageSize, this.state.search);
-					}).catch(info => T.prompt.error(info.msg)).finally(() => this.setState({isAdd: false}));
+				T.prompt.confirm({
+					onOk() {
+						return self.setState({isAdd: true}, () => {
+							webAPI.administratorAuthEnumAdd(values).then(() => {
+								T.prompt.success('添加成功');
+								self.resetFields();
+								self.getList(1, self.state.pageSize, self.state.search);
+							}).catch(info => T.prompt.error(info.msg)).finally(() => self.setState({isAdd: false}));
+						});
+					},
+					title: '确认新增权限枚举吗?',
 				});
 			}
 		});
@@ -217,7 +221,7 @@ class AuthEnum extends React.PureComponent {
 		const {getFieldDecorator} = this.props.form;
 		return (
 			<React.Fragment>
-				<AuthComponent auth={enumAuth.sAdministratorAuthEnumDownload.value}>
+				<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthEnumDownload.value}>
 					<MainHeader
 					>
 						<React.Fragment>
@@ -230,7 +234,7 @@ class AuthEnum extends React.PureComponent {
 							</Button>
 						</React.Fragment>
 					</MainHeader>
-				</AuthComponent>
+				</T.auth.AuthComponent>
 				<div className={styles['form-container']}>
 					<Form
 						onSubmit={this.handleSubmit}
@@ -312,7 +316,7 @@ class AuthEnum extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<AuthComponent auth={enumAuth.sAdministratorAuthEnumAdd.value}>
+							<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthEnumAdd.value}>
 								<Button
 									htmlType="submit"
 									className="base-gap"
@@ -321,21 +325,21 @@ class AuthEnum extends React.PureComponent {
 								>
 									添加权限
 								</Button>
-							</AuthComponent>
+							</T.auth.AuthComponent>
 						</Form.Item>
 					</Form>
 				</div>
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<AuthComponent auth={enumAuth.sAdministratorAuthEnumList.value}>
+					<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthEnumList.value}>
 						<Input.Search
 							onChange={event => this.setState({search: event.target.value})}
 							placeholder="请搜索权限值或者描述"
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search)}
 						/>
-					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorAuthEnumDelete.value}>
+					</T.auth.AuthComponent>
+					<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthEnumDelete.value}>
 						<Button
 							type="primary"
 							disabled={this.state.selectedRows.length <= 0}
@@ -343,7 +347,7 @@ class AuthEnum extends React.PureComponent {
 						>
 							删除
 						</Button>
-					</AuthComponent>
+					</T.auth.AuthComponent>
 				</MainHeader>
 				
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>

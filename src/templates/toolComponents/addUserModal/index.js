@@ -7,10 +7,10 @@ import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
 import PropTypes from 'prop-types';
 import { userSex } from 'constants/app/common';
-import enumAPI from 'constants/enumAPI';
-import * as request from 'utils/core/request';
-
+import * as webAPI from 'constants/webAPI';
 import { isFunction } from 'lodash';
+import prompt from 'utils/core/prompt';
+import * as msg from 'constants/app/msg';
 
 const RadioGroup = Radio.Group;
 const formItemLayout = {
@@ -40,12 +40,11 @@ class AddUserModal extends React.PureComponent {
 	
 	handleSubmit = e => {
 		e.preventDefault();
-		const self = this;
-		self.props.form.validateFields((err, values) => {
+		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				self.setState({loading: true}, () => {
+				this.setState({loading: true}, () => {
 					const {userName, userPassword, userEmail, userPhone, userDescription, userSex, name} = values;
-					request.postJSON(enumAPI.userAdd, {
+					webAPI.userAdd({
 						userName,
 						userPassword: crypto.md5(userPassword),
 						userEmail,
@@ -54,12 +53,14 @@ class AddUserModal extends React.PureComponent {
 						userSex,
 						name,
 					}).then(() => {
-						self.setState({showModal: false}, () => {
-							isFunction(self.props.successCallback) && self.props.successCallback();
+						prompt.success(msg.successInfo.addUser);
+						this.setState({showModal: false}, () => {
+							isFunction(this.props.successCallback) && this.props.successCallback();
 						});
 					}).catch(info => {
-						isFunction(self.props.failCallback) && self.props.failCallback(info);
-						self.setState({loading: false});
+						prompt.error(info.msg);
+						isFunction(this.props.failCallback) && this.props.failCallback(info);
+						this.setState({loading: false});
 					});
 				});
 			}

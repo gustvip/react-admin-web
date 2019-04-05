@@ -35,12 +35,6 @@ function objectToFormData(obj, form, namespace) {
 	return fd;
 }
 
-/**
- * 解决IE报warning Unhandled Rejections Error 参数书不正确的问题
- * @private
- */
-Promise._unhandledRejectionFn = noop;
-
 const singleton = (function() {
 	let instance;
 	

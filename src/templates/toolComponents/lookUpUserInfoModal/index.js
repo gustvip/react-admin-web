@@ -6,10 +6,9 @@ import React from 'react';
 import { Modal, Spin } from 'antd';
 import prompt from 'utils/core/prompt';
 import helper from 'utils/core/helper';
-import enumAPI from 'constants/enumAPI';
-import * as request from 'utils/core/request';
 import styles from './lookUpUserInfoModal.scss';
 import * as enumCommon from 'constants/app/common';
+import * as webAPI from 'constants/webAPI';
 
 export default class LookUpUserInfoModal extends React.PureComponent {
 	static defaultProps = {
@@ -24,20 +23,20 @@ export default class LookUpUserInfoModal extends React.PureComponent {
 		userId: PropTypes.number.isRequired,
 	};
 	
+	state = {
+		isLoading: true,
+		showModal: true,
+		userInfo: {},
+	};
+	
 	componentDidMount() {
-		request.get(enumAPI.userDetail, {userId: this.props.userId}).then(info => {
+		webAPI.userDetail({userId: this.props.userId}).then(info => {
 			this.setState({
 				userInfo: info.data,
 				isLoading: false,
 			});
 		}).catch(info => prompt.error(info.msg));
 	}
-	
-	state = {
-		isLoading: true,
-		showModal: true,
-		userInfo: {},
-	};
 	
 	render() {
 		const {className = '', option = {}} = this.props;

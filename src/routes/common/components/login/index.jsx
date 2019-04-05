@@ -8,7 +8,9 @@ import crypto from 'utils/core/crypto';
 import prompt from 'utils/core/prompt';
 import styles from './login.scss';
 import { Button, Input } from 'antd';
-import bg from './img/bg.jpeg';
+import * as webAPI from 'constants/webAPI';
+import classNames from 'classnames';
+import * as msg from 'constants/app/msg';
 
 export default class Login extends React.PureComponent {
 	static contextTypes = {
@@ -18,79 +20,128 @@ export default class Login extends React.PureComponent {
 	constructor() {
 		super();
 		this.state = {
+			userInputCodeText: '',
+			originCodeText: '',
+			codeImage: '',
 			userName: '',
 			userPassword: '',
 			loading: false,
 		};
 	}
 	
-	checkParam = (userName, userPassword) => {
+	componentDidMount() {
+		this.getCheckCode();
+	}
+	
+	/**
+	 * 获取验证码
+	 * @param {function} [callback]
+	 */
+	getCheckCode = callback => {
+		if (ENV.login.isCheckCode) {
+			webAPI.createRandomCode({size: 6}).then(info => {
+				this.setState({originCodeText: info.data.text, codeImage: info.data.data}, () => callback && callback(info.data));
+			}).catch(info => prompt.error(info.msg));
+		}
+	};
+	
+	checkCode = (userInputCodeText, originCodeText) => {
+		if (ENV.login.isCheckCode) {
+			if (!userInputCodeText || !originCodeText || userInputCodeText !== originCodeText) {
+				prompt.warn(msg.failInfo.checkCode);
+				return false;
+			}
+		}
+		return true;
+	};
+	
+	checkUserName = userName => {
 		if (!(regExp.name().test(userName) || regExp.email.test(userName) || regExp.telephone.test(userName))) {
-			prompt.warn('账号格式不对');
+			prompt.warn(msg.failInfo.checkUserName);
 			return false;
-		} else if (!regExp.password().test(userPassword)) {
-			prompt.warn('密码格式不对');
+		}
+		return true;
+	};
+	
+	checkUserPassword = userPassword => {
+		if (!regExp.password().test(userPassword)) {
+			prompt.warn(msg.failInfo.checkUserPassword);
 			return false;
 		}
 		return true;
 	};
 	
 	handleSubmit = () => {
-		const self = this;
-		const userName = self.state.userName.trim();
-		let userPassword = self.state.userPassword.trim();
+		const userName = this.state.userName.trim();
+		const userInputCodeText = this.state.userInputCodeText.trim().toLowerCase();
+		const originCodeText = this.state.originCodeText.trim().toLowerCase();
+		let userPassword = this.state.userPassword.trim();
 		
-		if (self.checkParam(userName, userPassword)) {
+		if (this.checkCode(userInputCodeText, originCodeText) && this.checkUserName(userName) && this.checkUserPassword(userPassword)) {
 			userPassword = crypto.md5(userPassword);
-			self.setState({loading: true}, () => {
-				auth.login(
-					userName,
-					userPassword,
-					info => {
-						prompt.success('登陆成功,正在跳转');
-						auth.setLoginStorageValue();
-						auth.setUserInfoStorageValue(info.data);
-						auth.loginSuccessRedirect(self.context.router.history, self.context.router.route.location.state);
-					},
-					info => {
-						self.setState({loading: false});
-						prompt.error(info.msg);
-					},
-				);
+			this.setState({loading: true}, () => {
+				webAPI.userLogin({userName, userPassword}).then(info => {
+					prompt.success(msg.successInfo.login);
+					auth.setLoginStorageValue();
+					auth.setUserInfoStorageValue(info.data);
+					auth.loginSuccessRedirect(this.context.router.history, this.context.router.route.location.state);
+				}).catch(info => {
+					prompt.error(info.msg);
+					this.setState({loading: false});
+				});
 			});
 		}
 	};
 	
 	render() {
-		const self = this;
-		
 		return (
-			<div id={styles['login-container']}>
-				<img src={bg} alt="背景图片"/>
+			<div className={styles['container']}>
 				<div className={styles['condition-container']}>
-					<Input
-						type="text"
-						value={self.state.userName}
-						onChange={e => self.setState({userName: e.target.value.trim()})}
-						placeholder="账号"
-						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
-					/>
-					<Input
-						type="password"
-						value={self.state.userPassword}
-						onChange={e => self.setState({userPassword: e.target.value.trim()})}
-						placeholder="密码"
-						onKeyDown={event => event.keyCode === 13 && self.handleSubmit()}
-					/>
-					
-					<Button
-						type="primary"
-						disabled={self.state.loading}
-						loading={self.state.loading}
-						onClick={() => self.handleSubmit()}
-					>
-						登&nbsp;&nbsp;录
-					</Button>
+					<div className={styles['item']}>
+						<Input
+							type="text"
+							value={this.state.userName}
+							onChange={e => this.setState({userName: e.target.value.trim()})}
+							placeholder="账号"
+							onKeyDown={event => event.keyCode === 13 && this.handleSubmit()}
+						/>
+					</div>
+					<div className={styles['item']}>
+						<Input
+							type="password"
+							value={this.state.userPassword}
+							onChange={e => this.setState({userPassword: e.target.value.trim()})}
+							placeholder="密码"
+							onKeyDown={event => event.keyCode === 13 && this.handleSubmit()}
+						/>
+					</div>
+					{
+						ENV.login.isCheckCode && (
+							<div className={classNames(styles['item'], styles['check-code'])}>
+								<Input
+									type="text"
+									value={this.state.userInputCodeText}
+									onChange={e => this.setState({userInputCodeText: e.target.value.trim()})}
+									placeholder="验证码"
+									onKeyDown={event => event.keyCode === 13 && this.handleSubmit()}
+								/>
+								<span
+									onClick={() => this.getCheckCode()}
+									dangerouslySetInnerHTML={{__html: this.state.codeImage}}
+								/>
+							</div>
+						)
+					}
+					<div className={classNames(styles['item'])}>
+						<Button
+							type="primary"
+							disabled={this.state.loading}
+							loading={this.state.loading}
+							onClick={() => this.handleSubmit()}
+						>
+							登&nbsp;&nbsp;录
+						</Button>
+					</div>
 				</div>
 			</div>
 		);

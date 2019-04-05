@@ -5,14 +5,12 @@ import T from 'utils/t';
 import MainHeader from 'templates/toolComponents/mainHeader';
 import { Button, Input, Table, Form, Select } from 'antd';
 import enumAuth from 'constants/enumAuth';
-import * as webAPI from '../../webAPI/authList';
-import { administratorGroupList } from '../../webAPI/groupList';
+import * as webAPI from 'constants/webAPI';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as enumCommon from 'constants/app/common';
 import styles from './authList.scss';
 
-const {AuthComponent} = T;
 const Option = Select.Option;
 const formItemLayout = {
 	labelCol: {
@@ -84,7 +82,7 @@ class AuthList extends React.PureComponent {
 	 * @param {function} [callback]
 	 */
 	getGroupList = callback => {
-		administratorGroupList().then(info => {
+		webAPI.administratorGroupList().then(info => {
 			this.setState({
 				groupData: info.data.map(value => ({
 					value: value.value,
@@ -388,7 +386,7 @@ class AuthList extends React.PureComponent {
 							>
 								重置表单
 							</Button>
-							<AuthComponent auth={enumAuth.sAdministratorAuthListDistribute.value}>
+							<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthListDistribute.value}>
 								<Button
 									htmlType="submit"
 									className="base-gap"
@@ -397,22 +395,22 @@ class AuthList extends React.PureComponent {
 								>
 									分配权限
 								</Button>
-							</AuthComponent>
+							</T.auth.AuthComponent>
 						</Form.Item>
 					</Form>
 				</div>
 				<MainHeader
 					className={styles['operate-container']}
 				>
-					<AuthComponent auth={enumAuth.sAdministratorAuthListGroupAndRoleAuth.value}>
+					<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthListGroupAndRoleAuth.value}>
 						<Input.Search
 							value={this.state.search}
 							onChange={event => this.setState({search: event.target.value})}
 							placeholder="请搜索权限值"
 							onSearch={() => this.getList(1, this.state.pageSize, this.state.search, this.state.group, this.state.role)}
 						/>
-					</AuthComponent>
-					<AuthComponent auth={enumAuth.sAdministratorAuthListDelete.value}>
+					</T.auth.AuthComponent>
+					<T.auth.AuthComponent auth={enumAuth.sAdministratorAuthListDelete.value}>
 						<Button
 							type="primary"
 							disabled={this.state.selectedRows.length <= 0}
@@ -420,7 +418,7 @@ class AuthList extends React.PureComponent {
 						>
 							删除
 						</Button>
-					</AuthComponent>
+					</T.auth.AuthComponent>
 				</MainHeader>
 				
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>

@@ -13,6 +13,7 @@
 			auth: 'auth',   // 登陆成功权限的key
 			userDetail: 'userDetail',   // 登陆成功用户详细信息的key
 			
+			isCheckCode: true, // 是否验证码验证
 			isCheckLogin: true,                            // web端是否验证登录
 			defaultRedirectUrl: rootPath + 'test/demo',  // 登录成功默认重定向的url
 			loginUrl: rootPath + 'login',                   // 登录页面url

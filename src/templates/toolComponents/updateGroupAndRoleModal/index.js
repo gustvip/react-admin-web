@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Modal, Select } from 'antd';
 import auth from 'utils/core/auth';
-import enumAPI from 'constants/enumAPI';
-import * as request from 'utils/core/request';
 import * as enumCommon from 'constants/app/common';
+import * as webAPI from 'constants/webAPI';
+import prompt from 'utils/core/prompt';
+import * as msg from 'constants/app/msg';
 
 import { isFunction } from 'lodash';
 
@@ -51,7 +52,7 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 	}
 	
 	componentDidMount() {
-		request.get(enumAPI.administratorGroupList, {}).then(info => {
+		webAPI.administratorGroupList().then(info => {
 			this.setState({
 				groupData: info.data.map(value => ({
 					value: value.value,
@@ -62,21 +63,22 @@ class UpdateGroupAndRoleModal extends React.PureComponent {
 	}
 	
 	handleSubmit = () => {
-		const self = this;
-		self.props.form.validateFields((err, values) => {
+		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				self.setState({loading: true}, () => {
-					const userId = self.props.userId;
-					request.put(enumAPI.userUpdateGroupAndRole, {
+				this.setState({loading: true}, () => {
+					const userId = this.props.userId;
+					webAPI.userUpdateGroupAndRole({
 						userId,
 						...values,
 					}).then(() => {
-						self.setState({showModal: false}, () => {
-							isFunction(self.props.successCallback) && self.props.successCallback();
+						prompt.success(msg.successInfo.userUpdateGroupAndRole);
+						this.setState({showModal: false}, () => {
+							isFunction(this.props.successCallback) && this.props.successCallback();
 						});
 					}).catch(info => {
-						isFunction(self.props.failCallback) && self.props.failCallback(info);
-					}).finally(() => self.setState({loading: false}));
+						prompt.error(info.msg);
+						isFunction(this.props.failCallback) && this.props.failCallback(info);
+					}).finally(() => this.setState({loading: false}));
 				});
 			}
 		});

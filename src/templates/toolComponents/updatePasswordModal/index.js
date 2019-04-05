@@ -6,8 +6,9 @@ import React from 'react';
 import { Form, Input, Modal } from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
-import enumAPI from 'constants/enumAPI';
-import * as request from 'utils/core/request';
+import * as webAPI from 'constants/webAPI';
+import prompt from 'utils/core/prompt';
+import * as msg from 'constants/app/msg';
 
 import { isFunction } from 'lodash';
 
@@ -42,21 +43,22 @@ class UpdatePasswordModal extends React.PureComponent {
 	};
 	
 	handleSubmit = () => {
-		const self = this;
-		self.props.form.validateFields((err, values) => {
+		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				self.setState({loading: true}, () => {
+				this.setState({loading: true}, () => {
 					const {oldPassword, newPassword} = values;
-					request.put(enumAPI.userUpdatePassword, {
+					webAPI.userUpdatePassword({
 						oldPassword: crypto.md5(oldPassword, oldPassword),
 						newPassword: crypto.md5(newPassword, newPassword),
 					}).then(() => {
-						self.setState({showModal: false}, () => {
-							isFunction(self.props.successCallback) && self.props.successCallback();
+						prompt.success(msg.successInfo.userUpdatePassword);
+						this.setState({showModal: false}, () => {
+							isFunction(this.props.successCallback) && this.props.successCallback();
 						});
 					}).catch(info => {
-						isFunction(self.props.failCallback) && self.props.failCallback(info);
-					}).finally(() => self.setState({loading: false}));
+						prompt.error(info.msg);
+						isFunction(this.props.failCallback) && this.props.failCallback(info);
+					}).finally(() => this.setState({loading: false}));
 				});
 			}
 		});

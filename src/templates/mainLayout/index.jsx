@@ -15,12 +15,8 @@ import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
 import { isEqual, flowRight, get, uniqueId } from 'lodash';
 import enumMenus from 'constants/enumMenus';
-
-/**
- * 获取图标字体
- * @param {Object} icon {{type: String, value: String}}
- */
-const getIcon = icon => icon && <Icon type={icon}/>;
+import * as webAPI from 'constants/webAPI';
+import * as msg from 'constants/app/msg';
 
 class SiderMenu extends React.PureComponent {
 	static propTypes = {
@@ -45,7 +41,6 @@ class SiderMenu extends React.PureComponent {
 	 * @param {Array} openKeys ---一般不填，递归时需要
 	 */
 	getMenu = (data, locationPathname, openKeys = []) => {
-		const self = this;
 		openKeys = Array.isArray(openKeys) ? openKeys : [];
 		return data.filter(value => {
 			if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
@@ -58,7 +53,7 @@ class SiderMenu extends React.PureComponent {
 				return (
 					<Menu.Item key={item.id} className={T.classNames({active: get(item, 'url[0]') === locationPathname})}>
 						<Link to={get(item, 'url[0]')}>
-							<span>{getIcon(item.icon)}<span>{item.label}</span></span>
+							<span>{item.icon && <Icon type={item.icon}/>}<span>{item.label}</span></span>
 						</Link>
 					</Menu.Item>
 				);
@@ -67,10 +62,10 @@ class SiderMenu extends React.PureComponent {
 			return (
 				<Menu.SubMenu
 					key={item.id}
-					title={<span>{getIcon(item.icon)}<span>{item.label}</span></span>}
-					onTitleClick={() => self.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
+					title={<span>{item.icon && <Icon type={item.icon}/>}<span>{item.label}</span></span>}
+					onTitleClick={() => this.handleDefaultOpenKeys(defaultOpenKeys.slice(), item.url)}
 				>
-					{self.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
+					{this.getMenu(item.children, locationPathname, defaultOpenKeys.slice())}
 				</Menu.SubMenu>
 			);
 		});
@@ -130,16 +125,15 @@ export class HeaderLayout extends React.PureComponent {
 		// 跳转至登录页面
 		this.context.router.history.push(ENV.login.loginUrl);
 		// 发送请求---清除cookie和服务端缓存
-		T.auth.loginOut();
+		webAPI.userLoginOut();
 	};
 	
 	getTopRoute = () => {
-		const self = this;
-		const initialValue = get(enumMenus.find(value => value.url.indexOf(self.locationPathname) !== -1), 'url[0]');
+		const initialValue = get(enumMenus.find(value => value.url.indexOf(this.locationPathname) !== -1), 'url[0]');
 		return (
 			<div className={styles['drop-down-menu-container']}>
 				<Select
-					onChange={value => self.context.router.history.push(value)}
+					onChange={value => this.context.router.history.push(value)}
 					value={initialValue}
 				>
 					{
@@ -154,34 +148,31 @@ export class HeaderLayout extends React.PureComponent {
 		);
 	};
 	
-	getCategoryRoute = () => {
-		const self = this;
-		return (
-			<div className={styles['category-menu-container']}>
-				{
-					getCategoryRoute(self.locationPathname).filter(value => {
-						if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
-							return T.auth.hasAuth(value.auth);
-						}
-						return true;
-					}).map(value => (
-						<Link
-							className={T.helper.classNames('')({[styles.active]: value.url.indexOf(self.locationPathname) !== -1})}
-							key={value.id}
-							to={get(value, 'url[0]')}
-						>
-							{value.label}
-						</Link>
-					))
-				}
-			</div>
-		);
-	};
+	getCategoryRoute = () => (
+		<div className={styles['category-menu-container']}>
+			{
+				getCategoryRoute(this.locationPathname).filter(value => {
+					if (Object.prototype.hasOwnProperty.call(value, 'auth')) {
+						return T.auth.hasAuth(value.auth);
+					}
+					return true;
+				}).map(value => (
+					<Link
+						className={T.helper.classNames('')({[styles.active]: value.url.indexOf(this.locationPathname) !== -1})}
+						key={value.id}
+						to={get(value, 'url[0]')}
+					>
+						{value.label}
+					</Link>
+				))
+			}
+		</div>
+	);
 	
 	handleResetPassword = userId => {
 		T.prompt.confirm({
 			onOk() {
-				T.auth.resetUserPassword(userId, () => T.prompt.success('重置成功'), info => T.prompt.error(info.msg));
+				webAPI.userResetPassword({userId}).then(() => T.prompt.success(msg.successInfo.userResetPassword)).catch(info => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码吗?',
 			content: `密码将重置为${enumCommon.initialPassword}`,
@@ -200,32 +191,19 @@ export class HeaderLayout extends React.PureComponent {
 				</Menu.Item>
 				<Menu.Divider/>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(
-						<LookUpUserInfoModal userId={get(userInfo, 'userId')}/>,
-					)}
+					onClick={() => T.helper.renderModal(<LookUpUserInfoModal userId={get(userInfo, 'userId')}/>)}
 					key={uniqueId()}
 				>
 					个人中心
 				</Menu.Item>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(
-						<UpdateUserInfoModal
-							successCallback={() => T.prompt.success('修改成功')}
-							failCallback={info => T.prompt.error(info.msg)}
-							userId={get(userInfo, 'userId')}
-						/>,
-					)}
+					onClick={() => T.helper.renderModal(<UpdateUserInfoModal userId={get(userInfo, 'userId')}/>)}
 					key={uniqueId()}
 				>
 					编辑
 				</Menu.Item>
 				<Menu.Item
-					onClick={() => T.helper.renderModal(
-						<UpdatePasswordModal
-							successCallback={() => T.prompt.success('修改成功')}
-							failCallback={info => T.prompt.error(info.msg)}
-						/>,
-					)}
+					onClick={() => T.helper.renderModal(<UpdatePasswordModal/>)}
 					key={uniqueId()}
 				>
 					修改密码
@@ -296,23 +274,22 @@ export class MenuAndHeaderLayout extends React.PureComponent {
 	};
 	
 	render() {
-		const self = this;
 		return (
 			<Layout
 				id={styles['main-container']}
 				className={T.classNames('flex-column-grow')}
-				style={{paddingLeft: self.state.isCollapsed ? 80 : 200}}
+				style={{paddingLeft: this.state.isCollapsed ? 80 : 200}}
 			>
 				<SiderMenu
-					isCollapsed={self.state.isCollapsed}
-					handleCollapsed={self.handleCollapsed}
+					isCollapsed={this.state.isCollapsed}
+					handleCollapsed={this.handleCollapsed}
 				/>
 				<Layout.Content
 					className={T.classNames(styles['content-container'], 'flex-column-grow')}
 				>
 					<HeaderLayout/>
 					<Layout.Content className={T.classNames(styles['main-content-container'], 'flex-column-grow')}>
-						{self.props.children}
+						{this.props.children}
 					</Layout.Content>
 				</Layout.Content>
 			</Layout>

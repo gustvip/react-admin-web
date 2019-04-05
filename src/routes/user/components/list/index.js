@@ -6,7 +6,7 @@ import { Button, Input, Table, Select } from 'antd';
 import * as enumCommon from 'constants/app/common';
 import enumAuth from 'constants/enumAuth';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import * as webAPI from '../../webAPI/list';
+import * as webAPI from 'constants/webAPI';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './userList.scss';
@@ -14,9 +14,8 @@ import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
 import UpdateGroupAndRoleModal from 'templates/toolComponents/updateGroupAndRoleModal';
 import AddUserModal from 'templates/toolComponents/addUserModal';
-import { administratorGroupList } from '../../../administrator/webAPI/groupList';
+import * as msg from 'constants/app/msg';
 
-const {AuthComponent} = T;
 const Option = Select.Option;
 export default class UserList extends React.PureComponent {
 	static contextTypes = {
@@ -81,7 +80,7 @@ export default class UserList extends React.PureComponent {
 	 * @param {function} [callback]
 	 */
 	getGroupList = callback => {
-		administratorGroupList().then(info => {
+		webAPI.administratorGroupList().then(info => {
 			this.setState({
 				groupData: info.data.map(value => ({
 					value: value.value,
@@ -146,11 +145,7 @@ export default class UserList extends React.PureComponent {
 	};
 	
 	handleLookUp = record => {
-		T.helper.renderModal(
-			<LookUpUserInfoModal
-				userId={record.userId}
-			/>,
-		);
+		T.helper.renderModal(<LookUpUserInfoModal userId={record.userId}/>);
 	};
 	
 	handleDelete = () => {
@@ -159,7 +154,7 @@ export default class UserList extends React.PureComponent {
 			onOk() {
 				webAPI.deleteUser({userId: self.state.selectedRows.map(value => value.userId)}).
 					then(() => {
-						T.prompt.success('删除成功');
+						T.prompt.success(msg.successInfo.deleteUser);
 						self.getList({
 							currentPage: 1,
 							pageSize: self.state.pageSize,
@@ -181,7 +176,7 @@ export default class UserList extends React.PureComponent {
 			onOk() {
 				webAPI.userRecover({userId: self.state.selectedRows.map(value => value.userId)}).
 					then(() => {
-						T.prompt.success('恢复成功');
+						T.prompt.success(msg.successInfo.recoverUser);
 						self.getList({
 							currentPage: 1,
 							pageSize: self.state.pageSize,
@@ -250,7 +245,6 @@ export default class UserList extends React.PureComponent {
 		T.helper.renderModal(
 			<AddUserModal
 				successCallback={() => {
-					T.prompt.success('增加成功');
 					this.getList({
 						currentPage: this.state.currentPage,
 						pageSize: this.state.pageSize,
@@ -261,7 +255,6 @@ export default class UserList extends React.PureComponent {
 						sex: this.state.status,
 					});
 				}}
-				failCallback={info => T.prompt.error(info.msg)}
 			/>,
 		);
 	};
@@ -271,7 +264,6 @@ export default class UserList extends React.PureComponent {
 			<UpdateUserInfoModal
 				userId={record.userId}
 				successCallback={() => {
-					T.prompt.success('更新成功');
 					this.getList({
 						currentPage: this.state.currentPage,
 						pageSize: this.state.pageSize,
@@ -282,7 +274,6 @@ export default class UserList extends React.PureComponent {
 						sex: this.state.status,
 					});
 				}}
-				failCallback={info => T.prompt.error(info.msg)}
 			/>,
 		);
 	};
@@ -290,7 +281,7 @@ export default class UserList extends React.PureComponent {
 	handleResetPassword = record => {
 		T.prompt.confirm({
 			onOk() {
-				T.auth.resetUserPassword(record.userId, () => T.prompt.success('重置成功'), info => T.prompt.error(info.msg));
+				webAPI.userResetPassword({userId: record.userId}).then(() => T.prompt.success(msg.successInfo.userResetPassword)).catch(info => T.prompt.error(info.msg));
 			},
 			title: '确认重置密码吗？',
 			content: `密码将重置为${enumCommon.initialPassword}`,
@@ -304,7 +295,6 @@ export default class UserList extends React.PureComponent {
 				group={record.group}
 				role={record.role}
 				successCallback={() => {
-					T.prompt.success('更新成功');
 					this.getList({
 						currentPage: this.state.currentPage,
 						pageSize: this.state.pageSize,
@@ -315,7 +305,6 @@ export default class UserList extends React.PureComponent {
 						sex: this.state.status,
 					});
 				}}
-				failCallback={info => T.prompt.error(info.msg)}
 			/>,
 		);
 	};
@@ -419,7 +408,7 @@ export default class UserList extends React.PureComponent {
 							>
 								查看
 							</Button>
-							<AuthComponent auth={enumAuth.sUserUpdateInfo.value}>
+							<T.auth.AuthComponent auth={enumAuth.sUserUpdateInfo.value}>
 								<Button
 									size="small"
 									className="base-gap"
@@ -428,8 +417,8 @@ export default class UserList extends React.PureComponent {
 								>
 									编辑
 								</Button>
-							</AuthComponent>
-							<AuthComponent auth={enumAuth.sUserUpdateGroupAndRole.value}>
+							</T.auth.AuthComponent>
+							<T.auth.AuthComponent auth={enumAuth.sUserUpdateGroupAndRole.value}>
 								<Button
 									size="small"
 									className="base-gap"
@@ -438,8 +427,8 @@ export default class UserList extends React.PureComponent {
 								>
 									角色管理
 								</Button>
-							</AuthComponent>
-							<AuthComponent auth={enumAuth.sUserResetPassword.value}>
+							</T.auth.AuthComponent>
+							<T.auth.AuthComponent auth={enumAuth.sUserResetPassword.value}>
 								<Button
 									size="small"
 									className="base-gap"
@@ -448,7 +437,7 @@ export default class UserList extends React.PureComponent {
 								>
 									重置密码
 								</Button>
-							</AuthComponent>
+							</T.auth.AuthComponent>
 						</React.Fragment>
 					);
 				},
@@ -504,10 +493,9 @@ export default class UserList extends React.PureComponent {
 	}
 	
 	render() {
-		const self = this;
 		return (
 			<React.Fragment>
-				<AuthComponent auth={enumAuth.sUserAdd.value}>
+				<T.auth.AuthComponent auth={enumAuth.sUserAdd.value}>
 					<MainHeader
 					>
 						<Button
@@ -517,7 +505,7 @@ export default class UserList extends React.PureComponent {
 							新增用户
 						</Button>
 					</MainHeader>
-				</AuthComponent>
+				</T.auth.AuthComponent>
 				<MainHeader
 				>
 					<Input.Search
@@ -574,7 +562,7 @@ export default class UserList extends React.PureComponent {
 							this.state.sexData.map((value => <Option key={value.value}>{value.label}</Option>))
 						}
 					</Select>
-					<AuthComponent auth={enumAuth.sUserDelete.value}>
+					<T.auth.AuthComponent auth={enumAuth.sUserDelete.value}>
 						<Button
 							disabled={this.state.selectedRows.length === 0}
 							type="primary"
@@ -582,8 +570,8 @@ export default class UserList extends React.PureComponent {
 						>
 							删除
 						</Button>
-					</AuthComponent>
-					<AuthComponent auth={enumAuth.sUserRecover.value}>
+					</T.auth.AuthComponent>
+					<T.auth.AuthComponent auth={enumAuth.sUserRecover.value}>
 						<Button
 							disabled={this.state.selectedRows.length === 0}
 							type="primary"
@@ -591,20 +579,20 @@ export default class UserList extends React.PureComponent {
 						>
 							恢复
 						</Button>
-					</AuthComponent>
+					</T.auth.AuthComponent>
 				</MainHeader>
 				<div className={T.classNames(styles['main-container'], 'flex-column-grow')}>
 					<Table
 						loading={this.state.isTableLoading}
 						size="small"
-						dataSource={self.state.dataSource.map(value => ({
+						dataSource={this.state.dataSource.map(value => ({
 							...value,
 							key: value.userId,
 						}))}
 						bordered
-						columns={self.columns}
-						pagination={self.pagination}
-						rowSelection={self.rowSelection}
+						columns={this.columns}
+						pagination={this.pagination}
+						rowSelection={this.rowSelection}
 					/>
 				</div>
 			</React.Fragment>

@@ -1,16 +1,15 @@
 @import "baseStyleVarity";
 
-#login-container {
+.container {
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
-	> img {
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
+	background-image: url("./img/bg.jpeg");
+	background-size: 100% 100%;
+	background-position: center center;
+
 	.condition-container {
 		position: absolute;
 		left: 50%;
@@ -18,10 +17,25 @@
 		transform: translate(-50%, -50%);
 		display: flex;
 		flex-direction: column;
-		width: 350px;
+		width: 450px;
 		padding: $base-content-gap;
-		> input {
+		> .item {
+			align-items: center;
+			display: flex;
 			margin-bottom: $base-content-gap;
+			:global {
+				.ant-btn {
+					width: 100%;
+				}
+			}
+			&.check-code {
+				> span {
+					border-radius: $base-border-radius;
+					background-color: #cc9966;
+					cursor: pointer;
+					margin-left: $base-content-gap;
+				}
+			}
 		}
 	}
 }

@@ -3,14 +3,14 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Form, Input, Radio, Modal} from 'antd';
-import prompt from 'utils/core/prompt';
+import { Form, Input, Radio, Modal } from 'antd';
 import regExpHelper from 'utils/core/regexp';
-import enumAPI from 'constants/enumAPI';
-import * as request from 'utils/core/request';
+import * as webAPI from 'constants/webAPI';
+import prompt from 'utils/core/prompt';
+import * as msg from 'constants/app/msg';
 
-import {isFunction }from 'lodash';
-import {userSex} from 'constants/app/common';
+import { isFunction } from 'lodash';
+import { userSex } from 'constants/app/common';
 
 const RadioGroup = Radio.Group;
 
@@ -36,7 +36,7 @@ class UpdateUserInfoModal extends React.PureComponent {
 	};
 	
 	componentDidMount() {
-		request.get(enumAPI.userDetail, {userId: this.props.userId}).then(info => {
+		webAPI.userDetail({userId: this.props.userId}).then(info => {
 			this.setState({
 				userName: info.data.userName,
 				userEmail: info.data.userEmail,
@@ -63,14 +63,16 @@ class UpdateUserInfoModal extends React.PureComponent {
 			if (!err) {
 				self.setState({loading: true}, () => {
 					const userId = self.props.userId;
-					request.put(enumAPI.userUpdateInfo, {
+					webAPI.userUpdateInfo({
 						userId,
 						...values,
 					}).then(() => {
+						prompt.success(msg.successInfo.userUpdateInfo);
 						self.setState({showModal: false}, () => {
 							isFunction(self.props.successCallback) && self.props.successCallback();
 						});
 					}).catch(info => {
+						prompt.error(info.msg);
 						isFunction(self.props.failCallback) && self.props.failCallback(info);
 					}).finally(() => self.setState({loading: false}));
 				});

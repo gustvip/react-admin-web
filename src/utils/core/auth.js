@@ -3,12 +3,10 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import enumAPI from 'constants/enumAPI';
 import * as enumCommon from 'constants/app/common';
 import qs from 'qs';
 import helper from './helper';
 import localStorage from './localStorage';
-import * as request from './request';
 
 import { flowRight, isFunction, get } from 'lodash';
 
@@ -19,12 +17,11 @@ class Auth {
 	
 	/**
 	 * 验证是api或者route是否有权限
-	 * @param api
+	 * @param {string} info
 	 * @return boolean
 	 */
 	hasAuth(info) {
-		const auth = get(this.getUserInfoStorageValue(), this.ENV.login.auth, []);
-		return auth.indexOf(info) !== -1;
+		return get(this.getUserInfoStorageValue(), this.ENV.login.auth, []).indexOf(info) !== -1;
 	}
 	
 	/**
@@ -36,16 +33,6 @@ class Auth {
 		const isNeedGetLocalStorage = this.ENV.login.isCheckLogin && this.ENV.login.noCheckIsLoginRoutes.indexOf(locationPathname) === -1;
 		
 		return isNeedGetLocalStorage ? this.getLoginStorageValue() === this.ENV.localStorage.login.value : true;
-	}
-	
-	/**
-	 * 重置用户密码
-	 * @param {string} userId
-	 * @param {function} [successCallback]
-	 * @param {function} [failCallback]
-	 */
-	resetUserPassword(userId, successCallback, failCallback) {
-		request.put(enumAPI.userResetPassword, {userId}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
 	}
 	
 	/**
@@ -62,13 +49,6 @@ class Auth {
 	setLoginStorageValue() {
 		const login = this.ENV.localStorage.login;
 		localStorage.setItem(login.key, login.value, login.expire);
-	}
-	
-	/**
-	 * 移除login
-	 */
-	removeLoginStorageValue() {
-		localStorage.removeItem(this.ENV.localStorage.login.key);
 	}
 	
 	/**
@@ -121,36 +101,6 @@ class Auth {
 	}
 	
 	/**
-	 * 移除userInfo
-	 */
-	removeUserInfoStorageValue() {
-		localStorage.removeItem(this.ENV.localStorage.userInfo.key);
-	}
-	
-	/**
-	 * 登录
-	 * @param {string} userName
-	 * @param {string} userPassword
-	 * @param {function} [successCallback]
-	 * @param {function} [failCallback]
-	 */
-	login(userName, userPassword, successCallback, failCallback) {
-		request.postJSON(enumAPI.userLogin, {
-			userName,
-			userPassword,
-		}).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
-	}
-	
-	/**
-	 * 退出登录
-	 * @param {function} [successCallback]
-	 * @param {function} [failCallback]
-	 */
-	loginOut(successCallback, failCallback) {
-		request.postJSON(enumAPI.userLoginOut).then(info => isFunction(successCallback) && successCallback(info)).catch(info => isFunction(failCallback) && failCallback(info));
-	}
-	
-	/**
 	 * 登录成功重定向
 	 * @param {Object} history react-router的history
 	 * @param  {Object} [state] react-router的state
@@ -169,7 +119,7 @@ class Auth {
 
 const auth = new Auth();
 
-export function AuthComponent(props) {
+function AuthComponent(props) {
 	return auth.hasAuth(props.auth) && props.children;
 }
 
@@ -177,4 +127,5 @@ AuthComponent.propTypes = {
 	auth: PropTypes.string.isRequired,
 	children: PropTypes.any,
 };
+auth.AuthComponent = AuthComponent;
 export default auth;
