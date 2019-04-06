@@ -38,19 +38,15 @@ export default class Login extends React.PureComponent {
 	 * @param {function} [callback]
 	 */
 	getCheckCode = callback => {
-		if (ENV.login.isCheckCode) {
-			webAPI.createRandomCode({size: 6}).then(info => {
-				this.setState({originCodeText: info.data.text, codeImage: info.data.data}, () => callback && callback(info.data));
-			}).catch(info => prompt.error(info.msg));
-		}
+		webAPI.createRandomCode().then(info => {
+			this.setState({originCodeText: info.data.text, codeImage: info.data.data}, () => callback && callback(info.data));
+		}).catch(info => prompt.error(info.msg));
 	};
 	
 	checkCode = (userInputCodeText, originCodeText) => {
-		if (ENV.login.isCheckCode) {
-			if (!userInputCodeText || !originCodeText || userInputCodeText !== originCodeText) {
-				prompt.warn(msg.failInfo.checkCode);
-				return false;
-			}
+		if (!userInputCodeText || !originCodeText || userInputCodeText !== originCodeText) {
+			prompt.warn(msg.failInfo.checkCode);
+			return false;
 		}
 		return true;
 	};
@@ -80,7 +76,11 @@ export default class Login extends React.PureComponent {
 		if (this.checkCode(userInputCodeText, originCodeText) && this.checkUserName(userName) && this.checkUserPassword(userPassword)) {
 			userPassword = crypto.md5(userPassword);
 			this.setState({loading: true}, () => {
-				webAPI.userLogin({userName, userPassword}).then(info => {
+				webAPI.userLogin({
+					userName,
+					userPassword,
+					checkCode: userInputCodeText,
+				}).then(info => {
 					prompt.success(msg.successInfo.login);
 					auth.setLoginStorageValue();
 					auth.setUserInfoStorageValue(info.data);
@@ -115,23 +115,19 @@ export default class Login extends React.PureComponent {
 							onKeyDown={event => event.keyCode === 13 && this.handleSubmit()}
 						/>
 					</div>
-					{
-						ENV.login.isCheckCode && (
-							<div className={classNames(styles['item'], styles['check-code'])}>
-								<Input
-									type="text"
-									value={this.state.userInputCodeText}
-									onChange={e => this.setState({userInputCodeText: e.target.value.trim()})}
-									placeholder="验证码"
-									onKeyDown={event => event.keyCode === 13 && this.handleSubmit()}
-								/>
-								<span
-									onClick={() => this.getCheckCode()}
-									dangerouslySetInnerHTML={{__html: this.state.codeImage}}
-								/>
-							</div>
-						)
-					}
+					<div className={classNames(styles['item'], styles['check-code'])}>
+						<Input
+							type="text"
+							value={this.state.userInputCodeText}
+							onChange={e => this.setState({userInputCodeText: e.target.value.trim()})}
+							placeholder="验证码"
+							onKeyDown={event => event.keyCode === 13 && this.handleSubmit()}
+						/>
+						<span
+							onClick={() => this.getCheckCode()}
+							dangerouslySetInnerHTML={{__html: this.state.codeImage}}
+						/>
+					</div>
 					<div className={classNames(styles['item'])}>
 						<Button
 							type="primary"

@@ -7,12 +7,9 @@ import * as request from 'utils/core/request';
 
 /**
  * 生成验证码
- * @param {number} [condition.size]
- * @param {string} [condition.ignoreChars]
- * @param {string} [condition.noise]
  * @return {Promise}
  */
-export const createRandomCode = condition => request.get(enumAPI.commonCheckCode, condition);
+export const createRandomCode = () => request.postJSON(enumAPI.commonCheckCode);
 
 /**
  * 生成mock数据
@@ -25,7 +22,7 @@ export const mock = condition => request.postJSON(enumAPI.commonMock, condition)
  * 用户登录
  * @param {string} condition.userName
  * @param {string} condition.userPassword
- * @param {string} [condition.checkCode]
+ * @param {string} condition.checkCode
  * @return {Promise}
  */
 export const userLogin = condition => request.postJSON(enumAPI.userLogin, condition);

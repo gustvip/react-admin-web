@@ -4,7 +4,7 @@
 import * as qs from 'qs';
 import helper from './core/helper';
 import prompt from './core/prompt';
-import auth, { AuthComponent } from './core/auth';
+import auth from './core/auth';
 import regExp from './core/regexp';
 import localStorage from './core/localStorage/index';
 import emitter from './core/emitter/index';
@@ -15,7 +15,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 
 /**
- * @type {{moment, classNames, qs, crypto: Crypto, emitter, prompt: Prompt, regExp: {name(*=, *=, *=): *, password(*=, *=, *=): *, url: RegExp, email: RegExp, html: RegExp, ip: RegExp, chinese: RegExp, telephone: RegExp}, helper: Helper, auth: Auth, AuthComponent: AuthComponent, decorate: {contextTypes?, propTypes?}, request: {get?, post?, postJSON?, upload?, del?, put?, form?, downLoadUrl?, all?}, localStorage: {length: *, clearExpired: clearExpired, setItem: setItem, getItem: (function(String): undefined), keepItemExpire: keepItemExpire, updateItemExpire: updateItemExpire, updateItemValue: updateItemValue, removeItem: removeItem, clear: clear}}}
+ * @type {{moment, classNames, qs, crypto: Crypto, emitter, prompt: Prompt, regExp: {name(*=, *=, *=): *, password(*=, *=, *=): *, url: RegExp, email: RegExp, html: RegExp, ip: RegExp, chinese: RegExp, telephone: RegExp}, helper: Helper, auth: Auth, decorate: {contextTypes?, propTypes?}, request: {get?, upload?, del?, all?, form?, post?, postJSON?, downLoadUrl?, put?}, localStorage: *}}
  */
 const T = {
 	moment,
@@ -41,9 +41,6 @@ const T = {
 	
 	// 权限相关
 	auth,
-	
-	// 权限组件
-	AuthComponent,
 	
 	// 装饰器
 	decorate,
