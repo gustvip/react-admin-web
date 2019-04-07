@@ -69,8 +69,13 @@ const webpackConfigProd = merge(prodConfig, {
 			},
 			// 复制assets
 			{
-				from: path.join(enumPath.entryPath, resourceName.assets),
-				to: path.join(conf.webPath, resourceName.assets),
+				from: path.join(enumPath.entryPath, 'assets'),
+				to: path.join(conf.webPath, 'assets'),
+			},
+			// 复制plugin
+			{
+				from: path.join(enumPath.entryPath, 'plugin'),
+				to: path.join(conf.webPath, 'plugin'),
 			},
 			// 复制favicon
 			{

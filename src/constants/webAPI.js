@@ -77,7 +77,7 @@ export const userUpdateInfo = condition => request.put(enumAPI.userUpdateInfo, c
  * 用户登出
  * @return {Promise}
  */
-export const userLoginOut = () => request.postJSON(enumAPI.userLoginOut, condition);
+export const userLoginOut = () => request.postJSON(enumAPI.userLoginOut);
 
 /**
  * 重置用户密码

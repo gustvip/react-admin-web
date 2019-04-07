@@ -138,7 +138,6 @@ module.exports = {
 			'moment',
 			'qs',
 			'axios',
-			// 'immutability-helper',
 			'react',
 			'react-dom',
 			'react-redux',
@@ -152,16 +151,6 @@ module.exports = {
 			'utils/core/localStorage/index.js',
 		],
 	},
-	
-	// 排除打包的内容---走cdn
-	/* externals: {
-    $: 'jQuery',
-    jQuery: 'jQuery',
-    lodash: '_',
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    leaflet: 'L',
-  }, */
 	
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],

@@ -17,7 +17,6 @@ module.exports = merge(baseConfig, {
 		minimizer: [
 			new terserWebpackPlugin({
 				terserOptions: {
-					ecma: 6,
 					output: {
 						comments: false,
 					},
