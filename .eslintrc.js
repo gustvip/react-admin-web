@@ -1,5 +1,5 @@
 const eslintrc = {
-	extends: ['eslint:recommended'],
+	extends: ['eslint:recommended', 'prettier'],
 	env: {
 		browser: true,
 		node: true,
