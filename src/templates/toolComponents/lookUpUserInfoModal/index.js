@@ -3,7 +3,7 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Modal, Spin } from 'antd';
+import {Modal, Spin} from 'antd';
 import prompt from 'utils/core/prompt';
 import helper from 'utils/core/helper';
 import styles from './lookUpUserInfoModal.scss';

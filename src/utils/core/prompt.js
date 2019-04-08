@@ -2,9 +2,9 @@
  * Created by joey on 2018/02/19
  */
 
-import { Modal } from 'antd';
-import { message } from 'antd';
-import { noop } from 'lodash';
+import {Modal} from 'antd';
+import {message} from 'antd';
+import {noop} from 'lodash';
 
 class Prompt {
 	constructor() {

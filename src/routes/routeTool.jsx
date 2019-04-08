@@ -5,8 +5,8 @@ import Route from 'react-router-dom/Route';
 import Exception from 'templates/toolComponents/exception';
 import lazyLoad from 'templates/lazyLoad';
 import * as React from 'react';
-import { DefaultLayout as DefaultLayoutComponent } from 'templates/mainLayout';
-import { flattenDeep } from 'lodash';
+import {DefaultLayout as DefaultLayoutComponent} from 'templates/mainLayout';
+import {flattenDeep} from 'lodash';
 
 /**
  * 布局方式
@@ -17,7 +17,7 @@ import { flattenDeep } from 'lodash';
  * @param {Array} rest
  * @param {Array} reducers
  */
-export const DefaultLayout = ({component: Component,path, layout: LayoutComponent, reducers, auth, ...rest}) => {
+export const DefaultLayout = ({component: Component, path, layout: LayoutComponent, reducers, auth, ...rest}) => {
 	const LazyComponent = lazyLoad(Component);
 	LayoutComponent = LayoutComponent ? LayoutComponent : DefaultLayoutComponent;
 	return (

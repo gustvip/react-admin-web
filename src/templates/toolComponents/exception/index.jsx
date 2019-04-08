@@ -3,7 +3,7 @@
  */
 import PropTypes from 'prop-types';
 import Link from 'react-router-dom/Link';
-import { Button } from 'antd';
+import {Button} from 'antd';
 import styles from './index.scss';
 import img404 from './img/404.svg';
 import classNames from 'classnames';

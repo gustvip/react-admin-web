@@ -1,11 +1,11 @@
 import React from 'react';
 import T from 'utils/t';
 import enumAPI from 'constants/enumAPI';
-import { Button, Input, Select } from 'antd';
+import {Button, Input, Select} from 'antd';
 import mime from 'mime';
 import styles from './parseFile.scss';
-import { fileExtendName } from 'constants/app/common';
-import { camelCase } from 'lodash';
+import {fileExtendName} from 'constants/app/common';
+import {camelCase} from 'lodash';
 import MainHeader from 'templates/toolComponents/mainHeader';
 
 const Option = Select.Option;

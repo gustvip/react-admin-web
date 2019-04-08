@@ -3,14 +3,14 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Form, Modal, Select } from 'antd';
+import {Form, Modal, Select} from 'antd';
 import auth from 'utils/core/auth';
 import * as enumCommon from 'constants/app/common';
 import * as webAPI from 'constants/webAPI';
 import prompt from 'utils/core/prompt';
 import * as msg from 'constants/app/msg';
 
-import { isFunction } from 'lodash';
+import {isFunction} from 'lodash';
 
 const Option = Select.Option;
 const formItemLayout = {

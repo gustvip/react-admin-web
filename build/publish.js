@@ -54,6 +54,7 @@ const webpackConfigProd = merge(prodConfig, {
 		path: path.join(conf.webPath),
 	},
 	plugins: [
+
 		// 生成html文件
 		new htmlWebpackPlugin({
 			template: path.join(enumPath.entryPath, 'template.html'),
@@ -62,21 +63,25 @@ const webpackConfigProd = merge(prodConfig, {
 			chunksSortMode: 'dependency',
 		}),
 		new copyWebpackPlugin([
+
 			// 复制config
 			{
 				from: path.join(enumPath.entryPath, 'config/env.js'),
 				to: path.join(conf.webPath, 'config/env.production.js'),
 			},
+
 			// 复制assets
 			{
 				from: path.join(enumPath.entryPath, 'assets'),
 				to: path.join(conf.webPath, 'assets'),
 			},
+
 			// 复制plugin
 			{
 				from: path.join(enumPath.entryPath, 'plugin'),
 				to: path.join(conf.webPath, 'plugin'),
 			},
+
 			// 复制favicon
 			{
 				from: path.join(enumPath.entryPath, 'favicon.ico'),

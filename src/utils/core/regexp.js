@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/2/18
  */
-import { isNil, toLength } from 'lodash';
+import {isNil, toLength} from 'lodash';
 
 /**
  * 常用正则

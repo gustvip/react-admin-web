@@ -5,7 +5,7 @@
 import helper from 'utils/core/helper';
 import enumRouter from './enumRouter';
 import enumAuth from 'constants/enumAuth';
-import { isString, uniq, uniqueId } from 'lodash';
+import {isString, uniq, uniqueId} from 'lodash';
 
 /**
  * @type {{auth, label: string, url: (string|string), id: *, children: {auth, label: string, url: (string|string), id: *, children: *[]}[]}[]}

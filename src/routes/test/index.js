@@ -3,8 +3,8 @@
  */
 import enumRouter from 'constants/enumRouter';
 import enumAuth from 'constants/enumAuth';
-import { AssembleRoute } from 'routes/routeTool';
-import { MenuAndHeaderLayout } from 'templates/mainLayout';
+import {AssembleRoute} from 'routes/routeTool';
+import {MenuAndHeaderLayout} from 'templates/mainLayout';
 import TestDemo from './routes/demo/index';
 import TestParseFile from './routes/parseFile/index';
 

@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import { flowRight, identity, partial } from 'lodash';
+import {flowRight, identity, partial} from 'lodash';
 
 /**
  * @type {{rootPath: string, login: string, noPermit: string, testDemo: string, testParseFile: string, userList: string, administratorAuthEnumList: string, administratorGroupList: string}}

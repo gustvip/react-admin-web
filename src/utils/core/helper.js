@@ -1,6 +1,6 @@
-import { get, identity, forEach, forOwn, isString, groupBy, round, toFinite, minBy, maxBy, isFinite as IsFinite } from 'lodash';
+import {get, identity, forEach, forOwn, isString, groupBy, round, toFinite, minBy, maxBy, isFinite as IsFinite} from 'lodash';
 import classNames from 'classnames';
-import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
+import {render as reactDomRender, unmountComponentAtNode} from 'react-dom';
 
 class Helper {
 	/**
@@ -75,12 +75,10 @@ class Helper {
 		const groupData = data.reduce((prev, value) => {
 			if (!value[parentIdName]) {
 				result.push(value);
+			} else if (prev[value[parentIdName]]) {
+				prev[value[parentIdName]].push(value);
 			} else {
-				if (prev[value[parentIdName]]) {
-					prev[value[parentIdName]].push(value);
-				} else {
-					prev[value[parentIdName]] = [value];
-				}
+				prev[value[parentIdName]] = [value];
 			}
 			return prev;
 		}, {});

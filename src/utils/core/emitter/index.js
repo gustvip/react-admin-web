@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/6/20
  */
-import { findIndex, isFunction, filter } from 'lodash';
+import {findIndex, isFunction, filter} from 'lodash';
 
 /**
  * 内部增加监听函数处理

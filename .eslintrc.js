@@ -1,13 +1,17 @@
 const eslintrc = {
-	extends: ['eslint:recommended', 'prettier'],
+	extends: ['eslint:recommended'],
 	env: {
 		browser: true,
 		node: true,
 		jest: true,
 	},
 	globals: {
+		Qs: false,
+		axios: false,
+		React: false,
 		AMap: false,
 		ENV: false,
+		moment: false,
 	},
 	parser: 'babel-eslint',
 	plugins: [
@@ -60,6 +64,22 @@ const eslintrc = {
 		'jsx-a11y/anchor-is-valid': 0,
 		'jsx-quotes': 2,
 		
+		'unicode-bom': [2, 'never'],
+		'switch-colon-spacing': [
+			2, {
+				'before': false,
+				'after': true,
+			}],
+		'object-curly-spacing': [2, 'never'],
+		'no-lonely-if': 2,
+		'lines-between-class-members': [2, 'always'],
+		'lines-around-comment': [
+			2, {
+				'beforeLineComment': true,
+				'beforeBlockComment': true,
+				'allowBlockStart': true,
+			}],
+		'comma-spacing': [2, {'before': false, 'after': true}],
 		'no-else-return': 2,
 		'no-fallthrough': 2,
 		'no-floating-decimal': 2,
@@ -132,12 +152,30 @@ const eslintrc = {
 				maxBOF: 1,
 			}],
 		
+		'keyword-spacing': [
+			2, {
+				'before': true,
+				'after': true,
+			}],
+		'function-paren-newline': [2, 'multiline'],
+		'func-call-spacing': [2, 'never'],
+		'computed-property-spacing': 2,
+		'comma-style': [2, 'last'],
+		'comma-dangle': [
+			'error', {
+				'arrays': 'always-multiline',
+				'objects': 'always-multiline',
+				'imports': 'never',
+				'exports': 'never',
+				'functions': 'ignore',
+			}],
+		'array-bracket-spacing': 2,
 		'wrap-iife': 2,
 		'no-caller': 2,
 		'no-useless-escape': 0,
 		'default-case': 2,
 		'getter-return': 2,
-		'operator-assignment': 0,
+		'operator-assignment': 2,
 		'no-unused-vars': 0,
 		'no-unused-expressions': 0,
 		'no-redeclare': 0,

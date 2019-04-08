@@ -3,14 +3,14 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Form, Input, Radio, Modal } from 'antd';
+import {Form, Input, Radio, Modal} from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import * as webAPI from 'constants/webAPI';
 import prompt from 'utils/core/prompt';
 import * as msg from 'constants/app/msg';
 
-import { isFunction } from 'lodash';
-import { userSex } from 'constants/app/common';
+import {isFunction} from 'lodash';
+import {userSex} from 'constants/app/common';
 
 const RadioGroup = Radio.Group;
 

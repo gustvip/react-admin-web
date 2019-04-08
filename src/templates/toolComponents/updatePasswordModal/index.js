@@ -3,14 +3,14 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
+import {Form, Input, Modal} from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
 import * as webAPI from 'constants/webAPI';
 import prompt from 'utils/core/prompt';
 import * as msg from 'constants/app/msg';
 
-import { isFunction } from 'lodash';
+import {isFunction} from 'lodash';
 
 const formItemLayout = {
 	labelCol: {

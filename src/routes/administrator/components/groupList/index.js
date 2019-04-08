@@ -4,7 +4,7 @@
 import T from 'utils/t';
 import UpdateGroupInfoModal from './updateGroupInfoModal';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import { Button, Input, Table, Form, Radio } from 'antd';
+import {Button, Input, Table, Form, Radio} from 'antd';
 import enumAuth from 'constants/enumAuth';
 import * as webAPI from 'constants/webAPI';
 import React from 'react';

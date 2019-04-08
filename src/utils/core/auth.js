@@ -8,7 +8,7 @@ import qs from 'qs';
 import helper from './helper';
 import localStorage from './localStorage';
 
-import { flowRight, isFunction, get } from 'lodash';
+import {flowRight, isFunction, get} from 'lodash';
 
 class Auth {
 	constructor() {

@@ -2,13 +2,13 @@
  * Created by joey on 18-9-4
  */
 import React from 'react';
-import { Form, Input, Button, Radio, Modal } from 'antd';
+import {Form, Input, Button, Radio, Modal} from 'antd';
 import regExpHelper from 'utils/core/regexp';
 import crypto from 'utils/core/crypto';
 import PropTypes from 'prop-types';
-import { userSex } from 'constants/app/common';
+import {userSex} from 'constants/app/common';
 import * as webAPI from 'constants/webAPI';
-import { isFunction } from 'lodash';
+import {isFunction} from 'lodash';
 import prompt from 'utils/core/prompt';
 import * as msg from 'constants/app/msg';
 

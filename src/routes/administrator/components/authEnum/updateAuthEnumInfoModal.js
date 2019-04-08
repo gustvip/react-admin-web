@@ -3,11 +3,11 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
+import {Form, Input, Modal} from 'antd';
 import prompt from 'utils/core/prompt';
 import * as webAPI from 'constants/webAPI';
 
-import { isFunction } from 'lodash';
+import {isFunction} from 'lodash';
 
 const formItemLayout = {
 	labelCol: {

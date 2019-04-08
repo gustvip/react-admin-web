@@ -1,7 +1,7 @@
 /**
  * Created by joey 2018/02/20
  */
-import { isString, isNumber, isBoolean, forOwn, toInteger, isInteger } from 'lodash';
+import {isString, isNumber, isBoolean, forOwn, toInteger, isInteger} from 'lodash';
 
 export default (function() {
 	function isPureObject(x) {
@@ -10,8 +10,10 @@ export default (function() {
 	
 	// 无限期
 	const NO_EXPIRE = 0;
+
 	// localStorage的key
 	const STORAGE_KEY = '__STORAGE__';
+
 	// 临时存储的变量
 	let storageValue = (function() {
 		const result = JSON.parse(window.localStorage.getItem(STORAGE_KEY));

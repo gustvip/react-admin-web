@@ -4,7 +4,7 @@
 
 import T from 'utils/t';
 import enumMenus from 'constants/enumMenus';
-import { isString, uniq, flowRight, identity } from 'lodash';
+import {isString, uniq, flowRight, identity} from 'lodash';
 
 /**
  * 获取分类路由

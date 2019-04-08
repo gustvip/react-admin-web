@@ -5,6 +5,7 @@
 const webpack = require('webpack');
 const webpackBar = require('webpackbar');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
+
 // 优化lodash
 const lodashWebpackPlugin = require('lodash-webpack-plugin');
 
@@ -102,6 +103,7 @@ module.exports = {
 			maxAsyncRequests: 5,
 			maxInitialRequests: 3,
 			cacheGroups: {
+
 				// 提取css
 				vendor: {
 					name: 'vendor',
@@ -130,8 +132,7 @@ module.exports = {
 	},
 	
 	entry: {
-		// 入口和浏览器兼容（不需要考虑兼容，保留./src/index）
-		//	app: ['@babel/polyfill', 'url-search-params-polyfill', './src/index'],
+
 		// 入口和浏览器兼容（不需要考虑兼容，保留./src/index）
 		app: ['./src/index'],
 		commons: [
@@ -168,6 +169,7 @@ module.exports = {
 	
 	module: {
 		rules: [
+
 			// 样式文件配置
 			...getStyleConfig(),
 			
@@ -208,6 +210,7 @@ module.exports = {
 	
 	plugins: [
 		new miniCssExtractPlugin({filename: process.env.NODE_ENV === 'development' ? '[name].css' : `${resourceName.css}/[name].[contenthash].css`}),
+
 		// https://www.npmjs.com/package/lodash-webpack-plugin
 		new lodashWebpackPlugin({
 			shorthands: true,

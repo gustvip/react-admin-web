@@ -3,7 +3,7 @@
  */
 import T from 'utils/t';
 import MainHeader from 'templates/toolComponents/mainHeader';
-import { Button, Input, Table, Form, Select } from 'antd';
+import {Button, Input, Table, Form, Select} from 'antd';
 import enumAuth from 'constants/enumAuth';
 import * as webAPI from 'constants/webAPI';
 import React from 'react';

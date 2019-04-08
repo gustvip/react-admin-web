@@ -19,6 +19,7 @@ export default class LazyLoadTpl extends React.PureComponent {
 		store: PropTypes.object.isRequired,
 		router: PropTypes.object.isRequired,
 	};
+
 	static propTypes = {
 		lazyLoader: PropTypes.func.isRequired,
 		reducers: PropTypes.arrayOf(

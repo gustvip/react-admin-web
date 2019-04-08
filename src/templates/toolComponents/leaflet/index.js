@@ -27,6 +27,7 @@ export default class LeafletComponent extends React.PureComponent {
 	
 	componentDidMount() {
 		const baseOption = {
+
 			/**
 			 * 交互选项
 			 */

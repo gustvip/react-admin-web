@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 import helper from 'utils/core/helper';
-import { identity, flowRight } from 'lodash';
+import {identity, flowRight} from 'lodash';
 
 const _proxyNodeAPI = api => helper.combineUrl('/proxyNodeAPI', api);
 
@@ -10,6 +10,7 @@ const _proxyNodeAPI = api => helper.combineUrl('/proxyNodeAPI', api);
  * @type {{userLogin: *, userLoginOut: *, userAdd: *, userDelete: *, userRecover: *, userDetail: *, userUpdateInfo: *, userUpdatePassword: *, userResetPassword: *, userList: *, userUpdateGroupAndRole: *, fileParseJson: *, fileParseXlsx: *, fileParseCsv: *, fileParseXml: *, fileDownload: *, administratorAuthEnumDownload: *, administratorAuthEnumList: *, administratorAuthEnumAdd: *, administratorAuthEnumDelete: *, administratorAuthEnumUpdate: *, administratorAuthListGroupAndRoleAuth: *, administratorAuthListDelete: *, administratorAuthListDistribute: *}}
  */
 const API = {
+	
 	/*
    |----------------------------------------------------------------
    | 用户相关API

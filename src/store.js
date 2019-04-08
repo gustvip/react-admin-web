@@ -1,8 +1,8 @@
 /**
  * Created by joey on 2018/02/19
  */
-import { createStore as _createStore, applyMiddleware, combineReducers } from 'redux';
-import { isPlainObject, isFunction, transform } from 'lodash';
+import {createStore as _createStore, applyMiddleware, combineReducers} from 'redux';
+import {isPlainObject, isFunction, transform} from 'lodash';
 
 export const STORE_INJECT = '@@STORE_INJECT';
 

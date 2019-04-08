@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 import T from 'utils/t';
-import { Button, Input, Table, Select } from 'antd';
+import {Button, Input, Table, Select} from 'antd';
 import * as enumCommon from 'constants/app/common';
 import enumAuth from 'constants/enumAuth';
 import MainHeader from 'templates/toolComponents/mainHeader';

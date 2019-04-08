@@ -15,8 +15,8 @@ export default class Component extends React.PureComponent {
 
 	componentDidMount() {
 		const self = this;
-		const amapRoad = this.createAMapByUrl(Cesium, { url: AMAP_CHINA_BORDER_URL });
-		const amapSatelitte = this.createAMapByUrl(Cesium, { url: AMAP_SATELITTE_URL });
+		const amapRoad = this.createAMapByUrl(Cesium, {url: AMAP_CHINA_BORDER_URL});
+		const amapSatelitte = this.createAMapByUrl(Cesium, {url: AMAP_SATELITTE_URL});
 		this.viewer = new Cesium.Viewer(this.container, {
 			animation: false,
 			baseLayerPicker: false,
@@ -57,7 +57,7 @@ export default class Component extends React.PureComponent {
 
 		const defaultCredit = new Cesium.Credit('Google Maps');
 
-		const tilingScheme = new Cesium.WebMercatorTilingScheme({ ellipsoid: options.ellipsoid });
+		const tilingScheme = new Cesium.WebMercatorTilingScheme({ellipsoid: options.ellipsoid});
 
 		const tileWidth = 256;
 		const tileHeight = 256;
@@ -73,11 +73,13 @@ export default class Component extends React.PureComponent {
 		const swTile = tilingScheme.positionToTileXY(Cesium.Rectangle.southwest(rectangle), minimumLevel);
 		const neTile = tilingScheme.positionToTileXY(Cesium.Rectangle.northeast(rectangle), minimumLevel);
 		const tileCount = (Math.abs(neTile.x - swTile.x) + 1) * (Math.abs(neTile.y - swTile.y) + 1);
+
 		// >>includeStart('debug', pragmas.debug);
 		if (tileCount > 4) {
 			throw new Cesium.DeveloperError(`The rectangle and minimumLevel indicate that there are ${tileCount
 			} tiles at the minimum level. Imagery providers with more than four tiles at the minimum level are not supported.`);
 		}
+
 		// >>includeEnd('debug');
 
 		let credit = Cesium.defaultValue(options.credit, defaultCredit);
@@ -106,7 +108,7 @@ export default class Component extends React.PureComponent {
 
 		const defaultCredit = new Cesium.Credit('AMap');
 
-		const tilingScheme = new Cesium.WebMercatorTilingScheme({ ellipsoid: options.ellipsoid });
+		const tilingScheme = new Cesium.WebMercatorTilingScheme({ellipsoid: options.ellipsoid});
 
 		const tileWidth = 256;
 		const tileHeight = 256;
@@ -122,11 +124,13 @@ export default class Component extends React.PureComponent {
 		const swTile = tilingScheme.positionToTileXY(Cesium.Rectangle.southwest(rectangle), minimumLevel);
 		const neTile = tilingScheme.positionToTileXY(Cesium.Rectangle.northeast(rectangle), minimumLevel);
 		const tileCount = (Math.abs(neTile.x - swTile.x) + 1) * (Math.abs(neTile.y - swTile.y) + 1);
+
 		// >>includeStart('debug', pragmas.debug);
 		if (tileCount > 4) {
 			throw new Cesium.DeveloperError(`The rectangle and minimumLevel indicate that there are ${tileCount
 			} tiles at the minimum level. Imagery providers with more than four tiles at the minimum level are not supported.`);
 		}
+
 		// >>includeEnd('debug');
 
 		let credit = Cesium.defaultValue(options.credit, defaultCredit);
@@ -153,9 +157,9 @@ export default class Component extends React.PureComponent {
 				<div
 					ref={container => this.container = container}
 					id="cesiumContainer"
-					style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
+					style={{position: 'absolute', left: 0, right: 0, top: 0, bottom: 0}}
 				/>
-				<div id="toolbar" style={{ position: 'absolute', left: 0, right: 0, top: 0, height: '20px' }}/>
+				<div id="toolbar" style={{position: 'absolute', left: 0, right: 0, top: 0, height: '20px'}}/>
 			</div>
 		);
 	}

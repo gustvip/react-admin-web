@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/19
  */
 import axios from 'axios';
-import { forOwn, forEach, noop, transform } from 'lodash';
+import {forOwn, forEach, noop, transform} from 'lodash';
 
 function isFile(x) {
 	return Object.prototype.toString.call(x) === '[object File]';
@@ -49,6 +49,7 @@ const singleton = (function() {
 			responseType: 'json',
 			
 			headers: {
+
 				// "X-Requested-With": "XMLHttpRequest",
 			},
 		});

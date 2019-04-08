@@ -7,7 +7,7 @@ import auth from 'utils/core/auth';
 import crypto from 'utils/core/crypto';
 import prompt from 'utils/core/prompt';
 import styles from './login.scss';
-import { Button, Input } from 'antd';
+import {Button, Input} from 'antd';
 import * as webAPI from 'constants/webAPI';
 import classNames from 'classnames';
 import * as msg from 'constants/app/msg';

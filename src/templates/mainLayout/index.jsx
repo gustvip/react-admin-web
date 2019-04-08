@@ -5,15 +5,15 @@ import T from 'utils/t';
 import PropTypes from 'prop-types';
 import enumRouter from 'constants/enumRouter';
 import * as enumCommon from 'constants/app/common';
-import { Select, Menu, Icon, Layout, Dropdown } from 'antd';
+import {Select, Menu, Icon, Layout, Dropdown} from 'antd';
 import styles from './mainLayout.scss';
-import { getMenuData, getOpenKeys, getCategoryRoute } from './menuUtil';
+import {getMenuData, getOpenKeys, getCategoryRoute} from './menuUtil';
 import * as React from 'react';
 import Link from 'react-router-dom/Link';
 import UpdatePasswordModal from 'templates/toolComponents/updatePasswordModal';
 import UpdateUserInfoModal from 'templates/toolComponents/updateUserInfoModal';
 import LookUpUserInfoModal from 'templates/toolComponents/lookUpUserInfoModal';
-import { isEqual, flowRight, get, uniqueId } from 'lodash';
+import {isEqual, flowRight, get, uniqueId} from 'lodash';
 import enumMenus from 'constants/enumMenus';
 import * as webAPI from 'constants/webAPI';
 import * as msg from 'constants/app/msg';
@@ -74,10 +74,8 @@ class SiderMenu extends React.PureComponent {
 	handleDefaultOpenKeys = (defaultOpenKeys, url) => {
 		if (isEqual(defaultOpenKeys, this.state.defaultOpenKeys)) {
 			defaultOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
-		} else {
-			if (url.indexOf(this.locationPathname) !== -1 && defaultOpenKeys.length < this.state.defaultOpenKeys.length) {
-				defaultOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
-			}
+		} else if (url.indexOf(this.locationPathname) !== -1 && defaultOpenKeys.length < this.state.defaultOpenKeys.length) {
+			defaultOpenKeys = defaultOpenKeys.slice(0, defaultOpenKeys.length - 1);
 		}
 		this.setState({defaultOpenKeys});
 	};
@@ -122,8 +120,10 @@ export class HeaderLayout extends React.PureComponent {
 	logout = () => {
 		// 清除localStorage
 		localStorage.clear();
+
 		// 跳转至登录页面
 		this.context.router.history.push(ENV.login.loginUrl);
+
 		// 发送请求---清除cookie和服务端缓存
 		webAPI.userLoginOut();
 	};
