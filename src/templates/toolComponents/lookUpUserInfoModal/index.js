@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Modal, Spin} from 'antd';
 import prompt from 'utils/core/prompt';
-import helper from 'utils/core/helper';
+import helper from 'utils/core/helper/index';
 import styles from './lookUpUserInfoModal.scss';
 import * as enumCommon from 'constants/app/common';
 import * as webAPI from 'constants/webAPI';

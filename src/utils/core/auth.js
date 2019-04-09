@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import * as enumCommon from 'constants/app/common';
 import qs from 'qs';
-import helper from './helper';
+import helper from './helper/index';
 import localStorage from './localStorage';
 
 import {flowRight, isFunction, get} from 'lodash';

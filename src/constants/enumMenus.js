@@ -2,7 +2,7 @@
  * Created by joey on 2018/02/19
  */
 
-import helper from 'utils/core/helper';
+import helper from 'utils/core/helper/index';
 import enumRouter from './enumRouter';
 import enumAuth from 'constants/enumAuth';
 import {isString, uniq, uniqueId} from 'lodash';

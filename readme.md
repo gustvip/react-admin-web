@@ -27,7 +27,7 @@
     - ``auth.js``  权限的封装
     - crypto.js  加密算法的封装
     - decorate.js  装饰器的封装
-    - helper.js  业务中常用的方法的封装
+    - index.js  业务中常用的方法的封装
     - prompt.js  antd-design的弹出框封装
     - regexp.js  常用正则的封装
     - ``request.js``  axios的封装（结合业务）

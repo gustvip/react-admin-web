@@ -1,7 +1,7 @@
 /**
  * Created by joey on 2018/02/19
  */
-import helper from 'utils/core/helper';
+import helper from 'utils/core/helper/index';
 import {flowRight, identity, partial} from 'lodash';
 
 /**

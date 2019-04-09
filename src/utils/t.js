@@ -2,7 +2,7 @@
  * Created by joey on 2018/2/18
  */
 import * as qs from 'qs';
-import helper from './core/helper';
+import helper from './core/helper/index';
 import prompt from './core/prompt';
 import auth from './core/auth';
 import regExp from './core/regexp';
